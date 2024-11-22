@@ -40,7 +40,6 @@ export const Navbar = () => {
         }
     };
 
-
     const logOut = () => {
         removeState();
         removeStateWallet();
@@ -123,12 +122,18 @@ export const Navbar = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item ">
-                                    <Link to="/entry" className="blue-btn-nav nav-test">
+                                    <Link
+                                        href={"/orderOnline"}
+                                        className="blue-btn-nav nav-test"
+                                    >
                                         ORDER ONLINE
                                     </Link>
-                                    {/* <Link to="/entry" className="blue-btn-nav">
-                    Sign In / Sign Up
-                  </Link> */}
+                                    <Link
+                                        href={"/signup"}
+                                        className="black-btn-nav mx-1"
+                                    >
+                                        Sign In / Sign Up
+                                    </Link>
                                 </li>
                             </ul>
                         ) : (

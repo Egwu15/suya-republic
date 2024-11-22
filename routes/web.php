@@ -27,5 +27,14 @@ Route::middleware('auth')->group(function () {
 Route::get('/menu2', function(){
     return Inertia::render('Menu2/menu2');
 });
+Route::get('/orderOnline', function(){
+    return Inertia::render('OrderOnline/orderOnline');
+});
+Route::get('/signup', function(){
+    return Inertia::render('Signup/signup');
+});
+Route::get('/login', function(){
+    return Inertia::render('Auth/login');
+});
 
 require __DIR__ . '/auth.php';
