@@ -1,3 +1,11 @@
+.checkout-notice {
+    padding: 40px;
+    border: 1px solid black;
+}
+
+.ctAlLL {
+    width: 33% !important;
+}
 .our-menu {
     background-image: url("../../../assets/img/suya/Our-Menu-Banner.jpg");
     -webkit-background-size: cover;

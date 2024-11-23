@@ -60,7 +60,7 @@ export const Navbar = () => {
                         onClick={toggleMenu}
                         // onClick={() => setMenuBurger(true)}
                     >
-                        <i class="fa fa-bars"></i>
+                        <i className="fa fa-bars"></i>
                     </div>
                     <div
                         className=""
@@ -77,7 +77,7 @@ export const Navbar = () => {
                                         href={"/"}
                                         className="suggest-link drop-down-option nav-test"
                                         exact={true}
-                                        activeClassName="active"
+                                        // activeClassName="active"
                                     >
                                         HOME
                                     </Link>
@@ -90,7 +90,7 @@ export const Navbar = () => {
                                         href={"/menu"}
                                         className="suggest-link drop-down-option nav-test"
                                         exact={true}
-                                        activeClassName="active"
+                                        // activeClassName="active"
                                     >
                                         OUR MENU
                                     </Link>
@@ -103,7 +103,7 @@ export const Navbar = () => {
                                         to="/suggest-route"
                                         className="suggest-link drop-down-option nav-test"
                                         exact={true}
-                                        activeClassName="active"
+                                        // activeClassName="active"
                                     >
                                         OUR BRAND
                                     </Link>
@@ -116,7 +116,7 @@ export const Navbar = () => {
                                         to="/suggest-route"
                                         className="suggest-link drop-down-option nav-test"
                                         exact={true}
-                                        activeClassName="active"
+                                        // activeClassName="active"
                                     >
                                         TALK TO US
                                     </Link>
@@ -211,7 +211,7 @@ export const Navbar = () => {
                                         to="/suggest-route"
                                         className="suggest-link drop-down-option"
                                         exact={true}
-                                        activeClassName="active"
+                                        // activeClassName="active"
                                     >
                                         Suggest Route
                                     </Link>
