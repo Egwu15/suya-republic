@@ -36,5 +36,9 @@ Route::get('/signup', function(){
 Route::get('/login', function(){
     return Inertia::render('Auth/login');
 });
+Route::get('/checkout', function(){
+    return Inertia::render('Checkout/checkout');
+});
+// Route::get('/checkout', [CheckoutController::class, 'index'])->name('Checkout');
 
 require __DIR__ . '/auth.php';

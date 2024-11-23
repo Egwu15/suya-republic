@@ -1,12 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
-import "./menu.css";
 import SideBar from "@/components/SideBar";
-import Button from "../../components/Button";
+import dummy from "../../../assets/img/suya/Lamb-Suya-3.jpg";
+import "./menu.css";
 
 const OurMenu = ({ products, categories }) => {
-    
+    const [selectedItems, setSelectedItems] = useState({}); // State to track selected items
+    // const navigate = useNavigate(); // Initialize useNavigate
+
+    const toggleItemSelection = (id) => {
+        setSelectedItems((prevState) => ({
+            ...prevState,
+            [id]: !prevState[id], // Toggle the selection state for the given item ID
+        }));
+    };
+
+    // const handleCheckout = () => {
+    //     navigate("/checkout"); // Navigate to the checkout page
+    // };
 
     return (
         <div>
@@ -36,11 +49,11 @@ const OurMenu = ({ products, categories }) => {
                                 <div className="container">
                                     <div className="row row-grid">
                                         {products.data.map((data) => (
-                                            <div className="col-md-4">
-                                                <div
-                                                    key={data.id}
-                                                    className="card-container text-center"
-                                                >
+                                            <div
+                                                className="col-md-4"
+                                                key={data.id}
+                                            >
+                                                <div className="card-container text-center">
                                                     <div
                                                         className="card-container-img"
                                                         style={{
@@ -51,10 +64,10 @@ const OurMenu = ({ products, categories }) => {
                                                     >
                                                         <img
                                                             src={
-                                                                data.product_image
+                                                                // data.product_image ||
+                                                                dummy
                                                             }
-                                                            alt=""
-                                                            className=""
+                                                            alt={data.name}
                                                             loading="lazy"
                                                             style={{
                                                                 width: "100%",
@@ -77,33 +90,91 @@ const OurMenu = ({ products, categories }) => {
                                                     >
                                                         £{data.price}
                                                     </h6>
+
                                                     <div
-                                                        className="col-md-6"
+                                                        className="col-md-6 d-flex justify-content-between align-items-center"
                                                         style={{
                                                             margin: "0 auto",
                                                         }}
                                                     >
-                                                        <Button
-                                                            text="SELECT ITEM"
-                                                            handleButtonClick={() => {
-                                                                navigate(
-                                                                    "/product/1"
-                                                                );
-                                                            }}
-                                                            type="button"
-                                                            btnstyle={{
+                                                        <button
+                                                            onClick={() =>
+                                                                toggleItemSelection(
+                                                                    data.id
+                                                                )
+                                                            }
+                                                            style={{
                                                                 background:
-                                                                    "#56ccf2",
+                                                                    selectedItems[
+                                                                        data.id
+                                                                    ]
+                                                                        ? "#e74c3c"
+                                                                        : "#56ccf2",
                                                                 color: "white",
                                                                 margin: "20px 0",
                                                                 fontWeight:
                                                                     "600",
                                                                 fontSize:
-                                                                    "16px",
+                                                                    "14px",
                                                                 lineHeight:
-                                                                    "24px",
+                                                                    "14px",
+                                                                border: "none",
+                                                                padding:
+                                                                    "10px 15px",
+                                                                cursor: "pointer",
+                                                                borderRadius:
+                                                                    "5px",
                                                             }}
-                                                        />
+                                                        >
+                                                            {selectedItems[
+                                                                data.id
+                                                            ]
+                                                                ? "REMOVE ITEM"
+                                                                : "SELECT ITEM"}
+                                                        </button>
+                                                        {selectedItems[
+                                                            data.id
+                                                        ] && (
+                                                            <div>
+                                                                <a
+                                                                    href={
+                                                                        "/checkout"
+                                                                    } // Navigate on click
+                                                                    style={{
+                                                                        display:
+                                                                            "inline-block",
+                                                                        background:
+                                                                            "#27ae60",
+                                                                        color: "white",
+                                                                        margin: "10px 0",
+                                                                        fontWeight:
+                                                                            "600",
+                                                                        fontSize:
+                                                                            "16px",
+                                                                        lineHeight:
+                                                                            "24px",
+                                                                        border: "none",
+                                                                        padding:
+                                                                            "5px 10px",
+                                                                        cursor: "pointer",
+                                                                        borderRadius:
+                                                                            "5px",
+                                                                        textDecoration:
+                                                                            "none",
+                                                                    }}
+                                                                >
+                                                                    <i
+                                                                        className="bi bi-cart-plus text-white"
+                                                                        style={{
+                                                                            fontSize:
+                                                                                "14px",
+                                                                            marginRight:
+                                                                                "4px",
+                                                                        }}
+                                                                    ></i>
+                                                                </a>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
