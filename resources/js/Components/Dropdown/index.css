@@ -1,0 +1,44 @@
+.select_default_sty > .css-yk16xz-control {
+  cursor: pointer;
+  border: 1px solid #333333 !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  /* line-height: 20px; */
+  height: 45px;
+  width: 100%;
+  color: white;
+  /* color: #333333; */
+  /* background: #3d3d3d; */
+  background: transparent !important;
+  box-shadow: 0px 7px 5px rgba(242, 27, 27, 0.05);
+  border-radius: 8px;
+}
+
+.select_default_sty > .css-yk16xz-control:active {
+  background: red !important;
+}
+
+.select_default_sty
+  > .css-yk16xz-control
+  > .css-g1d714-ValueContainer
+  > .css-1uccc91-singleValue {
+  color: #333333;
+  font-size: 12px;
+}
+
+.select_default_sty > .css-1pahdxg-control {
+  min-height: 45px !important;
+  color: black !important;
+  border-color: rgba(242, 27, 27, 0.05) !important;
+  box-shadow: 0px 7px 5px rgba(242, 27, 27, 0.05) !important;
+}
+
+.select_default_sty > .css-1pahdxg-control:hover {
+  border-color: rgba(242, 27, 27, 0.05) !important;
+  color: black !important;
+}
+
+.css-1okebmr-indicatorSeparator {
+  background-color: rgba(242, 27, 27, 0.05) !important;
+}

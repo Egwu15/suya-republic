@@ -138,7 +138,7 @@ const OurMenu = ({ products, categories }) => {
                                                             <div>
                                                                 <a
                                                                     href={
-                                                                        "/checkout"
+                                                                        "/cart"
                                                                     } // Navigate on click
                                                                     style={{
                                                                         display:
