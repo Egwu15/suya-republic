@@ -3,7 +3,7 @@ import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./cart.css";
 import lambSuya from "../../../assets/img/suya/Lamb-Suya-3.jpg";
-import { COLOR_BLACK, COLOR_RED } from "@/utils/constant";
+import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from "@/utils/constant";
 
 const Cart = () => {
     useEffect(() => {
@@ -47,7 +47,7 @@ const Cart = () => {
 
             <section className="cart-items container mt-5">
                 <div className="row" style={{ alignItems: "center" }}>
-                    <h4
+                    <div
                         className="row col-md-5"
                         style={{ alignItems: "center" }}
                     >
@@ -63,10 +63,8 @@ const Cart = () => {
                                 style={{ height: "100%" }}
                             />
                         </div>
-                        <h6 className="" style={{ color: "#b7903c" }}>
-                            LAMB SUYA
-                        </h6>
-                    </h4>
+                        <span style={{ color: "#b7903c" }}>LAMB SUYA</span>
+                    </div>
                     <p className="col-md-2">£9.50</p>
                     <h4 className="col-md-3">
                         <div className="quantity-controls d-flex align-items-center">
@@ -109,10 +107,12 @@ const Cart = () => {
                 <hr />
 
                 <div className="col-md-4" style={{ margin: "0 auto" }}>
-                    <button
+                    <a
+                        href={"/product"}
                         style={{
                             background: COLOR_RED,
-                            color: "white",
+                            textDecoration: "none",
+                            color: COLOR_WHITE,
                             margin: "20px 0",
                             fontWeight: "600",
                             fontSize: "16px",
@@ -124,7 +124,7 @@ const Cart = () => {
                         }}
                     >
                         UPDATE CART
-                    </button>
+                    </a>
                 </div>
             </section>
             <section className="p-4">
@@ -220,7 +220,7 @@ const Cart = () => {
                             fontSize: "16px",
                             lineHeight: "24px",
                             border: "none",
-                            padding: "5px 10px",
+                            padding: "10px 20px",
                             cursor: "pointer",
                             borderRadius: "5px",
                             textDecoration: "none",

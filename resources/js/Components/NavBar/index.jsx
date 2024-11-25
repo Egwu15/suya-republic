@@ -76,7 +76,7 @@ export const Navbar = () => {
                                     <Link
                                         href={"/"}
                                         className="suggest-link drop-down-option nav-test"
-                                        exact={true}
+                                        exact
                                         // activeClassName="active"
                                     >
                                         HOME
@@ -89,7 +89,7 @@ export const Navbar = () => {
                                     <Link
                                         href={"/menu"}
                                         className="suggest-link drop-down-option nav-test"
-                                        exact={true}
+                                        exact
                                         // activeClassName="active"
                                     >
                                         OUR MENU
@@ -102,7 +102,7 @@ export const Navbar = () => {
                                     <Link
                                         to="/suggest-route"
                                         className="suggest-link drop-down-option nav-test"
-                                        exact={true}
+                                        exact
                                         // activeClassName="active"
                                     >
                                         OUR BRAND
@@ -115,7 +115,7 @@ export const Navbar = () => {
                                     <Link
                                         to="/suggest-route"
                                         className="suggest-link drop-down-option nav-test"
-                                        exact={true}
+                                        exact
                                         // activeClassName="active"
                                     >
                                         TALK TO US
@@ -210,7 +210,7 @@ export const Navbar = () => {
                                     <Link
                                         to="/suggest-route"
                                         className="suggest-link drop-down-option"
-                                        exact={true}
+                                        exact
                                         // activeClassName="active"
                                     >
                                         Suggest Route

@@ -22,6 +22,7 @@
     "dependencies": {
         "bootstrap": "^5.3.3",
         "prop-types": "^15.8.1",
-        "react-credit-card-input": "^1.1.5"
+        "react-credit-card-input": "^1.1.5",
+        "react-select": "^5.8.3"
     }
 }
