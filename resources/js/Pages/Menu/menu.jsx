@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "@/components/SideBar";
@@ -138,7 +137,7 @@ const OurMenu = ({ products, categories }) => {
                                                             <div>
                                                                 <a
                                                                     href={
-                                                                        "/checkout"
+                                                                        "/cart"
                                                                     } // Navigate on click
                                                                     style={{
                                                                         display:

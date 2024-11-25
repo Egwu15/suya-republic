@@ -39,6 +39,12 @@ Route::get('/login', function(){
 Route::get('/checkout', function(){
     return Inertia::render('Checkout/checkout');
 });
+Route::get('/cart', function(){
+    return Inertia::render('Cart/cart');
+});
+Route::get('/product', function(){
+    return Inertia::render('Product/product');
+});
 // Route::get('/checkout', [CheckoutController::class, 'index'])->name('Checkout');
 
 require __DIR__ . '/auth.php';
