@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import lambSuya from "../../../assets/img/suya/Lamb-Suya-3.jpg";
 import shawarma from "../../../assets/img/suya/Shawarma.jpg";
 import beefSuya from "../../../assets/img/suya/Beef-Suya-2.jpg";

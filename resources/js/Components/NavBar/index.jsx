@@ -5,6 +5,7 @@ import down from "../../../assets/img/Profile/Wallet/Vector.png";
 import Avatar from "../../../assets/img/avatar.png";
 import "./index.css";
 import account from "../../../assets/img/Vector.png";
+import CartIcon from "@/Pages/Cart/CartIcon";
 
 export const Navbar = () => {
     const [user, setUser] = useState(null);
@@ -13,6 +14,7 @@ export const Navbar = () => {
     const [isMenuActive2, setIsMenuActive2] = useState(0);
     const [isMenuActive3, setIsMenuActive3] = useState(0);
     // const [hamburger, setHamburger] = useState(0);
+    const [cartItemCount, setCartItemCount] = useState(3);
 
     // const setMenuBurger = ()=>{
     // setIsMenuActive(index)
@@ -120,6 +122,12 @@ export const Navbar = () => {
                                     >
                                         TALK TO US
                                     </Link>
+                                </li>
+                                <li
+                                    className="notify"
+                                    style={{ marginLeft: "10px" }}
+                                >
+                                    <CartIcon cartItemCount={cartItemCount} />
                                 </li>
                                 <li className="nav-item ">
                                     <Link

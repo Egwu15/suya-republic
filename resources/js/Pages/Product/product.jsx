@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./product.css";
-import beefSuya from "../../../assets/img/suya/Beef-Suya-2.jpg";
 import lambSuya from "../../../assets/img/suya/Lamb-Suya-3.jpg";
-import shawarma from "../../../assets/img/suya/Shawarma.jpg";
 import Button from "../../components/Button";
 import { COLOR_RED, COLOR_WHITE } from "@/utils/constant";
 import RelatedProducts from "@/Components/RelatedProducts";

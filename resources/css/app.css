@@ -109,51 +109,39 @@ a {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    padding: 250px 0 150px 0px;
+    padding: 150px 0 100px 0; /* Adjusted padding for smaller screens */
     color: white;
 }
 
 .our-menu h1 {
-    max-width: 403px;
+    max-width: 90%; /* Allow the text to fit smaller screens */
     font-weight: 600;
-    font-size: 76px;
-    line-height: 80px;
+    font-size: 56px; /* Adjust font size for better fit */
+    line-height: 60px;
     font-family: "EuclidCircularB-Bold";
     margin: auto;
     text-align: center;
 }
 
-.faq-answer {
-    padding: 50px 0px 0px 0px;
-}
+@media screen and (max-width: 768px) {
+    .our-menu {
+        padding: 120px 0 80px 0; /* Reduced padding for mobile */
+    }
 
-.booking h1 {
-    font-family: "EuclidCircularB-Bold";
-    font-weight: bold;
-    font-size: 34px;
-    line-height: 42px;
-    margin: 2rem auto;
-}
-
-@media screen and (max-width: 1024px) {
     .our-menu h1 {
-        font-size: 60px;
-        line-height: 60px;
+        font-size: 40px; /* Further reduce font size */
+        line-height: 48px;
     }
 }
 
-.custom-bg {
-    background: linear-gradient(
-        135deg,
-        rgba(195, 6, 6, 0.644) 25%,
-        rgba(0, 0, 0, 0.622) 50%,
-        rgba(255, 217, 0, 0.304) 75%
-    );
-    background-size: 150px 150px;
-}
-@media only screen and (max-width: 1024px) {
-    ol {
-        padding: 0;
+@media screen and (max-width: 480px) {
+    .our-menu {
+        padding: 100px 0 60px 0; /* Compact padding for very small screens */
+    }
+
+    .our-menu h1 {
+        font-size: 28px; /* Adjust font for small mobile screens */
+        line-height: 36px;
     }
 }
 
