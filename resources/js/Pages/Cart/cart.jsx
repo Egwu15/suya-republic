@@ -32,6 +32,12 @@ const Cart = () => {
         setCartItems(updatedCart);
         localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     };
+    const handleRemoveItem = (id) => {
+        const updatedCart = cartItems.filter((item) => item.id !== id); // Filter out the removed item
+        setCartItems(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart)); // Update localStorage
+    };
+
     const handleSpiceChange = (itemId, newSpice) => {
         // Update the spice level of the item in your state or cart
         const updatedCartItems = cartItems.map((item) =>
@@ -168,7 +174,20 @@ const Cart = () => {
                                     £
                                     {(
                                         (item.quantity || 1) * item.price
-                                    ).toFixed(2)}
+                                    ).toFixed(2)}{" "}
+                                    <span
+                                        style={{
+                                            marginLeft: "10px",
+                                            color: "red",
+                                            cursor: "pointer",
+                                            fontWeight: "bold",
+                                        }}
+                                        onClick={() =>
+                                            handleRemoveItem(item.id)
+                                        }
+                                    >
+                                        X
+                                    </span>
                                 </td>
                             </tr>
                         ))}

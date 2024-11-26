@@ -127,7 +127,16 @@ export const Navbar = () => {
                                     className="notify"
                                     style={{ marginLeft: "10px" }}
                                 >
-                                    <CartIcon cartItemCount={cartItemCount} />
+                                    <Link
+                                        href="/cart"
+                                        className="suggest-link drop-down-option nav-test"
+                                        exact
+                                        // activeClassName="active"
+                                    >
+                                        <CartIcon
+                                            cartItemCount={cartItemCount}
+                                        />
+                                    </Link>{" "}
                                 </li>
                                 <li className="nav-item ">
                                     <Link
