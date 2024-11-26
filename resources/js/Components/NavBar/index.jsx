@@ -14,7 +14,7 @@ export const Navbar = () => {
     const [isMenuActive2, setIsMenuActive2] = useState(0);
     const [isMenuActive3, setIsMenuActive3] = useState(0);
     // const [hamburger, setHamburger] = useState(0);
-    const [cartItemCount, setCartItemCount] = useState(3);
+    const [cartItemCount, setCartItemCount] = useState("");
 
     // const setMenuBurger = ()=>{
     // setIsMenuActive(index)
@@ -48,7 +48,12 @@ export const Navbar = () => {
         navigate.push("/");
         window.location.reload();
     };
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem("cartItems")) || [];
 
+        setCartItemCount(items.length);
+    }, [cartItemCount]);
+    console.log("cartItemCount", cartItemCount);
     return (
         <div className="navbar-section">
             <div className="container">
