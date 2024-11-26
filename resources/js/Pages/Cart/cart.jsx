@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./cart.css";
-import lambSuya from "../../../assets/img/suya/Lamb-Suya-3.jpg";
 import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from "@/utils/constant";
 
 const Cart = () => {
@@ -10,205 +9,273 @@ const Cart = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const [productQuantity, setProductQuantity] = useState(1); // Initialize with 1
+    const [cartItems, setCartItems] = useState([]);
+    const spiceLevelOptions = [
+        { value: "mild", name: "Mild" },
+        { value: "spicy", name: "Spicy" },
+        { value: "very spicy", name: "Very Spicy" },
+    ];
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem("cartItems")) || [];
+        setCartItems(items);
+    }, []);
 
-    const handleIncreaseQuantity = () => {
-        setProductQuantity((prev) => prev + 1); // Increment quantity
+    const handleQuantityChange = (id, increment) => {
+        const updatedCart = cartItems.map((item) =>
+            item.id === id
+                ? {
+                      ...item,
+                      quantity: Math.max(1, (item.quantity || 1) + increment),
+                  }
+                : item
+        );
+        setCartItems(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+    };
+    const handleRemoveItem = (id) => {
+        const updatedCart = cartItems.filter((item) => item.id !== id); // Filter out the removed item
+        setCartItems(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart)); // Update localStorage
     };
 
-    const handleDecreaseQuantity = () => {
-        if (productQuantity > 1) {
-            setProductQuantity((prev) => prev - 1); // Decrement quantity
-        }
+    const handleSpiceChange = (itemId, newSpice) => {
+        // Update the spice level of the item in your state or cart
+        const updatedCartItems = cartItems.map((item) =>
+            item.id === itemId ? { ...item, spice: newSpice } : item
+        );
+        // Update the cart with the new state
+        setCartItems(updatedCartItems); // Assuming you're using useState for managing cart items
     };
 
     return (
         <div>
             <Navbar />
             <section className="our-menu">
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-12 text-center">
+                        <div className="col-md-12 col-12 text-center">
                             <h1 className="mb-2">CART</h1>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="cart-table-head container mt-5">
-                <div className="row">
-                    <h4 className="col-md-5">PRODUCT</h4>
-                    <h4 className="col-md-2">PRICE</h4>
-                    <h4 className="col-md-3">QUANTITY</h4>
-                    <h4 className="col-md-2">SUBTOTAL</h4>
-                </div>
-                <hr />
+            <section className="cart-table container-fluid mt-5">
+                <table className="table table-responsive">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th scope="col">PRODUCT</th>
+                            <th scope="col">SPICE</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">QUANTITY</th>
+                            <th scope="col">SUBTOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {cartItems.map((item) => (
+                            <tr key={item.id}>
+                                <td
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <div
+                                        className="card-container-img mr-3"
+                                        style={{
+                                            height: "80px",
+                                            width: "80px",
+                                        }}
+                                    >
+                                        <img
+                                            src={item.product_image || ""}
+                                            alt={item.name}
+                                            className="img-fluid"
+                                            loading="lazy"
+                                            style={{
+                                                height: "100%",
+                                                width: "100%",
+                                            }}
+                                        />
+                                    </div>
+                                    <span style={{ color: "#b7903c" }}>
+                                        {item.name}
+                                    </span>
+                                </td>
+                                <td>
+                                    <select
+                                        value={item.spice || "mild"} // Default to mild if no spice level is set
+                                        onChange={(e) =>
+                                            handleSpiceChange(
+                                                item.id,
+                                                e.target.value
+                                            )
+                                        }
+                                        style={{
+                                            border: "1px solid #ccc",
+                                            background: "#f8f9fa",
+                                            padding: "5px 10px",
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        {spiceLevelOptions.map((option) => (
+                                            <option
+                                                key={option.value}
+                                                value={option.value}
+                                            >
+                                                {option.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </td>
+                                <td>£{item.price.toFixed(2)}</td>
+                                <td>
+                                    <div className="quantity-controls d-flex align-items-center">
+                                        <button
+                                            onClick={() =>
+                                                handleQuantityChange(
+                                                    item.id,
+                                                    -1
+                                                )
+                                            }
+                                            style={{
+                                                border: "1px solid #ccc",
+                                                background: "#f8f9fa",
+                                                padding: "5px 10px",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            -
+                                        </button>
+                                        <span
+                                            style={{
+                                                margin: "0 10px",
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            {item.quantity || 1}
+                                        </span>
+                                        <button
+                                            onClick={() =>
+                                                handleQuantityChange(item.id, 1)
+                                            }
+                                            style={{
+                                                border: "1px solid #ccc",
+                                                background: "#f8f9fa",
+                                                padding: "5px 10px",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    £
+                                    {(
+                                        (item.quantity || 1) * item.price
+                                    ).toFixed(2)}{" "}
+                                    <span
+                                        style={{
+                                            marginLeft: "10px",
+                                            color: "red",
+                                            cursor: "pointer",
+                                            fontWeight: "bold",
+                                        }}
+                                        onClick={() =>
+                                            handleRemoveItem(item.id)
+                                        }
+                                    >
+                                        X
+                                    </span>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </section>
 
-            <section className="cart-items container mt-5">
-                <div className="row" style={{ alignItems: "center" }}>
-                    <div
-                        className="row col-md-5"
-                        style={{ alignItems: "center" }}
-                    >
-                        <div
-                            className="card-container-img mr-3"
-                            style={{ height: "100px" }}
-                        >
-                            <img
-                                src={lambSuya}
-                                alt=""
-                                className="img-fluid"
-                                loading="lazy"
-                                style={{ height: "100%" }}
-                            />
-                        </div>
-                        <span style={{ color: "#b7903c" }}>LAMB SUYA</span>
-                    </div>
-                    <p className="col-md-2">£9.50</p>
-                    <h4 className="col-md-3">
-                        <div className="quantity-controls d-flex align-items-center">
-                            <button
-                                onClick={handleDecreaseQuantity}
-                                style={{
-                                    border: "1px solid #ccc",
-                                    background: "#f8f9fa",
-                                    padding: "5px 10px",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                -
-                            </button>
-                            <span
-                                style={{
-                                    margin: "0 10px",
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                {productQuantity}
-                            </span>
-                            <button
-                                onClick={handleIncreaseQuantity}
-                                style={{
-                                    border: "1px solid #ccc",
-                                    background: "#f8f9fa",
-                                    padding: "5px 10px",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                +
-                            </button>
-                        </div>
-                    </h4>
-                    <p className="col-md-2">
-                        £{(9.5 * productQuantity).toFixed(2)}
-                    </p>
-                </div>
-                <hr />
-
-                <div className="col-md-4" style={{ margin: "0 auto" }}>
-                    <a
-                        href={"/product"}
-                        style={{
-                            background: COLOR_RED,
-                            textDecoration: "none",
-                            color: COLOR_WHITE,
-                            margin: "20px 0",
-                            fontWeight: "600",
-                            fontSize: "16px",
-                            lineHeight: "24px",
-                            padding: "10px 20px",
-                            border: "none",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                        }}
-                    >
-                        UPDATE CART
-                    </a>
-                </div>
-            </section>
             <section className="p-4">
-                <h1
-                    className="mt-3 mb-5"
-                    // style={{ color: "#b7903c" }}
-                >
-                    CART TOTALS
-                </h1>
+                <h1 className="mt-3 mb-5">CART TOTALS</h1>
 
+                {/* Subtotal */}
                 <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        SUBTOTAL
-                    </h6>
+                    <h6 className="col-md-3">SUBTOTAL</h6>
                     <p className="col-md-9">
-                        {" "}
-                        £{(9.5 * productQuantity).toFixed(2)}
+                        £
+                        {cartItems
+                            .reduce(
+                                (acc, item) =>
+                                    acc + item.price * (item.quantity || 1),
+                                0
+                            )
+                            .toFixed(2)}
                     </p>
                 </div>
                 <hr />
+
+                {/* Shipping */}
                 <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        SHIPPING
-                    </h6>
+                    <h6 className="col-md-3">SHIPPING</h6>
                     <div className="col-md-9">
                         <div className="form-check">
                             <input
                                 type="radio"
                                 className="form-check-input"
-                                id="exampleCheck1"
-                                name="pickup"
-                                value="yes"
-                                // onChange={() => handlePickup()}
+                                id="deliveryOption"
+                                name="shipping"
+                                value="delivery"
                             />
                             <label
                                 className="label-auth"
-                                htmlFor="exampleCheck1"
+                                htmlFor="deliveryOption"
                             >
-                                Delivery and delivery fee only applicable to our
-                                Suya Spice product.
+                                Delivery fee applicable only to Suya Spice
+                                products.
                             </label>
                         </div>
                         <div className="form-check">
                             <input
                                 type="radio"
                                 className="form-check-input"
-                                id="exampleCheck2"
-                                name="pickup"
-                                value="no"
-                                // onChange={() => setIsPickup(false)}
+                                id="pickupOption"
+                                name="shipping"
+                                value="pickup"
                             />
                             <label
                                 className="label-auth"
-                                htmlFor="exampleCheck2"
+                                htmlFor="pickupOption"
                             >
-                                All orders are to be collected in-store at 303
-                                Chester road Manchester M15 4EY
+                                All orders must be collected in-store at 303
+                                Chester Road, Manchester M15 4EY.
                             </label>
                         </div>
-                        <p className="col-md-9">
+                        <p className="mt-2">
                             Shipping options will be updated during checkout.
                         </p>
                     </div>
                 </div>
                 <hr />
+
+                {/* Total */}
                 <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        TOTAL
-                    </h6>
+                    <h6 className="col-md-3">TOTAL</h6>
                     <p className="col-md-9">
-                        <b>£9.50</b>
+                        <b>
+                            £
+                            {cartItems
+                                .reduce(
+                                    (acc, item) =>
+                                        acc + item.price * (item.quantity || 1),
+                                    0
+                                )
+                                .toFixed(2)}
+                        </b>
                     </p>
                 </div>
                 <hr />
 
+                {/* Checkout Buttons */}
                 <div className="col-md-4" style={{ margin: "0 auto" }}>
                     <a
                         href="/checkout"
@@ -248,6 +315,7 @@ const Cart = () => {
                     </button>
                 </div>
             </section>
+
             <Footer />
         </div>
     );

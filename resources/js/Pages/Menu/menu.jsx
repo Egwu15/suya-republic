@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "@/components/SideBar";
@@ -9,11 +9,20 @@ const OurMenu = ({ products, categories }) => {
     const [selectedItems, setSelectedItems] = useState({}); // State to track selected items
     // const navigate = useNavigate(); // Initialize useNavigate
 
-    const toggleItemSelection = (id) => {
-        setSelectedItems((prevState) => ({
-            ...prevState,
-            [id]: !prevState[id], // Toggle the selection state for the given item ID
-        }));
+    const toggleItemSelection = (id, product) => {
+        const updatedSelection = { ...selectedItems, [id]: !selectedItems[id] };
+
+        setSelectedItems(updatedSelection);
+
+        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        if (!updatedSelection[id]) {
+            // Remove from cart
+            cartItems = cartItems.filter((item) => item.id !== id);
+        } else {
+            // Add to cart
+            cartItems.push(product);
+        }
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
     };
 
     // const handleCheckout = () => {
@@ -99,9 +108,10 @@ const OurMenu = ({ products, categories }) => {
                                                         <button
                                                             onClick={() =>
                                                                 toggleItemSelection(
-                                                                    data.id
+                                                                    data.id,
+                                                                    data
                                                                 )
-                                                            }
+                                                            } // Pass product details
                                                             style={{
                                                                 background:
                                                                     selectedItems[
@@ -131,6 +141,7 @@ const OurMenu = ({ products, categories }) => {
                                                                 ? "REMOVE ITEM"
                                                                 : "SELECT ITEM"}
                                                         </button>
+
                                                         {selectedItems[
                                                             data.id
                                                         ] && (
