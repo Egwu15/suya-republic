@@ -3,6 +3,8 @@ import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./cart.css";
 import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from "@/utils/constant";
+import dummy from "../../../assets/img/suya/Lamb-Suya-3.jpg";
+import { Link } from "@inertiajs/react";
 
 const Cart = () => {
     useEffect(() => {
@@ -61,138 +63,183 @@ const Cart = () => {
             </section>
 
             <section className="cart-table container-fluid mt-5">
-                <table className="table table-responsive">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">PRODUCT</th>
-                            <th scope="col">SPICE</th>
-                            <th scope="col">PRICE</th>
-                            <th scope="col">QUANTITY</th>
-                            <th scope="col">SUBTOTAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cartItems.map((item) => (
-                            <tr key={item.id}>
-                                <td
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <div
-                                        className="card-container-img mr-3"
-                                        style={{
-                                            height: "80px",
-                                            width: "80px",
-                                        }}
-                                    >
-                                        <img
-                                            src={item.product_image || ""}
-                                            alt={item.name}
-                                            className="img-fluid"
-                                            loading="lazy"
-                                            style={{
-                                                height: "100%",
-                                                width: "100%",
-                                            }}
-                                        />
-                                    </div>
-                                    <span style={{ color: "#b7903c" }}>
-                                        {item.name}
-                                    </span>
-                                </td>
-                                <td>
-                                    <select
-                                        value={item.spice || "mild"} // Default to mild if no spice level is set
-                                        onChange={(e) =>
-                                            handleSpiceChange(
-                                                item.id,
-                                                e.target.value
-                                            )
-                                        }
-                                        style={{
-                                            border: "1px solid #ccc",
-                                            background: "#f8f9fa",
-                                            padding: "5px 10px",
-                                            cursor: "pointer",
-                                        }}
-                                    >
-                                        {spiceLevelOptions.map((option) => (
-                                            <option
-                                                key={option.value}
-                                                value={option.value}
-                                            >
-                                                {option.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                                <td>£{item.price.toFixed(2)}</td>
-                                <td>
-                                    <div className="quantity-controls d-flex align-items-center">
-                                        <button
-                                            onClick={() =>
-                                                handleQuantityChange(
-                                                    item.id,
-                                                    -1
-                                                )
-                                            }
-                                            style={{
-                                                border: "1px solid #ccc",
-                                                background: "#f8f9fa",
-                                                padding: "5px 10px",
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            -
-                                        </button>
-                                        <span
-                                            style={{
-                                                margin: "0 10px",
-                                                fontWeight: "bold",
-                                            }}
-                                        >
-                                            {item.quantity || 1}
-                                        </span>
-                                        <button
-                                            onClick={() =>
-                                                handleQuantityChange(item.id, 1)
-                                            }
-                                            style={{
-                                                border: "1px solid #ccc",
-                                                background: "#f8f9fa",
-                                                padding: "5px 10px",
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </td>
-                                <td>
-                                    £
-                                    {(
-                                        (item.quantity || 1) * item.price
-                                    ).toFixed(2)}{" "}
-                                    <span
-                                        style={{
-                                            marginLeft: "10px",
-                                            color: "red",
-                                            cursor: "pointer",
-                                            fontWeight: "bold",
-                                        }}
-                                        onClick={() =>
-                                            handleRemoveItem(item.id)
-                                        }
-                                    >
-                                        X
-                                    </span>
-                                </td>
+                <div className="table-responsive">
+                    <table className="table table-responsive">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">PRODUCT</th>
+                                <th scope="col">SPICE</th>
+                                <th scope="col" className="px-5">
+                                    PRICE
+                                </th>
+                                <th scope="col">QUANTITY</th>
+                                <th scope="col">SUBTOTAL</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {cartItems.map((item) => (
+                                <tr key={item.id}>
+                                    <td>
+                                        <Link
+                                            href="/product"
+                                            className="center-item pad"
+                                        >
+                                            <div
+                                                className="card-container-img mr-3 px-2"
+                                                style={{
+                                                    height: "80px",
+                                                    width: "80px",
+                                                }}
+                                            >
+                                                <img
+                                                    src={
+                                                        item.product_image
+                                                        // dummy
+                                                    }
+                                                    alt={item.name}
+                                                    className="img-fluid"
+                                                    loading="lazy"
+                                                    style={{
+                                                        height: "100%",
+                                                        width: "100%",
+                                                    }}
+                                                />
+                                            </div>
+                                            <span style={{ color: "#b7903c" }}>
+                                                {item.name}
+                                            </span>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <div
+                                            className="center-item"
+                                            style={{
+                                                height: "80px",
+                                                width: "80px",
+                                            }}
+                                        >
+                                            <select
+                                                value={item.spice || "mild"} // Default to mild if no spice level is set
+                                                onChange={(e) =>
+                                                    handleSpiceChange(
+                                                        item.id,
+                                                        e.target.value
+                                                    )
+                                                }
+                                                style={{
+                                                    border: "1px solid #ccc",
+                                                    background: "#f8f9fa",
+                                                    padding: "5px 10px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                {spiceLevelOptions.map(
+                                                    (option) => (
+                                                        <option
+                                                            key={option.value}
+                                                            value={option.value}
+                                                        >
+                                                            {option.name}
+                                                        </option>
+                                                    )
+                                                )}
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div
+                                            className="center-item pad px-5"
+                                            style={{
+                                                height: "80px",
+                                                width: "80px",
+                                            }}
+                                        >
+                                            £{item.price.toFixed(2)}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div
+                                            className="center-item quantity-controls d-flex align-items-center"
+                                            style={{
+                                                height: "80px",
+                                                width: "80px",
+                                            }}
+                                        >
+                                            <button
+                                                onClick={() =>
+                                                    handleQuantityChange(
+                                                        item.id,
+                                                        -1
+                                                    )
+                                                }
+                                                style={{
+                                                    border: "1px solid #ccc",
+                                                    background: "#f8f9fa",
+                                                    padding: "5px 10px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                -
+                                            </button>
+                                            <span
+                                                style={{
+                                                    margin: "0 10px",
+                                                    fontWeight: "bold",
+                                                }}
+                                            >
+                                                {item.quantity || 1}
+                                            </span>
+                                            <button
+                                                onClick={() =>
+                                                    handleQuantityChange(
+                                                        item.id,
+                                                        1
+                                                    )
+                                                }
+                                                style={{
+                                                    border: "1px solid #ccc",
+                                                    background: "#f8f9fa",
+                                                    padding: "5px 10px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div
+                                            className="center-item "
+                                            style={{
+                                                height: "80px",
+                                                width: "80px",
+                                            }}
+                                        >
+                                            £
+                                            {(
+                                                (item.quantity || 1) *
+                                                item.price
+                                            ).toFixed(2)}{" "}
+                                            <span
+                                                style={{
+                                                    marginLeft: "10px",
+                                                    color: "red",
+                                                    cursor: "pointer",
+                                                    fontWeight: "bold",
+                                                }}
+                                                onClick={() =>
+                                                    handleRemoveItem(item.id)
+                                                }
+                                            >
+                                                X
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
             <section className="p-4">

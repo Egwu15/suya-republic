@@ -101,6 +101,15 @@ a {
 
 
 */
+.center-item {
+    display: flex;
+    align-items: center; /* Vertical centering */
+    /* justify-content: center; Horizontal centering */
+    text-align: center; /* Ensures text is centered */
+    height: "80px";
+    width: "80px";
+}
+
 .our-menu {
     background-image: url("../../../assets/img/suya/Our-Menu-Banner.jpg");
     -webkit-background-size: cover;
@@ -138,7 +147,20 @@ a {
     .our-menu {
         padding: 100px 0 60px 0; /* Compact padding for very small screens */
     }
-
+    .pad {
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center; /* Vertical centering */
+    }
+    .center-item {
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center; /* Vertical centering */
+        /* justify-content: center; Horizontal centering */
+        text-align: center; /* Ensures text is centered */
+        height: "80px";
+        width: "80px";
+    }
     .our-menu h1 {
         font-size: 28px; /* Adjust font for small mobile screens */
         line-height: 36px;
