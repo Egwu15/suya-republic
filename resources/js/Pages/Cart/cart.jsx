@@ -12,7 +12,7 @@ const Cart = () => {
         window.scrollTo(0, 0);
     }, []);
     const [cartItems, setCartItems] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const spiceLevelOptions = [
         { value: "mild", name: "Mild" },
@@ -89,6 +89,10 @@ const Cart = () => {
                                                 <Link
                                                     href="/product"
                                                     className="center-item pad"
+                                                    style={{
+                                                        color: "#b7903c",
+                                                        textDecoration: "none",
+                                                    }}
                                                 >
                                                     <div
                                                         className="card-container-img mr-3 px-2"
