@@ -1,33 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "@/components/SideBar";
 import dummy from "../../../assets/img/suya/Lamb-Suya-3.jpg";
 import "./menu.css";
+import { Link } from "@inertiajs/react";
 
 const OurMenu = ({ products, categories }) => {
-    const [selectedItems, setSelectedItems] = useState({}); // State to track selected items
-    // const navigate = useNavigate(); // Initialize useNavigate
+    const [selectedItems, setSelectedItems] = useState({}); // State for selected items
+
+    // Load selected items from localStorage on component mount
+    useEffect(() => {
+        const savedSelection =
+            JSON.parse(localStorage.getItem("selectedItems")) || {};
+        setSelectedItems(savedSelection);
+    }, []);
 
     const toggleItemSelection = (id, product) => {
         const updatedSelection = { ...selectedItems, [id]: !selectedItems[id] };
 
         setSelectedItems(updatedSelection);
 
+        // Save updated state to localStorage
+        localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
+
+        // Update cart items in localStorage
         let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
         if (!updatedSelection[id]) {
-            // Remove from cart
             cartItems = cartItems.filter((item) => item.id !== id);
         } else {
-            // Add to cart
             cartItems.push(product);
         }
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     };
-
-    // const handleCheckout = () => {
-    //     navigate("/checkout"); // Navigate to the checkout page
-    // };
 
     return (
         <div>
@@ -71,10 +76,7 @@ const OurMenu = ({ products, categories }) => {
                                                         }}
                                                     >
                                                         <img
-                                                            src={
-                                                                // data.product_image ||
-                                                                dummy
-                                                            }
+                                                            src={dummy}
                                                             alt={data.name}
                                                             loading="lazy"
                                                             style={{
@@ -111,7 +113,7 @@ const OurMenu = ({ products, categories }) => {
                                                                     data.id,
                                                                     data
                                                                 )
-                                                            } // Pass product details
+                                                            }
                                                             style={{
                                                                 background:
                                                                     selectedItems[
@@ -141,12 +143,11 @@ const OurMenu = ({ products, categories }) => {
                                                                 ? "REMOVE ITEM"
                                                                 : "SELECT ITEM"}
                                                         </button>
-
                                                         {selectedItems[
                                                             data.id
                                                         ] && (
                                                             <div>
-                                                                <a
+                                                                <Link
                                                                     href={
                                                                         "/cart"
                                                                     } // Navigate on click
@@ -182,7 +183,7 @@ const OurMenu = ({ products, categories }) => {
                                                                                 "4px",
                                                                         }}
                                                                     ></i>
-                                                                </a>
+                                                                </Link>
                                                             </div>
                                                         )}
                                                     </div>
