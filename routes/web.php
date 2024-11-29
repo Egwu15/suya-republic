@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -10,11 +11,15 @@ Route::get('/', function () {
     return Inertia::render('HomePage/index');
 });
 Route::get('/menu', [ProductController::class, 'index'])->name('menu');
+Route::get('/cartItems', [ProductController::class, 'index'])->name('menu');
 
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::post('/cart', [CartController::class, 'create']);
+Route::get('/cart', [CartController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -24,25 +29,25 @@ Route::middleware('auth')->group(function () {
 
 
 // ------------------frontOnlyPages-------------
-Route::get('/menu2', function(){
+Route::get('/menu2', function () {
     return Inertia::render('Menu2/menu2');
 });
-Route::get('/orderOnline', function(){
+Route::get('/orderOnline', function () {
     return Inertia::render('OrderOnline/orderOnline');
 });
-Route::get('/signup', function(){
+Route::get('/signup', function () {
     return Inertia::render('Signup/signup');
 });
-Route::get('/login', function(){
+Route::get('/login', function () {
     return Inertia::render('Auth/login');
 });
-Route::get('/checkout', function(){
+Route::get('/checkout', function () {
     return Inertia::render('Checkout/checkout');
 });
-Route::get('/cart', function(){
+Route::get('/cart', function () {
     return Inertia::render('Cart/cart');
 });
-Route::get('/product', function(){
+Route::get('/product', function () {
     return Inertia::render('Product/product');
 });
 // Route::get('/checkout', [CheckoutController::class, 'index'])->name('Checkout');

@@ -9,11 +9,14 @@ import { Link } from "@inertiajs/react";
 const OurMenu = ({ products, categories }) => {
     const [selectedItems, setSelectedItems] = useState({}); // State for selected items
 
+    console.log(products);
+
     // Load selected items from localStorage on component mount
     useEffect(() => {
         const savedSelection =
             JSON.parse(localStorage.getItem("selectedItems")) || {};
         setSelectedItems(savedSelection);
+        console.log("called", savedSelection);
     }, []);
 
     const toggleItemSelection = (id, product) => {
@@ -76,7 +79,9 @@ const OurMenu = ({ products, categories }) => {
                                                         }}
                                                     >
                                                         <img
-                                                            src={dummy}
+                                                            src={
+                                                                data.product_image
+                                                            }
                                                             alt={data.name}
                                                             loading="lazy"
                                                             style={{

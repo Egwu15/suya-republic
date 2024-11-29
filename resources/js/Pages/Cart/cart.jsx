@@ -6,8 +6,9 @@ import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from "@/utils/constant";
 import dummy from "../../../assets/img/suya/Lamb-Suya-3.jpg";
 import { Link } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
+import { router } from "@inertiajs/react";
 
-const Cart = () => {
+function Cart ({ cartAdded, products }) {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -22,6 +23,11 @@ const Cart = () => {
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("cartItems")) || [];
         setCartItems(items);
+    
+        
+        if (!cartAdded) router.post("/cart", { product_ids: [2] });
+
+
     }, []);
 
     const handleQuantityChange = (id, increment) => {
@@ -36,6 +42,7 @@ const Cart = () => {
         setCartItems(updatedCart);
         localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     };
+
     const handleRemoveItem = (id) => {
         const updatedCart = cartItems.filter((item) => item.id !== id); // Filter out the removed item
         setCartItems(updatedCart);
@@ -83,7 +90,7 @@ const Cart = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {cartItems.map((item) => (
+                                    {products.map((item) => (
                                         <tr key={item.id}>
                                             <td>
                                                 <Link
