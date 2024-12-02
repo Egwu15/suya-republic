@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -20,6 +21,9 @@ Route::get('/dashboard', function () {
 
 Route::post('/cart', [CartController::class, 'create']);
 Route::get('/cart', [CartController::class, 'index']);
+
+
+Route::post('/submitContact', [ContactController::class, 'create']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

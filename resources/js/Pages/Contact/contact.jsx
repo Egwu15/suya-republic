@@ -5,6 +5,7 @@ import "./contact.css";
 import Loader from "@/Components/Loader/Loader";
 import InputField from "@/Components/InputField";
 import MapAndHotlines from "@/Components/GoogleMap/GoogleMap";
+import { useForm } from "@inertiajs/react";
 
 function Contact() {
     useEffect(() => {
@@ -13,12 +14,25 @@ function Contact() {
 
     const [loading, setLoading] = useState(false);
 
-    const [text, setText] = useState(""); // State to hold the textarea value
+    const { data, setData, post, processing, reset } = useForm({
+        full_name: "",
+        email: "",
+        subject: "",
+        message: "",
+    });
 
-    // Handler for changes in the textarea
-    const handleChange = (event) => {
-        setText(event.target.value);
-    };
+    function handleSubmit(e) {
+        e.preventDefault();
+        post("/submitContact", {
+            data: data,
+            onError: (error) => {
+                console.log(error);
+            },
+            onSuccess() {
+                reset();
+            },
+        });
+    }
 
     return (
         <div>
@@ -64,6 +78,13 @@ function Contact() {
                                             <InputField
                                                 type="text"
                                                 placeholder="Enter first name"
+                                                value={data.full_name}
+                                                onChangeMethod={(e) =>
+                                                    setData(
+                                                        "full_name",
+                                                        e.target.value
+                                                    )
+                                                }
                                             />
                                         </div>
                                         <div className="col-md-12">
@@ -76,6 +97,14 @@ function Contact() {
                                             <InputField
                                                 type="email"
                                                 placeholder="Enter email address"
+                                                required
+                                                value={data.email}
+                                                onChangeMethod={(e) =>
+                                                    setData(
+                                                        "email",
+                                                        e.target.value
+                                                    )
+                                                }
                                             />
                                         </div>
                                         <div className="col-md-12">
@@ -87,7 +116,15 @@ function Contact() {
                                             </label>
                                             <InputField
                                                 type="text"
-                                                placeholder="House number and street name"
+                                                placeholder="subject of the message"
+                                                required
+                                                value={data.subject}
+                                                onChangeMethod={(e) =>
+                                                    setData(
+                                                        "subject",
+                                                        e.target.value
+                                                    )
+                                                }
                                             />
                                         </div>
                                         <div className="col-md-12">
@@ -99,8 +136,13 @@ function Contact() {
                                                 rows="5"
                                                 cols="50"
                                                 placeholder="Enter your message here..."
-                                                value={text}
-                                                onChange={handleChange}
+                                                value={data.message}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "message",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 style={{
                                                     padding: "10px",
                                                     fontSize: "16px",
@@ -109,22 +151,29 @@ function Contact() {
                                             />
                                         </div>
                                         <div className="col-md-12">
-                                            <button
-                                                style={{
-                                                    background: "#d2401e",
-                                                    color: "white",
-                                                    margin: "20px 0",
-                                                    fontWeight: "600",
-                                                    fontSize: "16px",
-                                                    lineHeight: "24px",
-                                                    border: "none",
-                                                    padding: "10px 20px",
-                                                    borderRadius: "5px",
-                                                    cursor: "pointer",
-                                                }}
-                                            >
-                                                Send
-                                            </button>
+                                            {processing ? (
+                                                <Loader />
+                                            ) : (
+                                                <button
+                                                    onClick={(e) =>
+                                                        handleSubmit(e)
+                                                    }
+                                                    style={{
+                                                        background: "#d2401e",
+                                                        color: "white",
+                                                        margin: "20px 0",
+                                                        fontWeight: "600",
+                                                        fontSize: "16px",
+                                                        lineHeight: "24px",
+                                                        border: "none",
+                                                        padding: "10px 20px",
+                                                        borderRadius: "5px",
+                                                        cursor: "pointer",
+                                                    }}
+                                                >
+                                                    Send
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </form>

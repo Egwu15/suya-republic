@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\VarianceOptions;
 
 class Product extends Model
 {
@@ -27,4 +28,9 @@ class Product extends Model
     {
         return $this->belongsTo(Variance::class);
     }
+
+    public function varianceOptions()
+{
+    return $this->hasManyThrough(VarianceOptions::class, Variance::class);
+}
 }
