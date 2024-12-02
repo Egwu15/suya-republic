@@ -17,6 +17,9 @@ const OurMenu = ({ products, categories }) => {
         console.log("called", savedSelection);
     }, []);
 
+    console.log('product', products);
+    
+
     const toggleItemSelection = (id, product) => {
         const updatedSelection = { ...selectedItems, [id]: !selectedItems[id] };
 

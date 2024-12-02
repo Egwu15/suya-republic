@@ -23,14 +23,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    
+
     public function variance()
     {
         return $this->belongsTo(Variance::class);
     }
-
-    public function varianceOptions()
-{
-    return $this->hasManyThrough(VarianceOptions::class, Variance::class);
-}
 }

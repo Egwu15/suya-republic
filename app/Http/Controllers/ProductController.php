@@ -15,10 +15,11 @@ class ProductController extends Controller
         $selectedCategory = $request->input('selectedCategory');
 
         $products = $selectedCategory != null
-            ? Product::where('category_id', $selectedCategory)->paginate()
-            : Product::paginate($limit);
+            ? Product::with(['variance.options'])->where('category_id', $selectedCategory)->paginate()
+            : Product::with(['variance.options'])->paginate($limit);
 
         $categories = Category::paginate($limit);
+
 
         return inertia()->render('Menu/menu', [
             'products' => $products,
