@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./checkout.css";
-import Button from "../../components/Button";
-import SelectComponent from "../../components/Dropdown";
 import InputField from "@/Components/InputField";
-
-// import CreditCardInput from "react-credit-card-input";
+import { Link } from "@inertiajs/react";
 
 const Checkout = ({ data }) => {
     useEffect(() => {
-        // window.scrollTo(0, 0);
+        // Ensure the page scrolls to the top when loaded
+        window.scrollTo(0, 0);
     }, []);
+
     const [productQuantity, setProductQuantity] = useState("");
 
     const quantityOptions = [
@@ -20,397 +19,232 @@ const Checkout = ({ data }) => {
         { value: "3", name: "3" },
     ];
 
-    const optionQuantity = quantityOptions?.map((x) => ({
-        label: x.name,
-        value: x.value,
-    }));
-
-    const colorStyles = {
-        option: (provided, state) => ({
-            ...provided,
-            borderBottom: "1px dotted black",
-            color: state.isSelected ? "black" : "black",
-            background: "white",
-        }),
-
-        menu: (provided, state) => ({
-            ...provided,
-            // borderBottom: '1px dotted pink',
-            // color: state.isSelected ? 'red' : 'blue',
-            // padding: 20,
-            background: "white",
-        }),
-
-        singleValue: () => {
-            const color = "black";
-
-            return { color };
-        },
-    };
-
     return (
         <div>
             <Navbar />
-            <section className="our-menu">
+
+            {/* Header Section */}
+            <section className="our-menu text-center py-5 bg-light">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 text-center">
-                            <h1 className="mb-2">CHECKOUT</h1>
-                        </div>
-                    </div>
+                    <h1 className="mb-2">CHECKOUT</h1>
                 </div>
             </section>
 
-            <section className="container" style={{ marginTop: "70px" }}>
-                <div className="checkout-notice">
-                    <p style={{ color: "#333333" }}>
-                        All orders are to be collected in-store at 303 Chester
-                        road Manchester M15 4EY
-                    </p>
+            {/* Notice Section */}
+            <section className="container mt-5">
+                <div className="alert alert-info text-center">
+                    All orders are to be collected in-store at
+                    <strong> 303 Chester Road, Manchester M15 4EY</strong>
                 </div>
+            </section>
 
-                <div className="col-md-4" style={{ margin: "0 auto" }}>
-                    <Button
-                        text="BUY WITH G-PAY"
-                        // handleButtonClick={() => {
-                        //   navigate("/product/1");
-                        // }}
-                        type="button"
-                        btnstyle={{
-                            background: "black",
-                            color: "white",
-                            margin: "20px 0",
-                            // fontFamily: "Euclid Circular B",
-                            fontWeight: "600",
-                            fontSize: "16px",
-                            lineHeight: "24px",
-                        }}
-                    />
-                </div>
-                <h1 className="mb-2 text-center" style={{ color: "grey" }}>
-                    OR
-                </h1>
-                <div className="checkout-forms row">
-                    <div className="form-left col-md-6">
-                        <h2 className="mb-5">BILLING & SHIPPING</h2>
-                        <div className="checkout-forms row">
-                            <div className="col-md-6">
-                                <label htmlFor="email" className="label-auth">
-                                    First name *
-                                </label>
-                                <InputField
-                                    type="text"
-                                    placeholder="Enter first name"
-                                    // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                                />
+            {/* Checkout Form Section */}
+            <section className="container mt-5">
+                <div className="row">
+                    {/* Left Form */}
+                    <div className="col-md-6 mb-4">
+                        <h2 className="mb-4">Billing & Shipping</h2>
+                        <form>
+                            <div className="row g-3">
+                                <div className="col-md-6">
+                                    <label
+                                        htmlFor="firstName"
+                                        className="form-label"
+                                    >
+                                        First Name *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter first name"
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <label
+                                        htmlFor="lastName"
+                                        className="form-label"
+                                    >
+                                        Last Name *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter last name"
+                                    />
+                                </div>
+                                <div className="col-md-12">
+                                    <label
+                                        htmlFor="streetAddress"
+                                        className="form-label"
+                                    >
+                                        Street Address *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="House number and street name"
+                                    />
+                                </div>
+                                <div className="col-md-12">
+                                    <label
+                                        htmlFor="apartment"
+                                        className="form-label"
+                                    >
+                                        Apartment, Suite, Unit (Optional)
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter apartment or unit"
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <label
+                                        htmlFor="city"
+                                        className="form-label"
+                                    >
+                                        Town / City *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter city"
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <label
+                                        htmlFor="state"
+                                        className="form-label"
+                                    >
+                                        State / County *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter state"
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <label
+                                        htmlFor="postcode"
+                                        className="form-label"
+                                    >
+                                        Postcode / ZIP *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter postcode"
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <label
+                                        htmlFor="phone"
+                                        className="form-label"
+                                    >
+                                        Phone *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter phone number"
+                                    />
+                                </div>
+                                <div className="col-md-12">
+                                    <label
+                                        htmlFor="email"
+                                        className="form-label"
+                                    >
+                                        Email Address *
+                                    </label>
+                                    <InputField
+                                        type="email"
+                                        placeholder="Enter email address"
+                                    />
+                                </div>
                             </div>
-                            {/* <div className="mb-3 col-md-6">
-                                <label
-                                    htmlFor="firstName"
-                                    className="form-label"
-                                >
-                                    First name *{" "}
-                                </label>
-                                <input
-                                    type="email"
-                                    id="firstName"
-                                    className="form-control"
-                                    placeholder="Enter your email"
-                                />
-                            </div> */}
-                            <div className="col-md-6">
-                                <label htmlFor="email" className="label-auth">
-                                    Last name *
-                                </label>
-                                <InputField
-                                    type="text"
-                                    placeholder="Enter last name"
-                                    // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                                />
-                            </div>
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Country / Region *
-                            </label>
-                            <br />
-                            <label htmlFor="email" className="label-auth">
-                                <b>United Kingdom (UK)</b>
-                            </label>
-                            <br />
-                            <label htmlFor="email" className="label-auth">
-                                Street address *
-                            </label>
-                            <InputField
-                                type="text"
-                                placeholder="Enter house no and street name"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Apartment, suite, unit, etc. (optional) *
-                            </label>
-
-                            <InputField
-                                type="text"
-                                placeholder="Enter apartment, suite, unit, etc. (optional)"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Town / City *
-                            </label>
-
-                            <InputField
-                                type="text"
-                                placeholder="Enter Town / City"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                State / County *
-                            </label>
-
-                            <InputField
-                                type="text"
-                                placeholder="Enter State / County"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Postcode / ZIP *
-                            </label>
-
-                            <InputField
-                                type="text"
-                                placeholder="Enter postcode / ZIP"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Phone *
-                            </label>
-
-                            <InputField
-                                type="text"
-                                placeholder="Enter phone"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
-                        <br />
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Email address *
-                            </label>
-
-                            <InputField
-                                type="text"
-                                placeholder="Enter email address"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
-                            />
-                        </div>
+                        </form>
                     </div>
-                    <div className="form-right col-md-6">
-                        <h2 className="mb-5">ADDITIONAL INFORMATION</h2>
-                        <div className="">
-                            <label htmlFor="email" className="label-auth">
-                                Order notes (optional)
-                            </label>
 
+                    {/* Right Form */}
+                    <div className="col-md-6 mb-4">
+                        <h2 className="mb-4">Additional Information</h2>
+                        <div>
+                            <label htmlFor="orderNotes" className="form-label">
+                                Order Notes (Optional)
+                            </label>
                             <InputField
                                 type="text"
                                 placeholder="Notes about your order"
-                                // onChangeMethod={(e) => setVerificationCode(e.target.value)}
                             />
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="cart-items container mt-5">
-                <h3
-                    className="mt-3 mb-5 mt-5"
-                    // style={{ color: "#b7903c" }}
-                >
-                    YOUR ORDER
-                </h3>
-
-                <div className="row" style={{ alignItems: "center" }}>
-                    <h6 className="col-md-3" style={{ color: "#b7903c" }}>
-                        PRODUCT
-                    </h6>
-                    <h6 className="col-md-9" style={{ color: "#b7903c" }}>
-                        SUBTOTAL
-                    </h6>
+            {/* Order Summary Section */}
+            <section className="container mt-5 px-4">
+                <h3 className="mb-4 text-center">Your Order</h3>
+                <div className="row align-items-center border-bottom py-2">
+                    <div className="col-6">Chicken Suya - Spicy × 1</div>
+                    <div className="col-6 text-end">£9.00</div>
                 </div>
-                <hr />
-                <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        Chicken Suya - Spicy × 1
-                    </h6>
-                    <p className="col-md-9">£9.00</p>
+                <div className="row align-items-center border-bottom py-2">
+                    <div className="col-6">Subtotal</div>
+                    <div className="col-6 text-end">£9.00</div>
                 </div>
-                <hr />
-                <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        SUBTOTAL
-                    </h6>
-                    <p className="col-md-9">£9.50</p>
-                </div>
-                <hr />
-                <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        SHIPPING
-                    </h6>
-                    <div className="col-md-9">
-                        <div className="form-check">
-                            <input
-                                type="radio"
-                                className="form-check-input"
-                                id="exampleCheck1"
-                                name="pickup"
-                                value="yes"
-                                // onChange={() => handlePickup()}
-                            />
-                            <label
-                                className="label-auth"
-                                htmlFor="exampleCheck1"
-                            >
-                                Delivery and delivery fee only applicable to our
-                                Suya Spice product.
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input
-                                type="radio"
-                                className="form-check-input"
-                                id="exampleCheck2"
-                                name="pickup"
-                                value="no"
-                                // onChange={() => setIsPickup(false)}
-                            />
-                            <label
-                                className="label-auth"
-                                htmlFor="exampleCheck2"
-                            >
-                                All orders are to be collected in-store at 303
-                                Chester road Manchester M15 4EY
-                            </label>
+                <div className="row align-items-center border-bottom py-2">
+                    <div className="col-12">
+                        <p>Shipping</p>
+                        <div className="col-6 text-en">
+                            <div className="form-check">
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    id="exampleCheck1"
+                                    name="pickup"
+                                    value="yes"
+                                    // onChange={() => handlePickup()}
+                                />
+                                <label
+                                    className="label-auth font-12 "
+                                    htmlFor="exampleCheck1"
+                                >
+                                    Delivery and delivery fee only applicable to
+                                    our Suya Spice product.
+                                </label>
+                            </div>
+                            <div className="form-check ">
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    id="exampleCheck2"
+                                    name="pickup"
+                                    value="no"
+                                    // onChange={() => setIsPickup(false)}
+                                />
+                                <label
+                                    className="label-auth whitespace-nowrap font-12 text-left"
+                                    htmlFor="exampleCheck2"
+                                >
+                                    All orders are to be collected in-store at
+                                    303 Chester road Manchester M15 4EY
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div className="row" style={{ alignItems: "center" }}>
-                    <h6
-                        className="col-md-3"
-                        // style={{ color: "#b7903c" }}
-                    >
-                        TOTAL
-                    </h6>
-                    <p className="col-md-9">
-                        <b>£9.00</b>
-                    </p>
-                </div>
-                <hr />
-                <p className="">Credit Card</p>
-                <label htmlFor="email" className="label-auth">
-                    Pay securely using your credit card.
-                </label>
-                <div className="row">
-                    {/* <div className="col-md-4">
-                        <InputField
-                            type="text"
-                            placeholder="Enter Card number"
-                            // onChangeMethod={(e) =>
-                            //     setVerificationCode(e.target.value)
-                            // }
-                        />
+                <div className="row align-items-center py-2">
+                    <div className="col-6">
+                        <strong>Total</strong>
                     </div>
-                    <div className="col-md-4">
-                        <InputField
-                            type="text"
-                            placeholder="MM/YY"
-                            // onChangeMethod={(e) =>
-                            //     setVerificationCode(e.target.value)
-                            // }
-                        />
+                    <div className="col-6 text-end">
+                        <strong>£9.00</strong>
                     </div>
-                    <div className="col-md-4">
-                        <InputField
-                            type="text"
-                            placeholder="CVV"
-                            // onChangeMethod={(e) =>
-                            //     setVerificationCode(e.target.value)
-                            // }
-                        />
-                    </div> */}
                 </div>
-                {/* <CreditCardInput
-                    // cardNumberInputProps={{ value: cardNumber, onChange: this.handleCardNumberChange }}
-                    // cardExpiryInputProps={{ value: expiry, onChange: this.handleCardExpiryChange }}
-                    // cardCVCInputProps={{ value: cvc, onChange: this.handleCardCVCChange }}
-                    fieldClassName="input"
-                    containerStyle={{ width: "100%" }}
-                    inputStyle={{ background: "transparent", width: "400px" }}
-                    fieldStyle={{
-                        width: "100%",
-                        border: "1px solid black",
-                        background: "transparent",
-                        height: "60px",
-                        borderRaadius: "5px",
-                    }}
-                /> */}
-
+            </section>
+            <div className="p-3 bg-inf">
+                <h3 className="text-center">Card Payment</h3>
                 <hr />
-
-                <div className="col-md-3" style={{ margin: "0 auto" }}>
-                    {/* <a
-                        href={"/"} // Call navigation function on click
-                        type="button"
-                        style={{
-                            background: "red", // Set button background color (adjust if needed)
-                            color: "white",
-                            margin: "20px 0",
-                            fontWeight: "600",
-                            fontSize: "16px",
-                            lineHeight: "24px",
-                            padding: "10px 20px",
-                            border: "none",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                        }}
-                    >
+            </div>
+            {/* Place Order Button */}
+            {/* <section className="container text-center my-4">
+                    <Link href="/" className="btn btn-danger btn-lg text-white">
                         PLACE ORDER
-                    </a> */}
-                </div>
-                <div className="checkout-notice mt-5 mb-5">
-                    <p style={{ color: "#333333" }}>
-                        All orders are to be collected in-store at 303 Chester
-                        road Manchester M15 4EY
-                    </p>
-                </div>
-            </section>
-
+                    </Link>
+                </section> */}
             <Footer />
         </div>
     );

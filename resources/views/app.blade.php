@@ -13,6 +13,8 @@
   href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
   rel="stylesheet"
 />
+<script type="text/javascript" src="https://web.squarecdn.com/v1/square.js"></script>
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh

@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./cart.css";
-import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from "@/utils/constant";
-import dummy from "../../../assets/img/suya/Lamb-Suya-3.jpg";
+import { COLOR_BLACK, COLOR_RED } from "@/utils/constant";
 import { Link } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
 import { router } from "@inertiajs/react";
 
-function Cart ({ cartAdded, products }) {
+function Cart({ cartAdded, products }) {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -20,42 +20,68 @@ function Cart ({ cartAdded, products }) {
         { value: "spicy", name: "Spicy" },
         { value: "very spicy", name: "Very Spicy" },
     ];
+
+    // Initialize cartItems from localStorage or products
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem("cartItems")) || [];
-        setCartItems(items);
-    
-        
-        if (!cartAdded) router.post("/cart", { product_ids: [2] });
+        const storedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+        if (storedCart.length) {
+            setCartItems(storedCart);
+        } else if (products?.length) {
+            const initialCart = products.map((product) => ({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                product_image: product.product_image,
+                quantity: 1,
+                spice: "mild",
+            }));
+            setCartItems(initialCart);
+            localStorage.setItem("cartItems", JSON.stringify(initialCart));
+        }
 
+        if (!cartAdded && products?.length) {
+            const productIds = products.map((product) => product.id); // Extract all product IDs
+            router.post("/cart", { product_ids: productIds });
+        }
+    }, [products, cartAdded]);
 
-    }, []);
-
+    // Handle quantity change
     const handleQuantityChange = (id, increment) => {
         const updatedCart = cartItems.map((item) =>
             item.id === id
-                ? {
-                      ...item,
-                      quantity: Math.max(1, (item.quantity || 1) + increment),
-                  }
+                ? { ...item, quantity: Math.max(1, item.quantity + increment) }
                 : item
         );
         setCartItems(updatedCart);
         localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     };
 
+    // Handle item removal
     const handleRemoveItem = (id) => {
-        const updatedCart = cartItems.filter((item) => item.id !== id); // Filter out the removed item
+        const updatedCart = cartItems.filter((item) => item.id !== id);
         setCartItems(updatedCart);
-        localStorage.setItem("cartItems", JSON.stringify(updatedCart)); // Update localStorage
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     };
 
+    // Handle spice level change
     const handleSpiceChange = (itemId, newSpice) => {
-        // Update the spice level of the item in your state or cart
         const updatedCartItems = cartItems.map((item) =>
             item.id === itemId ? { ...item, spice: newSpice } : item
         );
-        // Update the cart with the new state
-        setCartItems(updatedCartItems); // Assuming you're using useState for managing cart items
+        setCartItems(updatedCartItems);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    };
+
+    // Calculate subtotal
+    const calculateSubtotal = () => {
+        return cartItems
+            .reduce((acc, item) => acc + item.price * item.quantity, 0)
+            .toFixed(2);
+    };
+
+    // Calculate total
+    const calculateTotal = () => {
+        return parseFloat(calculateSubtotal()).toFixed(2);
     };
 
     return (
@@ -90,7 +116,7 @@ function Cart ({ cartAdded, products }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products.map((item) => (
+                                    {cartItems.map((item) => (
                                         <tr key={item.id}>
                                             <td>
                                                 <Link
@@ -111,7 +137,6 @@ function Cart ({ cartAdded, products }) {
                                                         <img
                                                             src={
                                                                 item.product_image
-                                                                // dummy
                                                             }
                                                             alt={item.name}
                                                             className="img-fluid"
@@ -140,9 +165,7 @@ function Cart ({ cartAdded, products }) {
                                                     }}
                                                 >
                                                     <select
-                                                        value={
-                                                            item.spice || "mild"
-                                                        } // Default to mild if no spice level is set
+                                                        value={item.spice}
                                                         onChange={(e) =>
                                                             handleSpiceChange(
                                                                 item.id,
@@ -176,25 +199,9 @@ function Cart ({ cartAdded, products }) {
                                                     </select>
                                                 </div>
                                             </td>
+                                            <td>£{item.price.toFixed(2)}</td>
                                             <td>
-                                                <div
-                                                    className="center-item pad px-5"
-                                                    style={{
-                                                        height: "80px",
-                                                        width: "80px",
-                                                    }}
-                                                >
-                                                    £{item.price.toFixed(2)}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div
-                                                    className="center-item quantity-controls d-flex align-items-center"
-                                                    style={{
-                                                        height: "80px",
-                                                        width: "80px",
-                                                    }}
-                                                >
+                                                <div className="d-flex align-items-center">
                                                     <button
                                                         onClick={() =>
                                                             handleQuantityChange(
@@ -218,7 +225,7 @@ function Cart ({ cartAdded, products }) {
                                                             fontWeight: "bold",
                                                         }}
                                                     >
-                                                        {item.quantity || 1}
+                                                        {item.quantity}
                                                     </span>
                                                     <button
                                                         onClick={() =>
@@ -240,34 +247,25 @@ function Cart ({ cartAdded, products }) {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div
-                                                    className="center-item "
+                                                £
+                                                {(
+                                                    item.quantity * item.price
+                                                ).toFixed(2)}
+                                                <span
                                                     style={{
-                                                        height: "80px",
-                                                        width: "80px",
+                                                        marginLeft: "10px",
+                                                        color: "red",
+                                                        cursor: "pointer",
+                                                        fontWeight: "bold",
                                                     }}
+                                                    onClick={() =>
+                                                        handleRemoveItem(
+                                                            item.id
+                                                        )
+                                                    }
                                                 >
-                                                    £
-                                                    {(
-                                                        (item.quantity || 1) *
-                                                        item.price
-                                                    ).toFixed(2)}{" "}
-                                                    <span
-                                                        style={{
-                                                            marginLeft: "10px",
-                                                            color: "red",
-                                                            cursor: "pointer",
-                                                            fontWeight: "bold",
-                                                        }}
-                                                        onClick={() =>
-                                                            handleRemoveItem(
-                                                                item.id
-                                                            )
-                                                        }
-                                                    >
-                                                        X
-                                                    </span>
-                                                </div>
+                                                    X
+                                                </span>
                                             </td>
                                         </tr>
                                     ))}
@@ -279,90 +277,23 @@ function Cart ({ cartAdded, products }) {
                     <section className="p-4">
                         <h1 className="mt-3 mb-5">CART TOTALS</h1>
 
-                        {/* Subtotal */}
                         <div className="row" style={{ alignItems: "center" }}>
                             <h6 className="col-md-3">SUBTOTAL</h6>
-                            <p className="col-md-9">
-                                £
-                                {cartItems
-                                    .reduce(
-                                        (acc, item) =>
-                                            acc +
-                                            item.price * (item.quantity || 1),
-                                        0
-                                    )
-                                    .toFixed(2)}
-                            </p>
+                            <p className="col-md-9">£{calculateSubtotal()}</p>
                         </div>
                         <hr />
 
-                        {/* Shipping */}
-                        <div className="row" style={{ alignItems: "center" }}>
-                            <h6 className="col-md-3">SHIPPING</h6>
-                            <div className="col-md-9">
-                                <div className="form-check">
-                                    <input
-                                        type="radio"
-                                        className="form-check-input"
-                                        id="deliveryOption"
-                                        name="shipping"
-                                        value="delivery"
-                                    />
-                                    <label
-                                        className="label-auth"
-                                        htmlFor="deliveryOption"
-                                    >
-                                        Delivery fee applicable only to Suya
-                                        Spice products.
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input
-                                        type="radio"
-                                        className="form-check-input"
-                                        id="pickupOption"
-                                        name="shipping"
-                                        value="pickup"
-                                    />
-                                    <label
-                                        className="label-auth"
-                                        htmlFor="pickupOption"
-                                    >
-                                        All orders must be collected in-store at
-                                        303 Chester Road, Manchester M15 4EY.
-                                    </label>
-                                </div>
-                                <p className="mt-2">
-                                    Shipping options will be updated during
-                                    checkout.
-                                </p>
-                            </div>
-                        </div>
-                        <hr />
-
-                        {/* Total */}
                         <div className="row" style={{ alignItems: "center" }}>
                             <h6 className="col-md-3">TOTAL</h6>
                             <p className="col-md-9">
-                                <b>
-                                    £
-                                    {cartItems
-                                        .reduce(
-                                            (acc, item) =>
-                                                acc +
-                                                item.price *
-                                                    (item.quantity || 1),
-                                            0
-                                        )
-                                        .toFixed(2)}
-                                </b>
+                                <b>£{calculateTotal()}</b>
                             </p>
                         </div>
                         <hr />
 
-                        {/* Checkout Buttons */}
                         <div className="col-md-4" style={{ margin: "0 auto" }}>
-                            <a
+                            <Link
+                                className="text-white"
                                 href="/checkout"
                                 style={{
                                     background: COLOR_RED,
@@ -370,8 +301,6 @@ function Cart ({ cartAdded, products }) {
                                     margin: "10px 0",
                                     fontWeight: "600",
                                     fontSize: "16px",
-                                    lineHeight: "24px",
-                                    border: "none",
                                     padding: "10px 20px",
                                     cursor: "pointer",
                                     borderRadius: "5px",
@@ -379,7 +308,7 @@ function Cart ({ cartAdded, products }) {
                                 }}
                             >
                                 PROCEED TO CHECKOUT
-                            </a>
+                            </Link>
                         </div>
                         <div className="col-md-4" style={{ margin: "0 auto" }}>
                             <button
@@ -389,9 +318,7 @@ function Cart ({ cartAdded, products }) {
                                     margin: "20px 0",
                                     fontWeight: "600",
                                     fontSize: "16px",
-                                    lineHeight: "24px",
                                     padding: "10px 20px",
-                                    border: "none",
                                     borderRadius: "5px",
                                     cursor: "pointer",
                                 }}
@@ -405,6 +332,6 @@ function Cart ({ cartAdded, products }) {
             <Footer />
         </div>
     );
-};
+}
 
 export default Cart;

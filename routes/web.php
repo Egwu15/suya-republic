@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/menu2', function () {
     return Inertia::render('Menu2/menu2');
 });
-Route::get('/orderOnline', function () {
+Route::get('/order-online', function () {
     return Inertia::render('OrderOnline/orderOnline');
 });
 Route::get('/signup', function () {
@@ -47,9 +47,16 @@ Route::get('/checkout', function () {
 Route::get('/cart', function () {
     return Inertia::render('Cart/cart');
 });
+Route::get('/contact', function () {
+    return Inertia::render('Contact/contact');
+});
+Route::get('/about', function () {
+    return Inertia::render('About/about');
+});
 Route::get('/product', function () {
     return Inertia::render('Product/product');
 });
+
 // Route::get('/checkout', [CheckoutController::class, 'index'])->name('Checkout');
 
 require __DIR__ . '/auth.php';

@@ -63,33 +63,33 @@ export const HomeComponent = () => {
             <Navbar />
             <section className="hero-bg">
                 <div className="chatwithus">
-                    {" "}
-                    <p>
+                    <div>
                         <a
+                            href="https://wa.me/447378837837"
                             target="_blank"
                             rel="noreferrer"
-                            href="http://wa.me/+447378837837"
+                            className="chatwithusLink"
                         >
-                            <i class="fa fa-whatsapp" aria-hidden="true"></i>{" "}
-                        </a>{" "}
-                        Chat with us!
-                    </p>
+                            Chat with us!
+                        </a>
+                    </div>
                 </div>
+
                 <div className="container">
-                    <div className="hero-flex">
-                        <div className="left-card align-self-center">
-                            <div className="app-section-image">
+                    <div className="row">
+                        <div className="left-car  col-md-6 col-12">
+                            <div className="app-section-image suya-image">
                                 <img
                                     src={spiceText}
                                     alt=""
-                                    className=""
+                                    className=" suya-image"
                                     loading="lazy"
                                     style={{ width: "100%" }}
                                 />
                             </div>
                         </div>
 
-                        <div className="right-card align-self-center">
+                        <div className="right-ca align-self-cente col-md-6 col-12">
                             <div className="app-section-image">
                                 <img
                                     src={spiceImage}
@@ -108,11 +108,11 @@ export const HomeComponent = () => {
                 <div className="container">
                     <div className="row row-grid">
                         <div className="col-md-12 align-self-center">
-                            <div className="prices-container text-center">
+                            <div className="prices-container text-center ">
                                 <h3 style={{ color: "red" }}>
                                     S U Y A R E P U B L I C K
                                 </h3>
-                                <h1>
+                                <h1 className="font-12">
                                     <b>
                                         We are bringing the taste of Africa to
                                         Manchester.
@@ -141,7 +141,7 @@ export const HomeComponent = () => {
                                         style={{ width: "100%" }}
                                     />
                                 </div>
-                                <h3>
+                                <h3 className="py-2">
                                     <b>SUYA SPICE</b>
                                 </h3>
                                 <p>
@@ -176,7 +176,7 @@ export const HomeComponent = () => {
                                         style={{ width: "100%" }}
                                     />
                                 </div>
-                                <h3>
+                                <h3 className="py-2">
                                     <b>OUR MENU</b>
                                 </h3>
                                 <p>
@@ -206,7 +206,7 @@ export const HomeComponent = () => {
                                         style={{ width: "100%" }}
                                     />
                                 </div>
-                                <h3>
+                                <h3 className="py-2">
                                     <b>OUR BRAND</b>
                                 </h3>
                                 <p>
@@ -235,12 +235,19 @@ export const HomeComponent = () => {
                 </video>
             </section>
 
-            <div className="col-md-2" style={{ margin: "0 auto" }}>
-                <Button
-                    text="MAKE YOUR ORDER"
+            <div
+                className="col-md-12 "
+                style={{
+                    margin: "10px auto",
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
+                <Link
+                    href="/menu"
+                    className="button-design text-white"
                     // handleButtonClick={handleRoundWay}
-                    type="button"
-                    btnstyle={{
+                    style={{
                         background: "#D2401E",
                         color: "white",
                         margin: "20px 0",
@@ -248,8 +255,13 @@ export const HomeComponent = () => {
                         fontWeight: "600",
                         fontSize: "16px",
                         lineHeight: "24px",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        textDecoration: "none",
                     }}
-                />
+                >
+                    MAKE YOUR ORDER
+                </Link>
             </div>
 
             <Footer />
