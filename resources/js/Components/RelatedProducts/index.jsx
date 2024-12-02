@@ -2,6 +2,7 @@ import { useState } from "react";
 import lambSuya from "../../../assets/img/suya/Lamb-Suya-3.jpg";
 import shawarma from "../../../assets/img/suya/Shawarma.jpg";
 import beefSuya from "../../../assets/img/suya/Beef-Suya-2.jpg";
+import { Link } from "@inertiajs/react";
 
 const RelatedProducts = () => {
     const [selectedItems, setSelectedItems] = useState({});
@@ -80,7 +81,7 @@ const RelatedProducts = () => {
                                         : "SELECT ITEM"}
                                 </button>
                                 {selectedItems[product.id] && (
-                                    <a
+                                    <Link
                                         href="/cart"
                                         style={{
                                             display: "inline-block",
@@ -104,7 +105,7 @@ const RelatedProducts = () => {
                                                 marginRight: "4px",
                                             }}
                                         ></i>
-                                    </a>
+                                    </Link>
                                 )}
                             </div>
                         </div>

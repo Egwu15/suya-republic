@@ -99,9 +99,16 @@ a {
 /* Custom css
 
 
-
 */
-
+.color-red {
+    color: #d2401e;
+}
+.bg-red {
+    background: #d2401e;
+}
+.font-bold {
+    font-weight: bold;
+}
 .center-item {
     display: flex;
     align-items: center; /* Vertical centering */

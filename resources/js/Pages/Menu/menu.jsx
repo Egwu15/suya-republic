@@ -9,8 +9,6 @@ import { Link } from "@inertiajs/react";
 const OurMenu = ({ products, categories }) => {
     const [selectedItems, setSelectedItems] = useState({}); // State for selected items
 
-    console.log(products);
-
     // Load selected items from localStorage on component mount
     useEffect(() => {
         const savedSelection =
@@ -81,6 +79,7 @@ const OurMenu = ({ products, categories }) => {
                                                         <img
                                                             src={
                                                                 data.product_image
+                                                                // dummy
                                                             }
                                                             alt={data.name}
                                                             loading="lazy"
@@ -107,7 +106,7 @@ const OurMenu = ({ products, categories }) => {
                                                     </h6>
 
                                                     <div
-                                                        className="col-md-6 d-flex justify-content-between align-items-center"
+                                                        className="col-md-6 d-flex justify-content-center align-items-center"
                                                         style={{
                                                             margin: "0 auto",
                                                         }}
@@ -151,7 +150,7 @@ const OurMenu = ({ products, categories }) => {
                                                         {selectedItems[
                                                             data.id
                                                         ] && (
-                                                            <div>
+                                                            <div className="mx-2">
                                                                 <Link
                                                                     href={
                                                                         "/cart"
