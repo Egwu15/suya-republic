@@ -15,6 +15,13 @@ class CartController extends Controller
         return Inertia::render('Cart/cart', ['cartAdded' => false, 'products' => []]);
     }
 
+    public function checkout()
+    {
+        $squareAppId = env("SQUARE_APP_KEY");
+        $squareLocationId = env('SQUARE_LOCATION_ID');
+        return Inertia::render('Checkout/checkout', ['squareAppId' => $squareAppId, 'squareLocationId' => $squareLocationId]);
+    }
+
 
     public function create(Request $request)
     {

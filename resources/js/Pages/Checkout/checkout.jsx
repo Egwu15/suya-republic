@@ -3,15 +3,62 @@ import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./checkout.css";
 import InputField from "@/Components/InputField";
-import { Link } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 
-const Checkout = ({ data }) => {
+const Checkout = ({ squareAppId, squareLocationId }) => {
+    const { post } = useForm();
     useEffect(() => {
         // Ensure the page scrolls to the top when loaded
         window.scrollTo(0, 0);
     }, []);
+    const [card, setCard] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [totalPrice, setTotalPrice] = useState(4000);
+
+    useEffect(() => {
+        const initializePayment = async () => {
+            const payments = window.Square.payments(
+                squareAppId,
+                squareLocationId
+            );
+
+            const card = await payments.card();
+            await card.attach("#card-container");
+            setCard(card);
+        };
+
+        initializePayment();
+    }, [squareAppId, squareLocationId]);
 
     const [productQuantity, setProductQuantity] = useState("");
+
+    const handlePayment = async () => {
+        setLoading(true);
+        try {
+            const { token, errors } = await card.tokenize();
+
+            if (errors) {
+                console.error(errors);
+                alert("Payment failed. Please try again.");
+                setLoading(false);
+                return;
+            }
+
+            console.log("token", token);
+            console.log("token", totalCents);
+
+            // Send the nonce to the server
+            post("/process-payment", {
+                nonce: token,
+                totalCents: totalCents,
+            });
+        } catch (error) {
+            console.error(error);
+            alert("An unexpected error occurred.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const quantityOptions = [
         { value: "1", name: "1" },
@@ -240,6 +287,15 @@ const Checkout = ({ data }) => {
                 <hr />
             </div>
             {/* Place Order Button */}
+            <div>
+                <h1>Checkout</h1>
+                <p>Total: ${totalPrice.toFixed(2)}</p>
+                <div id="card-container"></div>
+                <button onClick={handlePayment} disabled={loading}>
+                    {loading ? "Processing..." : "Pay Now"}
+                </button>
+            </div>
+
             {/* <section className="container text-center my-4">
                     <Link href="/" className="btn btn-danger btn-lg text-white">
                         PLACE ORDER
