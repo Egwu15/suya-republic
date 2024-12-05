@@ -1,41 +1,40 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "@/components/SideBar";
-import dummy from "../../../assets/img/suya/Lamb-Suya-3.jpg";
+import useCartStore from "@/store/Store";
 import "./menu.css";
 import { Link } from "@inertiajs/react";
+import Modal from "@/Components/Modal";
 
 const OurMenu = ({ products, categories }) => {
-    const [selectedItems, setSelectedItems] = useState({}); // State for selected items
-
-    // Load selected items from localStorage on component mount
+    const { cartItems, addItem, removeItem } = useCartStore(); // Zustand store methods
+    const [selectedItems, setSelectedItems] = useState({}); // Local UI state
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    // Sync Zustand state with local selected items
     useEffect(() => {
-        const savedSelection =
-            JSON.parse(localStorage.getItem("selectedItems")) || {};
-        setSelectedItems(savedSelection);
-        console.log("called", savedSelection);
-    }, []);
-
-    console.log('product', products);
-    
+        const initialSelection = {};
+        cartItems.forEach((item) => {
+            initialSelection[item.id] = true;
+        });
+        setSelectedItems(initialSelection);
+    }, [cartItems]);
 
     const toggleItemSelection = (id, product) => {
-        const updatedSelection = { ...selectedItems, [id]: !selectedItems[id] };
-
+        const isSelected = selectedItems[id];
+        const updatedSelection = { ...selectedItems, [id]: !isSelected };
         setSelectedItems(updatedSelection);
 
-        // Save updated state to localStorage
-        localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
-
-        // Update cart items in localStorage
-        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        if (!updatedSelection[id]) {
-            cartItems = cartItems.filter((item) => item.id !== id);
+        if (isSelected) {
+            removeItem(id); // Remove from cart (Zustand)
         } else {
-            cartItems.push(product);
+            addItem(product); // Add to cart (Zustand)
         }
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    };
+    const handleCartClick = () => {
+        setModalMessage("You have added an item to your cart!");
+        setShowModal(true);
     };
 
     return (
@@ -82,7 +81,6 @@ const OurMenu = ({ products, categories }) => {
                                                         <img
                                                             src={
                                                                 data.product_image
-                                                                // dummy
                                                             }
                                                             alt={data.name}
                                                             loading="lazy"
@@ -155,9 +153,10 @@ const OurMenu = ({ products, categories }) => {
                                                         ] && (
                                                             <div className="mx-2">
                                                                 <Link
-                                                                    href={
-                                                                        "/cart"
-                                                                    } // Navigate on click
+                                                                    // href="/cart"
+                                                                    onClick={
+                                                                        handleCartClick
+                                                                    }
                                                                     style={{
                                                                         display:
                                                                             "inline-block",
@@ -203,6 +202,12 @@ const OurMenu = ({ products, categories }) => {
                         </div>
                     </div>
                 </div>
+                {/* Modal */}
+                <Modal
+                    show={showModal}
+                    message={modalMessage}
+                    onClose={() => setShowModal(false)}
+                />
             </section>
             <Footer />
         </div>
