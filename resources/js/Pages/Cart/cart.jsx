@@ -7,13 +7,8 @@ import { Link } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
 import { router } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
-// import useCartStore from "@/stores/useCartStore"; // Import Zustand store
 
-function Cart({ cartAdded, products }) {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
+const Cart = ({ cartAdded, products }) => {
     const {
         cartItems,
         addItem,
@@ -21,8 +16,15 @@ function Cart({ cartAdded, products }) {
         updateItemQuantity,
         updateItemSpice,
     } = useCartStore(); // Zustand store methods
+
     const [loading, setLoading] = useState(false);
 
+    // Scroll to top on component mount
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    // Sync cart with backend on initial load
     useEffect(() => {
         if (!cartAdded && products?.length) {
             const productIds = products.map((product) => product.id);
@@ -30,32 +32,29 @@ function Cart({ cartAdded, products }) {
         }
     }, [products, cartAdded]);
 
-    // Handle quantity change using Zustand
+    // Handle quantity change
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
     };
 
-    // Handle item removal using Zustand
+    // Remove an item from the cart
     const handleRemoveItem = (id) => {
         removeItem(id);
     };
 
-    // Handle spice level change using Zustand
+    // Update spice level
     const handleSpiceChange = (itemId, newSpice) => {
         updateItemSpice(itemId, newSpice);
     };
 
     // Calculate subtotal
-    const calculateSubtotal = () => {
-        return cartItems
+    const calculateSubtotal = () =>
+        cartItems
             .reduce((acc, item) => acc + item.price * item.quantity, 0)
             .toFixed(2);
-    };
 
     // Calculate total
-    const calculateTotal = () => {
-        return parseFloat(calculateSubtotal()).toFixed(2);
-    };
+    const calculateTotal = () => parseFloat(calculateSubtotal()).toFixed(2);
 
     return (
         <div>
@@ -64,252 +63,191 @@ function Cart({ cartAdded, products }) {
                 <Loader />
             ) : (
                 <>
+                    {/* Header Section */}
                     <section className="our-menu">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-12 col-12 text-center">
-                                    <h1 className="mb-2">CART</h1>
-                                </div>
-                            </div>
+                        <div className="container-fluid text-center">
+                            <h1 className="mb-2">CART</h1>
                         </div>
                     </section>
 
+                    {/* Cart Table Section */}
                     <section className="cart-table container-fluid mt-5">
                         <div className="table-responsive">
-                            <table className="table table-responsive">
+                            <table className="table">
                                 <thead className="thead-dark">
                                     <tr>
                                         <th scope="col">PRODUCT</th>
-                                        <th scope="col">Variance</th>
-                                        <th scope="col" className="px-5">
-                                            PRICE
-                                        </th>
+                                        <th scope="col">VARIANCE</th>
+                                        <th scope="col">PRICE</th>
                                         <th scope="col">QUANTITY</th>
                                         <th scope="col">SUBTOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {cartItems.length
-                                        ? cartItems.map((item) => (
-                                              <tr key={item.id}>
-                                                  <td>
-                                                      <Link
-                                                          href="/product"
-                                                          className="center-item pad"
-                                                          style={{
-                                                              color: "#b7903c",
-                                                              textDecoration:
-                                                                  "none",
-                                                          }}
-                                                      >
-                                                          <div
-                                                              className="card-container-img mr-3 px-2"
-                                                              style={{
-                                                                  height: "80px",
-                                                                  width: "80px",
-                                                              }}
-                                                          >
-                                                              <img
-                                                                  src={
-                                                                      item.product_image
-                                                                  }
-                                                                  alt={
-                                                                      item.name
-                                                                  }
-                                                                  className="img-fluid"
-                                                                  loading="lazy"
-                                                                  style={{
-                                                                      height: "100%",
-                                                                      width: "100%",
-                                                                  }}
-                                                              />
-                                                          </div>
-                                                          <span
-                                                              style={{
-                                                                  color: "#b7903c",
-                                                              }}
-                                                          >
-                                                              {item.name}
-                                                          </span>
-                                                      </Link>
-                                                  </td>
-                                                  <td>
-                                                      {item.variance ? (
-                                                          <select
-                                                              value={item.spice}
-                                                              onChange={(e) =>
-                                                                  handleSpiceChange(
-                                                                      item.id,
-                                                                      e.target
-                                                                          .value
-                                                                  )
-                                                              }
-                                                              style={{
-                                                                  border: "1px solid #ccc",
-                                                                  background:
-                                                                      "#f8f9fa",
-                                                                  padding:
-                                                                      "5px 10px",
-                                                                  cursor: "pointer",
-                                                              }}
-                                                          >
-                                                              {item.variance.options.map(
-                                                                  (option) => (
-                                                                      <option
-                                                                          key={
-                                                                              option.id
-                                                                          }
-                                                                          value={
-                                                                              option.name
-                                                                          }
-                                                                      >
-                                                                          {
-                                                                              option.name
-                                                                          }
-                                                                      </option>
-                                                                  )
-                                                              )}
-                                                          </select>
-                                                      ) : (
-                                                          <span>
-                                                              No variance
-                                                              available
-                                                          </span>
-                                                      )}
-                                                  </td>
-                                                  <td>
-                                                      £{item.price.toFixed(2)}
-                                                  </td>
-                                                  <td>
-                                                      <div className="d-flex align-items-center">
-                                                          <button
-                                                              onClick={() =>
-                                                                  handleQuantityChange(
-                                                                      item.id,
-                                                                      -1
-                                                                  )
-                                                              }
-                                                              style={{
-                                                                  border: "1px solid #ccc",
-                                                                  background:
-                                                                      "#f8f9fa",
-                                                                  padding:
-                                                                      "5px 10px",
-                                                                  cursor: "pointer",
-                                                              }}
-                                                          >
-                                                              -
-                                                          </button>
-                                                          <span
-                                                              style={{
-                                                                  margin: "0 10px",
-                                                                  fontWeight:
-                                                                      "bold",
-                                                              }}
-                                                          >
-                                                              {item.quantity}
-                                                          </span>
-                                                          <button
-                                                              onClick={() =>
-                                                                  handleQuantityChange(
-                                                                      item.id,
-                                                                      1
-                                                                  )
-                                                              }
-                                                              style={{
-                                                                  border: "1px solid #ccc",
-                                                                  background:
-                                                                      "#f8f9fa",
-                                                                  padding:
-                                                                      "5px 10px",
-                                                                  cursor: "pointer",
-                                                              }}
-                                                          >
-                                                              +
-                                                          </button>
-                                                      </div>
-                                                  </td>
-                                                  <td>
-                                                      £
-                                                      {(
-                                                          item.quantity *
-                                                          item.price
-                                                      ).toFixed(2)}
-                                                      <span
-                                                          style={{
-                                                              marginLeft:
-                                                                  "10px",
-                                                              color: "red",
-                                                              cursor: "pointer",
-                                                              fontWeight:
-                                                                  "bold",
-                                                          }}
-                                                          onClick={() =>
-                                                              handleRemoveItem(
-                                                                  item.id
-                                                              )
-                                                          }
-                                                      >
-                                                          X
-                                                      </span>
-                                                  </td>
-                                              </tr>
-                                          ))
-                                        : "No Item Selected"}
+                                    {cartItems.length ? (
+                                        cartItems.map((item) => (
+                                            <tr key={item.id}>
+                                                <td>
+                                                    <Link
+                                                        href="/product"
+                                                        className="d-flex align-items-center"
+                                                        style={{
+                                                            color: "#b7903c",
+                                                            textDecoration:
+                                                                "none",
+                                                        }}
+                                                    >
+                                                        <img
+                                                            src={
+                                                                item.product_image
+                                                            }
+                                                            alt={item.name}
+                                                            style={{
+                                                                height: "80px",
+                                                                width: "80px",
+                                                                marginRight:
+                                                                    "10px",
+                                                                objectFit:
+                                                                    "cover",
+                                                            }}
+                                                        />
+                                                        <span>{item.name}</span>
+                                                    </Link>
+                                                </td>
+                                                <td>
+                                                    {item.variance ? (
+                                                        <select
+                                                            value={item.spice}
+                                                            onChange={(e) =>
+                                                                handleSpiceChange(
+                                                                    item.id,
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                            className="form-select"
+                                                        >
+                                                            {item.variance.options.map(
+                                                                (option) => (
+                                                                    <option
+                                                                        key={
+                                                                            option.id
+                                                                        }
+                                                                        value={
+                                                                            option.name
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            option.name
+                                                                        }
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
+                                                    ) : (
+                                                        "No variance available"
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    £{item.price.toFixed(2)}
+                                                </td>
+                                                <td>
+                                                    <div className="d-flex align-items-center">
+                                                        <button
+                                                            className="btn btn-light"
+                                                            onClick={() =>
+                                                                handleQuantityChange(
+                                                                    item.id,
+                                                                    -1
+                                                                )
+                                                            }
+                                                        >
+                                                            -
+                                                        </button>
+                                                        <span
+                                                            className="mx-3"
+                                                            style={{
+                                                                fontWeight:
+                                                                    "bold",
+                                                            }}
+                                                        >
+                                                            {item.quantity}
+                                                        </span>
+                                                        <button
+                                                            className="btn btn-light"
+                                                            onClick={() =>
+                                                                handleQuantityChange(
+                                                                    item.id,
+                                                                    1
+                                                                )
+                                                            }
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    £
+                                                    {(
+                                                        item.quantity *
+                                                        item.price
+                                                    ).toFixed(2)}
+                                                    <span
+                                                        className="text-danger mx-3"
+                                                        style={{
+                                                            cursor: "pointer",
+                                                            fontWeight: "bold",
+                                                        }}
+                                                        onClick={() =>
+                                                            handleRemoveItem(
+                                                                item.id
+                                                            )
+                                                        }
+                                                    >
+                                                        X
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td
+                                                colSpan="5"
+                                                className="text-center"
+                                            >
+                                                No Items Selected
+                                            </td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </table>
                         </div>
                     </section>
 
-                    <section className="p-4">
+                    {/* Cart Totals Section */}
+                    <section className="cart-totals p-4">
                         <h1 className="mt-3 mb-5">CART TOTALS</h1>
-
-                        <div className="row" style={{ alignItems: "center" }}>
+                        <div className="row align-items-center mb-3">
                             <h6 className="col-md-3">SUBTOTAL</h6>
                             <p className="col-md-9">£{calculateSubtotal()}</p>
                         </div>
                         <hr />
-
-                        <div className="row" style={{ alignItems: "center" }}>
+                        <div className="row align-items-center mb-3">
                             <h6 className="col-md-3">TOTAL</h6>
                             <p className="col-md-9">
                                 <b>£{calculateTotal()}</b>
                             </p>
                         </div>
                         <hr />
-
-                        <div className="col-md-4" style={{ margin: "0 auto" }}>
+                        <div className="d-flex justify-content-center gap-3">
                             <Link
-                                className="text-white"
                                 href="/checkout"
-                                style={{
-                                    background: COLOR_RED,
-                                    color: "white",
-                                    margin: "10px 0",
-                                    fontWeight: "600",
-                                    fontSize: "16px",
-                                    padding: "10px 20px",
-                                    cursor: "pointer",
-                                    borderRadius: "5px",
-                                    textDecoration: "none",
-                                }}
+                                className="btn btn-danger text-white"
+                                style={{ textDecoration: "none" }}
                             >
                                 PROCEED TO CHECKOUT
                             </Link>
-                        </div>
-                        <div className="col-md-4" style={{ margin: "0 auto" }}>
-                            <button
-                                style={{
-                                    background: COLOR_BLACK,
-                                    color: "white",
-                                    margin: "20px 0",
-                                    fontWeight: "600",
-                                    fontSize: "16px",
-                                    padding: "10px 20px",
-                                    borderRadius: "5px",
-                                    cursor: "pointer",
-                                }}
-                            >
+                            <button className="btn btn-dark">
                                 BUY WITH G-PAY
                             </button>
                         </div>
@@ -319,6 +257,6 @@ function Cart({ cartAdded, products }) {
             <Footer />
         </div>
     );
-}
+};
 
 export default Cart;

@@ -8,18 +8,24 @@ import { Link } from "@inertiajs/react";
 import Modal from "@/Components/Modal";
 
 const OurMenu = ({ products, categories }) => {
-    const { cartItems, addItem, removeItem } = useCartStore(); // Zustand store methods
-    const [selectedItems, setSelectedItems] = useState({}); // Local UI state
+    const { cartItems, addItem, removeItem } = useCartStore();
+    const [selectedItems, setSelectedItems] = useState({});
     const [showModal, setShowModal] = useState(false);
-    const [modalMessage, setModalMessage] = useState("");
-    // Sync Zustand state with local selected items
+
     useEffect(() => {
+        const savedSelections =
+            JSON.parse(localStorage.getItem("selectedItems")) || {};
         const initialSelection = {};
         cartItems.forEach((item) => {
             initialSelection[item.id] = true;
         });
-        setSelectedItems(initialSelection);
+
+        setSelectedItems({ ...savedSelections, ...initialSelection });
     }, [cartItems]);
+
+    useEffect(() => {
+        localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+    }, [selectedItems]);
 
     const toggleItemSelection = (id, product) => {
         const isSelected = selectedItems[id];
@@ -27,13 +33,13 @@ const OurMenu = ({ products, categories }) => {
         setSelectedItems(updatedSelection);
 
         if (isSelected) {
-            removeItem(id); // Remove from cart (Zustand)
+            removeItem(id);
         } else {
-            addItem(product); // Add to cart (Zustand)
+            addItem(product);
         }
     };
+
     const handleCartClick = () => {
-        setModalMessage("You have added an item to your cart!");
         setShowModal(true);
     };
 
@@ -112,48 +118,74 @@ const OurMenu = ({ products, categories }) => {
                                                             margin: "0 auto",
                                                         }}
                                                     >
-                                                        <button
-                                                            onClick={() =>
-                                                                toggleItemSelection(
-                                                                    data.id,
-                                                                    data
-                                                                )
-                                                            }
-                                                            style={{
-                                                                background:
-                                                                    selectedItems[
-                                                                        data.id
-                                                                    ]
-                                                                        ? "#e74c3c"
-                                                                        : "#56ccf2",
-                                                                color: "white",
-                                                                margin: "20px 0",
-                                                                fontWeight:
-                                                                    "600",
-                                                                fontSize:
-                                                                    "14px",
-                                                                lineHeight:
-                                                                    "14px",
-                                                                border: "none",
-                                                                padding:
-                                                                    "10px 15px",
-                                                                cursor: "pointer",
-                                                                borderRadius:
-                                                                    "5px",
-                                                            }}
-                                                        >
-                                                            {selectedItems[
-                                                                data.id
-                                                            ]
-                                                                ? "REMOVE ITEM"
-                                                                : "SELECT ITEM"}
-                                                        </button>
+                                                        {selectedItems[
+                                                            data.id
+                                                        ] ? (
+                                                            // Show REMOVE ITEM button if the item is selected
+                                                            <button
+                                                                onClick={() =>
+                                                                    toggleItemSelection(
+                                                                        data.id,
+                                                                        data
+                                                                    )
+                                                                }
+                                                                style={{
+                                                                    background:
+                                                                        "#e74c3c",
+                                                                    color: "white",
+                                                                    margin: "20px 0",
+                                                                    fontWeight:
+                                                                        "600",
+                                                                    fontSize:
+                                                                        "14px",
+                                                                    lineHeight:
+                                                                        "14px",
+                                                                    border: "none",
+                                                                    padding:
+                                                                        "10px 15px",
+                                                                    cursor: "pointer",
+                                                                    borderRadius:
+                                                                        "5px",
+                                                                }}
+                                                            >
+                                                                REMOVE ITEM
+                                                            </button>
+                                                        ) : (
+                                                            // Show SELECT ITEM button if the item is not selected
+                                                            <button
+                                                                onClick={() =>
+                                                                    toggleItemSelection(
+                                                                        data.id,
+                                                                        data
+                                                                    )
+                                                                }
+                                                                style={{
+                                                                    background:
+                                                                        "#56ccf2",
+                                                                    color: "white",
+                                                                    margin: "20px 0",
+                                                                    fontWeight:
+                                                                        "600",
+                                                                    fontSize:
+                                                                        "14px",
+                                                                    lineHeight:
+                                                                        "14px",
+                                                                    border: "none",
+                                                                    padding:
+                                                                        "10px 15px",
+                                                                    cursor: "pointer",
+                                                                    borderRadius:
+                                                                        "5px",
+                                                                }}
+                                                            >
+                                                                SELECT ITEM
+                                                            </button>
+                                                        )}
                                                         {selectedItems[
                                                             data.id
                                                         ] && (
                                                             <div className="mx-2">
                                                                 <Link
-                                                                    // href="/cart"
                                                                     onClick={
                                                                         handleCartClick
                                                                     }
@@ -203,11 +235,7 @@ const OurMenu = ({ products, categories }) => {
                     </div>
                 </div>
                 {/* Modal */}
-                <Modal
-                    show={showModal}
-                    message={modalMessage}
-                    onClose={() => setShowModal(false)}
-                />
+                <Modal show={showModal} onClose={() => setShowModal(false)} />
             </section>
             <Footer />
         </div>
