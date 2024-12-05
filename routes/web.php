@@ -21,9 +21,15 @@ Route::get('/dashboard', function () {
 
 Route::post('/cart', [CartController::class, 'create']);
 Route::get('/cart', [CartController::class, 'index']);
+Route::get(
+    '/checkout',
+    [CartController::class, 'checkOut']
+);
+
 
 
 Route::post('/submitContact', [ContactController::class, 'create']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,9 +51,7 @@ Route::get('/signup', function () {
 Route::get('/login', function () {
     return Inertia::render('Auth/login');
 });
-Route::get('/checkout', function () {
-    return Inertia::render('Checkout/checkout');
-});
+
 Route::get('/cart', function () {
     return Inertia::render('Cart/cart');
 });
