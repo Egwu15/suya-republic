@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use \Inertia\Inertia;
@@ -34,6 +36,7 @@ class CartController extends Controller
 
     public function processPayment(Request $request)
     {
+        dd($request);
         $user = Auth::user(); // Retrieve the logged-in user
         $nonce = $request->input('nonce');
         $totalCents = $request->input('totalCents');
@@ -42,36 +45,40 @@ class CartController extends Controller
         $environment = env('SQUARE_ENVIRONMENT') === 'production' ? 'https://connect.squareup.com' : 'https://connect.squareupsandbox.com';
 
         $url = $environment . '/v2/payments';
-
+        $orderId = uniqid('su-');
         // Prepare the payment data
         $body = [
             'source_id' => $nonce,
-            'idempotency_key' => uniqid(), // Ensure uniqueness for the payment request
+            'idempotency_key' => $orderId, // Ensure uniqueness for the payment request
             'amount_money' => [
                 'amount' => $totalCents, // Amount in cents
-                'currency' => 'USD', // Adjust currency if needed
+                'currency' => 'EUR', // Adjust currency if needed
             ],
         ];
 
         // Make the HTTP request to Square's API
         $response = Http::withToken($accessToken)->post($url, $body);
-
+        $isAuthenticated = $user == null ? true : false;
         if ($response->successful()) {
             // Save the order details
-            $orderId = uniqid();
+
 
             // Save the order in the database
-            $order = \DB::table('orders')->insertGetId([
-                'order_id' => $orderId,
-                'user_id' => $user->id,
-                'total_price' => $totalCents / 100, // Convert cents to dollars
-                'created_at' => now(),
-                'updated_at' => now(),
+            $order = Order::insertGetId([
+                'external_order_id' => $orderId,
+                'user_id' =>  $isAuthenticated ?  $user->id : null,
+                'status' => 'pending',
+                'email' => 'none@none.com',
+                'name' => 'user name',
+                'is_guest' => true,
+                'note' => 'add notes',
+                'total' => $totalCents * 100,
             ]);
 
             // Save the ordered products
             foreach ($products as $product) {
-                \DB::table('order_products')->insert([
+
+                OrderItem::insert([
                     'order_id' => $orderId,
                     'product_id' => $product['id'],
                     'name' => $product['name'],
