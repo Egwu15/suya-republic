@@ -4,13 +4,11 @@ import Footer from "../../components/Footer/index";
 import "./checkout.css";
 import InputField from "@/Components/InputField";
 import { useForm } from "@inertiajs/react";
+import useCartStore from "@/store/Store";
 
 const Checkout = ({ squareAppId, squareLocationId }) => {
     const { post } = useForm();
-    useEffect(() => {
-        // Ensure the page scrolls to the top when loaded
-        window.scrollTo(0, 0);
-    }, []);
+
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(4000);
@@ -21,6 +19,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 squareAppId,
                 squareLocationId
             );
+            console.log("init-checkout");
 
             const card = await payments.card();
             await card.attach("#card-container");
@@ -28,7 +27,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         };
 
         initializePayment();
-    }, [squareAppId, squareLocationId]);
+    }, []);
 
     const [productQuantity, setProductQuantity] = useState("");
 
@@ -39,7 +38,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             if (errors) {
                 console.error(errors);
-                alert("Payment failed. Please try again.");
+                alert("Payment failed. Client Side.");
                 setLoading(false);
                 return;
             }
@@ -50,21 +49,15 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             // Send the nonce to the server
             post("/process-payment", {
                 nonce: token,
-                totalCents: totalCents,
+                totalCents: totalPrice / 100,
             });
         } catch (error) {
             console.error(error);
-            alert("An unexpected error occurred.");
+            alert("Payment failed. ServerSide Side");
         } finally {
             setLoading(false);
         }
     };
-
-    const quantityOptions = [
-        { value: "1", name: "1" },
-        { value: "2", name: "2" },
-        { value: "3", name: "3" },
-    ];
 
     return (
         <div>
@@ -296,11 +289,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 </button>
             </div>
 
-            {/* <section className="container text-center my-4">
-                    <Link href="/" className="btn btn-danger btn-lg text-white">
-                        PLACE ORDER
-                    </Link>
-                </section> */}
             <Footer />
         </div>
     );

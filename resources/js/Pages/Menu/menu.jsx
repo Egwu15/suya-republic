@@ -9,30 +9,11 @@ import Modal from "@/Components/Modal";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
-    // const [selectedItems, setSelectedItems] = useState({});
+
     const [showModal, setShowModal] = useState(false);
 
-    // useEffect(() => {
-    //     const savedSelections =
-    //         JSON.parse(localStorage.getItem("selectedItems")) || {};
-    //     const initialSelection = {};
-    //     cartItems.forEach((item) => {
-    //         initialSelection[item.id] = true;
-    //     });
-
-    //     setSelectedItems({ ...savedSelections, ...initialSelection });
-    // }, [cartItems]);
-
-    // useEffect(() => {
-    //     localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
-    // }, [selectedItems]);
-
     const toggleItemSelection = (id, product) => {
-        console.log("here", id);
-
         const isSelected = cartItems.some((item) => item.id === id);
-        // const updatedSelection = { ...selectedItems, [id]: !isSelected };
-        // setSelectedItems(updatedSelection);
 
         if (isSelected) {
             removeItem(id);
