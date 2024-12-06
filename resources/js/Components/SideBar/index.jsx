@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-
 import "./index.css";
-import { data } from "autoprefixer";
 
 const SideBar = ({ categories }) => {
     return (
@@ -10,11 +8,7 @@ const SideBar = ({ categories }) => {
             <ul className="sidebar-list">
                 <div>
                     <li>
-                        <Link
-                            href={`/menu`}
-                            exact={true}
-                            activeClassName="active"
-                        >
+                        <Link href={`/menu`}>
                             <div className="profile-sidebar">All</div>
                         </Link>
                     </li>
@@ -22,7 +16,9 @@ const SideBar = ({ categories }) => {
                         <li key={data.id}>
                             <Link
                                 href={`/menu?selectedCategory=${data.id}`}
-                                activeClassName="active"
+                                // className={({ isActive }) =>
+                                //     isActive ? "active" : ""
+                                // }
                             >
                                 <div className="profile-sidebar">
                                     {data.name}

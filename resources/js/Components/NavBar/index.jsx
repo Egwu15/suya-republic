@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
-import "./index.css";
 import CartIcon from "@/Pages/Cart/CartIcon";
+import useCartStore from "@/store/Store";
+import "./index.css";
 
-export const Navbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling the menu
+const Navbar = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState(null);
-    const [cartItemCount, setCartItemCount] = useState("");
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen); // Toggle menu state
-    };
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const logOut = () => {
         navigate.push("/");
@@ -20,90 +18,87 @@ export const Navbar = () => {
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("cartItems")) || [];
-        setCartItemCount(items.length);
-    }, [cartItemCount]);
+        setUser(items.length);
+    }, []);
 
     return (
         <div className="navbar-section">
             <div className="container-fluid px-0">
                 <nav className="navb">
+                    {/* Logo */}
                     <Link className="navbar-brand d-flex mr-auto" href="/">
                         <img src={logo} alt="Logo" className="home-logo" />
                     </Link>
 
                     {/* Hamburger menu toggle button */}
                     <button className="navbar-togg" onClick={toggleMenu}>
-                        <i class="bi bi-list"></i>
+                        <i className="bi bi-list"></i>
                     </button>
 
-                    {/* Menu */}
+                    {/* Navigation Links */}
                     <div
                         className={`menu-links ${isMenuOpen ? "show" : "hide"}`}
                     >
-                        {user === null ? (
-                            <ul className="ml-auto ">
-                                <li className="notify">
-                                    <Link
-                                        href="/"
-                                        className="nav-test text-dark font-bold"
-                                    >
-                                        HOME
-                                    </Link>
-                                </li>
-                                <li className="notify">
-                                    <Link
-                                        href="/menu"
-                                        className="nav-test text-dark font-bold"
-                                    >
-                                        OUR MENU
-                                    </Link>
-                                </li>
-                                <li className="notify">
-                                    <Link
-                                        href="/about"
-                                        className="nav-test text-dark font-bold"
-                                    >
-                                        OUR BRAND
-                                    </Link>
-                                </li>
-                                <li className="notify">
-                                    <Link
-                                        href="/contact"
-                                        className="nav-test text-dark font-bold"
-                                    >
-                                        TALK TO US
-                                    </Link>
-                                </li>
-                                <li className="notify">
-                                    <Link
-                                        href="/cart"
-                                        className="nav-test text-dark font-bold"
-                                    >
-                                        <CartIcon
-                                            cartItemCount={cartItemCount}
-                                        />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="/order-online"
-                                        className="blue-btn-nav nav-test text-white"
-                                    >
-                                        ORDER ONLINE
-                                    </Link>
-                                    <Link
-                                        href="/signup"
-                                        className="black-btn-nav mx-1 text-white"
-                                    >
-                                        Sign In / Sign Up
-                                    </Link>
-                                </li>
-                            </ul>
-                        ) : (
-                            <ul className="ml-auto justify-content-end align-items-center">
-                                {/* User menu logic */}
-                            </ul>
-                        )}
+                        {/* {user === null ? ( */}
+                        <ul className="ml-auto">
+                            <li className="notify">
+                                <Link
+                                    href="/"
+                                    className="nav-test text-dark font-bold"
+                                >
+                                    HOME
+                                </Link>
+                            </li>
+                            <li className="notify">
+                                <Link
+                                    href="/menu"
+                                    className="nav-test text-dark font-bold"
+                                >
+                                    OUR MENU
+                                </Link>
+                            </li>
+                            <li className="notify">
+                                <Link
+                                    href="/about"
+                                    className="nav-test text-dark font-bold"
+                                >
+                                    OUR BRAND
+                                </Link>
+                            </li>
+                            <li className="notify">
+                                <Link
+                                    href="/contact"
+                                    className="nav-test text-dark font-bold"
+                                >
+                                    TALK TO US
+                                </Link>
+                            </li>
+                            <li className="notify">
+                                <Link
+                                    href="/cart"
+                                    className="nav-test text-dark font-bold"
+                                >
+                                    <CartIcon />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/order-online"
+                                    className="blue-btn-nav nav-test text-white"
+                                >
+                                    ORDER ONLINE
+                                </Link>
+                                <Link
+                                    href="/signup"
+                                    className="black-btn-nav mx-1 text-white"
+                                >
+                                    Sign In / Sign Up
+                                </Link>
+                            </li>
+                        </ul>
+                        {/* ) : (
+                            <ul className="ml-auto justify-content-end align-items-center"></ul>
+                        )} */}
                     </div>
                 </nav>
             </div>

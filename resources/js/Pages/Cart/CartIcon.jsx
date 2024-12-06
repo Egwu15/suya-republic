@@ -1,17 +1,16 @@
-import { Link } from "@inertiajs/react";
+import useCartStore from "@/store/Store";
 
-const CartIcon = ({ cartItemCount }) => {
+const CartIcon = () => {
+    const cartItemCount = useCartStore((state) =>
+        state.cartItems.reduce((acc, item) => acc + item.quantity, 0)
+    );
+
     return (
         <div style={{ position: "relative" }}>
             <i
                 className="bi bi-cart-plus text-danger"
-                style={{
-                    fontSize: "28px",
-                    marginRight: "4px",
-                }}
+                style={{ fontSize: "24px" }}
             ></i>
-
-            {/* Display the number of items in the cart */}
             {cartItemCount > 0 && (
                 <span
                     style={{
@@ -26,7 +25,6 @@ const CartIcon = ({ cartItemCount }) => {
                         backgroundColor: "red",
                         color: "white",
                         borderRadius: "50%",
-                        padding: "0", // Remove extra padding for precise centering
                         fontSize: "12px",
                     }}
                 >
