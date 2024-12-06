@@ -9,28 +9,30 @@ import Modal from "@/Components/Modal";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
-    const [selectedItems, setSelectedItems] = useState({});
+    // const [selectedItems, setSelectedItems] = useState({});
     const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        const savedSelections =
-            JSON.parse(localStorage.getItem("selectedItems")) || {};
-        const initialSelection = {};
-        cartItems.forEach((item) => {
-            initialSelection[item.id] = true;
-        });
+    // useEffect(() => {
+    //     const savedSelections =
+    //         JSON.parse(localStorage.getItem("selectedItems")) || {};
+    //     const initialSelection = {};
+    //     cartItems.forEach((item) => {
+    //         initialSelection[item.id] = true;
+    //     });
 
-        setSelectedItems({ ...savedSelections, ...initialSelection });
-    }, [cartItems]);
+    //     setSelectedItems({ ...savedSelections, ...initialSelection });
+    // }, [cartItems]);
 
-    useEffect(() => {
-        localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
-    }, [selectedItems]);
+    // useEffect(() => {
+    //     localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+    // }, [selectedItems]);
 
     const toggleItemSelection = (id, product) => {
-        const isSelected = selectedItems[id];
-        const updatedSelection = { ...selectedItems, [id]: !isSelected };
-        setSelectedItems(updatedSelection);
+        console.log("here", id);
+
+        const isSelected = cartItems.some((item) => item.id === id);
+        // const updatedSelection = { ...selectedItems, [id]: !isSelected };
+        // setSelectedItems(updatedSelection);
 
         if (isSelected) {
             removeItem(id);
@@ -118,9 +120,11 @@ const OurMenu = ({ products, categories }) => {
                                                             margin: "0 auto",
                                                         }}
                                                     >
-                                                        {selectedItems[
-                                                            data.id
-                                                        ] ? (
+                                                        {cartItems.some(
+                                                            (item) =>
+                                                                item.id ===
+                                                                data.id
+                                                        ) ? (
                                                             // Show REMOVE ITEM button if the item is selected
                                                             <button
                                                                 onClick={() =>
@@ -181,9 +185,11 @@ const OurMenu = ({ products, categories }) => {
                                                                 SELECT ITEM
                                                             </button>
                                                         )}
-                                                        {selectedItems[
-                                                            data.id
-                                                        ] && (
+                                                        {cartItems.some(
+                                                            (item) =>
+                                                                item.id ===
+                                                                data.id
+                                                        ) && (
                                                             <div className="mx-2">
                                                                 <Link
                                                                     onClick={
