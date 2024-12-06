@@ -192,9 +192,10 @@ const OurMenu = ({ products, categories }) => {
                                                         ) && (
                                                             <div className="mx-2">
                                                                 <Link
-                                                                    onClick={
-                                                                        handleCartClick
-                                                                    }
+                                                                    href="/cart"
+                                                                    // onClick={
+                                                                    //     handleCartClick
+                                                                    // }
                                                                     style={{
                                                                         display:
                                                                             "inline-block",

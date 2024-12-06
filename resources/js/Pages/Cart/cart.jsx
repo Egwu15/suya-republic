@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./cart.css";
-import { COLOR_BLACK, COLOR_RED } from "@/utils/constant";
 import { Link } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
-import { router } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
 
 const Cart = ({ cartAdded, products }) => {
@@ -15,16 +13,15 @@ const Cart = ({ cartAdded, products }) => {
         removeItem,
         updateItemQuantity,
         updateItemSpice,
+        calculateTotal,
     } = useCartStore(); // Zustand store methods
 
     const [loading, setLoading] = useState(false);
 
-    // Scroll to top on component mount
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Sync cart with backend on initial load
     useEffect(() => {
         if (!cartAdded && products?.length) {
             const productIds = products.map((product) => product.id);
@@ -32,29 +29,17 @@ const Cart = ({ cartAdded, products }) => {
         }
     }, [products, cartAdded]);
 
-    // Handle quantity change
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
     };
 
-    // Remove an item from the cart
     const handleRemoveItem = (id) => {
         removeItem(id);
     };
 
-    // Update spice level
     const handleSpiceChange = (itemId, newSpice) => {
         updateItemSpice(itemId, newSpice);
     };
-
-    // Calculate subtotal
-    const calculateSubtotal = () =>
-        cartItems
-            .reduce((acc, item) => acc + item.price * item.quantity, 0)
-            .toFixed(2);
-
-    // Calculate total
-    const calculateTotal = () => parseFloat(calculateSubtotal()).toFixed(2);
 
     return (
         <div>
@@ -63,14 +48,12 @@ const Cart = ({ cartAdded, products }) => {
                 <Loader />
             ) : (
                 <>
-                    {/* Header Section */}
                     <section className="our-menu">
                         <div className="container-fluid text-center">
                             <h1 className="mb-2">CART</h1>
                         </div>
                     </section>
 
-                    {/* Cart Table Section */}
                     <section className="cart-table container-fluid mt-5">
                         <div className="table-responsive">
                             <table className="table">
@@ -224,14 +207,8 @@ const Cart = ({ cartAdded, products }) => {
                         </div>
                     </section>
 
-                    {/* Cart Totals Section */}
                     <section className="cart-totals p-4">
                         <h1 className="mt-3 mb-5">CART TOTALS</h1>
-                        <div className="row align-items-center mb-3">
-                            <h6 className="col-md-3">SUBTOTAL</h6>
-                            <p className="col-md-9">£{calculateSubtotal()}</p>
-                        </div>
-                        <hr />
                         <div className="row align-items-center mb-3">
                             <h6 className="col-md-3">TOTAL</h6>
                             <p className="col-md-9">
