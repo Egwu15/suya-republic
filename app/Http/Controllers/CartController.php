@@ -36,9 +36,10 @@ class CartController extends Controller
 
     public function processPayment(Request $request)
     {
-        dd($request);
+
         $user = Auth::user(); // Retrieve the logged-in user
         $nonce = $request->input('nonce');
+
         $totalCents = $request->input('totalCents');
         $products = $request->input('products'); // Retrieve the products array
         $accessToken = env('SQUARE_ACCESS_TOKEN');
@@ -52,13 +53,18 @@ class CartController extends Controller
             'idempotency_key' => $orderId, // Ensure uniqueness for the payment request
             'amount_money' => [
                 'amount' => $totalCents, // Amount in cents
-                'currency' => 'EUR', // Adjust currency if needed
+                'currency' => 'GBP', // Adjust currency if needed
             ],
+            'reference_id' => $orderId
+            // ,'buyer_email_address'=>
         ];
 
         // Make the HTTP request to Square's API
         $response = Http::withToken($accessToken)->post($url, $body);
-        $isAuthenticated = $user == null ? true : false;
+
+        $isAuthenticated = $user == null ? false : true;
+        $createdAt = now();
+        $updatedAt = $createdAt;
         if ($response->successful()) {
             // Save the order details
 
@@ -72,24 +78,26 @@ class CartController extends Controller
                 'name' => 'user name',
                 'is_guest' => true,
                 'note' => 'add notes',
-                'total' => $totalCents * 100,
+                'total' => $totalCents / 100,
+                'created_at' => $createdAt,
+                'updated_at' => $updatedAt,
             ]);
 
             // Save the ordered products
             foreach ($products as $product) {
 
                 OrderItem::insert([
-                    'order_id' => $orderId,
+                    'order_id' => $order,
                     'product_id' => $product['id'],
-                    'name' => $product['name'],
-                    'price_cents' => $product['priceCents'],
+                    'variance_option' => '',
+                    'price' => $product['price'] / 100,
                     'quantity' => $product['quantity'],
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'created_at' => $createdAt,
+                    'updated_at' => $updatedAt,
                 ]);
-            }
 
-            return redirect()->route('products.index')->with('success', 'Payment successful!');
+                return to_route('home');
+            }
         } else {
             // Handle the error
             $errorMessage = $response->json('errors') ?? 'An unexpected error occurred.';

@@ -3,15 +3,16 @@ import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./checkout.css";
 import InputField from "@/Components/InputField";
-import { useForm } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
+import { Link } from '@inertiajs/react';
 
 const Checkout = ({ squareAppId, squareLocationId }) => {
-    const { post } = useForm();
-
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(4000);
+
+    const { cartItems } = useCartStore();
 
     useEffect(() => {
         const initializePayment = async () => {
@@ -33,6 +34,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
     const handlePayment = async () => {
         setLoading(true);
+
         try {
             const { token, errors } = await card.tokenize();
 
@@ -43,14 +45,18 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 return;
             }
 
-            console.log("token", token);
-            console.log("token", totalCents);
+            console.log("token", cartItems);
 
-            // Send the nonce to the server
-            post("/process-payment", {
+            router.post("/process-payment", {
                 nonce: token,
-                totalCents: totalPrice / 100,
+                totalCents: totalPrice * 100,
+                products: cartItems
             });
+
+            //Add success toast
+            //clear cart
+            
+
         } catch (error) {
             console.error(error);
             alert("Payment failed. ServerSide Side");
