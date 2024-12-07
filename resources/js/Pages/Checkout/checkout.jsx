@@ -11,7 +11,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
 
-
     const { user, setUser, cartItems, clearCart, calculateTotal } =
         useCartStore();
     useEffect(() => {
@@ -81,6 +80,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             // Clear the cart
             clearCart();
+            router.visit("/"); // Navigate to login page
         } catch (error) {
             console.error(error);
             toast.error("Payment failed. ServerSide");
