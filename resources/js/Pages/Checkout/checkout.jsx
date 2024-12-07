@@ -11,7 +11,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
 
-
     const { user, setUser, cartItems, clearCart, calculateTotal } =
         useCartStore();
     useEffect(() => {
@@ -70,17 +69,29 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             console.log("token", cartItems);
 
-            router.post("/process-payment", {
-                nonce: token,
-                totalCents: calculateTotal() * 100,
-                products: cartItems,
-            });
+            router.post(
+                "/process-payment",
+                {
+                    nonce: token,
+                    totalCents: calculateTotal() * 100,
+                    products: cartItems,
+                },
+                {
+                    onSuccess: () => {
+                        toast.success("Order is placed successfully!");
+                        clearCart();
+                    },
+                    onError: (err) => {
+                        console.log();
 
-            // Show success notification
-            toast.success("Order is placed successfully!");
-
-            // Clear the cart
-            clearCart();
+                        toast.error(
+                            err.payment?.detail ??
+                                "An unexpected error occurred"
+                        );
+                    },
+                }
+            );
+    
         } catch (error) {
             console.error(error);
             toast.error("Payment failed. ServerSide");
