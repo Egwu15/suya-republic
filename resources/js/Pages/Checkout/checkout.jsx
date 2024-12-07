@@ -80,6 +80,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     onSuccess: () => {
                         toast.success("Order is placed successfully!");
                         clearCart();
+                        router.visit("/"); // Navigate to home page
                     },
                     onError: (err) => {
                         console.log();
