@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import useStore from "@/store/Store"; // Import the Zustand store
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
     const [isGuest, setIsGuest] = useState(false); // Toggle between forms
     const [guestData, setGuestData] = useState({ email: "", name: "" }); // Guest form data
@@ -12,13 +13,15 @@ const Login = () => {
         e.preventDefault();
 
         if (!guestData.name || !guestData.email) {
-            alert("Please fill out all fields.");
+            toast.error("Please fill out all fields.");
+            // alert("Please fill out all fields.");
             return;
         }
 
         setUser(guestData); // Save guest user to Zustand store
         saveUserToLocalStorage(); // Persist user to localStorage
-        alert("Guest login successful!");
+        toast.success("Guest login successful!");
+        // alert("Guest login successful!");
         window.location.href = "/menu"; // Navigate to the menu page
     };
 
@@ -37,6 +40,7 @@ const Login = () => {
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 custom-bg">
+            <ToastContainer />
             <div
                 className="card p-4 shadow"
                 style={{ maxWidth: "400px", width: "100%" }}

@@ -3,12 +3,6 @@ import { create } from "zustand";
 const useCartStore = create((set, get) => ({
     cartItems: [],
 
-    // Cart functionality
-    // addItem: (product) => {
-    //     set((state) => ({
-    //         cartItems: [...state.cartItems, { ...product, quantity: 1 }],
-    //     }));
-    // },
     addItem: (product) => {
         set((state) => ({
             cartItems: [
@@ -51,7 +45,10 @@ const useCartStore = create((set, get) => ({
             .reduce((acc, item) => acc + item.price * item.quantity, 0)
             .toFixed(2);
     },
-
+    // Clear the cart
+    clearCart: () => {
+        set({ cartItems: [] });
+    },
     // User functionality
     user: null, // Holds user information (e.g., guest or logged-in user)
     setUser: (user) => set({ user }), // Set user information

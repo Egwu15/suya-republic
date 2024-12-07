@@ -5,32 +5,52 @@ import "./checkout.css";
 import InputField from "@/Components/InputField";
 import { router } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
-import { Link } from "@inertiajs/react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(4000);
 
-    const { cartItems } = useCartStore();
+    const { user, setUser, cartItems, clearCart } = useCartStore();
+    useEffect(() => {
+        const guestUser = JSON.parse(localStorage.getItem("guestUser"));
+        if (guestUser) {
+            setUser(guestUser);
+        }
+    }, [setUser]);
 
     useEffect(() => {
-        //check for postal code
-        //check if loggedin
-        const initializePayment = async () => {
+        const checkUserAndInitializePayment = async () => {
+            // Check if the user is logged in
+            if (!user) {
+                console.log(
+                    "User is not logged in. Redirecting to login page..."
+                );
+                toast.error("You need to log in to proceed with checkout.");
+                // router.visit("/login"); // Navigate to login page
+                // window.location.href = "/login"; // Navigate to the menu page
+
+                return;
+            }
+
+            // Log the user's details
+            console.log("Logged in user details:", user);
+
+            // Initialize payment if the user is logged in
             const payments = window.Square.payments(
                 squareAppId,
                 squareLocationId
             );
-            console.log("init-checkout");
+            console.log("Initializing checkout...");
 
             const card = await payments.card();
             await card.attach("#card-container");
             setCard(card);
         };
 
-        initializePayment();
-    }, []);
+        checkUserAndInitializePayment();
+    }, [user, squareAppId, squareLocationId]);
 
     const [productQuantity, setProductQuantity] = useState("");
 
@@ -55,11 +75,14 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 products: cartItems,
             });
 
-            //Add success toast
-            //clear cart
+            // Show success notification
+            toast.success("Order is placed successfully!");
+
+            // Clear the cart
+            clearCart();
         } catch (error) {
             console.error(error);
-            alert("Payment failed. ServerSide Side");
+            toast.error("Payment failed. ServerSide");
         } finally {
             setLoading(false);
         }
@@ -75,6 +98,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     <h1 className="mb-2">CHECKOUT</h1>
                 </div>
             </section>
+            <ToastContainer />
 
             {/* Notice Section */}
             <section className="container mt-5">
