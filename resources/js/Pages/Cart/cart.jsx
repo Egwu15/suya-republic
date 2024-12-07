@@ -5,8 +5,8 @@ import "./cart.css";
 import { Link } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
 import useCartStore from "@/store/Store";
-import Modal from "@/Components/Modal";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Cart = ({ cartAdded, products }) => {
     const {
         cartItems,
@@ -82,7 +82,11 @@ const Cart = ({ cartAdded, products }) => {
             setShowModal(true); // Show modal for invalid postcode
             setErrorMessage(""); // Clear error message
         } else {
+            // toast.success("Delivery is available for your postcode!");
+
             alert("Delivery is available for your postcode!");
+            window.location.href = "/login";
+
             setErrorMessage(""); // Clear error message
         }
     };
@@ -106,12 +110,13 @@ const Cart = ({ cartAdded, products }) => {
                 <Loader />
             ) : (
                 <>
+                    {" "}
+                    <ToastContainer />
                     <section className="our-menu">
                         <div className="container-fluid text-center">
                             <h1 className="mb-2">CART</h1>
                         </div>
                     </section>
-
                     <section className="cart-table container-fluid mt-5">
                         <div className="table-responsive">
                             <table className="table">
@@ -285,7 +290,6 @@ const Cart = ({ cartAdded, products }) => {
                             </table>
                         </div>
                     </section>
-
                     <section className="cart-totals p-4">
                         <h1 className="mt-3 mb-5">CART TOTALS</h1>
                         <div className="row align-items-center mb-3">
@@ -321,6 +325,8 @@ const Cart = ({ cartAdded, products }) => {
                                     background: "rgba(0, 0, 0, 0.5)",
                                 }}
                             >
+                                {" "}
+                                <ToastContainer />
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import { Link } from "@inertiajs/react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const OrderOnline = () => {
     const [postcode, setPostcode] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -18,8 +19,10 @@ const OrderOnline = () => {
 
             setErrorMessage(""); // Clear error message
         } else {
+            // toast.success("Delivery is available for your postcode!");
             alert("Delivery is available for your postcode!");
-            window.location.href = "/menu";
+            window.location.href = "/login";
+            setShowModal(false); // Show modal for invalid postcode
 
             setErrorMessage(""); // Clear error message
         }
@@ -42,6 +45,7 @@ const OrderOnline = () => {
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+            <ToastContainer />
             <div
                 className="text-center p-4"
                 style={{ maxWidth: "350px", width: "100%" }}

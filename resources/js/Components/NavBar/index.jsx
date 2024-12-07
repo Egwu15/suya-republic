@@ -8,8 +8,6 @@ import "./index.css";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, setUser, clearUser } = useCartStore(); // Manage user state in the store
-    // const user = useCartStore((state) => state.user);
-    // const clearUser = useCartStore((state) => state.clearUser);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -17,13 +15,8 @@ const Navbar = () => {
         clearUser(); // Clear user details from the store
         localStorage.removeItem("guestUser"); // Clear localStorage if used
     };
-    // const handleLogout = () => {
-    //     clearUser(); // Clear the user from the store
-    //     localStorage.removeItem("guestUser"); // Clear from localStorage
-    //     alert("You have logged out.");
-    // };
+
     useEffect(() => {
-        // Check if a guest user exists in localStorage or the store
         const guestUser = JSON.parse(localStorage.getItem("guestUser"));
         if (guestUser) {
             setUser(guestUser);
