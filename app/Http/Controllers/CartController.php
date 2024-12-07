@@ -100,7 +100,7 @@ class CartController extends Controller
             $order = Order::find($orderId);
             $order->update(['payment_status' => 'Successful']);
 
-            return to_route('home');
+
         } else {
             // Handle the error
 
@@ -109,6 +109,7 @@ class CartController extends Controller
 
             // $errorMessage = $response->json('errors') ?? 'An unexpected error occurred.';
             $errorMessage = $response->json('errors') ?? 'Payment failed. Please try again.';
+
 
             return Redirect::back()->withErrors(['payment' => $errorMessage])->withInput();
         }

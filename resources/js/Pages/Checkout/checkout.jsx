@@ -69,18 +69,28 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             console.log("token", cartItems);
 
-            router.post("/process-payment", {
-                nonce: token,
-                totalCents: calculateTotal() * 100,
-                products: cartItems,
-            });
+            router.post(
+                "/process-payment",
+                {
+                    nonce: token,
+                    totalCents: calculateTotal() * 100,
+                    products: cartItems,
+                },
+                {
+                    onSuccess: () => {
+                        toast.success("Order is placed successfully!");
+                        clearCart();
+                    },
+                    onError: (err) => {
+                        console.log();
 
-            // Show success notification
-            toast.success("Order is placed successfully!");
-
-            // Clear the cart
-            clearCart();
-            router.visit("/"); // Navigate to login page
+                        toast.error(
+                            err.payment?.detail ??
+                                "An unexpected error occurred"
+                        );
+                    },
+                }
+            );
         } catch (error) {
             console.error(error);
             toast.error("Payment failed. ServerSide");
