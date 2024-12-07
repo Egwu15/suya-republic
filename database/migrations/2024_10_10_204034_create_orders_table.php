@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_guest');
             $table->string('email');
             $table->string('name');
+            $table->string('payment_status');
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled']);
             $table->decimal('total', 10, 2);
             $table->text('note')->nullable();
