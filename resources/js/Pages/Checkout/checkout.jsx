@@ -80,6 +80,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     onSuccess: () => {
                         toast.success("Order is placed successfully!");
                         clearCart();
+                        router.visit("/"); // Navigate to home page
                     },
                     onError: (err) => {
                         console.log();
@@ -91,7 +92,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     },
                 }
             );
-    
         } catch (error) {
             console.error(error);
             toast.error("Payment failed. ServerSide");
@@ -257,16 +257,41 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             </section>
 
             {/* Order Summary Section */}
+
             <section className="container mt-5 px-4">
                 <h3 className="mb-4 text-center">Your Order</h3>
-                <div className="row align-items-center border-bottom py-2">
-                    <div className="col-6">Chicken Suya - Spicy × 1</div>
-                    <div className="col-6 text-end">£9.00</div>
-                </div>
+
+                {/* Map cart items */}
+                {cartItems.map((item, index) => (
+                    <div
+                        key={index}
+                        className="row align-items-center border-bottom py-2"
+                    >
+                        <div className="col-6">
+                            {item.name} - {item.description} × {item.quantity}
+                        </div>
+                        <div className="col-6 text-end">
+                            £{(item.price / 100).toFixed(2)}{" "}
+                            {/* Adjusting price to 2 decimal places */}
+                        </div>
+                    </div>
+                ))}
+
+                {/* Subtotal Calculation */}
                 <div className="row align-items-center border-bottom py-2">
                     <div className="col-6">Subtotal</div>
-                    <div className="col-6 text-end">£9.00</div>
+                    <div className="col-6 text-end">
+                        £
+                        {(
+                            cartItems.reduce(
+                                (acc, item) => acc + item.price * item.quantity,
+                                0
+                            ) / 100
+                        ).toFixed(2)}
+                    </div>
                 </div>
+
+                {/* Shipping Options */}
                 <div className="row align-items-center border-bottom py-2">
                     <div className="col-12">
                         <p>Shipping</p>
@@ -278,45 +303,46 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     id="exampleCheck1"
                                     name="pickup"
                                     value="yes"
-                                    // onChange={() => handlePickup()}
                                 />
                                 <label
-                                    className="label-auth font-12 "
+                                    className="label-auth font-12"
                                     htmlFor="exampleCheck1"
                                 >
                                     Delivery and delivery fee only applicable to
                                     our Suya Spice product.
                                 </label>
                             </div>
-                            <div className="form-check ">
+                            <div className="form-check">
                                 <input
                                     type="radio"
                                     className="form-check-input"
                                     id="exampleCheck2"
                                     name="pickup"
                                     value="no"
-                                    // onChange={() => setIsPickup(false)}
                                 />
                                 <label
                                     className="label-auth whitespace-nowrap font-12 text-left"
                                     htmlFor="exampleCheck2"
                                 >
                                     All orders are to be collected in-store at
-                                    303 Chester road Manchester M15 4EY
+                                    303 Chester road Manchester M15 4EY.
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Total Calculation */}
                 <div className="row align-items-center py-2">
                     <div className="col-6">
                         <strong>Total</strong>
                     </div>
                     <div className="col-6 text-end">
-                        <strong>£9.00</strong>
+                        <strong>£{calculateTotal()}</strong>
                     </div>
                 </div>
             </section>
+
             <div className="p-3 bg-inf">
                 <h3 className="text-center">Card Payment</h3>
                 <hr />
@@ -324,7 +350,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             {/* Place Order Button */}
             <div className="p-5 bg-light-grey">
                 <h2>Checkout</h2>
-                <p>Total: ${calculateTotal()}</p>
+                <p>Total: £{calculateTotal()}</p>
                 <div id="card-container"></div>
                 <button
                     onClick={handlePayment}
