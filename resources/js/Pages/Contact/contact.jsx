@@ -6,6 +6,8 @@ import Loader from "@/Components/Loader/Loader";
 import InputField from "@/Components/InputField";
 import MapAndHotlines from "@/Components/GoogleMap/GoogleMap";
 import { useForm } from "@inertiajs/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Contact() {
     useEffect(() => {
@@ -27,9 +29,13 @@ function Contact() {
             data: data,
             onError: (error) => {
                 console.log(error);
+                toast.error("An error occurred. Please try again.");
             },
             onSuccess() {
                 reset();
+                toast.success(
+                    "Message sent successfully! We will get back to you soon."
+                );
             },
         });
     }
@@ -37,6 +43,7 @@ function Contact() {
     return (
         <div>
             <Navbar />
+            <ToastContainer /> {/* Toast container for notifications */}
             {loading ? (
                 <Loader />
             ) : (
@@ -116,7 +123,7 @@ function Contact() {
                                             </label>
                                             <InputField
                                                 type="text"
-                                                placeholder="subject of the message"
+                                                placeholder="Subject of the message"
                                                 required
                                                 value={data.subject}
                                                 onChangeMethod={(e) =>

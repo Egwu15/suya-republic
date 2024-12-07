@@ -5,7 +5,7 @@ import "./checkout.css";
 import InputField from "@/Components/InputField";
 import { router } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
-import { Link } from '@inertiajs/react';
+import { Link } from "@inertiajs/react";
 
 const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
@@ -15,6 +15,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const { cartItems } = useCartStore();
 
     useEffect(() => {
+        //check for postal code
+        //check if loggedin
         const initializePayment = async () => {
             const payments = window.Square.payments(
                 squareAppId,
@@ -50,13 +52,11 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             router.post("/process-payment", {
                 nonce: token,
                 totalCents: totalPrice * 100,
-                products: cartItems
+                products: cartItems,
             });
 
             //Add success toast
             //clear cart
-            
-
         } catch (error) {
             console.error(error);
             alert("Payment failed. ServerSide Side");
@@ -286,11 +286,15 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 <hr />
             </div>
             {/* Place Order Button */}
-            <div>
-                <h1>Checkout</h1>
+            <div className="bg-light- p-5">
+                <h2>Checkout</h2>
                 <p>Total: ${totalPrice.toFixed(2)}</p>
-                <div id="card-container"></div>
-                <button onClick={handlePayment} disabled={loading}>
+                <div id="card-container bg-light-grey"></div>
+                <button
+                    onClick={handlePayment}
+                    disabled={loading}
+                    className="btn btn-danger text-white px-3"
+                >
                     {loading ? "Processing..." : "Pay Now"}
                 </button>
             </div>
