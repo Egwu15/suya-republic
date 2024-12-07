@@ -10,9 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [totalPrice, setTotalPrice] = useState(4000);
 
-    const { user, setUser, cartItems, clearCart, calculateTotal } = useCartStore();
+
+    const { user, setUser, cartItems, clearCart, calculateTotal } =
+        useCartStore();
     useEffect(() => {
         const guestUser = JSON.parse(localStorage.getItem("guestUser"));
         if (guestUser) {
@@ -50,7 +51,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         };
 
         checkUserAndInitializePayment();
-    }, [user, squareAppId, squareLocationId]);
+    }, []);
 
     const [productQuantity, setProductQuantity] = useState("");
 
