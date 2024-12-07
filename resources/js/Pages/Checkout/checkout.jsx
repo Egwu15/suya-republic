@@ -29,7 +29,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     "User is not logged in. Redirecting to login page..."
                 );
                 toast.error("You need to log in to proceed with checkout.");
-                // router.visit("/login"); // Navigate to login page
+                router.visit("/login"); // Navigate to login page
                 // window.location.href = "/login"; // Navigate to the menu page
 
                 return;
