@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('HomePage/index');
-});
+})->name('home');
 Route::get('/menu', [ProductController::class, 'index'])->name('menu');
 Route::get('/cartItems', [ProductController::class, 'index'])->name('menu');
 
@@ -21,6 +21,7 @@ Route::get('/dashboard', function () {
 
 Route::post('/cart', [CartController::class, 'create']);
 Route::get('/cart', [CartController::class, 'index']);
+Route::post('/process-payment', [CartController::class, 'processPayment']);
 Route::get(
     '/checkout',
     [CartController::class, 'checkOut']
