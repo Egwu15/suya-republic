@@ -71,14 +71,17 @@ const Loginn = () => {
                         </a>
                     </div>
                     <button type="submit" className="btn btn-dark w-100">
-                        LOG IN
+                        LOG IN22
                     </button>
+                    <Link href="#" className="text-decoration-none">
+                        Proceed as Guess
+                    </Link>
                 </form>
                 <div className="text-center my-3">
                     <span>New to Nando’s? </span>
-                    <a href="#" className="text-decoration-none">
+                    <Link href="#" className="text-decoration-none">
                         Create an account
-                    </a>
+                    </Link>
                 </div>
                 <div className="text-center">
                     <p className="mb-2">Or log in with:</p>

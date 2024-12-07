@@ -5,12 +5,9 @@ import SideBar from "@/components/SideBar";
 import useCartStore from "@/store/Store";
 import "./menu.css";
 import { Link } from "@inertiajs/react";
-import Modal from "@/Components/Modal";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
-
-    const [showModal, setShowModal] = useState(false);
 
     const toggleItemSelection = (id, product) => {
         const isSelected = cartItems.some((item) => item.id === id);
@@ -20,10 +17,6 @@ const OurMenu = ({ products, categories }) => {
         } else {
             addItem(product);
         }
-    };
-
-    const handleCartClick = () => {
-        setShowModal(true);
     };
 
     return (
@@ -173,9 +166,10 @@ const OurMenu = ({ products, categories }) => {
                                                         ) && (
                                                             <div className="mx-2">
                                                                 <Link
-                                                                    onClick={
-                                                                        handleCartClick
-                                                                    }
+                                                                    href="/cart"
+                                                                    // onClick={
+                                                                    //     handleCartClick
+                                                                    // }
                                                                     style={{
                                                                         display:
                                                                             "inline-block",
@@ -221,8 +215,6 @@ const OurMenu = ({ products, categories }) => {
                         </div>
                     </div>
                 </div>
-                {/* Modal */}
-                <Modal show={showModal} onClose={() => setShowModal(false)} />
             </section>
             <Footer />
         </div>

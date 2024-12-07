@@ -10,8 +10,15 @@ import "./index.css";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer/index";
 import { Link } from "@inertiajs/react";
+import useCartStore from "@/store/Store";
 
 export const HomeComponent = () => {
+    // const { loadUserFromLocalStorage } = useCartStore();
+
+    // useEffect(() => {
+    //     loadUserFromLocalStorage();
+    // }, []);
+
     const settings = {
         dots: false,
         infinite: true,
