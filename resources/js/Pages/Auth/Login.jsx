@@ -6,20 +6,34 @@ import useStore from "@/store/Store"; // Import the Zustand store
 const Login = () => {
     const [isGuest, setIsGuest] = useState(false); // Toggle between forms
     const [guestData, setGuestData] = useState({ email: "", name: "" }); // Guest form data
-    const { addGuest } = useStore(); // Zustand store action
+    const { addGuest, saveUserToLocalStorage, setUser } = useStore(); // Zustand store action
     const { visit } = usePage(); // Inertia's navigation method
-
     const handleGuestSubmit = (e) => {
         e.preventDefault();
+
         if (!guestData.name || !guestData.email) {
             alert("Please fill out all fields.");
             return;
         }
-        setUser(guestData); // Set user in the store
-        saveUserToLocalStorage(); // Persist to localStorage
+
+        setUser(guestData); // Save guest user to Zustand store
+        saveUserToLocalStorage(); // Persist user to localStorage
         alert("Guest login successful!");
-        visit("/"); // Navigate to the home page
+        window.location.href = "/menu"; // Navigate to the menu page
     };
+
+    // const handleGuestSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (!guestData.name || !guestData.email) {
+    //         alert("Please fill out all fields.");
+    //         return;
+    //     }
+    //     console.log("guestData", guestData);
+    //     setUser(guestData); // Set user in the store
+    //     saveUserToLocalStorage(); // Persist to localStorage
+    //     alert("Guest login successful!");
+    //     visit("/"); // Navigate to the home page
+    // };
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 custom-bg">

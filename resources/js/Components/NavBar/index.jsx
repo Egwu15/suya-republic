@@ -8,6 +8,8 @@ import "./index.css";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, setUser, clearUser } = useCartStore(); // Manage user state in the store
+    // const user = useCartStore((state) => state.user);
+    // const clearUser = useCartStore((state) => state.clearUser);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -85,6 +87,14 @@ const Navbar = () => {
                                     className="nav-test text-dark font-bold"
                                 >
                                     <CartIcon />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/order-online"
+                                    className="blue-btn-nav nav-test text-white"
+                                >
+                                    ORDER ONLINE
                                 </Link>
                             </li>
                             <li>

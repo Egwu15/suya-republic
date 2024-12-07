@@ -150,6 +150,9 @@ a {
 .proceed-user:hover {
     color: rgb(6, 139, 188) !important;
 }
+.bg-light-grey {
+    background: #e8e7e7c9;
+}
 @media screen and (max-width: 768px) {
     .our-menu {
         padding: 120px 0 80px 0; /* Reduced padding for mobile */

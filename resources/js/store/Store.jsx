@@ -4,11 +4,20 @@ const useCartStore = create((set, get) => ({
     cartItems: [],
 
     // Cart functionality
+    // addItem: (product) => {
+    //     set((state) => ({
+    //         cartItems: [...state.cartItems, { ...product, quantity: 1 }],
+    //     }));
+    // },
     addItem: (product) => {
         set((state) => ({
-            cartItems: [...state.cartItems, { ...product, quantity: 1 }],
+            cartItems: [
+                ...state.cartItems,
+                { ...product, quantity: 1, spice: null }, // Ensure spice is initialized
+            ],
         }));
     },
+
     removeItem: (id) => {
         set((state) => ({
             cartItems: state.cartItems.filter((item) => item.id !== id),
@@ -26,13 +35,16 @@ const useCartStore = create((set, get) => ({
             ),
         }));
     },
-    updateItemSpice: (id, spice) => {
+    updateItemVariance: (id, spice) => {
         set((state) => ({
             cartItems: state.cartItems.map((item) =>
-                item.id === id ? { ...item, spice } : item
+                item.id === id
+                    ? { ...item, spice } // Update with the spice object
+                    : item
             ),
         }));
     },
+
     calculateTotal: () => {
         const { cartItems } = get();
         return cartItems

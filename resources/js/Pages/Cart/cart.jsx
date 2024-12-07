@@ -5,6 +5,7 @@ import "./cart.css";
 import { Link } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
 import useCartStore from "@/store/Store";
+import Modal from "@/Components/Modal";
 
 const Cart = ({ cartAdded, products }) => {
     const {
@@ -14,9 +15,12 @@ const Cart = ({ cartAdded, products }) => {
         updateItemQuantity,
         updateItemSpice,
         calculateTotal,
-    } = useCartStore(); // Zustand store methods
-
+    } = useCartStore();
     const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [postcode, setPostcode] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [spiceLevels, setSpiceLevels] = useState({});
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -37,10 +41,62 @@ const Cart = ({ cartAdded, products }) => {
         removeItem(id);
     };
 
-    const handleSpiceChange = (itemId, newSpice) => {
-        updateItemSpice(itemId, newSpice);
+    // const handleVarianceChange = (itemId, spice) => {
+    //     updateItemVariance(itemId, spice);
+    // };
+    const handleVarianceChange = (itemId, selectedOption) => {
+        setSpiceLevels((prevSpiceLevels) => ({
+            ...prevSpiceLevels,
+            [itemId]: selectedOption,
+        }));
+    };
+    useEffect(() => {
+        const initialSpiceLevels = cartItems.reduce((acc, item) => {
+            if (item.spice) {
+                acc[item.id] = item.spice;
+            }
+            return acc;
+        }, {});
+        setSpiceLevels(initialSpiceLevels);
+    }, [cartItems]);
+
+    const handleCheckout = () => {
+        const { user } = useCartStore.getState(); // Access the user from the store
+
+        if (user) {
+            // If user exists, navigate to the checkout page
+            window.location.href = "/checkout";
+        } else {
+            // If user doesn't exist, show the modal
+            setShowModal(true);
+        }
     };
 
+    const handleDeliverToMe = () => {
+        if (postcode.trim() === "") {
+            setErrorMessage("Please enter your postcode.");
+        } else if (!postcode.toUpperCase().startsWith("MN")) {
+            setModalMessage("We only deliver within Manchester.");
+            setShowModal(true); // Show modal for invalid postcode
+            setErrorMessage(""); // Clear error message
+        } else {
+            alert("Delivery is available for your postcode!");
+            setErrorMessage(""); // Clear error message
+        }
+    };
+
+    const handleCollect = () => {
+        if (postcode.trim() === "") {
+            setErrorMessage("Please enter your postcode.");
+        } else {
+            setModalMessage("Collection details will be provided soon.");
+            setShowModal(true);
+            setErrorMessage(""); // Clear error message
+        }
+    };
+    const onClose = () => {
+        setShowModal(false);
+    };
     return (
         <div>
             <Navbar />
@@ -94,21 +150,42 @@ const Cart = ({ cartAdded, products }) => {
                                                                     "cover",
                                                             }}
                                                         />
-                                                        <span>{item.name}</span>
+                                                        <span className="text-dark">
+                                                            {item.name}
+                                                        </span>
                                                     </Link>
                                                 </td>
                                                 <td>
                                                     {item.variance ? (
                                                         <select
-                                                            value={item.spice}
-                                                            onChange={(e) =>
-                                                                handleSpiceChange(
-                                                                    item.id,
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                            value={
+                                                                spiceLevels[
+                                                                    item.id
+                                                                ]?.id || ""
                                                             }
-                                                            className="form-select"
+                                                            onChange={(e) => {
+                                                                const selectedOption =
+                                                                    item.variance.options.find(
+                                                                        (
+                                                                            option
+                                                                        ) =>
+                                                                            option.id ===
+                                                                            parseInt(
+                                                                                e
+                                                                                    .target
+                                                                                    .value
+                                                                            )
+                                                                    );
+                                                                console.log(
+                                                                    "Selected Option:",
+                                                                    selectedOption
+                                                                );
+                                                                handleVarianceChange(
+                                                                    item.id,
+                                                                    selectedOption
+                                                                );
+                                                            }}
+                                                            className="form-select w-75"
                                                         >
                                                             {item.variance.options.map(
                                                                 (option) => (
@@ -117,7 +194,7 @@ const Cart = ({ cartAdded, products }) => {
                                                                             option.id
                                                                         }
                                                                         value={
-                                                                            option.name
+                                                                            option.id
                                                                         }
                                                                     >
                                                                         {
@@ -217,17 +294,103 @@ const Cart = ({ cartAdded, products }) => {
                         </div>
                         <hr />
                         <div className="d-flex justify-content-center gap-3">
-                            <Link
-                                href="/checkout"
+                            <button
+                                onClick={handleCheckout}
                                 className="btn btn-danger text-white"
                                 style={{ textDecoration: "none" }}
                             >
                                 PROCEED TO CHECKOUT
-                            </Link>
-                            <button className="btn btn-dark">
+                            </button>
+                            <button
+                                className="btn btn-dark"
+                                onClick={() => setShowModal(true)}
+                            >
                                 BUY WITH G-PAY
                             </button>
                         </div>
+
+                        {/* Modal */}
+                        {showModal && (
+                            <div
+                                className="modal fade show"
+                                tabIndex="-1"
+                                style={{
+                                    display: "block",
+                                    background: "rgba(0, 0, 0, 0.5)",
+                                }}
+                            >
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title">
+                                                Cart Action
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                className="btn-close"
+                                                onClick={onClose}
+                                            ></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <form>
+                                                <div className="mb-3">
+                                                    <label
+                                                        htmlFor="postcode"
+                                                        className="form-label text-left fw-bold"
+                                                    >
+                                                        Enter your full postcode
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="postcode"
+                                                        className="form-control text-center"
+                                                        placeholder="e.g. EC1Y 1BE"
+                                                        value={postcode}
+                                                        onChange={(e) =>
+                                                            setPostcode(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                    {errorMessage && (
+                                                        <p className="text-danger mt-2">
+                                                            {errorMessage}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-dark w-100 mb-2"
+                                                    onClick={handleCollect}
+                                                >
+                                                    I’LL COLLECT
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-dark w-100"
+                                                    onClick={handleDeliverToMe}
+                                                >
+                                                    DELIVER TO ME
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button
+                                                type="button"
+                                                className="btn btn-dark"
+                                                onClick={onClose}
+                                            >
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {/* <Modal
+                            show={showModal}
+                            onClose={() => setShowModal(false)}
+                        /> */}
                     </section>
                 </>
             )}

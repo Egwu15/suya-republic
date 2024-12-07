@@ -13,11 +13,11 @@ import { Link } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
 
 export const HomeComponent = () => {
-    const { loadUserFromLocalStorage } = useCartStore();
+    // const { loadUserFromLocalStorage } = useCartStore();
 
-    useEffect(() => {
-        loadUserFromLocalStorage();
-    }, []);
+    // useEffect(() => {
+    //     loadUserFromLocalStorage();
+    // }, []);
 
     const settings = {
         dots: false,
