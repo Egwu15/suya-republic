@@ -12,7 +12,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(4000);
 
-    const { user, setUser, cartItems, clearCart } = useCartStore();
+    const { user, setUser, cartItems, clearCart, calculateTotal } = useCartStore();
     useEffect(() => {
         const guestUser = JSON.parse(localStorage.getItem("guestUser"));
         if (guestUser) {
