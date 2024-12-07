@@ -9,6 +9,7 @@ use App\Models\Product;
 use \Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
@@ -65,43 +66,51 @@ class CartController extends Controller
         $isAuthenticated = $user == null ? false : true;
         $createdAt = now();
         $updatedAt = $createdAt;
-        if ($response->successful()) {
-            // Save the order details
 
+        $orderId = Order::insertGetId([
+            'external_order_id' => $orderId,
+            'user_id' =>  $isAuthenticated ?  $user->id : null,
+            'status' => 'pending',
+            'payment_status' => 'Pending',
+            'email' => 'none@none.com',
+            'name' => 'user name',
+            'is_guest' => true,
+            'note' => 'add notes',
+            'total' => $totalCents / 100,
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
+        ]);
 
-            // Save the order in the database
-            $order = Order::insertGetId([
-                'external_order_id' => $orderId,
-                'user_id' =>  $isAuthenticated ?  $user->id : null,
-                'status' => 'pending',
-                'email' => 'none@none.com',
-                'name' => 'user name',
-                'is_guest' => true,
-                'note' => 'add notes',
-                'total' => $totalCents / 100,
+        // Save the ordered products
+        foreach ($products as $product) {
+
+            OrderItem::insert([
+                'order_id' => $orderId,
+                'product_id' => $product['id'],
+                'variance_option' => '',
+                'price' => $product['price'] / 100,
+                'quantity' => $product['quantity'],
                 'created_at' => $createdAt,
                 'updated_at' => $updatedAt,
             ]);
+        }
 
-            // Save the ordered products
-            foreach ($products as $product) {
+        if ($response->successful()) {
 
-                OrderItem::insert([
-                    'order_id' => $order,
-                    'product_id' => $product['id'],
-                    'variance_option' => '',
-                    'price' => $product['price'] / 100,
-                    'quantity' => $product['quantity'],
-                    'created_at' => $createdAt,
-                    'updated_at' => $updatedAt,
-                ]);
+            $order = Order::find($orderId);
+            $order->update(['payment_status' => 'Successful']);
 
-                return to_route('home');
-            }
+            return to_route('home');
         } else {
             // Handle the error
-            $errorMessage = $response->json('errors') ?? 'An unexpected error occurred.';
-            return back()->withErrors($errorMessage);
+
+            $order = Order::find($orderId);
+            $order->update(['payment_status' => 'Failed']);
+
+            // $errorMessage = $response->json('errors') ?? 'An unexpected error occurred.';
+            $errorMessage = $response->json('errors') ?? 'Payment failed. Please try again.';
+
+            return Redirect::back()->withErrors(['payment' => $errorMessage])->withInput();
         }
     }
 }

@@ -34,6 +34,8 @@ const Cart = ({ cartAdded, products }) => {
     }, [products, cartAdded]);
 
     const handleQuantityChange = (id, increment) => {
+        console.log(cartItems);
+        
         updateItemQuantity(id, increment);
     };
 

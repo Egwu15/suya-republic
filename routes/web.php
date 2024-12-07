@@ -68,4 +68,4 @@ Route::get('/product', function () {
 
 // Route::get('/checkout', [CheckoutController::class, 'index'])->name('Checkout');
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';

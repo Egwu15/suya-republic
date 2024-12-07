@@ -71,7 +71,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             router.post("/process-payment", {
                 nonce: token,
-                totalCents: totalPrice * 100,
+                totalCents: calculateTotal() * 100,
                 products: cartItems,
             });
 
@@ -310,10 +310,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 <hr />
             </div>
             {/* Place Order Button */}
-            <div className="bg-light- p-5">
+            <div className="p-5 bg-light-grey">
                 <h2>Checkout</h2>
-                <p>Total: ${totalPrice.toFixed(2)}</p>
-                <div id="card-container bg-light-grey"></div>
+                <p>Total: ${calculateTotal()}</p>
+                <div id="card-container"></div>
                 <button
                     onClick={handlePayment}
                     disabled={loading}
