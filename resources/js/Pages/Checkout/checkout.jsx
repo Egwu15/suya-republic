@@ -14,6 +14,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [totalPrice, setTotalPrice] = useState(4000);
 
     useEffect(() => {
+        //check for postal code
+        //check if loggedin
         const initializePayment = async () => {
             const payments = window.Square.payments(
                 squareAppId,

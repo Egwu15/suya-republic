@@ -49,7 +49,7 @@ Route::get('/signup', function () {
     return Inertia::render('Signup/signup');
 });
 Route::get('/login', function () {
-    return Inertia::render('Auth/login');
+    return Inertia::render('Auth/Login');
 });
 
 Route::get('/cart', function () {

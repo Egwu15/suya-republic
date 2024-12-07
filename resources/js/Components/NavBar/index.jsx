@@ -2,24 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import CartIcon from "@/Pages/Cart/CartIcon";
-import useCartStore from "@/store/Store";
+import useCartStore from "@/store/Store"; // Assuming you're using Zustand or another store library
 import "./index.css";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [user, setUser] = useState(null);
+    const { user, setUser, clearUser } = useCartStore(); // Manage user state in the store
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    const logOut = () => {
-        navigate.push("/");
-        window.location.reload();
+    const handleSignOut = () => {
+        clearUser(); // Clear user details from the store
+        localStorage.removeItem("guestUser"); // Clear localStorage if used
     };
-
+    // const handleLogout = () => {
+    //     clearUser(); // Clear the user from the store
+    //     localStorage.removeItem("guestUser"); // Clear from localStorage
+    //     alert("You have logged out.");
+    // };
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem("cartItems")) || [];
-        setUser(items.length);
-    }, []);
+        // Check if a guest user exists in localStorage or the store
+        const guestUser = JSON.parse(localStorage.getItem("guestUser"));
+        if (guestUser) {
+            setUser(guestUser);
+        }
+    }, [setUser]);
 
     return (
         <div className="navbar-section">
@@ -39,7 +46,6 @@ const Navbar = () => {
                     <div
                         className={`menu-links ${isMenuOpen ? "show" : "hide"}`}
                     >
-                        {/* {user === null ? ( */}
                         <ul className="ml-auto">
                             <li className="notify">
                                 <Link
@@ -82,23 +88,23 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/order-online"
-                                    className="blue-btn-nav nav-test text-white"
-                                >
-                                    ORDER ONLINE
-                                </Link>
-                                <Link
-                                    href="/signup"
-                                    className="black-btn-nav mx-1 text-white"
-                                >
-                                    Sign In / Sign Up
-                                </Link>
+                                {user ? (
+                                    <button
+                                        onClick={handleSignOut}
+                                        className="black-btn-nav mx-1 text-white"
+                                    >
+                                        Sign Out
+                                    </button>
+                                ) : (
+                                    <Link
+                                        href="/login"
+                                        className="black-btn-nav mx-1 text-white"
+                                    >
+                                        Sign In
+                                    </Link>
+                                )}
                             </li>
                         </ul>
-                        {/* ) : (
-                            <ul className="ml-auto justify-content-end align-items-center"></ul>
-                        )} */}
                     </div>
                 </nav>
             </div>
