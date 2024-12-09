@@ -1,0 +1,89 @@
+.custom-btn-prev,
+.custom-btn-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #999999;
+    color: #f00; /* Adjust the color for the text */
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.custom-btn-prev {
+    border-radius: 0 50% 50% 0;
+    height: 70px;
+    width: 70px;
+    left: 2px;
+}
+
+.custom-btn-next {
+    border-radius: 50% 0 0 50%;
+    height: 70px;
+    width: 70px;
+    right: 2px;
+}
+
+.custom-btn-prev:hover,
+.custom-btn-next:hover {
+    background-color: #ffebee;
+    color: #c00;
+    transition: all 0.3s ease-in-out;
+}
+
+.carousel-inner img {
+    object-fit: cover;
+    max-height: 500px; /* Adjust to fit your needs */
+}
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.d-fl {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding-bottom: 20px;
+}
+.carousel-btn {
+    /* border-radius: 8px; */
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    background-color: #d2401e;
+}
+.proudly-nija {
+    position: absolute;
+    top: 60%;
+    left: 32%;
+    transform: translateY(-50%);
+    color: #f00;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    z-index: 1000;
+    cursor: pointer;
+    width: 150px;
+}
+.burst-head {
+    position: absolute;
+    top: 60%;
+    left: 30%;
+    transform: translateY(-50%);
+    color: #f00;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    z-index: 1000;
+    cursor: pointer;
+    width: 150px;
+}

@@ -11,6 +11,7 @@ import Button from "@/components/Button";
 import Footer from "@/components/Footer/index";
 import { Link } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
+import Carousel from "@/Components/Carousel/Carousel";
 
 export const HomeComponent = () => {
     // const { loadUserFromLocalStorage } = useCartStore();
@@ -68,7 +69,7 @@ export const HomeComponent = () => {
     return (
         <div id="top" style={{ width: "100vw", overflowX: "hidden" }}>
             <Navbar />
-            <section className="hero-bg">
+            <section className="">
                 <div className="chatwithus">
                     <div>
                         <a
@@ -81,35 +82,8 @@ export const HomeComponent = () => {
                         </a>
                     </div>
                 </div>
-
-                <div className="container">
-                    <div className="row">
-                        <div className="left-car  col-md-6 col-12">
-                            <div className="app-section-image suya-image">
-                                <img
-                                    src={spiceText}
-                                    alt=""
-                                    className=" suya-image"
-                                    loading="lazy"
-                                    style={{ width: "100%" }}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="right-ca align-self-cente col-md-6 col-12">
-                            <div className="app-section-image">
-                                <img
-                                    src={spiceImage}
-                                    alt=""
-                                    className=""
-                                    loading="lazy"
-                                    style={{ width: "100%" }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
+            <Carousel />
 
             <section className="hot-trips pt-5 pb-5">
                 <div className="container">
