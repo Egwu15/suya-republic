@@ -85,7 +85,7 @@ const CarouselComponent = () => {
                                     <img
                                         src={proudlyNaija}
                                         alt="Another Text"
-                                        className=" proudly-nija"
+                                        className="burst-head"
                                     />{" "}
                                     <Link
                                         href="/order-online"

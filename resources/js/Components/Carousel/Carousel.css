@@ -73,3 +73,17 @@
     cursor: pointer;
     width: 150px;
 }
+.burst-head {
+    position: absolute;
+    top: 60%;
+    left: 30%;
+    transform: translateY(-50%);
+    color: #f00;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    z-index: 1000;
+    cursor: pointer;
+    width: 150px;
+}
