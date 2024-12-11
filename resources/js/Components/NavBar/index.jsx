@@ -25,7 +25,7 @@ const Navbar = () => {
 
     return (
         <div className="navbar-section">
-            <div className="container-fluid px-0">
+            <div className=" ">
                 <nav className="navb">
                     {/* Logo */}
                     <Link className="navbar-brand d-flex mr-auto" href="/">
@@ -94,7 +94,7 @@ const Navbar = () => {
                                 {user ? (
                                     <button
                                         onClick={handleSignOut}
-                                        className="black-btn-nav mx-1 text-white"
+                                        className="black-btn-nav mx-1 p-2 text-white"
                                     >
                                         Sign Out
                                     </button>
