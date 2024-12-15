@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
 
 
 // ------------------frontOnlyPages-------------
-Route::get('/menu2', function () {
-    return Inertia::render('Menu2/menu2');
+Route::get('/international-menu', function () {
+    return Inertia::render('InternationalMenu/InternationalMenu');
 });
 Route::get('/order-online', function () {
     return Inertia::render('OrderOnline/orderOnline');

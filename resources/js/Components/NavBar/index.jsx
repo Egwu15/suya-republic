@@ -60,6 +60,14 @@ const Navbar = () => {
                             </li>
                             <li className="notify">
                                 <Link
+                                    href="/international-menu"
+                                    className="nav-test text-dark font-bold"
+                                >
+                                    INTERNATIONAL
+                                </Link>
+                            </li>
+                            <li className="notify">
+                                <Link
                                     href="/about"
                                     className="nav-test text-dark font-bold"
                                 >
