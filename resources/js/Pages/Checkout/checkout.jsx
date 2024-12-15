@@ -3,29 +3,51 @@ import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./checkout.css";
 import InputField from "@/Components/InputField";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InputError from "@/Components/InputError";
+
 const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [formError, setFormErrors] = useState({});
 
-    const { user, setUser, cartItems, clearCart, calculateTotal } =
+    const { guest, setGuest, cartItems, clearCart, calculateTotal } =
         useCartStore();
     useEffect(() => {
         const guestUser = JSON.parse(localStorage.getItem("guestUser"));
         if (guestUser) {
-            setUser(guestUser);
+            setGuest(guestUser);
         }
-    }, [setUser]);
+    }, [setGuest]);
+
+    const user = usePage().props.auth.user;
+    const [billingDetails, setBillingDetails] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        note: "",
+    });
+
+    const handleChange = (e) => {
+        console.log("Old value:", billingDetails);
+        setBillingDetails(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+        console.log("New value:", billingDetails);
+    };
+
 
     useEffect(() => {
         const checkUserAndInitializePayment = async () => {
-            // Check if the user is logged in
-            if (!user) {
+            // Check if the guest is logged in
+            if (!(guest || user)) {
                 console.log(
-                    "User is not logged in. Redirecting to login page..."
+                    "you are not logged in. Redirecting to login page..."
                 );
                 toast.error("You need to log in to proceed with checkout.");
                 router.visit("/login"); // Navigate to login page
@@ -34,11 +56,11 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 return;
             }
 
-            // Log the user's details
-            console.log("Logged in user details:", user);
+            // Log the guest's details
+            console.log("Logged in guest details:", guest);
 
-            // Initialize payment if the user is logged in
-            const payments = window.Square.payments(
+            // Initialize payment if the guest is logged in
+            const payments = await window.Square.payments(
                 squareAppId,
                 squareLocationId
             );
@@ -62,7 +84,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             if (errors) {
                 console.error(errors);
-                alert("Payment failed. Client Side.");
+                alert("Payment failed.");
                 setLoading(false);
                 return;
             }
@@ -75,26 +97,33 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     nonce: token,
                     totalCents: calculateTotal() * 100,
                     products: cartItems,
+                    billingDetails: billingDetails,
                 },
                 {
                     onSuccess: () => {
+                        setFormErrors({});
                         toast.success("Order is placed successfully!");
                         clearCart();
                         router.visit("/"); // Navigate to home page
                     },
                     onError: (err) => {
-                        console.log();
-
-                        toast.error(
-                            err.payment?.detail ??
-                                "An unexpected error occurred"
-                        );
+                        console.log(err);
+                        setFormErrors(err);
+                        if (err.billingDetails != null) {
+                            toast.error(
+                                err.payment?.detail ??
+                                    err.product_detail ??
+                                    "An unexpected error occurred"
+                            );
+                        }
                     },
                 }
             );
         } catch (error) {
             console.error(error);
-            toast.error("Payment failed. ServerSide");
+            toast.error(
+                "Payment failed, check for debit and reach out to customer support"
+            );
         } finally {
             setLoading(false);
         }
@@ -138,6 +167,23 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     <InputField
                                         type="text"
                                         placeholder="Enter first name"
+                                        value={billingDetails.firstName}
+                                        autoComplete="first Name"
+                                        name="firstName"
+                                        onChangeMethod={(e) =>
+                                            setBillingDetails(prev => ({
+                                                ...prev,
+                                                firstName: e.target.value
+                                            }))
+                                        }
+                                    />
+                                     <InputError
+                                        message={
+                                            formError &&
+                                            formError?.['billingDetails.firstName']
+                                        }
+                                        className="mt-2"
+                                        style={{ color: "red" }}
                                     />
                                 </div>
                                 <div className="col-md-6">
@@ -150,68 +196,24 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     <InputField
                                         type="text"
                                         placeholder="Enter last name"
+                                        value={billingDetails.lastName}
+                                        onChangeMethod={(e) =>
+                                            setBillingDetails({
+                                                ...billingDetails,
+                                                lastName: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <InputError
+                                        message={
+                                            formError &&
+                                            formError?.['billingDetails.lastName']
+                                        }
+                                        className="mt-2"
+                                        style={{ color: "red" }}
                                     />
                                 </div>
-                                <div className="col-md-12">
-                                    <label
-                                        htmlFor="streetAddress"
-                                        className="form-label"
-                                    >
-                                        Street Address *
-                                    </label>
-                                    <InputField
-                                        type="text"
-                                        placeholder="House number and street name"
-                                    />
-                                </div>
-                                <div className="col-md-12">
-                                    <label
-                                        htmlFor="apartment"
-                                        className="form-label"
-                                    >
-                                        Apartment, Suite, Unit (Optional)
-                                    </label>
-                                    <InputField
-                                        type="text"
-                                        placeholder="Enter apartment or unit"
-                                    />
-                                </div>
-                                <div className="col-md-6">
-                                    <label
-                                        htmlFor="city"
-                                        className="form-label"
-                                    >
-                                        Town / City *
-                                    </label>
-                                    <InputField
-                                        type="text"
-                                        placeholder="Enter city"
-                                    />
-                                </div>
-                                <div className="col-md-6">
-                                    <label
-                                        htmlFor="state"
-                                        className="form-label"
-                                    >
-                                        State / County *
-                                    </label>
-                                    <InputField
-                                        type="text"
-                                        placeholder="Enter state"
-                                    />
-                                </div>
-                                <div className="col-md-6">
-                                    <label
-                                        htmlFor="postcode"
-                                        className="form-label"
-                                    >
-                                        Postcode / ZIP *
-                                    </label>
-                                    <InputField
-                                        type="text"
-                                        placeholder="Enter postcode"
-                                    />
-                                </div>
+
                                 <div className="col-md-6">
                                     <label
                                         htmlFor="phone"
@@ -222,9 +224,24 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     <InputField
                                         type="text"
                                         placeholder="Enter phone number"
+                                        value={billingDetails.phone}
+                                        onChangeMethod={(e) =>
+                                            setBillingDetails({
+                                                ...billingDetails,
+                                                phone: e.target.value,
+                                            })
+                                        }
+                                    />
+                                     <InputError
+                                        message={
+                                            formError &&
+                                            formError?.['billingDetails.phone']
+                                        }
+                                        className="mt-2"
+                                        style={{ color: "red" }}
                                     />
                                 </div>
-                                <div className="col-md-12">
+                                <div className="col-md-6">
                                     <label
                                         htmlFor="email"
                                         className="form-label"
@@ -234,6 +251,21 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     <InputField
                                         type="email"
                                         placeholder="Enter email address"
+                                        value={billingDetails.email}
+                                        onChangeMethod={(e) =>
+                                            setBillingDetails({
+                                                ...billingDetails,
+                                                email: e.target.value,
+                                            })
+                                        }
+                                    />
+                                     <InputError
+                                        message={
+                                            formError &&
+                                            formError?.['billingDetails.email']
+                                        }
+                                        className="mt-2"
+                                        style={{ color: "red" }}
                                     />
                                 </div>
                             </div>
@@ -250,7 +282,22 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                             <InputField
                                 type="text"
                                 placeholder="Notes about your order"
+                                value={billingDetails.note}
+                                onChangeMethod={(e) =>
+                                    setBillingDetails({
+                                        ...billingDetails,
+                                        note: e.target.value,
+                                    })
+                                }
                             />
+                             <InputError
+                                        message={
+                                            formError &&
+                                            formError?.['billingDetails.notes']
+                                        }
+                                        className="mt-2"
+                                        style={{ color: "red" }}
+                                    />
                         </div>
                     </div>
                 </div>
@@ -271,7 +318,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                             {item.name} - {item.description} × {item.quantity}
                         </div>
                         <div className="col-6 text-end">
-                            £{(item.price / 100).toFixed(2)}{" "}
+                            £{item.price.toFixed(2)}{" "}
                             {/* Adjusting price to 2 decimal places */}
                         </div>
                     </div>
@@ -282,12 +329,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     <div className="col-6">Subtotal</div>
                     <div className="col-6 text-end">
                         £
-                        {(
-                            cartItems.reduce(
+                        {cartItems
+                            .reduce(
                                 (acc, item) => acc + item.price * item.quantity,
                                 0
-                            ) / 100
-                        ).toFixed(2)}
+                            )
+                            .toFixed(2)}
                     </div>
                 </div>
 

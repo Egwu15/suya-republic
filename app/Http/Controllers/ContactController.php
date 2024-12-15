@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Mail\ContactMail;
 
 class ContactController extends Controller
 {
@@ -18,5 +20,6 @@ class ContactController extends Controller
         ]);
 
         Contact::create($validatedData);
+        defer(fn() =>  Mail::to('egwutedd@gmail.com')->send(new ContactMail($validatedData)));
     }
 }

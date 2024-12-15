@@ -1,14 +1,37 @@
 import React, { useState } from "react";
-import { Link, usePage } from "@inertiajs/react";
+import { Link, usePage, router } from "@inertiajs/react";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import useStore from "@/store/Store"; // Import the Zustand store
 import { ToastContainer, toast } from "react-toastify";
+import { useForm } from "@inertiajs/react";
 import "react-toastify/dist/ReactToastify.css";
+import InputError from "@/Components/InputError";
+
 const Login = () => {
     const [isGuest, setIsGuest] = useState(false); // Toggle between forms
     const [guestData, setGuestData] = useState({ email: "", name: "" }); // Guest form data
-    const { addGuest, saveUserToLocalStorage, setUser } = useStore(); // Zustand store action
+    const { addGuest, saveGuestToLocalStorage, setGuest } = useStore(); // Zustand store action
     const { visit } = usePage(); // Inertia's navigation method
+    const { data, setData, post, processing, errors, reset } = useForm({
+        email: "",
+        password: "",
+        remember: false,
+    });
+
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route("login"), {
+            onFinish: () => reset("password"),
+            onSuccess: () => {
+
+
+                router.visit(route("menu"));
+            },
+        });
+    };
+
     const handleGuestSubmit = (e) => {
         e.preventDefault();
 
@@ -18,25 +41,11 @@ const Login = () => {
             return;
         }
 
-        setUser(guestData); // Save guest user to Zustand store
-        saveUserToLocalStorage(); // Persist user to localStorage
+        setGuest(guestData); // Save guest user to Zustand store
+        saveGuestToLocalStorage(); // Persist user to localStorage
         toast.success("Guest login successful!");
-        // alert("Guest login successful!");
-        window.location.href = "/menu"; // Navigate to the menu page
+        router.visit(route("menu"));
     };
-
-    // const handleGuestSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (!guestData.name || !guestData.email) {
-    //         alert("Please fill out all fields.");
-    //         return;
-    //     }
-    //     console.log("guestData", guestData);
-    //     setUser(guestData); // Set user in the store
-    //     saveUserToLocalStorage(); // Persist to localStorage
-    //     alert("Guest login successful!");
-    //     visit("/"); // Navigate to the home page
-    // };
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 custom-bg">
@@ -56,7 +65,7 @@ const Login = () => {
                 </div>
 
                 {!isGuest ? (
-                    <form>
+                    <form onSubmit={submit}>
                         {/* Regular Login Form */}
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">
@@ -67,6 +76,15 @@ const Login = () => {
                                 id="email"
                                 className="form-control"
                                 placeholder="Enter your email"
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
+                                value={data.email}
+                            />
+                            <InputError
+                                message={errors.email}
+                                className="mt-2"
+                                style={{ color: "red" }}
                             />
                         </div>
                         <div className="mb-3">
@@ -79,6 +97,10 @@ const Login = () => {
                                     id="password"
                                     className="form-control"
                                     placeholder="Enter your password"
+                                    value={data.password}
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
                                 />
                                 <button
                                     type="button"
@@ -87,11 +109,20 @@ const Login = () => {
                                     <i className="bi bi-eye"></i>
                                 </button>
                             </div>
+                            <InputError
+                                message={errors.password}
+                                className="mt-2"
+                                style={{ color: "red" }}
+                            />
                         </div>
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <div className="form-check">
                                 <input
                                     type="checkbox"
+                                    value={data.remember}
+                                    onChange={(e) =>
+                                        setData("remember", e.target.value)
+                                    }
                                     id="rememberMe"
                                     className="form-check-input"
                                 />
@@ -122,24 +153,7 @@ const Login = () => {
                 ) : (
                     <form onSubmit={handleGuestSubmit}>
                         {/* Guest Login Form */}
-                        <div className="mb-3">
-                            <label htmlFor="guestName" className="form-label">
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                id="guestName"
-                                className="form-control"
-                                placeholder="Enter your name"
-                                value={guestData.name}
-                                onChange={(e) =>
-                                    setGuestData({
-                                        ...guestData,
-                                        name: e.target.value,
-                                    })
-                                }
-                            />
-                        </div>
+
                         <div className="mb-3">
                             <label htmlFor="guestEmail" className="form-label">
                                 Email
@@ -158,6 +172,26 @@ const Login = () => {
                                 }
                             />
                         </div>
+                        <div className="mb-3">
+                            <label htmlFor="guestName" className="form-label">
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                id="guestName"
+                                className="form-control"
+                                placeholder="Enter your name"
+                                value={guestData.name}
+                                autoComplete="name"
+                                onChange={(e) =>
+                                    setGuestData({
+                                        ...guestData,
+                                        name: e.target.value,
+                                    })
+                                }
+                            />
+                        </div>
+
                         <button type="submit" className="btn btn-dark w-100">
                             Submit as Guest
                         </button>
@@ -174,7 +208,7 @@ const Login = () => {
                 )}
 
                 <div className="text-center my-3">
-                    <span>New to Nando’s? </span>
+                    <span>New to ? </span>
                     <Link href="/signup" className="text-decoration-none">
                         Create an account
                     </Link>

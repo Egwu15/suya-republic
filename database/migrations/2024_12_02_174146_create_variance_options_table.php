@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('variance_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('variance_id')->constrained()->onDelete('cascade');
+            $table->foreignId('variance_id')->constrained('variances')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });

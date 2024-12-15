@@ -17,6 +17,7 @@ class Product extends Model
         'category_id',
         'variance_id',
         'product_image',
+        'is_international'
     ];
 
     public function category()

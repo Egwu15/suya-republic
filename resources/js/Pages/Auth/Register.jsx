@@ -1,7 +1,23 @@
-import { Link } from "@inertiajs/react";
 import React from "react";
+import { Link, useForm } from "@inertiajs/react";
+import InputError from "@/Components/InputError";
 
 const Register = () => {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route("register"), {
+            onFinish: () => reset("password", ),
+        });
+    };
+
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
             <div
@@ -20,7 +36,7 @@ const Register = () => {
                         </Link>
                     </p>
                 </div>
-                <form>
+                <form onSubmit={submit}>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">
                             Email
@@ -29,7 +45,15 @@ const Register = () => {
                             type="email"
                             id="email"
                             className="form-control"
+                            value={data.email}
+                            onChange={(e) => setData("email", e.target.value)}
                             placeholder="Enter your email"
+                        />
+
+                        <InputError
+                            message={errors.email}
+                            className="mt-2"
+                            style={{ color: "red" }}
                         />
                     </div>
                     <div className="mb-3">
@@ -40,6 +64,10 @@ const Register = () => {
                             <input
                                 type="password"
                                 id="password"
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
                                 className="form-control"
                                 placeholder="Enter your password"
                             />
@@ -50,7 +78,7 @@ const Register = () => {
                                 <i className="bi bi-eye"></i>
                             </button>
                         </div>
-                        <div className="form-text mt-2">
+                        {/* <div className="form-text mt-2">
                             Password needs to have:
                             <ul className="mb-0">
                                 <li>At least 8 characters</li>
@@ -58,7 +86,12 @@ const Register = () => {
                                 <li>An uppercase letter</li>
                                 <li>A number</li>
                             </ul>
-                        </div>
+                        </div> */}
+                        <InputError
+                            message={errors.password}
+                            className="mt-2"
+                            style={{ color: "red" }}
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="firstName" className="form-label">
@@ -69,6 +102,16 @@ const Register = () => {
                             id="firstName"
                             className="form-control"
                             placeholder="Enter your first name"
+                            value={data.first_name}
+                            onChange={(e) =>
+                                setData("first_name", e.target.value)
+                            }
+                        />
+
+                        <InputError
+                            message={errors.first_name}
+                            className="mt-2"
+                            style={{ color: "red" }}
                         />
                     </div>
                     <div className="mb-3">
@@ -80,6 +123,15 @@ const Register = () => {
                             id="lastName"
                             className="form-control"
                             placeholder="Enter your last name"
+                            value={data.last_name}
+                            onChange={(e) =>
+                                setData("last_name", e.target.value)
+                            }
+                        />
+                        <InputError
+                            message={errors.last_name}
+                            className="mt-2"
+                            style={{ color: "red" }}
                         />
                     </div>
                     <div className="form-check mb-3">
@@ -92,27 +144,18 @@ const Register = () => {
                             htmlFor="newsletter"
                             className="form-check-label"
                         >
-                            Want extra hot Nando’s news? Tick the box
+                            Want extra hot news? Tick the box
                         </label>
                     </div>
-                    <button type="submit" className="btn btn-dark w-100 mb-3">
+                    <button
+                        type="submit"
+                        className="btn btn-dark w-100 mb-3"
+                        disabled={processing}
+                    >
                         CREATE YOUR ACCOUNT
                     </button>
                 </form>
-                <div className="text-center mb-3">
-                    <p>Or register with:</p>
-                    <div className="d-flex justify-content-center gap-3">
-                        <button className="btn btn-outline-secondary">
-                            <i className="bi bi-facebook"></i>
-                        </button>
-                        <button className="btn btn-outline-secondary">
-                            <i className="bi bi-google"></i>
-                        </button>
-                        <button className="btn btn-outline-secondary">
-                            <i className="bi bi-apple"></i>
-                        </button>
-                    </div>
-                </div>
+
                 <p className="text-center text-muted small">
                     By signing up I confirm I am aged 16 years or over. For more
                     information, you can consult our{" "}
