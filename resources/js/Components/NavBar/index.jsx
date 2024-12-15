@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage, router } from "@inertiajs/react";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import CartIcon from "@/Pages/Cart/CartIcon";
 import useCartStore from "@/store/Store"; // Assuming you're using Zustand or another store library
@@ -7,21 +7,23 @@ import "./index.css";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { user, setUser, clearUser } = useCartStore(); // Manage user state in the store
+    const { guest, setGuest, clearGuest } = useCartStore(); // Manage user state in the store
+    const user = usePage().props.auth.user;
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const handleSignOut = () => {
-        clearUser(); // Clear user details from the store
-        localStorage.removeItem("guestUser"); // Clear localStorage if used
+        clearGuest();
+        localStorage.removeItem("guestUser");
+        router.post(route("logout"));
     };
 
     useEffect(() => {
         const guestUser = JSON.parse(localStorage.getItem("guestUser"));
         if (guestUser) {
-            setUser(guestUser);
+            setGuest(guestUser);
         }
-    }, [setUser]);
+    }, [setGuest]);
 
     return (
         <div className="navbar-section">
@@ -99,7 +101,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                {user ? (
+                                {guest || user ? (
                                     <button
                                         onClick={handleSignOut}
                                         className="black-btn-nav mx-1 p-2 text-white"

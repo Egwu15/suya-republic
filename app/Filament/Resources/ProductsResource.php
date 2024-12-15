@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\Toggle;
 
 class ProductsResource extends Resource
 {
@@ -28,7 +30,7 @@ class ProductsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Product Management';
-    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -61,6 +63,8 @@ class ProductsResource extends Resource
                     ->required(),
                 Select::make('variance_id')
                     ->relationship('variance', 'name'),
+                Toggle::make('is_international')->label('International')
+                    ->required(),
             ]);
     }
 
@@ -69,15 +73,15 @@ class ProductsResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Product Name')
+                    ->label('Name')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('description')
-                    ->label('Product Description')
+                    ->label('Description')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('price')
-                    ->label('Product Price')
+                    ->label('Price')
                     ->sortable()
                     ->searchable()
                     ->money('eur'),
@@ -100,6 +104,8 @@ class ProductsResource extends Resource
                     ->label('Variance')
                     ->sortable()
                     ->searchable(),
+                IconColumn::make('is_international')->label('International')
+                    ->boolean(),
             ])
             ->filters([
                 //

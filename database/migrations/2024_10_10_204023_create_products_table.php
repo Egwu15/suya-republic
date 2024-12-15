@@ -18,8 +18,9 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->enum('status', ['in_stock', 'sold_out', 'back_order'])->default('in_stock');
+            $table->boolean('is_international')->default(false);
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('variance_id')->nullable()->constrained('variances')->onDelete('cascade');
+            $table->foreignId('variance_id')->nullable()->constrained('variances')->onDelete('set null');
             $table->timestamps();
         });
     }

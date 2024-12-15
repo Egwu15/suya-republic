@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./cart.css";
-import { Link } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import Loader from "@/Components/Loader/Loader";
 import useCartStore from "@/store/Store";
 import { ToastContainer, toast } from "react-toastify";
@@ -21,6 +21,7 @@ const Cart = ({ cartAdded, products }) => {
     const [postcode, setPostcode] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [spiceLevels, setSpiceLevels] = useState({});
+    const user = usePage().props.auth.user;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -35,7 +36,7 @@ const Cart = ({ cartAdded, products }) => {
 
     const handleQuantityChange = (id, increment) => {
         console.log(cartItems);
-        
+
         updateItemQuantity(id, increment);
     };
 
@@ -63,13 +64,14 @@ const Cart = ({ cartAdded, products }) => {
     }, [cartItems]);
 
     const handleCheckout = () => {
-        const { user } = useCartStore.getState(); // Access the user from the store
+        const { guest } = useCartStore.getState();
 
-        if (user) {
-            // If user exists, navigate to the checkout page
-            window.location.href = "/checkout";
+
+        if (guest || user) {
+            // If guest exists, navigate to the checkout page
+            router.visit("/checkout");
         } else {
-            // If user doesn't exist, show the modal
+            // If guest doesn't exist, show the modal
             setShowModal(true);
         }
     };

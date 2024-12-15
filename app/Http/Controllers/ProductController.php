@@ -15,8 +15,14 @@ class ProductController extends Controller
         $selectedCategory = $request->input('selectedCategory');
 
         $products = $selectedCategory != null
-            ? Product::with(['variance.options'])->where('category_id', $selectedCategory)->paginate()
-            : Product::with(['variance.options'])->paginate($limit);
+            ? Product::with(['variance.options'])
+            ->where('category_id', $selectedCategory)
+            ->where('is_international', false)
+            ->paginate()
+
+            : Product::with(['variance.options'])
+            ->where('is_international', false)
+            ->paginate($limit);
 
         $categories = Category::paginate($limit);
 

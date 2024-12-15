@@ -52,21 +52,21 @@ const useCartStore = create(
             set({ cartItems: [] });
         },
         // User functionality
-        user: null, // Holds user information (e.g., guest or logged-in user)
-        setUser: (user) => set({ user }), // Set user information
-        clearUser: () => set({ user: null }), // Clear user information
+        guest: null, // Holds user information (e.g., guest or logged-in user)
+        setGuest: (guest) => set({ guest }), // Set user information
+        clearGuest: () => set({ guest: null }), // Clear user information
 
         // Persist user to localStorage
-        saveUserToLocalStorage: () => {
-            const { user } = get();
-            if (user) {
-                localStorage.setItem("guestUser", JSON.stringify(user));
+        saveGuestToLocalStorage: () => {
+            const { guest } = get();
+            if (guest) {
+                localStorage.setItem("guestUser", JSON.stringify(guest));
             }
         },
         loadUserFromLocalStorage: () => {
-            const savedUser = localStorage.getItem("guestUser");
-            if (savedUser) {
-                set({ user: JSON.parse(savedUser) });
+            const savedGuest = localStorage.getItem("savedGuest");
+            if (savedGuest) {
+                set({ user: JSON.parse(savedGuest) });
             }
         },
     }))
