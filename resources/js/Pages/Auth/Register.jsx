@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useForm } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 
 const Register = () => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
     const { data, setData, post, processing, errors, reset } = useForm({
         first_name: "",
         last_name: "",
@@ -14,7 +19,7 @@ const Register = () => {
         e.preventDefault();
 
         post(route("register"), {
-            onFinish: () => reset("password", ),
+            onFinish: () => reset("password"),
         });
     };
 
@@ -62,7 +67,7 @@ const Register = () => {
                         </label>
                         <div className="input-group">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 id="password"
                                 value={data.password}
                                 onChange={(e) =>
@@ -74,8 +79,13 @@ const Register = () => {
                             <button
                                 type="button"
                                 className="btn btn-outline-secondary"
+                                onClick={togglePasswordVisibility}
                             >
-                                <i className="bi bi-eye"></i>
+                                <i
+                                    className={`bi ${
+                                        showPassword ? "bi-eye-slash" : "bi-eye"
+                                    }`}
+                                ></i>
                             </button>
                         </div>
                         {/* <div className="form-text mt-2">
