@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Navbar from "../../components/NavBar/";
-import Footer from "../../components/Footer/";
+import Navbar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 import "./about.css";
 import Loader from "@/Components/Loader/Loader";
 import image1 from "../../../assets/img/suya/The-Suya-Experience.jpg";
