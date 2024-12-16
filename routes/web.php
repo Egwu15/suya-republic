@@ -75,7 +75,7 @@ Route::get('/contact', function () {
     return Inertia::render('Contact/contact');
 });
 Route::get('/about', function () {
-    return Inertia::render('About/About');
+    return Inertia::render('About/about');
 });
 Route::get('/product', function () {
     return Inertia::render('Product/product');
