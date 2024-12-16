@@ -18,15 +18,12 @@ const Login = () => {
         remember: false,
     });
 
-
     const submit = (e) => {
         e.preventDefault();
 
         post(route("login"), {
             onFinish: () => reset("password"),
             onSuccess: () => {
-
-
                 router.visit(route("menu"));
             },
         });
@@ -133,9 +130,12 @@ const Login = () => {
                                     Remember Me
                                 </label>
                             </div>
-                            <a href="#" className="text-decoration-none">
+                            <Link
+                                href="/forgot-password"
+                                className="text-decoration-none"
+                            >
                                 Forgot Password?
-                            </a>
+                            </Link>
                         </div>
                         <button type="submit" className="btn btn-dark w-100">
                             LOG IN

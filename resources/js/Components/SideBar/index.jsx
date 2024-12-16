@@ -14,14 +14,9 @@ const SideBar = ({ categories }) => {
                     </li>
                     {categories.data.map((data) => (
                         <li key={data.id}>
-                            <Link
-                                href={`/menu?selectedCategory=${data.id}`}
-                                // className={({ isActive }) =>
-                                //     isActive ? "active" : ""
-                                // }
-                            >
+                            <Link href={`/menu?selectedCategory=${data.id}`}>
                                 <div className="profile-sidebar">
-                                    {data.name}
+                                    {data?.name}
                                 </div>
                             </Link>
                         </li>

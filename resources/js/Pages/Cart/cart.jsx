@@ -66,7 +66,6 @@ const Cart = ({ cartAdded, products }) => {
     const handleCheckout = () => {
         const { guest } = useCartStore.getState();
 
-
         if (guest || user) {
             // If guest exists, navigate to the checkout page
             router.visit("/checkout");
@@ -86,7 +85,7 @@ const Cart = ({ cartAdded, products }) => {
         } else {
             // toast.success("Delivery is available for your postcode!");
 
-            alert("Delivery is available for your postcode!");
+            // alert("Delivery is available for your postcode!");
             window.location.href = "/login";
 
             setErrorMessage(""); // Clear error message
