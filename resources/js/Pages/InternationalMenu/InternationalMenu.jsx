@@ -63,6 +63,7 @@ const InternationalMenu = ({ products }) => {
                                                     >
                                                         <img
                                                             src={
+                                                                "/storage/" +
                                                                 data.product_image
                                                             }
                                                             alt={data.name}
