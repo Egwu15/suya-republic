@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import SideBar from "@/components/SideBar";
 import useCartStore from "@/store/Store";
 import "./menu.css";
-import { Link } from "@inertiajs/react";
+import  { Link } from "@inertiajs/react";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
@@ -62,6 +61,7 @@ const OurMenu = ({ products, categories }) => {
                                                     >
                                                         <img
                                                             src={
+                                                                "/storage/" +
                                                                 data.product_image
                                                             }
                                                             alt={data.name}
