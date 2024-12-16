@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $limit = $request->input('limit', 30);
+        $limit = $request->input('limit', 50);
         $page = $request->input('page', 1);
         $selectedCategory = $request->input('selectedCategory');
 
@@ -34,5 +34,13 @@ class ProductController extends Controller
             'limit' => $limit,
             'total' => $products->total(),
         ]);
+    }
+
+    public function international(Request $request)
+    {
+        $products =  Product::with(['variance.options'])
+            ->where('is_international', true)->get();
+       
+        return inertia()->render('InternationalMenu/InternationalMenu', ['products' => $products]);
     }
 }
