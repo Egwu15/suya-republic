@@ -42,7 +42,7 @@ class CartController extends Controller
     public function processPayment(Request $request)
     {
 
-         $request->validate([
+        $request->validate([
             'billingDetails.firstName' => 'required|string|max:60',
             'billingDetails.lastName' => 'required|string|max:60',
             'billingDetails.email' => 'required|email|max:100',
@@ -76,8 +76,8 @@ class CartController extends Controller
                 'amount' => $totalCents,
                 'currency' => 'GBP',
             ],
-            'reference_id' => $productOrderId
-            // ,'buyer_email_address'=>
+            'reference_id' => $productOrderId,
+            'buyer_email_address' => $billingDetails['email']
         ];
 
 
@@ -122,7 +122,7 @@ class CartController extends Controller
             'status' => 'pending',
             'payment_status' => 'Pending',
             'email' => $billingDetails['email'],
-            'name' => $billingDetails['firstName'] . ' '. $billingDetails['lastName'],
+            'name' => $billingDetails['firstName'] . ' ' . $billingDetails['lastName'],
             'is_guest' => !$isAuthenticated,
             'note' => $billingDetails['note'],
             'total' => $totalCents / 100,
@@ -132,7 +132,7 @@ class CartController extends Controller
 
         //Save products
 
-       
+
         foreach ($products as $product) {
 
             OrderItem::insert([
@@ -153,7 +153,7 @@ class CartController extends Controller
 
             $data = [
                 'email' => $billingDetails['email'],
-                'name' => $billingDetails['firstName'] . ' '. $billingDetails['lastName'],
+                'name' => $billingDetails['firstName'] . ' ' . $billingDetails['lastName'],
                 'date' => $createdAt,
                 'orderNo' => $productOrderId,
                 'total' => "£{$totalPrice}",
