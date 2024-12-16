@@ -15,7 +15,7 @@ function About() {
         window.scrollTo(0, 0);
     }, []);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); 
 
     // Initialize cartItems from localStorage or products
 
