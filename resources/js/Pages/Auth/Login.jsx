@@ -11,7 +11,11 @@ const Login = () => {
     const [isGuest, setIsGuest] = useState(false); // Toggle between forms
     const [guestData, setGuestData] = useState({ email: "", name: "" }); // Guest form data
     const { addGuest, saveGuestToLocalStorage, setGuest } = useStore(); // Zustand store action
-    const { visit } = usePage(); // Inertia's navigation method
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -90,7 +94,7 @@ const Login = () => {
                             </label>
                             <div className="input-group">
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     id="password"
                                     className="form-control"
                                     placeholder="Enter your password"
@@ -102,8 +106,15 @@ const Login = () => {
                                 <button
                                     type="button"
                                     className="btn btn-outline-secondary"
+                                    onClick={togglePasswordVisibility}
                                 >
-                                    <i className="bi bi-eye"></i>
+                                    <i
+                                        className={`bi ${
+                                            showPassword
+                                                ? "bi-eye-slash"
+                                                : "bi-eye"
+                                        }`}
+                                    ></i>
                                 </button>
                             </div>
                             <InputError
