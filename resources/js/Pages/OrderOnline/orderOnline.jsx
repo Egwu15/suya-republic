@@ -20,7 +20,7 @@ const OrderOnline = () => {
             setErrorMessage(""); // Clear error message
         } else {
             // toast.success("Delivery is available for your postcode!");
-            alert("Delivery is available for your postcode!");
+            // alert("Delivery is available for your postcode!");
             window.location.href = "/login";
             setShowModal(false); // Show modal for invalid postcode
 
