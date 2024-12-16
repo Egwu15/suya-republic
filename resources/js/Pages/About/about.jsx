@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/NavBar/index";
-import Footer from "../../components/Footer/index";
+
+import Navbar from "../../components/NavBar/";
+import Footer from "../../components/Footer/";
 import "./about.css";
 import Loader from "@/Components/Loader/Loader";
 import image1 from "../../../assets/img/suya/The-Suya-Experience.jpg";
 import image2 from "../../../assets/img/suya/image.png";
 import image3 from "../../../assets/img/suya/Roast-suya.png";
 import image4 from "../../../assets/img/suya/Sharwama.png";
+
+
 function About() {
     useEffect(() => {
         window.scrollTo(0, 0);
