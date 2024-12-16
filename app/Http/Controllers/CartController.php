@@ -104,9 +104,10 @@ class CartController extends Controller
 
             $totalPrice += $product['price'] * $product['quantity'];
         }
+       
 
-        if ($totalPrice !== $totalCents / 100) {
-            return Redirect::back()->withErrors(['product_detail' => 'Total price mismatch'])->withInput();
+        if ($totalPrice != $totalCents / 100) {
+            return Redirect::back()->withErrors(provider: ['product_detail' => 'Total price mismatch'])->withInput();
         }
 
 
