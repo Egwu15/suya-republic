@@ -34,13 +34,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
     const handleChange = (e) => {
         console.log("Old value:", billingDetails);
-        setBillingDetails(prev => ({
+        setBillingDetails((prev) => ({
             ...prev,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }));
         console.log("New value:", billingDetails);
     };
-
 
     useEffect(() => {
         const checkUserAndInitializePayment = async () => {
@@ -171,16 +170,18 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                         autoComplete="first Name"
                                         name="firstName"
                                         onChangeMethod={(e) =>
-                                            setBillingDetails(prev => ({
+                                            setBillingDetails((prev) => ({
                                                 ...prev,
-                                                firstName: e.target.value
+                                                firstName: e.target.value,
                                             }))
                                         }
                                     />
-                                     <InputError
+                                    <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.firstName']
+                                            formError?.[
+                                                "billingDetails.firstName"
+                                            ]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -207,7 +208,9 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.lastName']
+                                            formError?.[
+                                                "billingDetails.lastName"
+                                            ]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -232,10 +235,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             })
                                         }
                                     />
-                                     <InputError
+                                    <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.phone']
+                                            formError?.["billingDetails.phone"]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -259,10 +262,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             })
                                         }
                                     />
-                                     <InputError
+                                    <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.email']
+                                            formError?.["billingDetails.email"]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -290,14 +293,14 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     })
                                 }
                             />
-                             <InputError
-                                        message={
-                                            formError &&
-                                            formError?.['billingDetails.notes']
-                                        }
-                                        className="mt-2"
-                                        style={{ color: "red" }}
-                                    />
+                            <InputError
+                                message={
+                                    formError &&
+                                    formError?.["billingDetails.notes"]
+                                }
+                                className="mt-2"
+                                style={{ color: "red" }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -318,7 +321,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                             {item.name} - {item.description} × {item.quantity}
                         </div>
                         <div className="col-6 text-end">
-                            £{item.price.toFixed(2)}{" "}
+                            £{item.price}{" "}
                             {/* Adjusting price to 2 decimal places */}
                         </div>
                     </div>
