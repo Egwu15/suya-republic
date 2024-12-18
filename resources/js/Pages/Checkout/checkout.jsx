@@ -34,13 +34,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
     const handleChange = (e) => {
         console.log("Old value:", billingDetails);
-        setBillingDetails(prev => ({
+        setBillingDetails((prev) => ({
             ...prev,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }));
         console.log("New value:", billingDetails);
     };
-
 
     useEffect(() => {
         const checkUserAndInitializePayment = async () => {
@@ -67,6 +66,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             console.log("Initializing checkout...");
 
             const card = await payments.card();
+            console.log("Initializing card...", card);
+
             await card.attach("#card-container");
             setCard(card);
         };
@@ -84,7 +85,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             if (errors) {
                 console.error(errors);
-                alert("Payment failed.");
                 setLoading(false);
                 return;
             }
@@ -99,6 +99,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     products: cartItems,
                     billingDetails: billingDetails,
                 },
+
                 {
                     onSuccess: () => {
                         setFormErrors({});
@@ -119,6 +120,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     },
                 }
             );
+            console.log("Initializing billingDetails...", billingDetails);
         } catch (error) {
             console.error(error);
             toast.error(
@@ -171,16 +173,18 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                         autoComplete="first Name"
                                         name="firstName"
                                         onChangeMethod={(e) =>
-                                            setBillingDetails(prev => ({
+                                            setBillingDetails((prev) => ({
                                                 ...prev,
-                                                firstName: e.target.value
+                                                firstName: e.target.value,
                                             }))
                                         }
                                     />
-                                     <InputError
+                                    <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.firstName']
+                                            formError?.[
+                                                "billingDetails.firstName"
+                                            ]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -207,7 +211,9 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.lastName']
+                                            formError?.[
+                                                "billingDetails.lastName"
+                                            ]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -232,10 +238,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             })
                                         }
                                     />
-                                     <InputError
+                                    <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.phone']
+                                            formError?.["billingDetails.phone"]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -259,10 +265,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             })
                                         }
                                     />
-                                     <InputError
+                                    <InputError
                                         message={
                                             formError &&
-                                            formError?.['billingDetails.email']
+                                            formError?.["billingDetails.email"]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -290,14 +296,14 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                     })
                                 }
                             />
-                             <InputError
-                                        message={
-                                            formError &&
-                                            formError?.['billingDetails.notes']
-                                        }
-                                        className="mt-2"
-                                        style={{ color: "red" }}
-                                    />
+                            <InputError
+                                message={
+                                    formError &&
+                                    formError?.["billingDetails.notes"]
+                                }
+                                className="mt-2"
+                                style={{ color: "red" }}
+                            />
                         </div>
                     </div>
                 </div>
