@@ -100,6 +100,24 @@ a {
 
 
 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Oswald", sans-serif, open-sa;
+    font-weight: 700; /* Bold weight */
+}
+.nav-test {
+    font-family: "Oswald", sans-serif, open-sa;
+    font-weight: 700; /* Bold weight */
+}
+p {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300; /* Light weight */
+    line-height: 1.6;
+}
 .color-red {
     color: #d2401e;
 }

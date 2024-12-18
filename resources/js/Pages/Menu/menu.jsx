@@ -3,10 +3,11 @@ import Footer from "../../components/Footer/index";
 import SideBar from "@/components/SideBar";
 import useCartStore from "@/store/Store";
 import "./menu.css";
-import  { Link } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
+    console.log("product", products);
 
     const toggleItemSelection = (id, product) => {
         const isSelected = cartItems.some((item) => item.id === id);

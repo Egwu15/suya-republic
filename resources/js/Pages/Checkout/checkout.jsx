@@ -38,7 +38,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             ...prev,
             [e.target.name]: e.target.value,
         }));
-        console.log("New value:", billingDetails);
     };
 
     useEffect(() => {
@@ -63,9 +62,9 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 squareAppId,
                 squareLocationId
             );
-            console.log("Initializing checkout...");
 
             const card = await payments.card();
+
             await card.attach("#card-container");
             setCard(card);
         };
@@ -83,7 +82,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             if (errors) {
                 console.error(errors);
-                alert("Payment failed.");
                 setLoading(false);
                 return;
             }
@@ -98,6 +96,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     products: cartItems,
                     billingDetails: billingDetails,
                 },
+
                 {
                     onSuccess: () => {
                         setFormErrors({});

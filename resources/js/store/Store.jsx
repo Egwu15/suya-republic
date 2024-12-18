@@ -1,11 +1,34 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { toast, ToastContainer } from "react-toastify";
 
 const useCartStore = create(
     persist((set, get) => ({
         cartItems: [],
 
         addItem: (product) => {
+            const { cartItems } = get();
+            const isInternational = product.is_international;
+
+            // Check if cart has conflicting category items
+            const hasConflict = cartItems.some(
+                (item) => item.is_international !== isInternational
+            );
+
+            if (hasConflict) {
+                alert(
+                    "You can only select items from one category (local or international) at a time."
+                );
+                // throw new Error(
+                //     "You can only select items from one category (local or international) at a time."
+                // );
+
+                toast.error(
+                    "You can only select items from one category (local or international) at a time."
+                );
+                return; // Stop execution here, avoiding the throw
+            }
+
             set((state) => ({
                 cartItems: [
                     ...state.cartItems,

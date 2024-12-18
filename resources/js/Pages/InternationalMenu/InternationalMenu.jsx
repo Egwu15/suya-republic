@@ -5,6 +5,7 @@ import useCartStore from "@/store/Store";
 import "./InternationalMenu.css";
 import { Link } from "@inertiajs/react";
 import SideBar from "@/Components/SideBar";
+import { ToastContainer } from "react-toastify";
 
 const InternationalMenu = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
@@ -23,6 +24,7 @@ const InternationalMenu = ({ products }) => {
     return (
         <div>
             <Navbar />
+            <ToastContainer />
             <section className="our-menu">
                 <div className="container">
                     <div className="row">
