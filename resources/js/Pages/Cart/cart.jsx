@@ -217,7 +217,7 @@ const Cart = ({ cartAdded, products }) => {
                                                     )}
                                                 </td>
                                                 <td>
-                                                    £{item.price.toFixed(2)}
+                                                    £{item.price ?? 'invalid price'}
                                                 </td>
                                                 <td>
                                                     <div className="d-flex align-items-center">

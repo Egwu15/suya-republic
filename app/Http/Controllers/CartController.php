@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use \Inertia\Inertia;
@@ -103,9 +104,10 @@ class CartController extends Controller
 
             $totalPrice += $product['price'] * $product['quantity'];
         }
+       
 
-        if ($totalPrice !== $totalCents / 100) {
-            return Redirect::back()->withErrors(['product_detail' => 'Total price mismatch'])->withInput();
+        if ($totalPrice != $totalCents / 100) {
+            return Redirect::back()->withErrors(provider: ['product_detail' => 'Total price mismatch'])->withInput();
         }
 
 
@@ -160,6 +162,7 @@ class CartController extends Controller
                 'products' => $products,
 
             ];
+            defer(fn() => Purchase::recordPurchase($billingDetails['email'], $totalPrice));
             defer(fn() => Mail::send(new SaleReceipt($data)));
         } else {
             $order = Order::find($orderId);

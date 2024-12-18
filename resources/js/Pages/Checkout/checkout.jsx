@@ -324,7 +324,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                             {item.name} - {item.description} × {item.quantity}
                         </div>
                         <div className="col-6 text-end">
-                            £{item.price.toFixed(2)}{" "}
+                            £{item.price}{" "}
                             {/* Adjusting price to 2 decimal places */}
                         </div>
                     </div>

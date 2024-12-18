@@ -55,9 +55,7 @@ Route::get('/checkMail', function () {
 
 
 // ------------------frontOnlyPages-------------
-Route::get('/international-menu', function () {
-    return Inertia::render('InternationalMenu/InternationalMenu');
-});
+Route::get('/international-menu', [ProductController::class, 'international']);
 Route::get('/order-online', function () {
     return Inertia::render('OrderOnline/orderOnline');
 });
