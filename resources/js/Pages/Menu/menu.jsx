@@ -8,6 +8,7 @@ import { Link } from "@inertiajs/react";
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
     console.log("product", products);
+    console.log("categories", categories);
 
     const toggleItemSelection = (id, product) => {
         const isSelected = cartItems.some((item) => item.id === id);
@@ -46,7 +47,7 @@ const OurMenu = ({ products, categories }) => {
                             <section className="hot-cards pt-5 pb-5">
                                 <div className="container">
                                     <div className="row row-grid">
-                                        {products.data.map((data) => (
+                                        {products.map((data) => (
                                             <div
                                                 className="col-md-4"
                                                 key={data.id}

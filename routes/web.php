@@ -9,6 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 
 Route::get('/', function () {
@@ -41,21 +42,29 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/checkMail', function () {
-    // return View('mail.receipt');
-    $data = [
-        'name' => "named named",
-        'email' => 'none@none.com',
-        'subject' => 'email Subject',
-        'message' => 'This is the message a long one Hello, I would like to know more about the suya spice and how it can be delivered to my location in London.'
+// Route::get('/checkMail', function () {
+//     // return View('mail.receipt');
+//     $data = [
+//         'name' => "named named",
+//         'email' => 'none@none.com',
+//         'subject' => 'email Subject',
+//         'message' => 'This is the message a long one Hello, I would like to know more about the suya spice and how it can be delivered to my location in London.'
 
-    ];
-    return (new ContactMail($data))->render();
-});
+//     ];
+//     return (new ContactMail($data))->render();
+// });
+
 
 
 // ------------------frontOnlyPages-------------
 Route::get('/international-menu', [ProductController::class, 'international']);
+Route::get(
+    '/.well-known/apple-developer-merchantid-domain-association',
+    function () {
+        $filePath = storage_path('/apple-developer-merchantid-domain-association');
+        return  response()->download($filePath);
+    }
+);
 Route::get('/order-online', function () {
     return Inertia::render('OrderOnline/orderOnline');
 });
