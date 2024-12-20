@@ -36,20 +36,20 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     useEffect(() => {
         const checkUserAndInitializePayment = async () => {
             // Check if the guest is logged in
-            if (!(guest || user)) {
+            if (!cartItems.length) {
                 console.log(
-                    "you are not logged in. Redirecting to login page..."
+                    "you don't have item in cart. Redirecting to login page..."
                 );
-                toast.error("You need to log in to proceed with checkout.");
-                router.visit("/login"); // Navigate to login page
+                toast.error(
+                    "You need to select item to proceed with checkout."
+                );
+                router.visit("/menu"); // Navigate to login page
                 // window.location.href = "/login"; // Navigate to the menu page
 
                 return;
             }
 
-            // Log the guest's details
-            console.log("Logged in guest details:", guest);
-
+            // Log the guest's detai
             // Initialize payment if the guest is logged in
             const payments = await window.Square.payments(
                 squareAppId,
@@ -361,7 +361,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 </div>
 
                 {/* Shipping Options */}
-                <div className="row align-items-center border-bottom py-2">
+                {/* <div className="row align-items-center border-bottom py-2">
                     <div className="col-12">
                         <p>Shipping</p>
                         <div className="col-6 text-en">
@@ -399,7 +399,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Total Calculation */}
                 <div className="row align-items-center py-2">

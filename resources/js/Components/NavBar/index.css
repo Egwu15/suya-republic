@@ -191,7 +191,7 @@
     }
 
     .menu-links {
-        background: rgb(135, 19, 19);
+        background: rgb(230, 230, 230);
         padding: 20px 0;
         border-radius: 0 0 10px 10px;
         position: absolute;
@@ -200,6 +200,7 @@
         width: 100%;
         flex-direction: column-reverse;
         /* align-items: center; */
+        z-index: 1000;
         display: none;
 
         /* gap: 15px;  */
