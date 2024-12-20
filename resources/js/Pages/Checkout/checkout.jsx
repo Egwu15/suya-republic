@@ -341,7 +341,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 </div>
 
                 {/* Shipping Options */}
-                <div className="row align-items-center border-bottom py-2">
+                {/* <div className="row align-items-center border-bottom py-2">
                     <div className="col-12">
                         <p>Shipping</p>
                         <div className="col-6 text-en">
@@ -379,7 +379,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Total Calculation */}
                 <div className="row align-items-center py-2">

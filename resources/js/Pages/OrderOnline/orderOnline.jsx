@@ -15,7 +15,7 @@ const OrderOnline = () => {
         } else if (!postcode.toUpperCase().startsWith("MN")) {
             setModalMessage("We only deliver within Manchester.");
             setShowModal(true); // Show modal for invalid postcode
-            window.location.href = "/menu";
+            window.location.href = "/";
 
             setErrorMessage(""); // Clear error message
         } else {

@@ -44,7 +44,7 @@ const Login = () => {
 
         setGuest(guestData); // Save guest user to Zustand store
         saveGuestToLocalStorage(); // Persist user to localStorage
-        toast.success("Guest login successful!");
+        // toast.success("Guest login successful!");
         router.visit(route("menu"));
     };
 
@@ -157,7 +157,7 @@ const Login = () => {
                                 onClick={() => setIsGuest(true)}
                                 className="btn btn-link text-decoration-none text-dark text-center"
                             >
-                                Proceed as Guest
+                                Continue as Guest
                             </button>
                         </div>
                     </form>
@@ -219,7 +219,7 @@ const Login = () => {
                 )}
 
                 <div className="text-center my-3">
-                    <span>New to ? </span>
+                    <span>New to Suya ? </span>
                     <Link href="/signup" className="text-decoration-none">
                         Create an account
                     </Link>
