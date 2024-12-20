@@ -31,7 +31,7 @@ const Cart = ({ cartAdded, products }) => {
         const storedOrderType = localStorage.getItem("orderType");
         setOrderType(storedOrderType);
     }, []);
-    console.log("orderType", orderType);
+    console.log("orderType", products);
 
     useEffect(() => {
         if (!cartAdded && products?.length) {
@@ -156,7 +156,7 @@ const Cart = ({ cartAdded, products }) => {
                                                         <img
                                                             src={
                                                                "/storage/" +
-                                                                data.product_image
+                                                                item.product_image
                                                             }
                                                             alt={item.name}
                                                             style={{
