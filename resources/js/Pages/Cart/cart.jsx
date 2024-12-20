@@ -146,7 +146,8 @@ const Cart = ({ cartAdded, products }) => {
                                                     >
                                                         <img
                                                             src={
-                                                                item.product_image
+                                                               "/storage/" +
+                                                                data.product_image
                                                             }
                                                             alt={item.name}
                                                             style={{

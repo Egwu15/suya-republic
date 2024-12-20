@@ -64,6 +64,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             // Initialize Apple Pay
             const applePay = await payments.applePay();
             const canUseApplePay = await applePay.canMakePayment();
+            console.log("can use ", canUseApplePay);
+
             if (canUseApplePay) {
                 await applePay.attach("#apple-pay-button");
                 setCanApplePay(true);
