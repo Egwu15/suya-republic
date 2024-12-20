@@ -83,8 +83,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         handlePaymentSubmission(
             () =>
                 applePay.tokenize({
-                    amount: calculateTotal() * 100,
-                    currency: "GBP",
+                    countryCode: "UK",
+                    currencyCode: "GBP",
+                    total: {
+                        amount: calculateTotal() * 100,
+                        label: "Total",
+                    },
                 }),
             "Apple Pay"
         );
