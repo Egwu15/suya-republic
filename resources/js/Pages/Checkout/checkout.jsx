@@ -13,6 +13,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
+    const [canApplePay, setCanApplePay] = useState(false);
 
     const { guest, setGuest, cartItems, clearCart, calculateTotal } =
         useCartStore();
@@ -31,14 +32,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         phone: "",
         note: "",
     });
-
-    const handleChange = (e) => {
-        console.log("Old value:", billingDetails);
-        setBillingDetails((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
-    };
 
     useEffect(() => {
         const checkUserAndInitializePayment = async () => {
@@ -67,20 +60,43 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             await card.attach("#card-container");
             setCard(card);
+
+            // Initialize Apple Pay
+            const applePay = await payments.applePay();
+            const canUseApplePay = await applePay.canMakePayment();
+            if (canUseApplePay) {
+                await applePay.attach("#apple-pay-button");
+                setCanApplePay(true);
+            }
         };
 
         checkUserAndInitializePayment();
     }, []);
 
-    const handlePayment = async () => {
+    const handleApplePay = async () => {
+        const applePay = await window.Square.payments(
+            squareAppId,
+            squareLocationId
+        ).applePay();
+        handlePaymentSubmission(
+            () =>
+                applePay.tokenize({
+                    amount: calculateTotal() * 100,
+                    currency: "GBP",
+                }),
+            "Apple Pay"
+        );
+    };
+
+    const handlePaymentSubmission = async (tokenizeFn, paymentType) => {
         setLoading(true);
 
         try {
-            const { token, errors } = await card.tokenize();
+            const tokenResult = await tokenizeFn();
 
-            if (errors) {
-                console.error(errors);
-                setLoading(false);
+            if (tokenResult.errors) {
+                console.error(tokenResult.errors);
+                toast.error(`${paymentType} payment failed to process.`);
                 return;
             }
 
@@ -89,7 +105,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             router.post(
                 "/process-payment",
                 {
-                    nonce: token,
+                    nonce: tokenResult.token,
                     totalCents: calculateTotal() * 100,
                     products: cartItems,
                     billingDetails: billingDetails,
@@ -123,6 +139,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handlePayment = async () => {
+        handlePaymentSubmission(() => card.tokenize(), "Card");
     };
 
     return (
@@ -406,6 +426,16 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 >
                     {loading ? "Processing..." : "Pay Now"}
                 </button>
+                <div id="apple-pay-button">
+                    {canApplePay && (
+                        <button
+                            onClick={handleApplePay}
+                            className="btn btn-primary text-white px-3"
+                        >
+                            Pay with Apple Pay
+                        </button>
+                    )}
+                </div>
             </div>
 
             <Footer />

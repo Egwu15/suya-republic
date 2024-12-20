@@ -18,11 +18,11 @@ class ProductController extends Controller
             ? Product::with(['variance.options'])
             ->where('category_id', $selectedCategory)
             ->where('is_international', false)
-            ->paginate()
+            ->get()
 
             : Product::with(['variance.options'])
             ->where('is_international', false)
-            ->paginate($limit);
+            ->get();
 
         $categories = Category::paginate($limit);
 
@@ -30,9 +30,6 @@ class ProductController extends Controller
         return inertia()->render('Menu/menu', [
             'products' => $products,
             'categories' => $categories,
-            'page' => $page,
-            'limit' => $limit,
-            'total' => $products->total(),
         ]);
     }
 
@@ -40,7 +37,7 @@ class ProductController extends Controller
     {
         $products =  Product::with(['variance.options'])
             ->where('is_international', true)->get();
-       
+
         return inertia()->render('InternationalMenu/InternationalMenu', ['products' => $products]);
     }
 }
