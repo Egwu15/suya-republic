@@ -61,15 +61,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             await card.attach("#card-container");
             setCard(card);
 
-            // Initialize Apple Pay
-            // const applePay = await payments.applePay();
-            // const canUseApplePay = await applePay.canMakePayment();
-            // console.log("can use ", canUseApplePay);
-
-            // if (canUseApplePay) {
-            await applePay.attach("#apple-pay-button");
-            setCanApplePay(true);
-            // }
+         
         };
 
         checkUserAndInitializePayment();
@@ -83,11 +75,13 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             );
 
             // Create the payment request object
+            console.log("total ", calculateTotal());
+
             const paymentRequest = payments.paymentRequest({
-                countryCode: "UK",
+                countryCode: "GB",
                 currencyCode: "GBP",
                 total: {
-                    amount: calculateTotal() * 100,
+                    amount: (calculateTotal() * 100).toString(),
                     label: "Total",
                 },
             });
