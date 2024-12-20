@@ -13,7 +13,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
-    const [canApplePay, setCanApplePay] = useState(false);
+    const [canApplePay, setCanApplePay] = useState(true);
 
     const { guest, setGuest, cartItems, clearCart, calculateTotal } =
         useCartStore();
@@ -62,36 +62,65 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             setCard(card);
 
             // Initialize Apple Pay
-            const applePay = await payments.applePay();
-            const canUseApplePay = await applePay.canMakePayment();
-            console.log("can use ", canUseApplePay);
+            // const applePay = await payments.applePay();
+            // const canUseApplePay = await applePay.canMakePayment();
+            // console.log("can use ", canUseApplePay);
 
-            if (canUseApplePay) {
-                await applePay.attach("#apple-pay-button");
-                setCanApplePay(true);
-            }
+            // if (canUseApplePay) {
+            await applePay.attach("#apple-pay-button");
+            setCanApplePay(true);
+            // }
         };
 
         checkUserAndInitializePayment();
     }, []);
 
     const handleApplePay = async () => {
-        const applePay = await window.Square.payments(
-            squareAppId,
-            squareLocationId
-        ).applePay();
-        handlePaymentSubmission(
-            () =>
-                applePay.tokenize({
-                    countryCode: "UK",
-                    currencyCode: "GBP",
-                    total: {
-                        amount: calculateTotal() * 100,
-                        label: "Total",
-                    },
-                }),
-            "Apple Pay"
-        );
+        try {
+            const payments = await window.Square.payments(
+                squareAppId,
+                squareLocationId
+            );
+
+            // Create the payment request object
+            const paymentRequest = payments.paymentRequest({
+                countryCode: "UK",
+                currencyCode: "GBP",
+                total: {
+                    amount: calculateTotal() * 100,
+                    label: "Total",
+                },
+            });
+
+            // Initialize Apple Pay with the payment request
+            const applePay = await payments.applePay(paymentRequest);
+
+            // Check if Apple Pay is available
+            const canUseApplePay = await applePay.canMakePayment();
+            if (!canUseApplePay) {
+                console.log(
+                    "Apple Pay is not available on this device/browser."
+                );
+                toast.error("Apple Pay is not available on your device.");
+                return;
+            }
+
+            // Attach the Apple Pay button dynamically
+            await applePay.attach("#apple-pay-button");
+
+            // Handle payment when button is clicked
+            document
+                .querySelector("#apple-pay-button")
+                .addEventListener("click", async () => {
+                    handlePaymentSubmission(
+                        () => applePay.tokenize(),
+                        "Apple Pay"
+                    );
+                });
+        } catch (error) {
+            console.error("Error initializing Apple Pay:", error);
+            toast.error("Failed to initialize Apple Pay.");
+        }
     };
 
     const handlePaymentSubmission = async (tokenizeFn, paymentType) => {
