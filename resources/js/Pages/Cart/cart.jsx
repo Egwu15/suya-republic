@@ -31,7 +31,7 @@ const Cart = ({ cartAdded, products }) => {
         const storedOrderType = localStorage.getItem("orderType");
         setOrderType(storedOrderType);
     }, []);
-    console.log("orderType", products);
+    console.log("orderType", orderType);
 
     useEffect(() => {
         if (!cartAdded && products?.length) {

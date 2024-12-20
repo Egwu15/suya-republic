@@ -60,60 +60,53 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             await card.attach("#card-container");
             setCard(card);
-
-         
         };
 
+        initializeGooglePay();
         checkUserAndInitializePayment();
     }, []);
 
-    const handleApplePay = async () => {
+    const initializeGooglePay = async () => {
+        const createGooglePayRequest = (calculateTotal) => ({
+            countryCode: "GB",
+            currencyCode: "GBP",
+            total: {
+                amount: (calculateTotal()).toString(),
+                label: "Total",
+            },
+        });
+
         try {
             const payments = await window.Square.payments(
                 squareAppId,
                 squareLocationId
             );
 
-            // Create the payment request object
-            console.log("total ", calculateTotal());
+            // Create a payment request
+            const paymentRequest = payments.paymentRequest(
+                createGooglePayRequest(calculateTotal)
+            );
 
-            const paymentRequest = payments.paymentRequest({
-                countryCode: "GB",
-                currencyCode: "GBP",
-                total: {
-                    amount: (calculateTotal() * 100).toString(),
-                    label: "Total",
-                },
-            });
+            // Initialize Google Pay
+            const googlePay = await payments.googlePay(paymentRequest);
 
-            // Initialize Apple Pay with the payment request
-            const applePay = await payments.applePay(paymentRequest);
+            // Check if Google Pay is available
 
-            // Check if Apple Pay is available
-            const canUseApplePay = await applePay.canMakePayment();
-            if (!canUseApplePay) {
-                console.log(
-                    "Apple Pay is not available on this device/browser."
-                );
-                toast.error("Apple Pay is not available on your device.");
-                return;
-            }
+            // Attach Google Pay button to your DOM
+            await googlePay.attach("#google-pay-button");
 
-            // Attach the Apple Pay button dynamically
-            await applePay.attach("#apple-pay-button");
-
-            // Handle payment when button is clicked
+            // Add a click event listener for the Google Pay button
             document
-                .querySelector("#apple-pay-button")
+                .querySelector("#google-pay-button")
                 .addEventListener("click", async () => {
                     handlePaymentSubmission(
-                        () => applePay.tokenize(),
-                        "Apple Pay"
+                        () => googlePay.tokenize(),
+                        "Google Pay"
                     );
                 });
         } catch (error) {
-            console.error("Error initializing Apple Pay:", error);
-            toast.error("Failed to initialize Apple Pay.");
+            console.error("Error initializing Google Pay:", error);
+            toast.error("Failed to initialize Google Pay.");
         }
     };
 
@@ -455,16 +448,14 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 >
                     {loading ? "Processing..." : "Pay Now"}
                 </button>
-                <div id="apple-pay-button">
-                    {canApplePay && (
-                        <button
-                            onClick={handleApplePay}
-                            className="btn btn-primary text-white px-3"
-                        >
-                            Pay with Apple Pay
-                        </button>
-                    )}
-                </div>
+                <form id="payment-form">
+                    <div id="google-pay-button"></div>
+                    <div id="card-container"></div>
+                    <button id="card-button" type="button">
+                        {calculateTotal()}
+                    </button>
+                </form>
+                <div id="payment-status-container"></div>
             </div>
 
             <Footer />
