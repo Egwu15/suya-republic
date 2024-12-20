@@ -18,14 +18,20 @@ const Cart = ({ cartAdded, products }) => {
     } = useCartStore();
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [postcode, setPostcode] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [orderType, setOrderType] = useState("");
+
     const [spiceLevels, setSpiceLevels] = useState({});
     const user = usePage().props.auth.user;
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+    useEffect(() => {
+        // Retrieve the stored value from localStorage
+        const storedOrderType = localStorage.getItem("orderType");
+        setOrderType(storedOrderType);
+    }, []);
+    console.log("orderType", orderType);
 
     useEffect(() => {
         if (!cartAdded && products?.length) {
@@ -66,9 +72,14 @@ const Cart = ({ cartAdded, products }) => {
     const handleCheckout = () => {
         const { guest } = useCartStore.getState();
 
-        if (guest || user) {
-            // If guest exists, navigate to the checkout page
+        // if (guest || user) {
+        //     // If guest exists, navigate to the checkout page
+        //     router.visit("/checkout");
+        // } else
+        if (orderType === "collect") {
             router.visit("/checkout");
+            // Open modal only if orderType is not "collect"
+            // setShowModal(false);
         } else {
             // If guest doesn't exist, show the modal
             setShowModal(true);
@@ -76,31 +87,29 @@ const Cart = ({ cartAdded, products }) => {
     };
 
     const handleDeliverToMe = () => {
-        if (postcode.trim() === "") {
-            setErrorMessage("Please enter your postcode.");
-        } else if (!postcode.toUpperCase().startsWith("MN")) {
-            setModalMessage("We only deliver within Manchester.");
-            setShowModal(true); // Show modal for invalid postcode
-            setErrorMessage(""); // Clear error message
-        } else {
-            // toast.success("Delivery is available for your postcode!");
+        // if (postcode.trim() === "") {
+        //     setErrorMessage("Please enter your postcode.");
+        // } else if (!postcode.toUpperCase().startsWith("MN")) {
+        //     setModalMessage("We only deliver within Manchester.");
+        //     setShowModal(true); // Show modal for invalid postcode
+        //     setErrorMessage(""); // Clear error message
+        // } else {
+        //     // toast.success("Delivery is available for your postcode!");
 
-            // alert("Delivery is available for your postcode!");
-            window.location.href = "/login";
+        //     // alert("Delivery is available for your postcode!");
+        //     window.location.href =
+        //         "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
 
-            setErrorMessage(""); // Clear error message
-        }
+        //     setErrorMessage(""); // Clear error message
+        // }
+        window.location.href =
+            "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
     };
 
     const handleCollect = () => {
-        if (postcode.trim() === "") {
-            setErrorMessage("Please enter your postcode.");
-        } else {
-            setModalMessage("Collection details will be provided soon.");
-            setShowModal(true);
-            setErrorMessage(""); // Clear error message
-        }
+        window.location.href = "/checkout";
     };
+
     const onClose = () => {
         setShowModal(false);
     };
@@ -133,7 +142,7 @@ const Cart = ({ cartAdded, products }) => {
                                 <tbody>
                                     {cartItems.length ? (
                                         cartItems.map((item) => (
-                                            <tr key={item.id}>
+                                            <tr key={item.id} className="">
                                                 <td>
                                                     <Link
                                                         href="/product"
@@ -217,7 +226,9 @@ const Cart = ({ cartAdded, products }) => {
                                                     )}
                                                 </td>
                                                 <td>
-                                                    £{item.price ?? 'invalid price'}
+                                                    £
+                                                    {item.price ??
+                                                        "invalid price"}
                                                 </td>
                                                 <td>
                                                     <div className="d-flex align-items-center">
@@ -342,7 +353,7 @@ const Cart = ({ cartAdded, products }) => {
                                         </div>
                                         <div className="modal-body">
                                             <form>
-                                                <div className="mb-3">
+                                                {/* <div className="mb-3">
                                                     <label
                                                         htmlFor="postcode"
                                                         className="form-label text-left fw-bold"
@@ -366,7 +377,7 @@ const Cart = ({ cartAdded, products }) => {
                                                             {errorMessage}
                                                         </p>
                                                     )}
-                                                </div>
+                                                </div> */}
                                                 <button
                                                     type="button"
                                                     className="btn btn-dark w-100 mb-2"

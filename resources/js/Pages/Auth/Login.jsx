@@ -6,8 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "@inertiajs/react";
 import "react-toastify/dist/ReactToastify.css";
 import InputError from "@/Components/InputError";
+import useCartStore from "@/store/Store";
 
 const Login = () => {
+    const { cartItems } = useCartStore();
     const [isGuest, setIsGuest] = useState(false); // Toggle between forms
     const [guestData, setGuestData] = useState({ email: "", name: "" }); // Guest form data
     const { addGuest, saveGuestToLocalStorage, setGuest } = useStore(); // Zustand store action
@@ -45,7 +47,8 @@ const Login = () => {
         setGuest(guestData); // Save guest user to Zustand store
         saveGuestToLocalStorage(); // Persist user to localStorage
         // toast.success("Guest login successful!");
-        router.visit(route("menu"));
+        // router.visit(route("checkout"));
+        window.location.href = "/checkout";
     };
 
     return (
@@ -151,15 +154,19 @@ const Login = () => {
                         <button type="submit" className="btn btn-dark w-100">
                             LOG IN
                         </button>
-                        <div className="my-2 d-flex justify-content-center py-2 proceed-btn">
-                            <button
-                                type="button"
-                                onClick={() => setIsGuest(true)}
-                                className="btn btn-link text-decoration-none text-dark text-center"
-                            >
-                                Continue as Guest
-                            </button>
-                        </div>
+                        {cartItems.length ? (
+                            <div className="my-2 d-flex justify-content-center py-2 proceed-btn">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsGuest(true)}
+                                    className="btn btn-link text-decoration-none text-dark text-center"
+                                >
+                                    Continue as Guest
+                                </button>
+                            </div>
+                        ) : (
+                            ""
+                        )}
                     </form>
                 ) : (
                     <form onSubmit={handleGuestSubmit}>

@@ -101,7 +101,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                {guest || user ? (
+                                {user ? (
                                     <button
                                         onClick={handleSignOut}
                                         className="black-btn-nav mx-1 p-2 text-white"

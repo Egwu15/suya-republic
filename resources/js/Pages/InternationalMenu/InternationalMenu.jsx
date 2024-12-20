@@ -24,7 +24,7 @@ const InternationalMenu = ({ products }) => {
     return (
         <div>
             <Navbar />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <section className="our-menu">
                 <div className="container">
                     <div className="row">

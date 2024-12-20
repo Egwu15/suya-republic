@@ -10,32 +10,33 @@ const OrderOnline = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const handleDeliverToMe = () => {
-        if (postcode.trim() === "") {
-            setErrorMessage("Please enter your postcode.");
-        } else if (!postcode.toUpperCase().startsWith("MN")) {
-            setModalMessage("We only deliver within Manchester.");
-            setShowModal(true); // Show modal for invalid postcode
-            window.location.href = "/";
+        // if (postcode.trim() === "") {
+        //     setErrorMessage("Please enter your postcode.");
+        // } else if (!postcode.toUpperCase().startsWith("MN")) {
+        //     setModalMessage("We only deliver within Manchester.");
+        //     setShowModal(true); // Show modal for invalid postcode
 
-            setErrorMessage(""); // Clear error message
-        } else {
-            // toast.success("Delivery is available for your postcode!");
-            // alert("Delivery is available for your postcode!");
-            window.location.href = "/login";
-            setShowModal(false); // Show modal for invalid postcode
+        //     // Navigate to external UberEats link
+        //     // window.location.href =''
+        //     setErrorMessage(""); // Clear error message
+        // } else {
+        //     // Navigate to internal login page
+        //     window.location.href =
+        //         "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
+        //     setShowModal(false); // Hide modal
 
-            setErrorMessage(""); // Clear error message
-        }
+        //     setErrorMessage(""); // Clear error message
+        // }
+        window.location.href =
+            "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
     };
 
     const handleCollect = () => {
-        if (postcode.trim() === "") {
-            setErrorMessage("Please enter your postcode.");
-        } else {
-            setModalMessage("Collection details will be provided soon.");
-            setShowModal(true);
-            setErrorMessage(""); // Clear error message
-        }
+        // Store a value in localStorage
+        localStorage.setItem("orderType", "collect");
+
+        // Navigate to the menu page
+        window.location.href = "/menu";
     };
 
     const closeModal = () => {
@@ -60,7 +61,7 @@ const OrderOnline = () => {
                     />
                 </div>
                 <form>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label
                             htmlFor="postcode"
                             className="form-label text-left fw-bold"
@@ -78,7 +79,7 @@ const OrderOnline = () => {
                         {errorMessage && (
                             <p className="text-danger mt-2">{errorMessage}</p>
                         )}
-                    </div>
+                    </div> */}
                     <button
                         type="button"
                         className="btn btn-dark w-100 mb-2"

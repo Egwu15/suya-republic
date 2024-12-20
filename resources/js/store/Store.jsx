@@ -23,9 +23,9 @@ const useCartStore = create(
                 //     "You can only select items from one category (local or international) at a time."
                 // );
 
-                toast.error(
-                    "You can only select items from one category (local or international) at a time."
-                );
+                // toast.error(
+                //     "You can only select items from one category (local or international) at a time."
+                // );
                 return; // Stop execution here, avoiding the throw
             }
 
