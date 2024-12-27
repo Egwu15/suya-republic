@@ -13,7 +13,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [card, setCard] = useState(null);
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
-    const [canApplePay, setCanApplePay] = useState(false);
+    const [canApplePay, setCanApplePay] = useState(true);
 
     const { guest, setGuest, cartItems, clearCart, calculateTotal } =
         useCartStore();
@@ -60,32 +60,54 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
             await card.attach("#card-container");
             setCard(card);
-
-            // Initialize Apple Pay
-            const applePay = await payments.applePay();
-            const canUseApplePay = await applePay.canMakePayment();
-            if (canUseApplePay) {
-                await applePay.attach("#apple-pay-button");
-                setCanApplePay(true);
-            }
         };
 
+        initializeGooglePay();
         checkUserAndInitializePayment();
     }, []);
 
-    const handleApplePay = async () => {
-        const applePay = await window.Square.payments(
-            squareAppId,
-            squareLocationId
-        ).applePay();
-        handlePaymentSubmission(
-            () =>
-                applePay.tokenize({
-                    amount: calculateTotal() * 100,
-                    currency: "GBP",
-                }),
-            "Apple Pay"
-        );
+    const initializeGooglePay = async () => {
+        const createGooglePayRequest = (calculateTotal) => ({
+            countryCode: "GB",
+            currencyCode: "GBP",
+            total: {
+                amount: calculateTotal().toString(),
+                label: "Total",
+            },
+        });
+
+        try {
+            const payments = await window.Square.payments(
+                squareAppId,
+                squareLocationId
+            );
+
+            // Create a payment request
+            const paymentRequest = payments.paymentRequest(
+                createGooglePayRequest(calculateTotal)
+            );
+
+            // Initialize Google Pay
+            const googlePay = await payments.googlePay(paymentRequest);
+
+            // Check if Google Pay is available
+
+            // Attach Google Pay button to your DOM
+            await googlePay.attach("#google-pay-button");
+
+            // Add a click event listener for the Google Pay button
+            document
+                .querySelector("#google-pay-button")
+                .addEventListener("click", async () => {
+                    handlePaymentSubmission(
+                        () => googlePay.tokenize(),
+                        "Google Pay"
+                    );
+                });
+        } catch (error) {
+            console.error("Error initializing Google Pay:", error);
+            toast.error("Failed to initialize Google Pay.");
+        }
     };
 
     const handlePaymentSubmission = async (tokenizeFn, paymentType) => {
@@ -426,16 +448,14 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 >
                     {loading ? "Processing..." : "Pay Now"}
                 </button>
-                <div id="apple-pay-button" className="d-inline-block mx-3">
-                    {canApplePay && (
-                        <button
-                            onClick={handleApplePay}
-                            className="btn btn-primary text-white px-3"
-                        >
-                            Pay with Apple Pay
-                        </button>
-                    )}
-                </div>
+                <form id="payment-form">
+                    <div id="google-pay-button"></div>
+                    <div id="card-container"></div>
+                    <button id="card-button" type="button">
+                        {calculateTotal()}
+                    </button>
+                </form>
+                <div id="payment-status-container"></div>
             </div>
 
             <Footer />
