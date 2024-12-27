@@ -71,7 +71,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             countryCode: "GB",
             currencyCode: "GBP",
             total: {
-                amount: (calculateTotal()).toString(),
+                amount: calculateTotal().toString(),
                 label: "Total",
             },
         });

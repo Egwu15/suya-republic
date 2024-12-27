@@ -320,12 +320,12 @@ const Cart = ({ cartAdded, products }) => {
                             >
                                 PROCEED TO CHECKOUT
                             </button>
-                            <button
+                            {/* <button
                                 className="btn btn-dark"
                                 onClick={() => setShowModal(true)}
                             >
                                 BUY WITH G-PAY
-                            </button>
+                            </button> */}
                         </div>
 
                         {/* Modal */}
