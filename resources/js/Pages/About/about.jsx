@@ -9,13 +9,12 @@ import image2 from "../../../assets/img/suya/image.png";
 import image3 from "../../../assets/img/suya/Roast-suya.png";
 import image4 from "../../../assets/img/suya/Sharwama.png";
 
-
 function About() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
 
     // Initialize cartItems from localStorage or products
 

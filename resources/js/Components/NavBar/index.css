@@ -8,7 +8,12 @@
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+.flexx {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+}
 .navbar-toggler {
     display: none;
     background: none;
@@ -117,6 +122,43 @@
     cursor: pointer;
     color: red; /* Customize as needed */
 }
+/* Add this to your CSS file or within a style block */
+/* Add this CSS to your stylesheet */
+.scale-effect {
+    display: inline-block; /* Ensures the scaling applies properly */
+    background-color: #d2401e; /* Red background for button */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    animation: scaleAnimation 0.9s infinite ease-in-out; /* Animation added */
+}
+
+/* Keyframes for scaling animation */
+@keyframes scaleAnimation {
+    0% {
+        transform: scale(1); /* Default size */
+    }
+    50% {
+        transform: scale(1.1); /* Scaled up */
+    }
+    100% {
+        transform: scale(0.95); /* Scaled down */
+    }
+}
+
+.scale-effect:hover {
+    transform: scale(1.1); /* Scales up by 10% */
+    background-color: #d2401e; /* Darker blue on hover */
+}
+
+.scale-effect:active {
+    transform: scale(0.95); /* Slightly scales down on click */
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
@@ -126,7 +168,12 @@
     .navbar-togg {
         display: block;
     }
-
+    .menu-links li {
+        display: block;
+    }
+    .hide {
+        display: none;
+    }
     /* .menu-links {
         flex-direction: column; 
         align-items: center; 
@@ -171,7 +218,7 @@
 
     .menu-links {
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
         gap: 15px;
     }
 
@@ -182,6 +229,9 @@
     .home-logo {
         height: 50px;
         width: 50px;
+    }
+    .mt-6 {
+        margin-top: 25px;
     }
 }
 
@@ -211,10 +261,6 @@
     }
     .navbar-togg {
         display: block;
-    }
-
-    .menu-links.show {
-        display: flex; /* Show menu when toggled */
     }
 
     .notify {

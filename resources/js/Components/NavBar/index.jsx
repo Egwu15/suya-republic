@@ -29,21 +29,31 @@ const Navbar = () => {
         <div className="navbar-section">
             <div className=" ">
                 <nav className="navb">
-                    {/* Logo */}
+                    {/* <div className="flex"> */}
                     <Link className="navbar-brand d-flex mr-auto" href="/">
                         <img src={logo} alt="Logo" className="home-logo" />
                     </Link>
 
                     {/* Hamburger menu toggle button */}
-                    <button className="navbar-togg" onClick={toggleMenu}>
-                        <i className="bi bi-list"></i>
-                    </button>
 
+                    <div className="d-flex">
+                        <Link
+                            href="/cart"
+                            className="nav-test d-md-none text-dark font-bold"
+                        >
+                            <CartIcon />
+                        </Link>
+                        <button className="navbar-togg" onClick={toggleMenu}>
+                            <i className="bi bi-list"></i>
+                        </button>
+                    </div>
+                    {/* </div>{" "} */}
+                    {/* Logo */}
                     {/* Navigation Links */}
                     <div
                         className={`menu-links ${isMenuOpen ? "show" : "hide"}`}
                     >
-                        <ul className="ml-auto">
+                        <ul className="ml-aut">
                             <li className="notify">
                                 <Link
                                     href="/"
@@ -87,20 +97,20 @@ const Navbar = () => {
                             <li className="notify">
                                 <Link
                                     href="/cart"
-                                    className="nav-test text-dark font-bold"
+                                    className="nav-test hide text-dark font-bold"
                                 >
                                     <CartIcon />
                                 </Link>
                             </li>
-                            <li>
+                            <li className="notify">
                                 <Link
                                     href="/order-online"
-                                    className="blue-btn-nav nav-test text-white"
+                                    className="blue-btn-nav nav-test text-white scale-effect"
                                 >
                                     ORDER ONLINE
                                 </Link>
                             </li>
-                            <li>
+                            <li className="notify mt-6">
                                 {user ? (
                                     <button
                                         onClick={handleSignOut}

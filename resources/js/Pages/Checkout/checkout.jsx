@@ -426,7 +426,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 >
                     {loading ? "Processing..." : "Pay Now"}
                 </button>
-                <div id="apple-pay-button">
+                <div id="apple-pay-button" className="d-inline-block mx-3">
                     {canApplePay && (
                         <button
                             onClick={handleApplePay}
