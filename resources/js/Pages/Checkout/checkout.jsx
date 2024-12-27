@@ -35,31 +35,68 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
     useEffect(() => {
         const checkUserAndInitializePayment = async () => {
-            // Check if the guest is logged in
-            if (!cartItems.length) {
-                console.log(
-                    "you don't have item in cart. Redirecting to login page..."
+            try {
+                // Check if the cart is empty
+                if (!cartItems.length) {
+                    console.log(
+                        "No items in cart. Redirecting to the menu page..."
+                    );
+                    toast.error(
+                        "Your cart is empty. Please add items to proceed."
+                    );
+                    router.visit("/menu"); // Navigate to the menu page
+                    return;
+                }
+
+                // Check if guest or user is not logged in
+                if (!guest) {
+                    console.log("guest", guest);
+                    console.log(
+                        "You need to log in to proceed. Redirecting to login page..."
+                    );
+                    toast.error("Please log in to proceed with checkout.");
+                    window.location.href = "/login"; // Redirect to the login page
+                    return;
+                }
+
+                // Log guest details for debugging
+                console.log("Guest details:", guest);
+
+                // Initialize payment using Square's payment API
+                const payments = await window.Square.payments(
+                    squareAppId,
+                    squareLocationId
                 );
+
+                // if (!payments) {
+                //     console.error("Square Payments initialization failed.");
+                //     toast.error(
+                //         "Unable to initialize payment. Please try again later."
+                //     );
+                //     return;
+                // }
+
+                const card = await payments.card();
+
+                // if (!card) {
+                //     console.error("Square Card initialization failed.");
+                //     toast.error(
+                //         "Unable to initialize card payment. Please try again later."
+                //     );
+                //     return;
+                // }
+
+                // Attach the card component to the DOM
+                await card.attach("#card-container");
+                setCard(card);
+
+                console.log("Card component attached successfully.");
+            } catch (error) {
+                console.error("Error during payment initialization:", error);
                 toast.error(
-                    "You need to select item to proceed with checkout."
+                    "An error occurred while initializing payment. Please try again."
                 );
-                router.visit("/menu"); // Navigate to login page
-                // window.location.href = "/login"; // Navigate to the menu page
-
-                return;
             }
-
-            // Log the guest's detai
-            // Initialize payment if the guest is logged in
-            const payments = await window.Square.payments(
-                squareAppId,
-                squareLocationId
-            );
-
-            const card = await payments.card();
-
-            await card.attach("#card-container");
-            setCard(card);
         };
 
         initializeGooglePay();
