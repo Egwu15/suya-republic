@@ -218,8 +218,10 @@
 
     .menu-links {
         flex-direction: column;
-        /* align-items: center; */
-        gap: 15px;
+        align-items: center;
+        gap: 25px;
+        text-align: center;
+        font-size: larger;
     }
 
     .notify {
