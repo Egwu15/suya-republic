@@ -1,64 +1,59 @@
 .footer-text ul {
-  list-style: none;
-  text-align: start;
+    list-style: none;
+    text-align: start;
 }
 
-
 .footer-text li {
-  font-size: 14px;
-  line-height: 17px;
-  color: #ff0000;
+    font-size: 14px;
+    line-height: 17px;
+    color: #ff0000;
 }
 .socialfootericon img {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    filter: invert(1)
+    filter: invert(1);
 }
 /* .socialfootericon img:hover{
    transform: translateY(20px);
 } */
 
 .footer-cards {
-  background-image: url("../../assets/img/suya/footer-bg.jpg");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  display: flex;
-  justify-content:space-between;
-  flex-wrap: wrap;
-  padding: 100px 50px;
+    background-image: url("../../assets/img/suya/footer-bg.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 100px 50px;
 }
 
 .footer-card {
-  flex-basis: 30%;
+    flex-basis: 30%;
 }
 
 .footer-logo {
-  display: none;
+    display: none;
 }
-
 
 @media only screen and (max-width: 1024px) {
-  .footer-logo {
-    display: block;
-  }
-  .footer-logo-mobile {
-    display: none;
-    flex-basis: 100%;
-  }
+    .footer-logo {
+        display: block;
+    }
+    .footer-logo-mobile {
+        display: none;
+        flex-basis: 100%;
+    }
 
-  .footer-card {
-    flex-basis: 50%;
-  }
+    .footer-card {
+        flex-basis: 50%;
+    }
 }
 
-
-
-  
-  a:hover img {
+a:hover img {
     -webkit-animation-name: hvr-icon-wobble-horizontal;
     animation-name: hvr-icon-wobble-horizontal;
     -webkit-animation-duration: 1s;
@@ -67,12 +62,12 @@
     animation-timing-function: ease-in-out;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
-  }
+}
 
-  .footer-block-square{
+.footer-block-square {
     width: 40px;
     height: 40px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     display: flex;
@@ -81,68 +76,91 @@
     position: absolute;
     bottom: 65px;
     right: 50px;
-  }
-  
-  @-webkit-keyframes hvr-icon-wobble-horizontal {
+}
+/* Default styling for larger screens */
+.footer-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-card {
+    flex: 1;
+    margin: 10px;
+}
+
+/* Responsive styling for mobile devices */
+@media (max-width: 767px) {
+    .footer-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two columns */
+        gap: 10px;
+    }
+
+    .footer-card {
+        margin: 0;
+    }
+}
+
+@-webkit-keyframes hvr-icon-wobble-horizontal {
     16.65% {
-      -webkit-transform: translateX(6px);
-      transform: translateX(6px);
+        -webkit-transform: translateX(6px);
+        transform: translateX(6px);
     }
-  
+
     33.3% {
-      -webkit-transform: translateX(-5px);
-      transform: translateX(-5px);
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
     }
-  
+
     49.95% {
-      -webkit-transform: translateX(4px);
-      transform: translateX(4px);
+        -webkit-transform: translateX(4px);
+        transform: translateX(4px);
     }
-  
+
     66.6% {
-      -webkit-transform: translateX(-2px);
-      transform: translateX(-2px);
+        -webkit-transform: translateX(-2px);
+        transform: translateX(-2px);
     }
-  
+
     83.25% {
-      -webkit-transform: translateX(1px);
-      transform: translateX(1px);
+        -webkit-transform: translateX(1px);
+        transform: translateX(1px);
     }
-  
+
     100% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
     }
-  }
-  
-  @keyframes hvr-icon-wobble-horizontal {
+}
+
+@keyframes hvr-icon-wobble-horizontal {
     16.65% {
-      -webkit-transform: translateX(6px);
-      transform: translateX(6px);
+        -webkit-transform: translateX(6px);
+        transform: translateX(6px);
     }
-  
+
     33.3% {
-      -webkit-transform: translateX(-5px);
-      transform: translateX(-5px);
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
     }
-  
+
     49.95% {
-      -webkit-transform: translateX(4px);
-      transform: translateX(4px);
+        -webkit-transform: translateX(4px);
+        transform: translateX(4px);
     }
-  
+
     66.6% {
-      -webkit-transform: translateX(-2px);
-      transform: translateX(-2px);
+        -webkit-transform: translateX(-2px);
+        transform: translateX(-2px);
     }
-  
+
     83.25% {
-      -webkit-transform: translateX(1px);
-      transform: translateX(1px);
+        -webkit-transform: translateX(1px);
+        transform: translateX(1px);
     }
-  
+
     100% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
     }
-  }
+}

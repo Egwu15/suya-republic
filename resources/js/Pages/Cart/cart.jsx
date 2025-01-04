@@ -31,7 +31,6 @@ const Cart = ({ cartAdded, products }) => {
         const storedOrderType = localStorage.getItem("orderType");
         setOrderType(storedOrderType);
     }, []);
-    console.log("orderType", orderType);
 
     useEffect(() => {
         if (!cartAdded && products?.length) {
@@ -41,8 +40,6 @@ const Cart = ({ cartAdded, products }) => {
     }, [products, cartAdded]);
 
     const handleQuantityChange = (id, increment) => {
-        console.log(cartItems);
-
         updateItemQuantity(id, increment);
     };
 
@@ -103,7 +100,7 @@ const Cart = ({ cartAdded, products }) => {
         //     setErrorMessage(""); // Clear error message
         // }
         window.location.href =
-            "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
+            "https://deliveroo.co.uk/menu/manchester/hulme-park/suya-republick-and-grill?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share";
     };
 
     const handleCollect = () => {
@@ -155,7 +152,7 @@ const Cart = ({ cartAdded, products }) => {
                                                     >
                                                         <img
                                                             src={
-                                                               "/storage/" +
+                                                                "/storage/" +
                                                                 item.product_image
                                                             }
                                                             alt={item.name}
@@ -317,9 +314,11 @@ const Cart = ({ cartAdded, products }) => {
                                 onClick={handleCheckout}
                                 className="btn btn-danger text-white"
                                 style={{ textDecoration: "none" }}
+                                disabled={!cartItems.length}
                             >
                                 PROCEED TO CHECKOUT
                             </button>
+
                             {/* <button
                                 className="btn btn-dark"
                                 onClick={() => setShowModal(true)}

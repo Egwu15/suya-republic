@@ -28,7 +28,7 @@ const OrderOnline = () => {
         //     setErrorMessage(""); // Clear error message
         // }
         window.location.href =
-            "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
+            "https://deliveroo.co.uk/menu/manchester/hulme-park/suya-republick-and-grill?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share";
     };
 
     const handleCollect = () => {
