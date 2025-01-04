@@ -229,7 +229,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 <div className="row">
                     {/* Left Form */}
                     <div className="col-md-6 mb-4">
-                        <h2 className="mb-4">Billing & Shipping</h2>
+                        <h2 className="mb-4">Billing </h2>
                         <form>
                             <div className="row g-3">
                                 <div className="col-md-6">
@@ -342,6 +342,35 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                         message={
                                             formError &&
                                             formError?.["billingDetails.email"]
+                                        }
+                                        className="mt-2"
+                                        style={{ color: "red" }}
+                                    />
+                                </div>
+                                <div className="col-md-12">
+                                    <label
+                                        htmlFor="address"
+                                        className="form-label"
+                                    >
+                                        Address *
+                                    </label>
+                                    <InputField
+                                        type="text"
+                                        placeholder="Enter address"
+                                        value={billingDetails.email}
+                                        onChangeMethod={(e) =>
+                                            setBillingDetails({
+                                                ...billingDetails,
+                                                email: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <InputError
+                                        message={
+                                            formError &&
+                                            formError?.[
+                                                "billingDetails.address"
+                                            ]
                                         }
                                         className="mt-2"
                                         style={{ color: "red" }}
@@ -488,9 +517,9 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 <form id="payment-form">
                     <div id="google-pay-button"></div>
                     <div id="card-container"></div>
-                    <button id="card-button" type="button">
+                    {/* <button id="card-button" type="button">
                         {calculateTotal()}
-                    </button>
+                    </button> */}
                 </form>
                 <div id="payment-status-container"></div>
             </div>
