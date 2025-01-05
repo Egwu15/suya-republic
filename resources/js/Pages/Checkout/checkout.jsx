@@ -517,9 +517,9 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 <form id="payment-form">
                     <div id="google-pay-button"></div>
                     <div id="card-container"></div>
-                    {/* <button id="card-button" type="button">
+                    <button id="card-button" type="button">
                         {calculateTotal()}
-                    </button> */}
+                    </button>
                 </form>
                 <div id="payment-status-container"></div>
             </div>
