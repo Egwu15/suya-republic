@@ -11,7 +11,10 @@ import useCartStore from "@/store/Store";
 const Login = () => {
     const { cartItems } = useCartStore();
     const [isGuest, setIsGuest] = useState(false); // Toggle between forms
-    const [guestData, setGuestData] = useState({ email: "", name: "" }); // Guest form data
+    const [guestData, setGuestData] = useState({
+        email: "guest-email",
+        name: "guest-name",
+    }); // Guest form data
     const { addGuest, saveGuestToLocalStorage, setGuest } = useStore(); // Zustand store action
     const [showPassword, setShowPassword] = useState(false);
 
@@ -38,11 +41,11 @@ const Login = () => {
     const handleGuestSubmit = (e) => {
         e.preventDefault();
 
-        if (!guestData.name || !guestData.email) {
-            toast.error("Please fill out all fields.");
-            // alert("Please fill out all fields.");
-            return;
-        }
+        // if (!guestData.name || !guestData.email) {
+        //     toast.error("Please fill out all fields.");
+        //     // alert("Please fill out all fields.");
+        //     return;
+        // }
 
         setGuest(guestData); // Save guest user to Zustand store
         saveGuestToLocalStorage(); // Persist user to localStorage
@@ -68,162 +71,159 @@ const Login = () => {
                     <h2 className="h5">{isGuest ? "Guest Login" : "Log in"}</h2>
                 </div>
 
-                {!isGuest ? (
-                    <form onSubmit={submit}>
-                        {/* Regular Login Form */}
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label">
-                                Email
-                            </label>
+                {/* {!isGuest ? ( */}
+                <form onSubmit={submit}>
+                    {/* Regular Login Form */}
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            className="form-control"
+                            placeholder="Enter your email"
+                            onChange={(e) => setData("email", e.target.value)}
+                            value={data.email}
+                        />
+                        <InputError
+                            message={errors.email}
+                            className="mt-2"
+                            style={{ color: "red" }}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">
+                            Password
+                        </label>
+                        <div className="input-group">
                             <input
-                                type="email"
-                                id="email"
+                                type={showPassword ? "text" : "password"}
+                                id="password"
                                 className="form-control"
-                                placeholder="Enter your email"
+                                placeholder="Enter your password"
+                                value={data.password}
                                 onChange={(e) =>
-                                    setData("email", e.target.value)
-                                }
-                                value={data.email}
-                            />
-                            <InputError
-                                message={errors.email}
-                                className="mt-2"
-                                style={{ color: "red" }}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="password" className="form-label">
-                                Password
-                            </label>
-                            <div className="input-group">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    className="form-control"
-                                    placeholder="Enter your password"
-                                    value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-secondary"
-                                    onClick={togglePasswordVisibility}
-                                >
-                                    <i
-                                        className={`bi ${
-                                            showPassword
-                                                ? "bi-eye-slash"
-                                                : "bi-eye"
-                                        }`}
-                                    ></i>
-                                </button>
-                            </div>
-                            <InputError
-                                message={errors.password}
-                                className="mt-2"
-                                style={{ color: "red" }}
-                            />
-                        </div>
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <div className="form-check">
-                                <input
-                                    type="checkbox"
-                                    value={data.remember}
-                                    onChange={(e) =>
-                                        setData("remember", e.target.value)
-                                    }
-                                    id="rememberMe"
-                                    className="form-check-input"
-                                />
-                                <label
-                                    htmlFor="rememberMe"
-                                    className="form-check-label"
-                                >
-                                    Remember Me
-                                </label>
-                            </div>
-                            <Link
-                                href="/forgot-password"
-                                className="text-decoration-none"
-                            >
-                                Forgot Password?
-                            </Link>
-                        </div>
-                        <button type="submit" className="btn btn-dark w-100">
-                            LOG IN
-                        </button>
-                        {cartItems.length ? (
-                            <div className="my-2 d-flex justify-content-center py-2 proceed-btn">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsGuest(true)}
-                                    className="btn btn-link text-decoration-none text-dark text-center"
-                                >
-                                    Continue as Guest
-                                </button>
-                            </div>
-                        ) : (
-                            ""
-                        )}
-                    </form>
-                ) : (
-                    <form onSubmit={handleGuestSubmit}>
-                        {/* Guest Login Form */}
-
-                        <div className="mb-3">
-                            <label htmlFor="guestEmail" className="form-label">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="guestEmail"
-                                className="form-control"
-                                placeholder="Enter your email"
-                                value={guestData.email}
-                                onChange={(e) =>
-                                    setGuestData({
-                                        ...guestData,
-                                        email: e.target.value,
-                                    })
+                                    setData("password", e.target.value)
                                 }
                             />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="guestName" className="form-label">
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                id="guestName"
-                                className="form-control"
-                                placeholder="Enter your name"
-                                value={guestData.name}
-                                autoComplete="name"
-                                onChange={(e) =>
-                                    setGuestData({
-                                        ...guestData,
-                                        name: e.target.value,
-                                    })
-                                }
-                            />
-                        </div>
-
-                        <button type="submit" className="btn btn-dark w-100">
-                            Submit as Guest
-                        </button>
-                        <div className="my-2 d-flex justify-content-end ">
                             <button
                                 type="button"
-                                onClick={() => setIsGuest(false)}
-                                className="btn btn-link text-decoration-none  proceed-user "
+                                className="btn btn-outline-secondary"
+                                onClick={togglePasswordVisibility}
                             >
-                                Login as a User
+                                <i
+                                    className={`bi ${
+                                        showPassword ? "bi-eye-slash" : "bi-eye"
+                                    }`}
+                                ></i>
                             </button>
                         </div>
-                    </form>
-                )}
+                        <InputError
+                            message={errors.password}
+                            className="mt-2"
+                            style={{ color: "red" }}
+                        />
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <div className="form-check">
+                            <input
+                                type="checkbox"
+                                value={data.remember}
+                                onChange={(e) =>
+                                    setData("remember", e.target.value)
+                                }
+                                id="rememberMe"
+                                className="form-check-input"
+                            />
+                            <label
+                                htmlFor="rememberMe"
+                                className="form-check-label"
+                            >
+                                Remember Me
+                            </label>
+                        </div>
+                        <Link
+                            href="/forgot-password"
+                            className="text-decoration-none"
+                        >
+                            Forgot Password?
+                        </Link>
+                    </div>
+                    <button type="submit" className="btn btn-dark w-100">
+                        LOG IN
+                    </button>
+                    {cartItems.length ? (
+                        <div className="my-2 d-flex justify-content-center py-2 proceed-btn">
+                            <button
+                                type="button"
+                                onClick={handleGuestSubmit}
+                                className="btn btn-link text-decoration-none text-dark text-center"
+                            >
+                                Continue as Guest
+                            </button>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                </form>
+                {/* // ) 
+                // : 
+                // (
+                //     <form onSubmit={handleGuestSubmit}>
+
+                //         <div className="mb-3">
+                //             <label htmlFor="guestEmail" className="form-label">
+                //                 Email
+                //             </label>
+                //             <input */}
+                {/* //                 type="email"
+                //                 id="guestEmail"
+                //                 className="form-control"
+                //                 placeholder="Enter your email"
+                //                 value={guestData.email}
+                //                 onChange={(e) => 
+                //                     setGuestData({
+                //                         ...guestData,
+                //                         email: e.target.value,
+                //                     })
+                //                 }
+                //             />
+                //         </div>
+                //         <div className="mb-3">
+                //             <label htmlFor="guestName" className="form-label">
+                //                 Name
+                //             </label>
+                //             <input
+                //                 type="text"
+                //                 id="guestName"
+                //                 className="form-control"
+                //                 placeholder="Enter your name"
+                //                 value={guestData.name}
+                //                 autoComplete="name"
+                //                 onChange={(e) =>
+                //                     setGuestData({
+                //                         ...guestData,
+                //                         name: e.target.value,
+                //                     })
+                //                 }
+                //             />
+                //         </div>
+
+                //         <button type="submit" className="btn btn-dark w-100">
+                //             Submit as Guest
+                //         </button>
+                //         <div className="my-2 d-flex justify-content-end ">
+                //             <button
+                //                 type="button"
+                //                 onClick={() => setIsGuest(false)}
+                //                 className="btn btn-link text-decoration-none  proceed-user "
+                //             >
+                //                 Login as a User
+                //             </button>
+                //         </div>
+                //     </form>
+                // )}*/}
 
                 <div className="text-center my-3">
                     <span>New to Suya ? </span>
