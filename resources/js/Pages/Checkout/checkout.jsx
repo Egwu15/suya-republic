@@ -25,10 +25,11 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     }, [setGuest]);
 
     const user = usePage().props.auth.user;
+
     const [billingDetails, setBillingDetails] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
+        firstName: user?.first_name ?? "",
+        lastName: user?.last_name ?? "",
+        email: user?.email ?? "",
         phone: "",
         note: "",
     });
