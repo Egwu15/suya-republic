@@ -347,7 +347,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                         style={{ color: "red" }}
                                     />
                                 </div>
-                                <div className="col-md-12">
+                                {/* <div className="col-md-12">
                                     <label
                                         htmlFor="address"
                                         className="form-label"
@@ -375,7 +375,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                         className="mt-2"
                                         style={{ color: "red" }}
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </form>
                     </div>
@@ -507,20 +507,22 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 <h2>Checkout</h2>
                 <p>Total: £{calculateTotal()}</p>
                 <div id="card-container"></div>
-                <button
-                    onClick={handlePayment}
-                    disabled={loading}
-                    className="btn btn-danger text-white px-3"
-                >
-                    {loading ? "Processing..." : "Pay Now"}
-                </button>
-                <form id="payment-form">
-                    <div id="google-pay-button"></div>
-                    <div id="card-container"></div>
-                    <button id="card-button" type="button">
-                        {calculateTotal()}
+                <div className="d-flex align-items-center">
+                    <button
+                        onClick={handlePayment}
+                        disabled={loading}
+                        className="btn btn-danger text-white px-3 mx-3"
+                    >
+                        {loading ? "Processing..." : "Pay Now"}
                     </button>
-                </form>
+                    <form id="payment-form ">
+                        <div id="google-pay-button"></div>
+                        <div id="card-container"></div>
+                        <button id="card-button" type="button">
+                            {calculateTotal()}
+                        </button>
+                    </form>
+                </div>
                 <div id="payment-status-container"></div>
             </div>
 
