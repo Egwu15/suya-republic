@@ -1,0 +1,5 @@
+<<<<<<<< HEAD:public/build/assets/Loader-DlZ-hLDY.js
+import{j as s}from"./app-DrSDzlc1.js";import{l as o}from"./Mobile-Logo-DjYHHJYk.js";const e=()=>s.jsx("div",{className:"loader-container",children:s.jsx("div",{className:"loader",children:s.jsxs("div",{className:"spinner",children:[" ",s.jsx("img",{src:o,alt:"Logo",className:"loader-logo"})]})})});export{e as L};
+========
+import{j as s}from"./app-DIMLPhDE.js";import{l as o}from"./Mobile-Logo-DjYHHJYk.js";const e=()=>s.jsx("div",{className:"loader-container",children:s.jsx("div",{className:"loader",children:s.jsxs("div",{className:"spinner",children:[" ",s.jsx("img",{src:o,alt:"Logo",className:"loader-logo"})]})})});export{e as L};
+>>>>>>>> main:public/build/assets/Loader-qLxRKWut.js
