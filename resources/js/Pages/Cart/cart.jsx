@@ -32,6 +32,10 @@ const Cart = ({ cartAdded, products }) => {
         setOrderType(storedOrderType);
     }, []);
 
+    console.log("variance.options", cartItems);
+    console.log("variance", cartItems[0].variance);
+    // console.log("variance.options", cartItems.variance.name);
+
     useEffect(() => {
         if (!cartAdded && products?.length) {
             const productIds = products.map((product) => product.id);
