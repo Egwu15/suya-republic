@@ -130,7 +130,7 @@ export const HomeComponent = () => {
                                     UK
                                 </p>
                                 <Link
-                                    href={"/orderOnline"}
+                                    href="/order-online"
                                     className="suggest-link drop-down-option nav-test text-left"
                                     // activeClassName="active"
                                 >
@@ -194,7 +194,17 @@ export const HomeComponent = () => {
                                     The first Suya Republick started out in the
                                     streets of Lagos, Nigeria in 2018.
                                 </p>
-                                <h6 style={{ color: "#b7903c" }}>LEARN MORE</h6>
+                                <Link
+                                    href="/contact"
+                                    className="suggest-link drop-down-option nav-test"
+                                    exact
+                                    // activeClassName="active"
+                                >
+                                    {" "}
+                                    <h6 style={{ color: "#b7903c" }}>
+                                        LEARN MORE
+                                    </h6>
+                                </Link>
                             </div>
                         </div>
                     </div>
