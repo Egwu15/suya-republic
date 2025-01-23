@@ -10,16 +10,18 @@ import suyaOnion from "../../../assets/img/suya/Home-Banner-2.jpg";
 import proudlyNaija from "../../../assets/img/suya/proudlynaija.png";
 import "./Carousel.css";
 import { Link } from "@inertiajs/react";
+
 const CarouselComponent = () => {
     return (
         <div
             id="carouselExample"
             className="carousel slide py-4"
             data-bs-ride="carousel"
+            data-bs-interval="2000" // Sets the interval to 2 seconds
         >
-            <div className="carousel-inner ">
+            <div className="carousel-inner">
                 {/* Slide 1 */}
-                <div className="carousel-item active ">
+                <div className="carousel-item active">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 col-12 d-flex justify-content-center align-items-center">
@@ -57,7 +59,7 @@ const CarouselComponent = () => {
                                     src={locationtext}
                                     alt="Another Text"
                                     className=""
-                                />{" "}
+                                />
                             </div>
                             <div className="col-md-6 col-12">
                                 <img
@@ -69,6 +71,7 @@ const CarouselComponent = () => {
                         </div>
                     </div>
                 </div>
+
                 {/* Slide 3 */}
                 <div className="carousel-item">
                     <div className="container">
@@ -86,7 +89,7 @@ const CarouselComponent = () => {
                                         src={proudlyNaija}
                                         alt="Another Text"
                                         className="burst-head"
-                                    />{" "}
+                                    />
                                     <Link
                                         href="/order-online"
                                         className="carousel-btn nav-test text-white mt-4"
@@ -105,13 +108,13 @@ const CarouselComponent = () => {
                         </div>
                     </div>
                 </div>
+
                 {/* Slide 4 */}
                 <div className="carousel-item">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 col-12 flex">
                                 <div className="d-fl">
-                                    {" "}
                                     <div>
                                         <img
                                             src={cureText}
@@ -122,8 +125,8 @@ const CarouselComponent = () => {
                                     <img
                                         src={proudlyNaija}
                                         alt="Another Text"
-                                        className=" proudly-nija"
-                                    />{" "}
+                                        className="proudly-nija"
+                                    />
                                     <Link
                                         href="/order-online"
                                         className="carousel-btn nav-test text-white mt-4"
@@ -137,7 +140,7 @@ const CarouselComponent = () => {
                                     src={suyaRepublic}
                                     alt="Another Image"
                                     className="w-100"
-                                />{" "}
+                                />
                             </div>
                         </div>
                     </div>
