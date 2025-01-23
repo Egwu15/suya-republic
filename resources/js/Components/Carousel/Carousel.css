@@ -19,6 +19,9 @@
     width: 70px;
     left: 2px;
 }
+.carousel-item {
+    transition: transform 0.5s ease-in-out; /* Adjust the duration as needed */
+}
 
 .custom-btn-next {
     border-radius: 50% 0 0 50%;
