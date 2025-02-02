@@ -38,8 +38,9 @@ const OurMenu = ({ products, categories }) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-2">
-                            <div className="booking">
+                            <div className="">
                                 <h6>MENU CATEGORIES</h6>
+
                                 <SideBar categories={categories} />
                             </div>
                         </div>

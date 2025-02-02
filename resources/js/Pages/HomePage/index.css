@@ -86,6 +86,16 @@
     line-height: 64px;
     color: #333333;
 }
+.order-btn {
+    background: "#d2401e";
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
 @media only screen and (max-width: 1024px) {
     .hot-trips h1 {
         margin: 40px 0;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Carousel from "bootstrap/js/dist/carousel";
 import suyaRepublic from "../../../assets/img/suya/Suya-Republick-Banner-4.jpg";
 import cureText from "../../../assets/img/suya/we-cure.png";
 import spiceText from "../../../assets/img/suya/Suya-Spice-Text-1.png";
@@ -12,15 +13,101 @@ import "./Carousel.css";
 import { Link } from "@inertiajs/react";
 
 const CarouselComponent = () => {
+    useEffect(() => {
+        const myCarousel = document.getElementById("carouselExample");
+        if (myCarousel) {
+            new Carousel(myCarousel, {
+                interval: 2000, // Set auto-slide interval to 2 seconds
+                pause: false, // Ensure it keeps sliding on touch
+                ride: "carousel",
+            });
+        }
+    }, []);
+
     return (
         <div
             id="carouselExample"
             className="carousel slide py-4"
             data-bs-ride="carousel"
-            data-bs-interval="2000" // Sets the interval to 2 seconds
+            data-bs-interval="2000"
+            data-bs-pause="false"
         >
             <div className="carousel-inner">
                 {/* Slide 1 */}
+                <div className="carousel-item">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-6 col-12 flex">
+                                <div className="d-fl">
+                                    <div>
+                                        <img
+                                            src={suyaBurst}
+                                            alt="Suya Burst"
+                                            className="pb-4"
+                                        />
+                                    </div>
+                                    <img
+                                        src={proudlyNaija}
+                                        alt="Proudly Naija"
+                                        className="burst-head"
+                                    />
+                                    <Link
+                                        href="/order-online"
+                                        className="carousel-btn nav-test text-white mt-4"
+                                    >
+                                        ORDER ONLINE
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="col-md-6 col-12">
+                                <img
+                                    src={suyaOnion}
+                                    alt="Suya Onion"
+                                    className="w-100"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Slide 2 */}
+                <div className="carousel-item">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-6 col-12 flex">
+                                <div className="d-fl">
+                                    <div>
+                                        <img
+                                            src={cureText}
+                                            alt="Cure Text"
+                                            className=""
+                                        />
+                                    </div>
+                                    <img
+                                        src={proudlyNaija}
+                                        alt="Proudly Naija"
+                                        className="proudly-nija"
+                                    />
+                                    <Link
+                                        href="/order-online"
+                                        className="carousel-btn nav-test text-white mt-4"
+                                    >
+                                        ORDER ONLINE
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="col-md-6 col-12">
+                                <img
+                                    src={suyaRepublic}
+                                    alt="Suya Republic"
+                                    className="w-100"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Slide 3 */}
                 <div className="carousel-item active">
                     <div className="container">
                         <div className="row">
@@ -50,107 +137,31 @@ const CarouselComponent = () => {
                     </div>
                 </div>
 
-                {/* Slide 2 */}
+                {/* Slide 4 */}
                 <div className="carousel-item">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 col-12 flex pb-4">
                                 <img
                                     src={locationtext}
-                                    alt="Another Text"
+                                    alt="Location Text"
                                     className=""
                                 />
                             </div>
                             <div className="col-md-6 col-12">
                                 <img
                                     src={phoneLocation}
-                                    alt="Another Image"
+                                    alt="Phone Booking"
                                     className="w-100"
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {/* Slide 3 */}
-                <div className="carousel-item">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-6 col-12 flex">
-                                <div className="d-fl">
-                                    <div>
-                                        <img
-                                            src={suyaBurst}
-                                            alt="Another Text"
-                                            className="pb-4"
-                                        />
-                                    </div>
-                                    <img
-                                        src={proudlyNaija}
-                                        alt="Another Text"
-                                        className="burst-head"
-                                    />
-                                    <Link
-                                        href="/order-online"
-                                        className="carousel-btn nav-test text-white mt-4"
-                                    >
-                                        ORDER ONLINE
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-12">
-                                <img
-                                    src={suyaOnion}
-                                    alt="Another Image"
-                                    className="w-100"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Slide 4 */}
-                <div className="carousel-item">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-6 col-12 flex">
-                                <div className="d-fl">
-                                    <div>
-                                        <img
-                                            src={cureText}
-                                            alt="Another Text"
-                                            className=""
-                                        />
-                                    </div>
-                                    <img
-                                        src={proudlyNaija}
-                                        alt="Another Text"
-                                        className="proudly-nija"
-                                    />
-                                    <Link
-                                        href="/order-online"
-                                        className="carousel-btn nav-test text-white mt-4"
-                                    >
-                                        ORDER ONLINE
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-12">
-                                <img
-                                    src={suyaRepublic}
-                                    alt="Another Image"
-                                    className="w-100"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Add more slides as needed */}
             </div>
 
             {/* Custom Navigation Buttons */}
-            <button
+            {/* <button
                 className="carousel-control-prev custom-btn-prev"
                 type="button"
                 data-bs-target="#carouselExample"
@@ -165,7 +176,7 @@ const CarouselComponent = () => {
                 data-bs-slide="next"
             >
                 <span>NEXT</span>
-            </button>
+            </button> */}
         </div>
     );
 };
