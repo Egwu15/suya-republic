@@ -87,6 +87,89 @@ export const HomeComponent = () => {
 
             <section className="hot-trips pt-5 pb-5">
                 <div className="container">
+                    <div className=" row d-flex justify-content-around align-items-center bg-light py-5 px-3">
+                        {/* Order for Collect Section */}
+                        <div
+                            className="text-center col-12 mb-5 "
+                            style={{ maxWidth: "400px" }}
+                        >
+                            <h2
+                                className="fw-bold fs-3"
+                                style={{ fontFamily: "'Pacifico', cursive" }}
+                            >
+                                Order for Collect
+                            </h2>
+                            <p className="fs-5 text-secondary my-2">
+                                Please plan ahead and get your PERI-PERI to go,
+                                from our restaurant location.
+                            </p>
+                            <Link
+                                href="/order-online"
+                                className="text-decoration-none"
+                            >
+                                <span
+                                    className="btn btn-danger fw-bold px-4 py-2"
+                                    style={{
+                                        borderRadius: "8px",
+                                        fontSize: "14px",
+                                    }}
+                                >
+                                    ORDER COLLECT
+                                </span>
+                            </Link>
+                        </div>
+
+                        {/* Delivery Section */}
+                        <div
+                            className="text-center col-12 mt-4"
+                            style={{ maxWidth: "400px" }}
+                        >
+                            <h2
+                                className="fw-bold fs-3"
+                                style={{ fontFamily: "'Pacifico', cursive" }}
+                            >
+                                Suya Republic's Delivery
+                            </h2>
+
+                            <p className="fs-5 text-secondary my-2">
+                                Our delivery zones shift with demand—check now
+                                to see if Suya Republic is bringing the flavour
+                                to your doorstep!
+                            </p>
+                            <Link
+                                href="/order-online"
+                                className="text-decoration-none"
+                            >
+                                <span
+                                    className="btn btn-danger fw-bold px-4 py-2"
+                                    style={{
+                                        borderRadius: "8px",
+                                        fontSize: "14px",
+                                    }}
+                                >
+                                    ORDER DELIVERY
+                                </span>
+                            </Link>
+                            {/* <div className="mt-3">
+                                <img
+                                    src="/images/deliveroo-logo.png"
+                                    alt="Deliveroo logo"
+                                    className="img-fluid"
+                                    style={{ height: "40px" }}
+                                />
+                            </div> */}
+                            <div className="mt-3">
+                                <span className="text-muted font-12 mb-0">
+                                    brought to you by
+                                </span>
+                                <h3>Deliveroo</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className="hot-trips pt-5 pb-5">
+                <div className="container">
                     <div className="row row-grid">
                         <div className="col-md-12 align-self-center">
                             <div className="prices-container text-center ">
@@ -131,18 +214,26 @@ export const HomeComponent = () => {
                                 </p>
                                 <Link
                                     href="/order-online"
-                                    className="suggest-link drop-down-option nav-test text-left"
-                                    // activeClassName="active"
+                                    className="text-decoration-none order-btn p-0 m-0"
+                                    // className="suggest-link drop-down-option nav-test text-left"
+                                    // className="blue-btn-nav nav-test text-white scale-effect"
                                 >
                                     {" "}
-                                    <h6
-                                        className="text-left"
+                                    <span
+                                        className="text-left order-btn"
                                         style={{
-                                            color: "#b7903c",
+                                            background: "#d2401e",
+                                            borderRadius: "8px",
+                                            padding: "10px 20px",
+                                            fontWeight: 600,
+                                            fontSize: "14px",
+                                            color: "white",
+                                            textDecoration: "none",
+                                            display: "inline-block",
                                         }}
                                     >
                                         ORDER NOW
-                                    </h6>
+                                    </span>
                                 </Link>
                             </div>
                         </div>
@@ -164,15 +255,29 @@ export const HomeComponent = () => {
                                     Our meals are made with natural, fresh and
                                     organic spices and recipes from Africa.
                                 </p>
+
                                 <Link
                                     href={"/menu"}
-                                    className="suggest-link drop-down-option nav-test"
-                                    exact
-                                    // activeClassName="active"
+                                    className="text-decoration-none order-btn p-0 m-0"
+                                    // className="suggest-link drop-down-option nav-test text-left"
+                                    // className="blue-btn-nav nav-test text-white scale-effect"
                                 >
-                                    <h6 style={{ color: "#b7903c" }}>
+                                    {" "}
+                                    <span
+                                        className="text-left order-btn  "
+                                        style={{
+                                            background: "#d2401e",
+                                            borderRadius: "8px",
+                                            padding: "10px 20px",
+                                            fontWeight: 600,
+                                            fontSize: "14px",
+                                            color: "white",
+                                            textDecoration: "none",
+                                            display: "inline-block",
+                                        }}
+                                    >
                                         OUR MENU
-                                    </h6>
+                                    </span>
                                 </Link>
                             </div>
                         </div>
@@ -194,16 +299,25 @@ export const HomeComponent = () => {
                                     The first Suya Republick started out in the
                                     streets of Lagos, Nigeria in 2018.
                                 </p>
+
                                 <Link
                                     href="/contact"
-                                    className="suggest-link drop-down-option nav-test"
-                                    exact
-                                    // activeClassName="active"
+                                    className="text-decoration-none order-btn p-0 m-0 "
                                 >
-                                    {" "}
-                                    <h6 style={{ color: "#b7903c" }}>
+                                    <span
+                                        style={{
+                                            background: "#d2401e",
+                                            borderRadius: "8px",
+                                            padding: "10px 20px",
+                                            fontWeight: 600,
+                                            fontSize: "14px",
+                                            color: "white",
+                                            textDecoration: "none",
+                                            display: "inline-block", // Ensures it doesn't take full width
+                                        }}
+                                    >
                                         LEARN MORE
-                                    </h6>
+                                    </span>
                                 </Link>
                             </div>
                         </div>
@@ -226,7 +340,7 @@ export const HomeComponent = () => {
                 </video>
             </section>
 
-            <div
+            {/* <div
                 className="col-md-12 "
                 style={{
                     margin: "10px auto",
@@ -253,7 +367,7 @@ export const HomeComponent = () => {
                 >
                     MAKE YOUR ORDER
                 </Link>
-            </div>
+            </div> */}
 
             <Footer />
         </div>

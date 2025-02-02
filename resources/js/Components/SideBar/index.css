@@ -65,10 +65,10 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .side-bar {
+    /* .side-bar {
         display: none;
-    }
-    .sidebar-list {
-        display: none;
-    }
+    } */
+    /* .sidebar-list {
+        display: flex;
+    } */
 }

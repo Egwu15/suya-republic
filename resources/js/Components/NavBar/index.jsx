@@ -30,10 +30,17 @@ const Navbar = () => {
             <div className=" ">
                 <nav className="navb">
                     {/* <div className="flex"> */}
-                    <Link className="navbar-brand d-flex mr-auto" href="/">
+                    <Link className="navbar-brand  mr-auto" href="/">
                         <img src={logo} alt="Logo" className="home-logo" />
                     </Link>
-
+                    <div>
+                        <Link
+                            href="/order-online"
+                            className="blue-btn-nav nav-test text-white scale-effect d-md-none"
+                        >
+                            ORDER ONLINE
+                        </Link>
+                    </div>
                     {/* Hamburger menu toggle button */}
 
                     <div className="d-flex">
@@ -47,9 +54,7 @@ const Navbar = () => {
                             <i className="bi bi-list"></i>
                         </button>
                     </div>
-                    {/* </div>{" "} */}
-                    {/* Logo */}
-                    {/* Navigation Links */}
+
                     <div
                         className={`menu-links ${isMenuOpen ? "show" : "hide"}`}
                     >
@@ -75,7 +80,7 @@ const Navbar = () => {
                                     href="/international-menu"
                                     className="nav-test text-dark font-bold"
                                 >
-                                    INTERNATIONAL
+                                    SPICES
                                 </Link>
                             </li>
                             <li className="notify">
