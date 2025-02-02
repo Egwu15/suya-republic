@@ -142,7 +142,9 @@ export const Footer = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8">
-                            <span>© 2024 Suya Republick.</span>
+                            <span>
+                                © {new Date().getFullYear()} Suya Republick.
+                            </span>
 
                             {/* <span>SUYA REPUBLICK</span> */}
                         </div>

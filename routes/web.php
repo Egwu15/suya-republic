@@ -74,6 +74,9 @@ Route::get('/signup', function () {
 Route::get('/login', function () {
     return Inertia::render('Auth/Login');
 });
+Route::get('/reset', function () {
+    return Inertia::render('Auth/ResetPassword');
+});
 
 Route::get('/cart', function () {
     return Inertia::render('Cart/cart');
