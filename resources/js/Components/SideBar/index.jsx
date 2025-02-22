@@ -16,6 +16,7 @@ const SideBar = ({ categories }) => {
                             className={`profile-sidebar ${
                                 !selectedCategory ? "active" : ""
                             }`}
+                            style={{ fontFamily: "Dynapuff" }}
                         >
                             All
                         </div>
@@ -31,6 +32,7 @@ const SideBar = ({ categories }) => {
                                 className={`profile-sidebar ${
                                     selectedCategory == data.id ? "active" : ""
                                 }`}
+                                style={{ fontFamily: "Dynapuff" }}
                             >
                                 {data.name}
                             </div>

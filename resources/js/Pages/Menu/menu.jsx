@@ -4,11 +4,26 @@ import SideBar from "@/components/SideBar";
 import useCartStore from "@/store/Store";
 import "./menu.css";
 import { Link } from "@inertiajs/react";
+import ProductModal from "@/Components/ProductModal/ProductModal";
+import { useState } from "react";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
-    console.log("product", products);
-    console.log("categories", categories);
+    // State to manage modal visibility and selected product
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    // Handle opening the modal with the clicked product
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+        setShowModal(true);
+    };
+
+    // Handle closing the modal
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedProduct(null);
+    };
 
     const toggleItemSelection = (id, product) => {
         const isSelected = cartItems.some((item) => item.id === id);
@@ -28,7 +43,12 @@ const OurMenu = ({ products, categories }) => {
                     <div className="row">
                         <div className="col-md-12 text-center">
                             <h6 className="mb-2">CHOOSE YOUR FAVORITE</h6>
-                            <h1 className="mb-2">MENU</h1>
+                            <h1
+                                className="mb-2"
+                                style={{ fontFamily: "rubik wet paint" }}
+                            >
+                                MENU
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -39,7 +59,9 @@ const OurMenu = ({ products, categories }) => {
                     <div className="row">
                         <div className="col-md-2">
                             <div className="">
-                                <h6>MENU CATEGORIES</h6>
+                                <h6 style={{ fontFamily: "Creepster" }}>
+                                    MENU CATEGORIES
+                                </h6>
 
                                 <SideBar categories={categories} />
                             </div>
@@ -56,12 +78,18 @@ const OurMenu = ({ products, categories }) => {
                                                 >
                                                     <div className="card-container text-center">
                                                         <div
-                                                            className="card-container-img"
+                                                            className="card-container-img cursor-pointer"
                                                             style={{
                                                                 height: "300px",
                                                                 objectFit:
                                                                     "contain",
+                                                                cursor: "pointer",
                                                             }}
+                                                            onClick={() =>
+                                                                handleProductClick(
+                                                                    data
+                                                                )
+                                                            } // Open modal on click
                                                         >
                                                             <img
                                                                 src={
@@ -225,6 +253,14 @@ const OurMenu = ({ products, categories }) => {
                     </div>
                 </div>
             </section>
+            {/* Product Modal */}
+            {showModal && selectedProduct && (
+                <ProductModal
+                    show={showModal}
+                    product={selectedProduct}
+                    onClose={handleCloseModal}
+                />
+            )}
             <Footer />
         </div>
     );

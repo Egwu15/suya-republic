@@ -6,10 +6,24 @@ import "./InternationalMenu.css";
 import { Link } from "@inertiajs/react";
 import SideBar from "@/Components/SideBar";
 import { ToastContainer } from "react-toastify";
+import ProductModal from "@/Components/ProductModal/ProductModal";
 
 const InternationalMenu = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
-    console.log("product", products);
+    // State to manage modal visibility and selected product
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    // Handle opening the modal with the clicked product
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+        setShowModal(true);
+    };
+
+    // Handle closing the modal
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedProduct(null);
+    };
 
     const toggleItemSelection = (id, product) => {
         const isSelected = cartItems.some((item) => item.id === id);
@@ -30,7 +44,12 @@ const InternationalMenu = ({ products }) => {
                     <div className="row">
                         <div className="col-md-12 text-center">
                             <h6 className="mb-2">CHOOSE YOUR FAVORITE</h6>
-                            <h1 className="mb-2">INTERNATIONAL MENU</h1>
+                            <h1
+                                className="mb-2"
+                                style={{ fontFamily: "rubik wet paint" }}
+                            >
+                                Spices
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -39,13 +58,13 @@ const InternationalMenu = ({ products }) => {
             <section className="faq-answer">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-2">
+                        {/* <div className="col-md-2">
                             <div className="booking">
                                 <h6>MENU CATEGORIES</h6>
-                                {/* <SideBar categories={categories} /> */}
+                                 <SideBar categories={categories} /> 
                             </div>
-                        </div>
-                        <div className="col-md-10">
+                        </div> */}
+                        <div className="col-md-12">
                             <section className="hot-cards pt-5 pb-5">
                                 <div className="container">
                                     <div className="row row-grid">
@@ -61,7 +80,13 @@ const InternationalMenu = ({ products }) => {
                                                             height: "300px",
                                                             objectFit:
                                                                 "contain",
+                                                            cursor: "pointer",
                                                         }}
+                                                        onClick={() =>
+                                                            handleProductClick(
+                                                                data
+                                                            )
+                                                        } // Open modal on click
                                                     >
                                                         <img
                                                             src={
@@ -220,6 +245,14 @@ const InternationalMenu = ({ products }) => {
                     </div>
                 </div>
             </section>
+            {/* Product Modal */}
+            {showModal && selectedProduct && (
+                <ProductModal
+                    show={showModal}
+                    product={selectedProduct}
+                    onClose={handleCloseModal}
+                />
+            )}
             <Footer />
         </div>
     );

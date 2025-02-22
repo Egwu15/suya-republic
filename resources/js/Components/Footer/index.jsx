@@ -121,7 +121,11 @@ export const Footer = () => {
                             </div>
                         </div>
                         <div className=" mb-5 ">
-                            <h2>
+                            <h2
+                                style={{
+                                    fontFamily: "Creepster",
+                                }}
+                            >
                                 WE ARE BRINGING THE TASTE OF AFRICA TO
                                 MANCHESTER.
                             </h2>
