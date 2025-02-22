@@ -63,6 +63,9 @@ const Navbar = () => {
                                 <Link
                                     href="/"
                                     className="nav-test text-dark font-bold"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
                                 >
                                     HOME
                                 </Link>
@@ -71,6 +74,9 @@ const Navbar = () => {
                                 <Link
                                     href="/menu"
                                     className="nav-test text-dark font-bold"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
                                 >
                                     OUR MENU
                                 </Link>
@@ -78,6 +84,9 @@ const Navbar = () => {
                             <li className="notify">
                                 <Link
                                     href="/international-menu"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
                                     className="nav-test text-dark font-bold"
                                 >
                                     SPICES
@@ -87,6 +96,9 @@ const Navbar = () => {
                                 <Link
                                     href="/about"
                                     className="nav-test text-dark font-bold"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
                                 >
                                     OUR BRAND
                                 </Link>
@@ -95,6 +107,9 @@ const Navbar = () => {
                                 <Link
                                     href="/contact"
                                     className="nav-test text-dark font-bold"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
                                 >
                                     TALK TO US
                                 </Link>
@@ -111,6 +126,9 @@ const Navbar = () => {
                                 <Link
                                     href="/order-online"
                                     className="blue-btn-nav nav-test text-white scale-effect"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
                                 >
                                     ORDER ONLINE
                                 </Link>
@@ -120,6 +138,9 @@ const Navbar = () => {
                                     <button
                                         onClick={handleSignOut}
                                         className="black-btn-nav mx-1 p-2 text-white"
+                                        style={{
+                                            fontFamily: "Dynapuff",
+                                        }}
                                     >
                                         Sign Out
                                     </button>
@@ -127,6 +148,9 @@ const Navbar = () => {
                                     <Link
                                         href="/login"
                                         className="black-btn-nav mx-1 text-white"
+                                        style={{
+                                            fontFamily: "Dynapuff",
+                                        }}
                                     >
                                         Sign In
                                     </Link>

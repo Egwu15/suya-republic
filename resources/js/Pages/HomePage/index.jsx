@@ -93,12 +93,15 @@ export const HomeComponent = () => {
                             className="text-center col-12 mb-5 "
                             style={{ maxWidth: "400px" }}
                         >
-                            <h2
-                                className="fw-bold fs-3"
-                                style={{ fontFamily: "'Pacifico', cursive" }}
+                            <h1
+                                className="fw-bold fs-"
+                                style={{
+                                    fontFamily: "'Pacifico', cursive",
+                                    fontSize: "38px",
+                                }}
                             >
                                 Order for Collect
-                            </h2>
+                            </h1>
                             <p className="fs-5 text-secondary my-2">
                                 Please plan ahead and get your PERI-PERI to go,
                                 from our restaurant location.
@@ -124,12 +127,15 @@ export const HomeComponent = () => {
                             className="text-center col-12 mt-4"
                             style={{ maxWidth: "400px" }}
                         >
-                            <h2
-                                className="fw-bold fs-3"
-                                style={{ fontFamily: "'Pacifico', cursive" }}
+                            <h1
+                                className="fw-bold fs-"
+                                style={{
+                                    fontFamily: "'Pacifico', cursive",
+                                    fontSize: "38px",
+                                }}
                             >
                                 Suya Republic's Delivery
-                            </h2>
+                            </h1>
 
                             <p className="fs-5 text-secondary my-2">
                                 Our delivery zones shift with demand—check now
@@ -173,13 +179,25 @@ export const HomeComponent = () => {
                     <div className="row row-grid">
                         <div className="col-md-12 align-self-center">
                             <div className="prices-container text-center ">
-                                <h3 style={{ color: "red" }}>
+                                <h3
+                                    style={{
+                                        color: "red",
+                                        fontFamily: "Dynapuff",
+                                        fontWeight: "300",
+                                    }}
+                                >
                                     S U Y A R E P U B L I C K
                                 </h3>
-                                <h1 className="font-12">
+                                <h1
+                                    className="font-12"
+                                    style={{
+                                        fontFamily: "Creepster",
+                                    }}
+                                >
                                     <b>
-                                        We are bringing the taste of Africa to
-                                        Manchester.
+                                        We are bringing the taste of Africa{" "}
+                                        <br />
+                                        to Manchester.
                                     </b>
                                 </h1>
                                 <p>
@@ -205,7 +223,12 @@ export const HomeComponent = () => {
                                         style={{ width: "100%" }}
                                     />
                                 </div>
-                                <h3 className="py-2">
+                                <h3
+                                    className="py-2"
+                                    style={{
+                                        fontFamily: "Kavoon",
+                                    }}
+                                >
                                     <b>SUYA SPICE</b>
                                 </h3>
                                 <p>
@@ -248,7 +271,12 @@ export const HomeComponent = () => {
                                         style={{ width: "100%" }}
                                     />
                                 </div>
-                                <h3 className="py-2">
+                                <h3
+                                    className="py-2"
+                                    style={{
+                                        fontFamily: "Kavoon",
+                                    }}
+                                >
                                     <b>OUR MENU</b>
                                 </h3>
                                 <p>
@@ -292,7 +320,12 @@ export const HomeComponent = () => {
                                         style={{ width: "100%" }}
                                     />
                                 </div>
-                                <h3 className="py-2">
+                                <h3
+                                    className="py-2"
+                                    style={{
+                                        fontFamily: "Kavoon",
+                                    }}
+                                >
                                     <b>OUR BRAND</b>
                                 </h3>
                                 <p>

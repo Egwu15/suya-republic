@@ -7,6 +7,7 @@ import Loader from "@/Components/Loader/Loader";
 import useCartStore from "@/store/Store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ViewProduct from "@/Components/ViewProduct/ViewProduct";
 const Cart = ({ cartAdded, products }) => {
     const {
         cartItems,
@@ -17,8 +18,21 @@ const Cart = ({ cartAdded, products }) => {
         calculateTotal,
     } = useCartStore();
     const [loading, setLoading] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
     const [orderType, setOrderType] = useState("");
+    // Handle opening the modal with the clicked product
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+        setViewModal(true);
+    };
+
+    // Handle closing the modal
+    const handleCloseModal = () => {
+        setViewModal(false);
+        setSelectedProduct(null);
+    };
 
     const [spiceLevels, setSpiceLevels] = useState({});
     const user = usePage().props.auth.user;
@@ -31,10 +45,6 @@ const Cart = ({ cartAdded, products }) => {
         const storedOrderType = localStorage.getItem("orderType");
         setOrderType(storedOrderType);
     }, []);
-
-    console.log("variance.options", cartItems);
-    console.log("variance", cartItems[0].variance);
-    // console.log("variance.options", cartItems.variance.name);
 
     useEffect(() => {
         if (!cartAdded && products?.length) {
@@ -145,9 +155,8 @@ const Cart = ({ cartAdded, products }) => {
                                         cartItems.map((item) => (
                                             <tr key={item.id} className="">
                                                 <td>
-                                                    <Link
-                                                        href="/product"
-                                                        className="d-flex align-items-center"
+                                                    <span
+                                                        className="d-flex align-items-center cursor-pointer"
                                                         style={{
                                                             color: "#b7903c",
                                                             textDecoration:
@@ -159,6 +168,11 @@ const Cart = ({ cartAdded, products }) => {
                                                                 "/storage/" +
                                                                 item.product_image
                                                             }
+                                                            onClick={() =>
+                                                                handleProductClick(
+                                                                    item
+                                                                )
+                                                            }
                                                             alt={item.name}
                                                             style={{
                                                                 height: "80px",
@@ -167,12 +181,13 @@ const Cart = ({ cartAdded, products }) => {
                                                                     "10px",
                                                                 objectFit:
                                                                     "cover",
+                                                                cursor: "pointer",
                                                             }}
                                                         />
                                                         <span className="text-dark">
                                                             {item.name}
                                                         </span>
-                                                    </Link>
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     {item.variance ? (
@@ -357,31 +372,6 @@ const Cart = ({ cartAdded, products }) => {
                                         </div>
                                         <div className="modal-body">
                                             <form>
-                                                {/* <div className="mb-3">
-                                                    <label
-                                                        htmlFor="postcode"
-                                                        className="form-label text-left fw-bold"
-                                                    >
-                                                        Enter your full postcode
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="postcode"
-                                                        className="form-control text-center"
-                                                        placeholder="e.g. EC1Y 1BE"
-                                                        value={postcode}
-                                                        onChange={(e) =>
-                                                            setPostcode(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                    />
-                                                    {errorMessage && (
-                                                        <p className="text-danger mt-2">
-                                                            {errorMessage}
-                                                        </p>
-                                                    )}
-                                                </div> */}
                                                 <button
                                                     type="button"
                                                     className="btn btn-dark w-100 mb-2"
@@ -411,10 +401,13 @@ const Cart = ({ cartAdded, products }) => {
                                 </div>
                             </div>
                         )}
-                        {/* <Modal
-                            show={showModal}
-                            onClose={() => setShowModal(false)}
-                        /> */}
+                        {viewModal && selectedProduct && (
+                            <ViewProduct
+                                show={viewModal}
+                                product={selectedProduct}
+                                onClose={handleCloseModal}
+                            />
+                        )}
                     </section>
                 </>
             )}

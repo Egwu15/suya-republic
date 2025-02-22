@@ -52,9 +52,26 @@ function Contact() {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-md-12 col-12 text-center">
-                                    <p>Contact Us</p>
-                                    <h1 className="mb-2">Talk to us</h1>
-                                    <p>
+                                    <p
+                                        style={{
+                                            fontSize: "20px",
+                                        }}
+                                    >
+                                        Talk to us
+                                    </p>
+                                    <h1
+                                        className="mb- "
+                                        style={{
+                                            fontFamily: "rubik wet paint",
+                                        }}
+                                    >
+                                        Contact Us
+                                    </h1>
+                                    <p
+                                        style={{
+                                            fontSize: "20px",
+                                        }}
+                                    >
                                         Hello! We are glad you are here. We'd
                                         love to hear from you.
                                     </p>

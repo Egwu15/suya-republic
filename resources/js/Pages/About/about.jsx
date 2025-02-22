@@ -29,9 +29,27 @@ function About() {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-md-12 col-12 text-center">
-                                    <p>About Us</p>
-                                    <h1 className="mb-2">Our Brand</h1>
-                                    <p>
+                                    <p
+                                        style={{
+                                            fontSize: "20px",
+                                        }}
+                                    >
+                                        {" "}
+                                        Our Brand
+                                    </p>
+                                    <h1
+                                        className="mb-2"
+                                        style={{
+                                            fontFamily: "rubik wet paint",
+                                        }}
+                                    >
+                                        About Us
+                                    </h1>
+                                    <p
+                                        style={{
+                                            fontSize: "20px",
+                                        }}
+                                    >
                                         We are bringing the taste of Africa to
                                         Manchester.
                                     </p>
