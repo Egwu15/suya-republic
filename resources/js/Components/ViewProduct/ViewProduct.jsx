@@ -43,8 +43,11 @@ const ViewProduct = ({ show, product, onClose }) => {
                                     >
                                         <img
                                             // Uncomment below if using product image from storage
-                                            // src={"/storage/" + product?.product_image}
-                                            src={imag4}
+                                            src={
+                                                "/storage/" +
+                                                product?.product_image
+                                            }
+                                            // src={imag4}
                                             alt={product?.name}
                                             loading="lazy"
                                             style={{
