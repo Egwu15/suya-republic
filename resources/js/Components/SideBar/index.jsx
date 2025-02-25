@@ -22,23 +22,27 @@ const SideBar = ({ categories }) => {
                         </div>
                     </Link>
                 </li>
-                {categories.data.map((data) => (
-                    <li key={data.id}>
-                        <Link
-                            href={`/menu?selectedCategory=${data.id}`}
-                            className="text-decoration-none"
-                        >
-                            <div
-                                className={`profile-sidebar ${
-                                    selectedCategory == data.id ? "active" : ""
-                                }`}
-                                style={{ fontFamily: "Dynapuff" }}
+                {categories.data
+                    .filter((data) => data.name.toLowerCase() !== "spices") // Filter out "spices"
+                    .map((data) => (
+                        <li key={data.id}>
+                            <Link
+                                href={`/menu?selectedCategory=${data.id}`}
+                                className="text-decoration-none"
                             >
-                                {data.name}
-                            </div>
-                        </Link>
-                    </li>
-                ))}
+                                <div
+                                    className={`profile-sidebar ${
+                                        selectedCategory == data.id
+                                            ? "active"
+                                            : ""
+                                    }`}
+                                    style={{ fontFamily: "Dynapuff" }}
+                                >
+                                    {data.name}
+                                </div>
+                            </Link>
+                        </li>
+                    ))}
             </ul>
         </div>
     );
