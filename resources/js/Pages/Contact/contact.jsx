@@ -51,7 +51,7 @@ function Contact() {
                     <section className="our-menu">
                         <div className="container-fluid">
                             <div className="row">
-                                <div className="col-md-12 col-12 text-center">
+                                <div className="col-md-12 col-12 text-center ">
                                     <p
                                         style={{
                                             fontSize: "20px",
@@ -59,17 +59,19 @@ function Contact() {
                                     >
                                         Talk to us
                                     </p>
-                                    <h1
-                                        className="mb- "
+                                    <h2
+                                        className="mb-2 "
                                         style={{
-                                            fontFamily: "rubik wet paint",
+                                            fontFamily: "Dynapuff",
+                                            fontSize: "76px",
                                         }}
                                     >
                                         Contact Us
-                                    </h1>
+                                    </h2>
                                     <p
                                         style={{
                                             fontSize: "20px",
+                                            fontWeight: "bold",
                                         }}
                                     >
                                         Hello! We are glad you are here. We'd

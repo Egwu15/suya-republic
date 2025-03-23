@@ -46,7 +46,7 @@ const InternationalMenu = ({ products }) => {
                             <h6 className="mb-2">CHOOSE YOUR FAVORITE</h6>
                             <h1
                                 className="mb-2"
-                                style={{ fontFamily: "rubik wet paint" }}
+                                style={{ fontFamily: "Dynapuff" }}
                             >
                                 Spices
                             </h1>

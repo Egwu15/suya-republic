@@ -45,7 +45,7 @@ const OurMenu = ({ products, categories }) => {
                             <h6 className="mb-2">CHOOSE YOUR FAVORITE</h6>
                             <h1
                                 className="mb-2"
-                                style={{ fontFamily: "rubik wet paint" }}
+                                style={{ fontFamily: "Dynapuff" }}
                             >
                                 MENU
                             </h1>
@@ -59,9 +59,7 @@ const OurMenu = ({ products, categories }) => {
                     <div className="row">
                         <div className="col-md-2">
                             <div className="">
-                                <h6 style={{ fontFamily: "Creepster" }}>
-                                    MENU CATEGORIES
-                                </h6>
+                                <h6>MENU CATEGORIES</h6>
 
                                 <SideBar categories={categories} />
                             </div>

@@ -96,8 +96,8 @@ export const HomeComponent = () => {
                             <h1
                                 className="fw-bold fs-"
                                 style={{
-                                    fontFamily: "'Pacifico', cursive",
-                                    fontSize: "38px",
+                                    fontFamily: "Dynapuff",
+                                    fontSize: "30px",
                                 }}
                             >
                                 Order for Collect
@@ -128,10 +128,11 @@ export const HomeComponent = () => {
                             style={{ maxWidth: "400px" }}
                         >
                             <h1
-                                className="fw-bold fs-"
+                                className="fw-bold fs- "
                                 style={{
-                                    fontFamily: "'Pacifico', cursive",
-                                    fontSize: "38px",
+                                    fontFamily: "Dynapuff",
+                                    fontSize: "30px",
+                                    lineHeight: "46px",
                                 }}
                             >
                                 Suya Republic's Delivery
@@ -182,8 +183,9 @@ export const HomeComponent = () => {
                                 <h3
                                     style={{
                                         color: "red",
-                                        fontFamily: "Dynapuff",
-                                        fontWeight: "300",
+                                        fontFamily: "Open Sans",
+
+                                        fontWeight: "bold",
                                     }}
                                 >
                                     S U Y A R E P U B L I C K
@@ -191,7 +193,7 @@ export const HomeComponent = () => {
                                 <h1
                                     className="font-12"
                                     style={{
-                                        fontFamily: "Creepster",
+                                        fontFamily: "Dynapuff",
                                     }}
                                 >
                                     <b>
@@ -218,7 +220,7 @@ export const HomeComponent = () => {
                                     <img
                                         src={spiceImageGif}
                                         alt=""
-                                        className=""
+                                        className="pb-4"
                                         loading="lazy"
                                         style={{ width: "100%" }}
                                     />
@@ -226,12 +228,12 @@ export const HomeComponent = () => {
                                 <h3
                                     className="py-2"
                                     style={{
-                                        fontFamily: "Kavoon",
+                                        fontFamily: "Dynapuff",
                                     }}
                                 >
                                     <b>SUYA SPICE</b>
                                 </h3>
-                                <p>
+                                <p className="pb-2">
                                     Get your Suya spice anywhere anyime within
                                     UK
                                 </p>
@@ -266,7 +268,7 @@ export const HomeComponent = () => {
                                     <img
                                         src={platterImg}
                                         alt=""
-                                        className=""
+                                        className="pb-4"
                                         loading="lazy"
                                         style={{ width: "100%" }}
                                     />
@@ -274,12 +276,12 @@ export const HomeComponent = () => {
                                 <h3
                                     className="py-2"
                                     style={{
-                                        fontFamily: "Kavoon",
+                                        fontFamily: "Dynapuff",
                                     }}
                                 >
                                     <b>OUR MENU</b>
                                 </h3>
-                                <p>
+                                <p className="pb-2">
                                     Our meals are made with natural, fresh and
                                     organic spices and recipes from Africa.
                                 </p>
@@ -315,7 +317,7 @@ export const HomeComponent = () => {
                                     <img
                                         src={brandLogo}
                                         alt=""
-                                        className=""
+                                        className="pb-4"
                                         loading="lazy"
                                         style={{ width: "100%" }}
                                     />
@@ -323,12 +325,12 @@ export const HomeComponent = () => {
                                 <h3
                                     className="py-2"
                                     style={{
-                                        fontFamily: "Kavoon",
+                                        fontFamily: "Dynapuff",
                                     }}
                                 >
                                     <b>OUR BRAND</b>
                                 </h3>
-                                <p>
+                                <p className="pb-2">
                                     The first Suya Republick started out in the
                                     streets of Lagos, Nigeria in 2018.
                                 </p>
@@ -357,21 +359,41 @@ export const HomeComponent = () => {
                     </div>
                 </div>
             </section>
-
-            <section className="app-section">
-                <video
-                    className="videoTag"
-                    autoPlay
-                    loop
-                    muted
-                    style={{
-                        width: "100%",
-                        // height: "100%"
-                    }}
+            <div
+                className="video-containe"
+                style={{
+                    // width: "100%",
+                    height: "600px",
+                    overflowY: "hidden",
+                    // objectFit:,
+                }}
+            >
+                <section
+                    className=" video-container "
+                    style={
+                        {
+                            // width: "100%",
+                            // height: "600px",
+                            // display: "flex",
+                            // transformY: "-50%",
+                        }
+                    }
                 >
-                    <source src={brandVideo} type="video/mp4" />
-                </video>
-            </section>
+                    <video
+                        className="videoTag "
+                        autoPlay
+                        loop
+                        muted
+                        style={{
+                            width: "100%",
+                            // height: "50%",
+                            // height: "600px",
+                        }}
+                    >
+                        <source src={brandVideo} type="video/mp4" />
+                    </video>
+                </section>
+            </div>
 
             {/* <div
                 className="col-md-12 "

@@ -40,7 +40,7 @@ function About() {
                                     <h1
                                         className="mb-2"
                                         style={{
-                                            fontFamily: "rubik wet paint",
+                                            fontFamily: "Dynapuff",
                                         }}
                                     >
                                         About Us
