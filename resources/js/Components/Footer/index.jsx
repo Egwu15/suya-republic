@@ -16,7 +16,14 @@ export const Footer = () => {
                     <div className="footer-cards bg-info col-md-6">
                         <div className="footer-card ">
                             <div className="mb-4 pl-5">
-                                <h1 style={{ color: COLOR_GOLD }}>HOTLINES</h1>
+                                <h1
+                                    style={{
+                                        color: COLOR_GOLD,
+                                        fontFamily: "Oswald",
+                                    }}
+                                >
+                                    HOTLINES
+                                </h1>
 
                                 <span>
                                     <a
@@ -36,7 +43,12 @@ export const Footer = () => {
                             </div>
 
                             <div>
-                                <h1 style={{ color: COLOR_GOLD }}>
+                                <h1
+                                    style={{
+                                        color: COLOR_GOLD,
+                                        fontFamily: "Oswald",
+                                    }}
+                                >
                                     QUICK LINKS
                                 </h1>
 
@@ -66,7 +78,9 @@ export const Footer = () => {
                         </div>
                         <div className="footer-card mb-5">
                             <div className="socialfootericon mb-5 pl-5">
-                                <h1>Follow Us</h1>
+                                <h1 style={{ fontFamily: "Oswald" }}>
+                                    Follow Us
+                                </h1>
                                 <div className="footer-img ">
                                     <a
                                         target="_blank"
@@ -109,21 +123,25 @@ export const Footer = () => {
                                 </div>
                             </div>
                             <div>
-                                <h1>OPENING HOURS</h1>
+                                <h1 style={{ fontFamily: "Oswald" }}>
+                                    OPENING HOURS
+                                </h1>
                                 <p>TUESDAY TO SUNDAY</p>
                                 <span>5:00pm – 11:00pm</span>
                             </div>
                         </div>
                         <div className="footer-card mb-5">
                             <div>
-                                <h3>VISIT US</h3>
+                                <h3 style={{ fontFamily: "Oswald" }}>
+                                    VISIT US
+                                </h3>
                                 <span>303 Chester road Manchester M15 4EY</span>
                             </div>
                         </div>
                         <div className=" mb-5 ">
                             <h2
                                 style={{
-                                    fontFamily: "Creepster",
+                                    fontFamily: "Dynapuff",
                                 }}
                             >
                                 WE ARE BRINGING THE TASTE OF AFRICA TO
