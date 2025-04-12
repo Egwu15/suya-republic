@@ -57,10 +57,13 @@ function Contact() {
                             <h2 className="alpha-heading-23 text-warning mb-3">
                                 Contact Us
                             </h2>
-                            <h2 className="gro-bold-heading-23 text-white">
+                            <h3
+                                className="gro-bold-heading-23 text-white"
+                                style={{}}
+                            >
                                 Hello! We are glad you are here. We'd love to
                                 hear from you.{" "}
-                            </h2>
+                            </h3>
                             {/* <p className="lead text-center px-3 mt-3">
                                 Hello! We are glad you are here. We'd love to
                                 hear from you.{" "}
