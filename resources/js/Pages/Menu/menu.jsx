@@ -37,23 +37,37 @@ const OurMenu = ({ products, categories }) => {
 
     return (
         <div>
-            <Navbar />
-            <section className="our-menu">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 text-center">
-                            <h6 className="mb-2">CHOOSE YOUR FAVORITE</h6>
-                            <h1
-                                className="mb-2"
-                                style={{ fontFamily: "Dynapuff" }}
-                            >
-                                MENU
-                            </h1>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center vh-95">
+                {/* Navbar */}
+                <Navbar />
+                <div className="hero-overlay" />
 
+                {/* Content */}
+                <div style={{ zIndex: 2, paddingBlock: "150px" }}>
+                    <h2 className="alpha-heading-2 text-warning mb-3">
+                        {"CHOOSE YOUR FAVORITE"}
+                    </h2>
+                    <h2 className="gro-bold-heading-2 text-white">
+                        {"TASTY MENU"}
+                    </h2>
+                    {/* <p className="lead text-center px-3 mt-3">{desc}</p> */}
+                    <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
+                        <button className="header-action-btn order-btn-hero">
+                            ORDER ONLINE{" "}
+                            <span className="material-symbols-outlined material">
+                                arrow_outward
+                            </span>
+                        </button>
+                        <button className="header-action-btn pickup-btn">
+                            PICKUP IN STORE{" "}
+                            <span className="material-symbols-outlined material">
+                                arrow_outward
+                            </span>
+                        </button>
+                    </div>
+                    {/* <ActionButtons />{" "} */}
+                </div>
+            </div>
             <section className="faq-answer">
                 <div className="container">
                     <div className="row">

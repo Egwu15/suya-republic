@@ -1,0 +1,101 @@
+.learn-more-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+.text-red {
+    color: #691411;
+}
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.content-card {
+    background-color: rgba(255, 115, 0, 0.846); /* Rich orange with opacity */
+    max-width: 50%;
+    height: 800px;
+    z-index: 1;
+}
+
+.menu-logo {
+    width: 150px;
+}
+
+.menu-description {
+    line-height: 1.7;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem; /* 24px */
+    letter-spacing: 0%;
+    text-align: center;
+    color: white; /* Optional: for better visibility on dark backgrounds */
+    max-width: 800px; /* Optional: limits width for better readability */
+    /* margin: 0 auto; */
+}
+
+.quote {
+    font-size: 4rem;
+    color: #fff;
+}
+@media (max-width: 768px) {
+    .learn-more-section {
+        position: relative;
+        height: 90vh;
+        overflow: hidden;
+    }
+    .text-red {
+        color: #691411;
+    }
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .content-card {
+        background-color: rgba(
+            255,
+            115,
+            0,
+            0.846
+        ); /* Rich orange with opacity */
+        max-width: 100%;
+        height: 600px;
+        z-index: 1;
+    }
+
+    .menu-logo {
+        width: 100px;
+    }
+
+    .menu-description {
+        line-height: 1.7;
+        color: #fff;
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-size: 1rem; /* 24px */
+        text-align: center;
+        color: white; /* Optional: for better visibility on dark backgrounds */
+        max-width: 800px; /* Optional: limits width for better readability */
+        /* margin: 0 auto; */
+    }
+
+    .quote {
+        font-size: 4rem;
+        color: #fff;
+    }
+    .big-font {
+        font-size: 18px;
+    }
+}

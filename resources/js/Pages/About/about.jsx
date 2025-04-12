@@ -20,12 +20,50 @@ function About() {
 
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             {loading ? (
                 <Loader />
             ) : (
                 <>
-                    <section className="our-menu">
+                    <div className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center vh-95">
+                        {/* Navbar */}
+                        <Navbar />
+                        <div className="hero-overlay" />
+
+                        {/* Content */}
+                        <div style={{ zIndex: 2, paddingBlock: "150px" }}>
+                            <h2 className="alpha-heading-2 text-warning mb-3">
+                                {"About Us"}
+                            </h2>
+                            <h2 className="gro-bold-heading-2 text-white">
+                                We are bringing the taste of Africa to
+                                Manchester.
+                            </h2>
+                            <p className="lead text-center px-3 mt-3">
+                                We cure your Nostalgia With our Tasty Suya.
+                            </p>
+                            <p className="lead text-center px-3 ">
+                                Get you Spicy Suya anywhere, anytime within the
+                                UK
+                            </p>
+                            <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
+                                <button className="header-action-btn order-btn-hero">
+                                    ORDER ONLINE{" "}
+                                    <span className="material-symbols-outlined material">
+                                        arrow_outward
+                                    </span>
+                                </button>
+                                <button className="header-action-btn pickup-btn">
+                                    PICKUP IN STORE{" "}
+                                    <span className="material-symbols-outlined material">
+                                        arrow_outward
+                                    </span>
+                                </button>
+                            </div>
+                            {/* <ActionButtons />{" "} */}
+                        </div>
+                    </div>
+                    {/* <section className="our-menu">
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-md-12 col-12 text-center">
@@ -56,7 +94,7 @@ function About() {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> */}
 
                     <section style={{ margin: "50px 0" }}>
                         <div className="container">

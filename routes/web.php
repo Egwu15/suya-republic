@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
 
 
 // ------------------frontOnlyPages-------------
-Route::get('/international-menu', [ProductController::class, 'international']);
+Route::get('/spices', [ProductController::class, 'international']);
 Route::get(
     '/.well-known/apple-developer-merchantid-domain-association',
     function () {

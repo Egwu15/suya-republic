@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "Alpha Monday";
+    src: url("/fonts/AlphaMonday.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Alpha Monday";
+    src: url("/fonts/AlphaMonday.woff2") format("woff2"),
+        url("../../../assets/fonts/GROBOLD.ttf") format("woff"),
+        url("../../../assets/fonts/EuclidCircularB-Medium.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+.center-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-red {
+    color: #691411;
+}
+.bg-red {
+    background-color: #691411;
+}
+.bg-orange {
+    background-color: #ff8000;
+}
+.text-yellow {
+    color: #ffd703;
+}
+.bg-yellow {
+    background: #ffd703;
+}
+.position-relative {
+    position: relative;
+}
