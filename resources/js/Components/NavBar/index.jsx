@@ -82,10 +82,15 @@ const Navbar = () => {
             </button>
 
             <div className="gap-3 justify-content-center mt-4 d-none d-md-flex">
-                <button className="rounded-pill px-4 py-3 fw-bold order-button">
+                <button className="rounded-pill px-4 py-3 fw-bold order-button scale-effect">
                     ORDER ONLINE
                 </button>
-                <button className="login-signup-button">LOGIN/SIGNUP</button>
+                <Link
+                    href="/login"
+                    className="login-signup-button text-decoration-none text-center"
+                >
+                    LOGIN/SIGNUP
+                </Link>
             </div>
 
             {/* Mobile Menu */}

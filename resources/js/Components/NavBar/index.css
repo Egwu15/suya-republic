@@ -250,5 +250,17 @@
     line-height: 100%;
     letter-spacing: 0;
 }
-
+.scale-effect {
+    /* display: inline-block; Ensures the scaling applies properly */
+    /* background-color: #d2401e; Red background for button */
+    /* border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center; */
+    text-decoration: none;
+    animation: scaleAnimation 0.9s infinite ease-in-out; /* Animation added */
+}
 /* OLD CSS */
