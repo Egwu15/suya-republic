@@ -7,7 +7,7 @@ import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const { url } = usePage(); // Get current path
+    const { url } = usePage();
 
     const toggleMenu = () => {
         setMenuOpen((prev) => !prev);
