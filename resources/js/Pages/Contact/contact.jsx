@@ -3,11 +3,11 @@ import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./contact.css";
 import Loader from "@/Components/Loader/Loader";
-import InputField from "@/Components/InputField";
 import MapAndHotlines from "@/Components/GoogleMap/GoogleMap";
 import { useForm } from "@inertiajs/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ContactForm from "./ContactForm";
 
 function Contact() {
     useEffect(() => {
@@ -42,172 +42,119 @@ function Contact() {
 
     return (
         <div>
-            <Navbar />
             <ToastContainer /> {/* Toast container for notifications */}
             {loading ? (
                 <Loader />
             ) : (
                 <>
-                    <section className="our-menu">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-12 col-12 text-center ">
-                                    <p
-                                        style={{
-                                            fontSize: "20px",
-                                        }}
-                                    >
-                                        Talk to us
-                                    </p>
-                                    <h2
-                                        className="mb-2 "
-                                        style={{
-                                            fontFamily: "Dynapuff",
-                                            fontSize: "76px",
-                                        }}
-                                    >
-                                        Contact Us
-                                    </h2>
-                                    <p
-                                        style={{
-                                            fontSize: "20px",
-                                            fontWeight: "bold",
-                                        }}
-                                    >
-                                        Hello! We are glad you are here. We'd
-                                        love to hear from you.
-                                    </p>
-                                </div>
+                    <div className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center vh-100">
+                        {/* Navbar */}
+                        <Navbar />
+                        <div className="hero-overlay" />
+
+                        {/* Content */}
+                        <div style={{ zIndex: 2, paddingBlock: "150px" }}>
+                            <h2 className="alpha-heading-23 text-warning mb-3">
+                                Contact Us
+                            </h2>
+                            <h3
+                                className="gro-bold-heading-23 text-white"
+                                style={{}}
+                            >
+                                Hello! We are glad you are here. We'd love to
+                                hear from you.{" "}
+                            </h3>
+                            {/* <p className="lead text-center px-3 mt-3">
+                                Hello! We are glad you are here. We'd love to
+                                hear from you.{" "}
+                            </p> */}
+
+                            <div className="d-md-flex d-inline-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center ">
+                                <button className="header-action-btn order-btn-hero inline">
+                                    ORDER ONLINE{" "}
+                                    <span className="material-symbols-outlined material">
+                                        arrow_outward
+                                    </span>
+                                </button>
+                                <button className="header-action-btn pickup-btn">
+                                    PICKUP IN STORE{" "}
+                                    <span className="material-symbols-outlined material">
+                                        arrow_outward
+                                    </span>
+                                </button>
                             </div>
                         </div>
-                    </section>
+                    </div>
 
-                    <section className="container mt-5">
-                        <div className="row">
+                    <section className=" p">
+                        <div className="row red-black ">
                             {/* Left Form */}
-                            <div className="col-md-6 mb-4">
-                                <p className="color-red font-bold">
-                                    HAVE QUESTIONS?
-                                </p>
-                                <h2 className="mb-4 font-bold">
-                                    Send us a message, Call or visit us
-                                </h2>
-                                <form>
-                                    <div className="row g-3">
-                                        <div className="col-md-12">
-                                            <label
-                                                htmlFor="firstName"
-                                                className="form-label"
-                                            >
-                                                Your Name (required)
-                                            </label>
-                                            <InputField
-                                                type="text"
-                                                placeholder="Enter first name"
-                                                value={data.full_name}
-                                                onChangeMethod={(e) =>
-                                                    setData(
-                                                        "full_name",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <div className="col-md-12">
-                                            <label
-                                                htmlFor="email"
-                                                className="form-label"
-                                            >
-                                                Email Address (required)
-                                            </label>
-                                            <InputField
-                                                type="email"
-                                                placeholder="Enter email address"
-                                                required
-                                                value={data.email}
-                                                onChangeMethod={(e) =>
-                                                    setData(
-                                                        "email",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <div className="col-md-12">
-                                            <label
-                                                htmlFor="streetAddress"
-                                                className="form-label"
-                                            >
-                                                Subject (required)
-                                            </label>
-                                            <InputField
-                                                type="text"
-                                                placeholder="Subject of the message"
-                                                required
-                                                value={data.subject}
-                                                onChangeMethod={(e) =>
-                                                    setData(
-                                                        "subject",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <div className="col-md-12">
-                                            <label htmlFor="textAreaInput">
-                                                Your Message:
-                                            </label>
-                                            <textarea
-                                                id="textAreaInput"
-                                                rows="5"
-                                                cols="50"
-                                                placeholder="Enter your message here..."
-                                                value={data.message}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "message",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                style={{
-                                                    padding: "10px",
-                                                    fontSize: "16px",
-                                                    width: "100%",
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="col-md-12">
-                                            {processing ? (
-                                                <Loader />
-                                            ) : (
-                                                <button
-                                                    onClick={(e) =>
-                                                        handleSubmit(e)
-                                                    }
-                                                    style={{
-                                                        background: "#d2401e",
-                                                        color: "white",
-                                                        margin: "20px 0",
-                                                        fontWeight: "600",
-                                                        fontSize: "16px",
-                                                        lineHeight: "24px",
-                                                        border: "none",
-                                                        padding: "10px 20px",
-                                                        borderRadius: "5px",
-                                                        cursor: "pointer",
-                                                    }}
-                                                >
-                                                    Send
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                </form>
+                            <div className="col-md-12 mb-4">
+                                <div className="pt-5 mb-4 ">
+                                    <p className="text-center text-white font-bold">
+                                        HAVE QUESTIONS?
+                                    </p>
+                                    <h2 className="mb-4 text-center text-white font-bold">
+                                        Send us a message, Call or visit us
+                                    </h2>
+                                </div>
+
+                                <ContactForm
+                                    data={data}
+                                    setData={setData}
+                                    processing={processing}
+                                    handleSubmit={handleSubmit}
+                                />
                             </div>
 
                             {/* Right Form */}
-                            <div className="col-md-6 mb-4">
-                                <MapAndHotlines />
+                            <div className="col-md-12 mb-4">
+                                <div className="container-fluid px-0 ">
+                                    <div className="row g-0">
+                                        {/* Left Column */}
+                                        <div className="col-lg-6 bg-maroo text-white p-5 d-flex flex-column justify-content-center">
+                                            <div className="mb-4">
+                                                <h4 className="text-gold fw-bold">
+                                                    Opening Hours
+                                                </h4>
+                                                <p className="mb-1">
+                                                    Tuesday to Sunday
+                                                </p>
+                                                <p className="mb-4">
+                                                    05:00 PM to 11:00 PM
+                                                </p>
+                                                <p className="mb-1">Monday</p>
+                                                <p>Closed</p>
+                                            </div>
+                                            <div className="mb-4">
+                                                <h4 className="text-gold fw-bold">
+                                                    Location
+                                                </h4>
+                                                <p className="mb-1">
+                                                    303 Chester Rd
+                                                </p>
+                                                <p>
+                                                    303 Chester Rd, Manchester
+                                                    M15 4EY, UK
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <h4 className="text-gold fw-bold">
+                                                    Contact us
+                                                </h4>
+                                                <p className="mb-1">
+                                                    07378 837837
+                                                </p>
+                                                <p>01616 980898</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Right Column */}
+                                        <div className="col-lg-6 map-container">
+                                            <MapAndHotlines />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>

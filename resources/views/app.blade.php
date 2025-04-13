@@ -18,6 +18,9 @@
       href="https://fonts.googleapis.com/css2?family=Creepster&family=DynaPuff:wght@400..700&family=Kavoon&family=Rubik+Wet+Paint&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />

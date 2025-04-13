@@ -1,0 +1,32 @@
+.card-container-img {
+    border-radius: 10px;
+    height: 100%;
+    /* background: #ca2525; */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.detail-text {
+    font-weight: 400;
+    font-size: 16px;
+}
+.font-56 {
+    font-size: 64px;
+}
+
+.star-container {
+    position: absolute;
+    top: 45;
+    left: 20;
+}
+.star-outline-container {
+    position: absolute;
+    bottom: 0;
+    right: 10 !important;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .font-56 {
+        font-size: 56px;
+    }
+}
