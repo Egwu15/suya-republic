@@ -1,31 +1,78 @@
-.checkout-notice {
+.menu-section {
+    background-color: #5d1715;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
     padding: 40px;
-    border: 1px solid black;
-}
-
-.ctAlLL {
-    width: 33% !important;
-}
-.our-menu {
-    background-image: url("../../../assets/img/suya/Our-Menu-Banner.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    background-image: url("../../../assets/img/pattern-bg.png");
     background-repeat: no-repeat;
-    background-position: center center;
-    padding: 250px 0 150px 0px;
-    color: white;
+    background-position: left center;
+    background-size: auto 100%;
+    z-index: 1;
+    position: relative;
+}
+.menu-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* dark overlay */
+    z-index: 1;
+}
+.small-btn {
+    gap: 15px;
+    border-radius: 100px;
+    padding: 5px 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.226); /* dark semi-transparent bg */
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
-.our-menu h1 {
-    max-width: 403px;
-    font-weight: 600;
-    font-size: 76px;
-    line-height: 80px;
-    font-family: "EuclidCircularB-Bold";
-    margin: auto;
-    text-align: center;
+.small-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* more contrast on hover */
+    color: #fff;
+}
+
+.white-bg {
+    background: #fff;
+    border-radius: 20px;
+    padding: 50px;
+    position: absolute;
+    top: -150px;
+}
+.cart-page {
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card img {
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.form-control {
+    border-radius: 8px;
 }
 
 .faq-answer {
@@ -39,29 +86,29 @@
     line-height: 42px;
     margin: 2rem auto;
 }
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.rounded-4 {
+    border-radius: 16px;
+}
 
-@media screen and (max-width: 1024px) {
-    .our-menu h1 {
-        font-size: 60px;
-        line-height: 60px;
-    }
+.shadow-sm {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
-@media screen and (max-width: 784px) {
-    .our-menu h1 {
-        font-size: 60px;
-        line-height: 60px;
-    }
-    .font-12 {
-        font-size: 8px !important;
-    }
+
+.rounded-4 {
+    border-radius: 1rem;
 }
-@media screen and (max-width: 540px) {
-    .font-12 {
-        font-size: 10px !important;
-        text-align: left !important;
+
+@media (max-width: 576px) {
+    img {
+        width: 70px !important;
+        height: 70px !important;
     }
-    .our-menu h1 {
-        font-size: 30px;
-        line-height: 60px;
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
     }
 }

@@ -1,0 +1,31 @@
+.pad {
+    padding-block: 60px;
+}
+.text-red {
+    color: #691411;
+}
+.action-btn {
+    gap: 15px;
+    border-radius: 100px;
+    padding: 20px 28px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 100%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+
+    background-color: #fdd835; /* similar yellow */
+    color: #4a2c18;
+    border: none;
+}
+@media (max-width: 768px) {
+    .pad {
+        margin-top: 80px;
+        padding-block: 10px;
+    }
+}

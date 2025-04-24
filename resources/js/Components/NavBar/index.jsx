@@ -4,6 +4,8 @@ import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import Button from "../Button";
 import { Link, usePage } from "@inertiajs/react";
 import { FaBars } from "react-icons/fa";
+import useCartStore from "@/store/Store";
+import CartIcon from "@/Pages/Cart/CartIcon";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -12,13 +14,30 @@ const Navbar = () => {
     const toggleMenu = () => {
         setMenuOpen((prev) => !prev);
     };
+    const { guest, setGuest, clearGuest } = useCartStore(); // Manage user state in the store
+    const user = usePage().props.auth.user;
+
+    //     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const handleSignOut = () => {
+        clearGuest();
+        localStorage.removeItem("guestUser");
+        router.post(route("logout"));
+    };
+
+    // useEffect(() => {
+    //     const guestUser = JSON.parse(localStorage.getItem("guestUser"));
+    //     if (guestUser) {
+    //         setGuest(guestUser);
+    //     }
+    // }, [setGuest]);
 
     return (
         <nav
-            className="position-absolute top-0 start-0 w-100 d-flex justify-content-between justify-content-md-around align-items-center px-4 py-3"
+            className="position-absolute  top-0 start-0 w-100 d-flex justify-content-between justify-content-md-around align-items-center px-4 py-3"
             style={{ zIndex: 3 }}
         >
-            <img src={logo} alt="Logo" style={{ height: "50px" }} />
+            <img src={logo} alt="Logo" style={{ height: "70px" }} />
             <ul className="nav-container list-unstyled m-0 d-none d-md-flex">
                 <li className="nav-item">
                     <Link
@@ -69,7 +88,7 @@ const Navbar = () => {
                     </Link>
                 </li>
                 <div className="cart-icon">
-                    <i className="bi bi-cart text-dark"></i>
+                    <CartIcon />
                 </div>
             </ul>
 
@@ -82,10 +101,39 @@ const Navbar = () => {
             </button>
 
             <div className="gap-3 justify-content-center mt-4 d-none d-md-flex">
-                <button className="rounded-pill px-4 py-3 fw-bold order-button">
+                <Link
+                    href="/order-online"
+                    className="rounded-pill px-4 py-3 fw-bold order-button scale-effect"
+                >
                     ORDER ONLINE
-                </button>
-                <button className="login-signup-button">LOGIN/SIGNUP</button>
+                </Link>
+                {user ? (
+                    <button
+                        onClick={handleSignOut}
+                        className=" rounded-pill cursor-pointer px-4 py-3 login-signup-button text-decoration-none text-center"
+                        style={{
+                            fontFamily: "Dynapuff",
+                        }}
+                    >
+                        Sign Out
+                    </button>
+                ) : (
+                    <Link
+                        href="/login"
+                        className=" rounded-pill  px-4 py-3 login-signup-button text-decoration-none text-center"
+                        style={{
+                            fontFamily: "Dynapuff",
+                        }}
+                    >
+                        LOGIN/SIGNUP
+                    </Link>
+                )}
+                {/* <Link
+                    href="/login"
+                    className=" rounded-pill  px-4 py-3 login-signup-button text-decoration-none text-center"
+                >
+                    LOGIN/SIGNUP
+                </Link> */}
             </div>
 
             {/* Mobile Menu */}
@@ -108,7 +156,7 @@ const Navbar = () => {
                             </Link>
                             <div className="mobile-menu-header">
                                 <div className="cart-icon-circle">
-                                    <i className="bi bi-cart text-dark"></i>
+                                    <CartIcon />
                                 </div>
                                 <button
                                     className="close-button"
@@ -171,6 +219,29 @@ const Navbar = () => {
                             <button className="login-signup-button mt-2">
                                 LOGIN/SIGNUP
                             </button>
+                        </li>
+                        <li className="notify mt-6">
+                            {user ? (
+                                <button
+                                    onClick={handleSignOut}
+                                    className="black-btn-nav mx-1 p-2 text-white"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
+                                >
+                                    Sign Out
+                                </button>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    className="black-btn-nav mx-1 text-white"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
+                                >
+                                    Sign In
+                                </Link>
+                            )}
                         </li>
                     </ul>
                 </div>

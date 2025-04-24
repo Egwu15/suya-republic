@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import useCartStore from "@/store/Store";
-import "./InternationalMenu.css";
+import "./spices.css";
 import { Link } from "@inertiajs/react";
-import SideBar from "@/Components/SideBar";
 import ProductModal from "@/Components/ProductModal/ProductModal";
+import SpiceShowcase from "./SpiceShowcase";
 
 const InternationalMenu = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
@@ -36,14 +36,17 @@ const InternationalMenu = ({ products }) => {
 
     return (
         <div>
-            <div className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center vh-95">
+            <div
+                className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center "
+                style={{ height: "700px" }}
+            >
                 {/* Navbar */}
                 <Navbar />
                 {/* Overlay */}
                 <div className="hero-overlay" />
 
                 {/* Content */}
-                <div style={{ zIndex: 2, paddingBlock: "150px" }}>
+                <div style={{ zIndex: 2 }}>
                     <h2 className="alpha-heading-2 text-warning mb-3">
                         {"Choose your favourite"}
                     </h2>
@@ -68,15 +71,10 @@ const InternationalMenu = ({ products }) => {
                     {/* <ActionButtons />{" "} */}
                 </div>
             </div>
-            <section className="faq-answer">
+            <SpiceShowcase />
+            {/* <section className="faq-answer">
                 <div className="container">
                     <div className="row">
-                        {/* <div className="col-md-2">
-                            <div className="booking">
-                                <h6>MENU CATEGORIES</h6>
-                                 <SideBar categories={categories} /> 
-                            </div>
-                        </div> */}
                         <div className="col-md-12">
                             <section className="hot-cards pt-5 pb-5">
                                 <div className="container">
@@ -257,15 +255,15 @@ const InternationalMenu = ({ products }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
             {/* Product Modal */}
-            {showModal && selectedProduct && (
+            {/* {showModal && selectedProduct && (
                 <ProductModal
                     show={showModal}
                     product={selectedProduct}
                     onClose={handleCloseModal}
                 />
-            )}
+            )} */}
             <Footer />
         </div>
     );
