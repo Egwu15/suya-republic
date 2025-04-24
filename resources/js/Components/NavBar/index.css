@@ -4,6 +4,7 @@
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    /* height: 700px; */
 }
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"); */
 
@@ -101,10 +102,10 @@
     border-radius: 100px;
     padding: 16px 34px;
     background-color: white;
-    color: #5c2d1f;
     border: none;
     font-weight: 700;
     font-size: 14px;
+    color: #5c2d1f;
 }
 .login-signup-button {
     font-family: "Poppins", sans-serif;
@@ -140,7 +141,7 @@
     top: 4px;
     left: 0;
     width: 100%;
-    z-index: 99;
+    z-index: 999 !important;
     padding: 10px;
 }
 

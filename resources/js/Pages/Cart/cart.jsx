@@ -98,21 +98,6 @@ const Cart = ({ cartAdded, products }) => {
     };
 
     const handleDeliverToMe = () => {
-        // if (postcode.trim() === "") {
-        //     setErrorMessage("Please enter your postcode.");
-        // } else if (!postcode.toUpperCase().startsWith("MN")) {
-        //     setModalMessage("We only deliver within Manchester.");
-        //     setShowModal(true); // Show modal for invalid postcode
-        //     setErrorMessage(""); // Clear error message
-        // } else {
-        //     // toast.success("Delivery is available for your postcode!");
-
-        //     // alert("Delivery is available for your postcode!");
-        //     window.location.href =
-        //         "https://www.ubereats.com/store/suya-republick-and-grill/Hiu7Y8B1T9a1HTNGb_7pYQ?diningMode=DELIVERY";
-
-        //     setErrorMessage(""); // Clear error message
-        // }
         window.location.href =
             "https://deliveroo.co.uk/menu/manchester/hulme-park/suya-republick-and-grill?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share";
     };
@@ -124,290 +109,315 @@ const Cart = ({ cartAdded, products }) => {
     const onClose = () => {
         setShowModal(false);
     };
+
     return (
         <div>
-            <Navbar />
             {loading ? (
                 <Loader />
             ) : (
                 <>
-                    {" "}
-                    <ToastContainer />
-                    <section className="our-menu">
-                        <div className="container-fluid text-center">
-                            <h1 className="mb-2">CART</h1>
+                    <Navbar />
+                    <section
+                        className="hero-bg d-flex align-items-center "
+                        style={{
+                            height: "400px",
+                        }}
+                    >
+                        <div className="container  text-center">
+                            <Link href="/menu" className="text-decoration-none">
+                                <button className="small-btn">
+                                    <span className="material-symbols-outlined ">
+                                        arrow_back
+                                    </span>
+                                    Back
+                                </button>
+                            </Link>
                         </div>
                     </section>
-                    <section className="cart-table container-fluid mt-5">
-                        <div className="table-responsive">
-                            <table className="table">
-                                <thead className="thead-dark">
-                                    <tr>
-                                        <th scope="col">PRODUCT</th>
-                                        <th scope="col">VARIANCE</th>
-                                        <th scope="col">PRICE</th>
-                                        <th scope="col">QUANTITY</th>
-                                        <th scope="col">SUBTOTAL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {cartItems.length ? (
-                                        cartItems.map((item) => (
-                                            <tr key={item.id} className="">
-                                                <td>
-                                                    <span
-                                                        className="d-flex align-items-center cursor-pointer"
+                    <section className="menu-section position-relative">
+                        {/* <div class="overlay"></div> */}
+                        <div className="x min-vh-100 p-3">
+                            {" "}
+                            {/* Red background */}
+                            <div className="container">
+                                <div
+                                    className="card mx-auto"
+                                    // style={{ maxWidth: "700px" }}
+                                >
+                                    {/* <div className="card-body"> */}
+                                    <div className="container white-bg py-5">
+                                        <ToastContainer />{" "}
+                                        <div className="row g-4">
+                                            <div className="col-lg-8">
+                                                <h4 className="mb-3">
+                                                    Cart Total
+                                                </h4>
+                                                <p className="mb-4">
+                                                    You have {cartItems.length}{" "}
+                                                    item(s) in your cart
+                                                </p>
+                                                {cartItems.map((item) => (
+                                                    <div
+                                                        key={item.id}
+                                                        className="card p-3 mb-3 shadow-sm"
+                                                    >
+                                                        <div className="d-flex align-items-center gap-3">
+                                                            <img
+                                                                src={`/storage/${item.product_image}`}
+                                                                alt={item.name}
+                                                                className="rounded"
+                                                                style={{
+                                                                    height: "70px",
+                                                                    width: "70px",
+                                                                    objectFit:
+                                                                        "cover",
+                                                                    cursor: "pointer",
+                                                                }}
+                                                                onClick={() =>
+                                                                    handleProductClick(
+                                                                        item
+                                                                    )
+                                                                }
+                                                            />
+                                                            <div className="flex-grow-1">
+                                                                <h6 className="mb-1">
+                                                                    {item.name}
+                                                                </h6>
+                                                                <p className="mb-1">
+                                                                    £
+                                                                    {item.price.toFixed(
+                                                                        2
+                                                                    )}
+                                                                </p>
+                                                            </div>
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <button
+                                                                    className="btn btn-outline-dark btn-sm"
+                                                                    onClick={() =>
+                                                                        handleQuantityChange(
+                                                                            item.id,
+                                                                            -1
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    –
+                                                                </button>
+                                                                <span>
+                                                                    {
+                                                                        item.quantity
+                                                                    }
+                                                                </span>
+                                                                <button
+                                                                    className="btn btn-outline-dark btn-sm"
+                                                                    onClick={() =>
+                                                                        handleQuantityChange(
+                                                                            item.id,
+                                                                            1
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    +
+                                                                </button>
+                                                                <button
+                                                                    className="btn btn-outline-danger btn-sm"
+                                                                    onClick={() =>
+                                                                        handleRemoveItem(
+                                                                            item.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    🗑
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                <div className="col-lg-4 d-block d-md-none">
+                                                    <div className="card shadow-sm p-4">
+                                                        <h5 className="fw-bold mb-3">
+                                                            Order Summary
+                                                        </h5>
+                                                        <div className="d-flex justify-content-between mb-2">
+                                                            <span>Order</span>
+                                                            <span>
+                                                                {
+                                                                    cartItems.length
+                                                                }
+                                                                pcs
+                                                            </span>
+                                                        </div>
+                                                        <div className="d-flex justify-content-between mb-2">
+                                                            <span>
+                                                                Subtotal
+                                                            </span>
+                                                            <span>
+                                                                £
+                                                                {Number(
+                                                                    (calculateTotal() ||
+                                                                        0) - 2
+                                                                ).toFixed(2)}
+                                                            </span>
+                                                        </div>
+                                                        <div className="d-flex justify-content-between mb-2">
+                                                            <span>Tax</span>
+                                                            <span>£2.00</span>
+                                                        </div>
+                                                        <div className="d-flex justify-content-between fw-bold border-top pt-2 mt-2">
+                                                            <span>Total</span>
+                                                            <span>
+                                                                £
+                                                                {Number(
+                                                                    calculateTotal() ||
+                                                                        0
+                                                                ).toFixed(2)}
+                                                            </span>
+                                                        </div>
+                                                        <button
+                                                            onClick={
+                                                                handleCheckout
+                                                            }
+                                                            className="btn btn-danger text-white w-100 mt-4"
+                                                            style={{
+                                                                textDecoration:
+                                                                    "none",
+                                                            }}
+                                                            disabled={
+                                                                !cartItems.length
+                                                            }
+                                                        >
+                                                            Proceed to Checkout
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                {/* <div className="mt-5">
+                                                    <h5>
+                                                        Additional Information
+                                                    </h5>
+                                                    <p>
+                                                        Please fill in the boxes
+                                                        below with correct
+                                                        information.
+                                                    </p>
+                                                    <div className="row g-3">
+                                                        <div className="col-md-6">
+                                                            <input
+                                                                className="form-control"
+                                                                placeholder="First Name"
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <input
+                                                                className="form-control"
+                                                                placeholder="Last Name"
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <input
+                                                                className="form-control"
+                                                                placeholder="Phone Number"
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <input
+                                                                className="form-control"
+                                                                placeholder="Email"
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <input
+                                                                className="form-control"
+                                                                placeholder="Enter Address"
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <input
+                                                                className="form-control"
+                                                                placeholder="Order Note (optional)"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-check mt-3">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="extraHotNews"
+                                                        />
+                                                        <label
+                                                            className="form-check-label"
+                                                            htmlFor="extraHotNews"
+                                                        >
+                                                            Want extra hot news?
+                                                            Tick the box
+                                                        </label>
+                                                    </div>
+                                                </div> */}
+                                            </div>
+
+                                            <div className="col-lg-4 d-none d-md-block">
+                                                <div className="card shadow-sm p-4">
+                                                    <h5 className="fw-bold mb-3">
+                                                        Order Summary
+                                                    </h5>
+                                                    <div className="d-flex justify-content-between mb-2">
+                                                        <span>Order</span>
+                                                        <span>
+                                                            {cartItems.length}
+                                                            pcs
+                                                        </span>
+                                                    </div>
+                                                    <div className="d-flex justify-content-between mb-2">
+                                                        <span>Subtotal</span>
+                                                        <span>
+                                                            £
+                                                            {Number(
+                                                                (calculateTotal() ||
+                                                                    0) - 2
+                                                            ).toFixed(2)}
+                                                        </span>
+                                                    </div>
+                                                    <div className="d-flex justify-content-between mb-2">
+                                                        <span>Tax</span>
+                                                        <span>£2.00</span>
+                                                    </div>
+                                                    <div className="d-flex justify-content-between fw-bold border-top pt-2 mt-2">
+                                                        <span>Total</span>
+                                                        <span>
+                                                            £
+                                                            {Number(
+                                                                calculateTotal() ||
+                                                                    0
+                                                            ).toFixed(2)}
+                                                        </span>
+                                                    </div>
+
+                                                    <button
+                                                        onClick={handleCheckout}
+                                                        className="btn btn-danger text-white w-100 mt-4"
                                                         style={{
-                                                            color: "#b7903c",
                                                             textDecoration:
                                                                 "none",
                                                         }}
-                                                    >
-                                                        <img
-                                                            src={
-                                                                "/storage/" +
-                                                                item.product_image
-                                                            }
-                                                            onClick={() =>
-                                                                handleProductClick(
-                                                                    item
-                                                                )
-                                                            }
-                                                            alt={item.name}
-                                                            style={{
-                                                                height: "80px",
-                                                                width: "80px",
-                                                                marginRight:
-                                                                    "10px",
-                                                                objectFit:
-                                                                    "cover",
-                                                                cursor: "pointer",
-                                                            }}
-                                                        />
-                                                        <span className="text-dark">
-                                                            {item.name}
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    {item.variance ? (
-                                                        <select
-                                                            value={
-                                                                spiceLevels[
-                                                                    item.id
-                                                                ]?.id || ""
-                                                            }
-                                                            onChange={(e) => {
-                                                                const selectedOption =
-                                                                    item.variance.options.find(
-                                                                        (
-                                                                            option
-                                                                        ) =>
-                                                                            option.id ===
-                                                                            parseInt(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                    );
-                                                                console.log(
-                                                                    "Selected Option:",
-                                                                    selectedOption
-                                                                );
-                                                                handleVarianceChange(
-                                                                    item.id,
-                                                                    selectedOption
-                                                                );
-                                                            }}
-                                                            className="form-select w-75"
-                                                        >
-                                                            {item.variance.options.map(
-                                                                (option) => (
-                                                                    <option
-                                                                        key={
-                                                                            option.id
-                                                                        }
-                                                                        value={
-                                                                            option.id
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            option.name
-                                                                        }
-                                                                    </option>
-                                                                )
-                                                            )}
-                                                        </select>
-                                                    ) : (
-                                                        "No variance available"
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    £
-                                                    {item.price ??
-                                                        "invalid price"}
-                                                </td>
-                                                <td>
-                                                    <div className="d-flex align-items-center">
-                                                        <button
-                                                            className="btn btn-light"
-                                                            onClick={() =>
-                                                                handleQuantityChange(
-                                                                    item.id,
-                                                                    -1
-                                                                )
-                                                            }
-                                                        >
-                                                            -
-                                                        </button>
-                                                        <span
-                                                            className="mx-3"
-                                                            style={{
-                                                                fontWeight:
-                                                                    "bold",
-                                                            }}
-                                                        >
-                                                            {item.quantity}
-                                                        </span>
-                                                        <button
-                                                            className="btn btn-light"
-                                                            onClick={() =>
-                                                                handleQuantityChange(
-                                                                    item.id,
-                                                                    1
-                                                                )
-                                                            }
-                                                        >
-                                                            +
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    £
-                                                    {(
-                                                        item.quantity *
-                                                        item.price
-                                                    ).toFixed(2)}
-                                                    <span
-                                                        className="text-danger mx-3"
-                                                        style={{
-                                                            cursor: "pointer",
-                                                            fontWeight: "bold",
-                                                        }}
-                                                        onClick={() =>
-                                                            handleRemoveItem(
-                                                                item.id
-                                                            )
+                                                        disabled={
+                                                            !cartItems.length
                                                         }
                                                     >
-                                                        X
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td
-                                                colSpan="5"
-                                                className="text-center"
-                                            >
-                                                No Items Selected
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    <section className="cart-totals p-4">
-                        <h1 className="mt-3 mb-5">CART TOTALS</h1>
-                        <div className="row align-items-center mb-3">
-                            <h6 className="col-md-3">TOTAL</h6>
-                            <p className="col-md-9">
-                                <b>£{calculateTotal()}</b>
-                            </p>
-                        </div>
-                        <hr />
-                        <div className="d-flex justify-content-center gap-3">
-                            <button
-                                onClick={handleCheckout}
-                                className="btn btn-danger text-white"
-                                style={{ textDecoration: "none" }}
-                                disabled={!cartItems.length}
-                            >
-                                PROCEED TO CHECKOUT
-                            </button>
-
-                            {/* <button
-                                className="btn btn-dark"
-                                onClick={() => setShowModal(true)}
-                            >
-                                BUY WITH G-PAY
-                            </button> */}
-                        </div>
-
-                        {/* Modal */}
-                        {showModal && (
-                            <div
-                                className="modal fade show"
-                                tabIndex="-1"
-                                style={{
-                                    display: "block",
-                                    background: "rgba(0, 0, 0, 0.5)",
-                                }}
-                            >
-                                {" "}
-                                <ToastContainer />
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title">
-                                                Cart Action
-                                            </h5>
-                                            <button
-                                                type="button"
-                                                className="btn-close"
-                                                onClick={onClose}
-                                            ></button>
+                                                        Proceed to Checkout
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="modal-body">
-                                            <form>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-dark w-100 mb-2"
-                                                    onClick={handleCollect}
-                                                >
-                                                    I’LL COLLECT
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-dark w-100"
-                                                    onClick={handleDeliverToMe}
-                                                >
-                                                    DELIVER TO ME
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button
-                                                type="button"
-                                                className="btn btn-dark"
-                                                onClick={onClose}
-                                            >
-                                                Close
-                                            </button>
-                                        </div>
+                                        {viewModal && selectedProduct && (
+                                            <ViewProduct
+                                                show={viewModal}
+                                                product={selectedProduct}
+                                                onClose={handleCloseModal}
+                                            />
+                                        )}
                                     </div>
+                                    {/* </div> */}
                                 </div>
                             </div>
-                        )}
-                        {viewModal && selectedProduct && (
-                            <ViewProduct
-                                show={viewModal}
-                                product={selectedProduct}
-                                onClose={handleCloseModal}
-                            />
-                        )}
+                        </div>
                     </section>
                 </>
             )}
