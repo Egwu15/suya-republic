@@ -65,6 +65,12 @@
     .inline {
         display: inline;
     }
+    .video-containe {
+        height: 520px !important;
+    }
+    .videoTag {
+        margin-top: 196px !important;
+    }
 }
 .outline-btn {
     gap: 15px;

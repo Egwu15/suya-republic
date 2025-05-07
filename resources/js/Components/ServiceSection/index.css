@@ -29,4 +29,11 @@
     .font-56 {
         font-size: 56px;
     }
+    .img-fluid-star {
+        width: 50px !important;
+        height: 50px;
+    }
+    .margin-buttom-10 {
+        margin-bottom: 40px;
+    }
 }

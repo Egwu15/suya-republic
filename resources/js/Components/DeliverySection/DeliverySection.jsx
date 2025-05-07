@@ -7,7 +7,7 @@ export default function DeliverySection() {
         <div className="row m-0 delivery">
             <div className="col-12 col-md-6">
                 {" "}
-                <div className="center-item">
+                <div className="center-item center-item-justify">
                     <div className="card col-md-8 bg-transparen border">
                         <div className="card-body d-flex flex-column align-items-center text-center p-4">
                             <div className="icon">
@@ -46,7 +46,7 @@ export default function DeliverySection() {
                     <img
                         src={pizaboy}
                         alt="Pumpkin Soup"
-                        className="img-fluid"
+                        className="img-fluid img-fluid-pizza"
                     />
                 </div>
             </div>

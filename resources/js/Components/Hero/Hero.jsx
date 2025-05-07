@@ -25,13 +25,14 @@ const Hero = ({ pagename, title, desc }) => {
 
             {/* Content */}
             <div style={{ zIndex: 2 }}>
-                <h2 className="alpha-heading text-warning mb-3">{pagename}</h2>
+                <h2 className="alpha-heading text-warning mb-5">{pagename}</h2>
                 <h2 className="gro-bold-heading text-white">{title}</h2>
                 <p className="lead text-center px-3 mt-3">{desc}</p>
-                <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
+                <div className=" ">
+                    {" "}
                     <Link
                         href="/order-online"
-                        className="action-btn order-btn-hero text-decoration-none"
+                        className=" action-btn-bg text-decoration-none mx-2"
                     >
                         ORDER ONLINE{" "}
                         <span className="material-symbols-outlined">
@@ -40,7 +41,7 @@ const Hero = ({ pagename, title, desc }) => {
                     </Link>
                     <Link
                         href="/order-online"
-                        className="action-btn pickup-btn text-decoration-none"
+                        className="action-btn-outline  text-decoration-none mx-2"
                     >
                         PICKUP IN STORE{" "}
                         <span className="material-symbols-outlined">
@@ -48,7 +49,8 @@ const Hero = ({ pagename, title, desc }) => {
                         </span>
                     </Link>
                 </div>
-                {/* <ActionButtons />{" "} */}
+
+                {/* </div> */}
             </div>
         </div>
     );

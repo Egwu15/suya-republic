@@ -32,10 +32,10 @@ function About() {
 
                         {/* Content */}
                         <div style={{ zIndex: 2, paddingBlock: "150px" }}>
-                            <h2 className="alpha-heading-2 text-warning mb-3">
+                            <h2 className="sub-heading text-warning mb-3">
                                 {"About Us"}
                             </h2>
-                            <h2 className="gro-bold-heading-2 text-white">
+                            <h2 className="gro-bold-heading text-white">
                                 We are bringing the taste of Africa to
                                 Manchester.
                             </h2>

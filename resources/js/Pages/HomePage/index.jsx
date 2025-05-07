@@ -10,13 +10,14 @@ import LearnMoreSection from "@/Components/LearnMoreSection/LearnMoreSection";
 import DeliverySection from "@/Components/DeliverySection/DeliverySection";
 import ServiceSection from "@/Components/ServiceSection/ServiceSection";
 
-export const HomeComponent = () => {
+export const HomeComponent = ({ products, categories }) => {
     // const { loadUserFromLocalStorage } = useCartStore();
 
     // useEffect(() => {
     //     loadUserFromLocalStorage();
     // }, []);
-
+    console.log("newcategories", categories);
+    console.log("products", products);
     return (
         <div id="top" style={{ width: "100vw", overflowX: "hidden" }}>
             {/* <section className="">

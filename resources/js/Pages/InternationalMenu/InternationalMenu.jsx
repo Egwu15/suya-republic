@@ -47,21 +47,21 @@ const InternationalMenu = ({ products }) => {
 
                 {/* Content */}
                 <div style={{ zIndex: 2 }}>
-                    <h2 className="alpha-heading-2 text-warning mb-3">
+                    <h2 className="sub-heading text-warning mb-3">
                         {"Choose your favourite"}
                     </h2>
-                    <h2 className="gro-bold-heading-2 text-white">
+                    <h2 className="gro-bold-heading text-white">
                         {"Spices Treat"}
                     </h2>
                     {/* <p className="lead text-center px-3 mt-3">{desc}</p> */}
-                    <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
-                        <button className="header-action-btn order-btn-hero">
+                    <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row mt-5 justify-content-center ">
+                        <button className="action-btn-bg order-btn-hero">
                             ORDER ONLINE{" "}
                             <span className="material-symbols-outlined material">
                                 arrow_outward
                             </span>
                         </button>
-                        <button className="header-action-btn pickup-btn">
+                        <button className="action-btn-outline pickup-btn">
                             PICKUP IN STORE{" "}
                             <span className="material-symbols-outlined material">
                                 arrow_outward

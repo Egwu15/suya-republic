@@ -72,8 +72,8 @@ const SpiceShowcase = () => {
                                         }
                                     >
                                         <img
-                                            // src={Shawarma}
-                                            src={spice.image}
+                                            src={Shawarma}
+                                            // src={spice.image}
                                             alt={spice.name}
                                             className="img-fluid w-100 rounded"
                                             loading="lazy"

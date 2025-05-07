@@ -81,21 +81,21 @@ const ProductList = ({ products }) => {
                         <div className="col-12 col-sm-6 col-md-4" key={item.id}>
                             <div className="text-center text-white">
                                 <img
-                                    // src={platter}
-                                    src={item.image}
+                                    src={platter}
+                                    // src={item.image}
                                     alt={item.name}
                                     className="img-fluid rounded cursor-pointer"
                                     onClick={() => handleImageClick(item)}
                                     style={{
-                                        height: "220px",
-                                        width: "100%",
+                                        height: "320px",
+                                        width: "320px",
                                         objectFit: "cover",
                                         marginBottom: "10px",
                                         cursor: "pointer",
                                     }}
                                 />
                                 <p
-                                    className="fw-semibold text-left text-uppercase"
+                                    className="fw-semibold text-left text-uppercase mx-5 mx-md-0"
                                     style={{
                                         textAlign: "left",
                                     }}
@@ -103,7 +103,7 @@ const ProductList = ({ products }) => {
                                     {item.name}
                                 </p>
 
-                                <div className="d-flex justify-content-start align-items-center gap-2">
+                                <div className="d-flex justify-content-start  align-items-center gap-2 mx-5 mx-md-0">
                                     <button
                                         onClick={() =>
                                             toggleItemSelection(item)
