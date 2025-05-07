@@ -12,9 +12,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 
 
-Route::get('/', function () {
-    return Inertia::render('HomePage/index');
-})->name('home');
+Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/menu', [ProductController::class, 'index'])->name('menu');
 Route::get('/cartItems', [ProductController::class, 'index'])->name('menu');
 

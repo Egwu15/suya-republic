@@ -37,8 +37,8 @@ export const HomeComponent = ({ products, categories }) => {
             <Hero
                 pagename={"The pure taste of"}
                 title={"Naija"}
-                desc={`We Cure your Nostalgia with our Tasty Suya. 
-                    Get you Spicy Suya anywhere, anytime 
+                desc={`We Cure your Nostalgia with our Tasty Suya.
+                    Get you Spicy Suya anywhere, anytime
                     within the UK.`}
             />
             <OpeningHours />
