@@ -51,7 +51,7 @@ const RelatedProducts = () => {
                                 {product.name}
                             </h6>
                             <h6 style={{ color: "#ff0000" }}>
-                                £{product.price.toFixed(2)}
+                                £{product?.price?.toFixed(2)}
                             </h6>
                             <div
                                 className="col-md-6"

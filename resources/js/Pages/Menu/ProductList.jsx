@@ -81,8 +81,8 @@ const ProductList = ({ products }) => {
                         <div className="col-12 col-sm-6 col-md-4" key={item.id}>
                             <div className="text-center text-white">
                                 <img
-                                    src={platter}
-                                    // src={item.image}
+                                    // src={platter}
+                                    src={item.image}
                                     alt={item.name}
                                     className="img-fluid rounded cursor-pointer"
                                     onClick={() => handleImageClick(item)}
@@ -140,7 +140,7 @@ const ProductList = ({ products }) => {
                                             fontWeight: "500",
                                         }}
                                     >
-                                        £{item.price.toFixed(2)}
+                                        £{item?.price?.toFixed(2)}
                                     </div>
                                 </div>
                             </div>

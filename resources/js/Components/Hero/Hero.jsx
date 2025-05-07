@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../NavBar";
 import "./index.css";
+import { Link } from "@inertiajs/react";
 const Hero = ({ pagename, title, desc }) => {
     return (
         <div
@@ -28,18 +29,24 @@ const Hero = ({ pagename, title, desc }) => {
                 <h2 className="gro-bold-heading text-white">{title}</h2>
                 <p className="lead text-center px-3 mt-3">{desc}</p>
                 <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
-                    <button className="action-btn order-btn-hero">
+                    <Link
+                        href="/order-online"
+                        className="action-btn order-btn-hero text-decoration-none"
+                    >
                         ORDER ONLINE{" "}
                         <span className="material-symbols-outlined">
                             arrow_outward
                         </span>
-                    </button>
-                    <button className="action-btn pickup-btn">
+                    </Link>
+                    <Link
+                        href="/order-online"
+                        className="action-btn pickup-btn text-decoration-none"
+                    >
                         PICKUP IN STORE{" "}
                         <span className="material-symbols-outlined">
                             arrow_outward
                         </span>
-                    </button>
+                    </Link>
                 </div>
                 {/* <ActionButtons />{" "} */}
             </div>

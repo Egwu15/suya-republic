@@ -21,6 +21,7 @@
     line-height: 1;
     letter-spacing: 0;
     text-align: center;
+    display: inline;
 }
 .lead {
     font-weight: 400;

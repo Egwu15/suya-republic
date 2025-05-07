@@ -5,11 +5,14 @@ import "./menu.css";
 import { useState } from "react";
 import ProductList from "./ProductList";
 import MobileCategoryScroll from "@/Components/MobileCategoryScroll";
+import { Link } from "@inertiajs/react";
 
 const OurMenu = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    console.log("newcategories", categories);
+    console.log("products", products);
 
     const handleProductClick = (product) => {
         setSelectedProduct(product);
@@ -44,18 +47,42 @@ const OurMenu = ({ products, categories }) => {
                         {"TASTY MENU"}
                     </h2>
                     <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
-                        <button className="header-action-btn order-btn-hero">
+                        <Link
+                            href="/order-online"
+                            className="header-action-btn order-btn-hero text-decoration-none"
+                        >
                             ORDER ONLINE{" "}
                             <span className="material-symbols-outlined material">
                                 arrow_outward
                             </span>
-                        </button>
-                        <button className="header-action-btn pickup-btn">
+                        </Link>
+                        <Link
+                            href="/order-online"
+                            className="header-action-btn pickup-btn text-decoration-none"
+                        >
                             PICKUP IN STORE{" "}
                             <span className="material-symbols-outlined material">
                                 arrow_outward
                             </span>
-                        </button>
+                        </Link>
+                        {/* <Link
+                            href="/order-online"
+                            className="action-btn order-btn-hero text-decoration-none"
+                        >
+                            ORDER ONLINE{" "}
+                            <span className="material-symbols-outlined">
+                                arrow_outward
+                            </span>
+                        </Link>
+                        <Link
+                            href="/order-online"
+                            className="action-btn pickup-btn text-decoration-none"
+                        >
+                            PICKUP IN STORE{" "}
+                            <span className="material-symbols-outlined">
+                                arrow_outward
+                            </span>
+                        </Link> */}
                     </div>
                 </div>
             </div>

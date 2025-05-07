@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
-import Button from "../Button";
-import { Link, usePage } from "@inertiajs/react";
+import { Link, usePage, router } from "@inertiajs/react";
 import { FaBars } from "react-icons/fa";
 import useCartStore from "@/store/Store";
 import CartIcon from "@/Pages/Cart/CartIcon";
@@ -20,6 +19,7 @@ const Navbar = () => {
     //     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const handleSignOut = () => {
+        console.log("click");
         clearGuest();
         localStorage.removeItem("guestUser");
         router.post(route("logout"));
@@ -211,16 +211,43 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li className="text-start">
-                            <button className="order-button mt-3">
+                            <Link
+                                href="/order-online"
+                                className="rounded-pill px-4 py-3 fw-bold order-button scale-effect mt-2"
+                            >
                                 ORDER ONLINE
-                            </button>
+                            </Link>
+                            {/* <button className="order-button mt-3">
+                                ORDER ONLINE
+                            </button> */}
                         </li>
                         <li className="text-start">
-                            <button className="login-signup-button mt-2">
+                            {user ? (
+                                <button
+                                    onClick={handleSignOut}
+                                    className=" rounded-pill cursor-pointer px-4 py-3 login-signup-button text-decoration-none text-center my-4"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
+                                >
+                                    Sign Out
+                                </button>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    className=" rounded-pill  px-4 py-3 login-signup-button text-decoration-none text-center my-4"
+                                    style={{
+                                        fontFamily: "Dynapuff",
+                                    }}
+                                >
+                                    LOGIN/SIGNUP
+                                </Link>
+                            )}
+                            {/* <button className="login-signup-button mt-2">
                                 LOGIN/SIGNUP
-                            </button>
+                            </button> */}
                         </li>
-                        <li className="notify mt-6">
+                        {/* <li className="notify mt-6">
                             {user ? (
                                 <button
                                     onClick={handleSignOut}
@@ -242,7 +269,7 @@ const Navbar = () => {
                                     Sign In
                                 </Link>
                             )}
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
