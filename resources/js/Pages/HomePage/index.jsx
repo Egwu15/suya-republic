@@ -17,52 +17,6 @@ export const HomeComponent = () => {
     //     loadUserFromLocalStorage();
     // }, []);
 
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 200,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    // dots: true,
-                },
-            },
-            {
-                breakpoint: 960,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    initialSlide: 2,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 2,
-                },
-            },
-            {
-                breakpoint: 490,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    // dots: true,
-                    autoplay: false,
-                },
-            },
-        ],
-    };
-
     return (
         <div id="top" style={{ width: "100vw", overflowX: "hidden" }}>
             {/* <section className="">

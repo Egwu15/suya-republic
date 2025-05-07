@@ -21,7 +21,7 @@ const MobileCategoryScroll = ({ categories }) => {
                     </span>
                 </Link>
 
-                {categories.data
+                {categories?.data
                     .filter((data) => data.name.toLowerCase() !== "spices")
                     .map((data) => (
                         <Link

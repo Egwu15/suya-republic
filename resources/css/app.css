@@ -164,7 +164,7 @@ body {
         font-size: 30px;
         line-height: 1;
         letter-spacing: 0;
-        background: #000;
+        /* background: #000; */
         text-align: center;
     }
     .alpha-heading {

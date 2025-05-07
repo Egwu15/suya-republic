@@ -181,11 +181,11 @@ const Cart = ({ cartAdded, products }) => {
                                                             />
                                                             <div className="flex-grow-1">
                                                                 <h6 className="mb-1">
-                                                                    {item.name}
+                                                                    {item?.name}
                                                                 </h6>
                                                                 <p className="mb-1">
                                                                     £
-                                                                    {item.price.toFixed(
+                                                                    {item?.price?.toFixed(
                                                                         2
                                                                     )}
                                                                 </p>

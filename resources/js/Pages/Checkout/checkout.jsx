@@ -536,7 +536,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        ${item.price.toFixed(2)}
+                                                        $
+                                                        {item?.price?.toFixed(
+                                                            2
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -586,12 +589,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                         Your Order
                                     </h3>
                                     <p className="text-center mb-4">
-                                        You have {cartItems.length} item
+                                        You have {cartItems?.length} item
                                         {cartItems.length > 1 && "s"} in your
                                         order
                                     </p>
 
-                                    {cartItems.map((item, index) => (
+                                    {cartItems?.map((item, index) => (
                                         <div
                                             key={index}
                                             className="d-flex flex-column flex-md-row align-items-start justify-content-between  mb-3 shadow-sm rounded-4  p-2"
@@ -630,7 +633,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        ${item.price.toFixed(2)}
+                                                        $
+                                                        {item?.price?.toFixed(
+                                                            2
+                                                        )}
                                                     </div>
 
                                                     {/* Quantity Controls */}
