@@ -140,7 +140,7 @@ const ProductList = ({ products }) => {
                                             fontWeight: "500",
                                         }}
                                     >
-                                        £{item?.price?.toFixed(2)}
+                                        £{item?.price?? 0}
                                     </div>
                                 </div>
                             </div>

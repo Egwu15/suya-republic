@@ -10,7 +10,10 @@ import LearnMoreSection from "@/Components/LearnMoreSection/LearnMoreSection";
 import DeliverySection from "@/Components/DeliverySection/DeliverySection";
 import ServiceSection from "@/Components/ServiceSection/ServiceSection";
 
-export const HomeComponent = () => {
+export const HomeComponent = ({ products, categories }) => {
+
+    console.log('products', products);
+    console.log('categories',categories);
     // const { loadUserFromLocalStorage } = useCartStore();
 
     // useEffect(() => {
@@ -36,8 +39,8 @@ export const HomeComponent = () => {
             <Hero
                 pagename={"The pure taste of"}
                 title={"Naija"}
-                desc={`We Cure your Nostalgia with our Tasty Suya. 
-                    Get you Spicy Suya anywhere, anytime 
+                desc={`We Cure your Nostalgia with our Tasty Suya.
+                    Get you Spicy Suya anywhere, anytime
                     within the UK.`}
             />
             <OpeningHours />
