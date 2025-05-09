@@ -54,11 +54,11 @@ function Contact() {
 
                         {/* Content */}
                         <div style={{ zIndex: 2, paddingBlock: "150px" }}>
-                            <h2 className="alpha-heading-23 text-warning mb-3">
+                            <h2 className="sub-heading text-warning mb-3">
                                 Contact Us
                             </h2>
                             <h3
-                                className="gro-bold-heading-23 text-white"
+                                className="gro-bold-heading col-md-7 col-12 mx-auto text-center text-white"
                                 style={{}}
                             >
                                 Hello! We are glad you are here. We'd love to
@@ -70,13 +70,13 @@ function Contact() {
                             </p> */}
 
                             <div className="d-md-flex d-inline-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center ">
-                                <button className="header-action-btn order-btn-hero inline">
+                                <button className="action-btn-bg order-btn-hero inline">
                                     ORDER ONLINE{" "}
                                     <span className="material-symbols-outlined material">
                                         arrow_outward
                                     </span>
                                 </button>
-                                <button className="header-action-btn pickup-btn">
+                                <button className="action-btn-outline pickup-btn">
                                     PICKUP IN STORE{" "}
                                     <span className="material-symbols-outlined material">
                                         arrow_outward

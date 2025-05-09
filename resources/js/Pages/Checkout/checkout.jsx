@@ -58,17 +58,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
 
                 // Check if guest or user is not logged in
                 if (!guest) {
-                    console.log("guest", guest);
-                    console.log(
-                        "You need to log in to proceed. Redirecting to login page..."
-                    );
                     toast.error("Please log in to proceed with checkout.");
                     window.location.href = "/login"; // Redirect to the login page
                     return;
                 }
-
-                // Log guest details for debugging
-                console.log("Guest details:", guest);
 
                 // Initialize payment using Square's payment API
                 const payments = await window.Square.payments(

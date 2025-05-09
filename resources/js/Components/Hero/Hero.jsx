@@ -18,15 +18,17 @@ const Hero = ({ pagename, title, desc }) => {
                     left: 0,
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    // backgroundColor: "rgba(0, 0, 0, 0.5)",
                     zIndex: 1,
                 }}
             />
 
             {/* Content */}
             <div style={{ zIndex: 2 }}>
-                <h2 className="alpha-heading text-warning mb-5">{pagename}</h2>
-                <h2 className="gro-bold-heading text-white">{title}</h2>
+                <h2 className="alpha-heading-h text-warning mb-5">
+                    {pagename}
+                </h2>
+                <h2 className="gro-bold-heading-h text-white">{title}</h2>
                 <p className="lead text-center px-3 mt-3">{desc}</p>
                 <div className=" ">
                     {" "}

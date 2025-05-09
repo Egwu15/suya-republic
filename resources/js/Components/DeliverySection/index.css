@@ -1,6 +1,7 @@
 .delivery {
     background-color: #691411;
     padding: 32px 16px;
+    padding-top: 50px !important;
     min-height: 100vh;
     font-family: "Poppins", sans-serif;
 
@@ -25,15 +26,16 @@
     justify-content: center;
 }
 .center-item-justify {
-    justify-content: center;
-}
-/* Desktop Flexbox Layout */
-@media (min-width: 768px) {
+    display: flex;
+    justify-content: center !important;
 }
 
 /* Mobile Layout: Stack */
 @media (max-width: 767px) {
     .img-fluid-pizza {
         transform: translateY(-50px) !important;
+    }
+    .delivery {
+        padding-top: 50px !important;
     }
 }

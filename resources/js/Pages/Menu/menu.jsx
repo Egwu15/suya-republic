@@ -39,7 +39,7 @@ const OurMenu = ({ products, categories }) => {
             >
                 <Navbar />
                 <div className="hero-overlay" />
-                <div style={{ zIndex: 2, paddingTop: "150px" }}>
+                <div className="hero-content">
                     <h2 className="sub-heading  text-warning ">
                         {"CHOOSE YOUR FAVORITE"}
                     </h2>
@@ -65,24 +65,6 @@ const OurMenu = ({ products, categories }) => {
                                 arrow_outward
                             </span>
                         </Link>
-                        {/* <Link
-                            href="/order-online"
-                            className="action-btn order-btn-hero text-decoration-none"
-                        >
-                            ORDER ONLINE{" "}
-                            <span className="material-symbols-outlined">
-                                arrow_outward
-                            </span>
-                        </Link>
-                        <Link
-                            href="/order-online"
-                            className="action-btn pickup-btn text-decoration-none"
-                        >
-                            PICKUP IN STORE{" "}
-                            <span className="material-symbols-outlined">
-                                arrow_outward
-                            </span>
-                        </Link> */}
                     </div>
                 </div>
             </div>

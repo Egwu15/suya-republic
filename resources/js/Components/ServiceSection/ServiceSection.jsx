@@ -84,21 +84,10 @@ const ServiceSection = () => {
                                     </p>
                                     <Link
                                         href="/order-online"
-                                        className="text-decoration-none order-btn p-0 m-0"
+                                        className="text-decoration-none  p-0 m-0"
                                     >
                                         {" "}
-                                        <span
-                                            className="text-left bg-whine  "
-                                            style={{
-                                                borderRadius: "20px",
-                                                padding: "10px 20px",
-                                                fontWeight: 600,
-                                                fontSize: "14px",
-                                                color: "white",
-                                                textDecoration: "none",
-                                                display: "inline-block",
-                                            }}
-                                        >
+                                        <span className="text-left  my-btn ">
                                             ORDER NOW{" "}
                                             <span className="material-symbols-outlined fw-bold">
                                                 arrow_outward
@@ -124,7 +113,7 @@ const ServiceSection = () => {
                                     <h3 className="py-3 text-white">
                                         <b>OUR MENU</b>
                                     </h3>
-                                    <p className="pb-2 text-white detail-text">
+                                    <p className="pb- text-white detail-text-2">
                                         Our meals are made with natural, fresh
                                         and organic spices and recipes from
                                         Africa.
@@ -132,21 +121,10 @@ const ServiceSection = () => {
 
                                     <Link
                                         href={"/menu"}
-                                        className="text-decoration-none order-btn p-0 m-0"
+                                        className="text-decoration-none  p-0 m-0"
                                     >
                                         {" "}
-                                        <span
-                                            className="text-left bg-whine  "
-                                            style={{
-                                                borderRadius: "20px",
-                                                padding: "10px 20px",
-                                                fontWeight: 600,
-                                                fontSize: "14px",
-                                                color: "white",
-                                                textDecoration: "none",
-                                                display: "inline-block",
-                                            }}
-                                        >
+                                        <span className="text-left my-btn ">
                                             OUR MENU{" "}
                                             <span className="material-symbols-outlined fw-bold">
                                                 arrow_outward
@@ -172,27 +150,16 @@ const ServiceSection = () => {
                                     <h3 className="py-3 text-white">
                                         <b>OUR BRAND</b>
                                     </h3>
-                                    <p className="pb-2 text-white detail-text">
+                                    <p className="pb-2 text-white detail-text-2">
                                         The first Suya Republick started out in
                                         the streets of Lagos, Nigeria in 2018.
                                     </p>
 
                                     <Link
                                         href="/contact"
-                                        className="text-decoration-none order-btn p-0 m-0 "
+                                        className="text-decoration-none  p-0 m-0 "
                                     >
-                                        <span
-                                            className="text-left bg-whine  "
-                                            style={{
-                                                borderRadius: "20px",
-                                                padding: "10px 20px",
-                                                fontWeight: 600,
-                                                fontSize: "14px",
-                                                color: "white",
-                                                textDecoration: "none",
-                                                display: "inline-block", // Ensures it doesn't take full width
-                                            }}
-                                        >
+                                        <span className="text-left my-btn  ">
                                             LEARN MORE{" "}
                                             <span className="material-symbols-outlined fw-bold">
                                                 arrow_outward

@@ -41,7 +41,27 @@
     font-style: normal;
     font-weight: bold;
 }
+@font-face {
+    font-family: "GROBOLD";
+    src: url("../../../assets/fonts/GROBOLD.ttf") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Alpha Monday";
+    src: url("/fonts/AlphaMonday.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
 
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+
+.dancing-script-font {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
 *,
 *::before,
 *::after {
@@ -266,99 +286,5 @@ body {
     }
 
     @media screen and (max-width: 768px) {
-        .our-menu {
-            padding: 120px 0 80px 0; /* Reduced padding for mobile */
-        }
-
-        .our-menu h1 {
-            font-size: 40px; /* Further reduce font size */
-            line-height: 48px;
-        }
-    }
-
-    .video-container {
-        width: "100%";
-        transform: translateY(-27%);
-        overflow-y: hidden;
-    }
-    .bg-indigo p {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 28px;
-        color: #ffffff;
-        max-width: 500px;
-    }
-
-    @media only screen and (max-width: 1024px) {
-        .bg-indigo p {
-            display: none;
-        }
-        .bg-indigo h1 {
-            /* margin-top: 30px; */
-            /* margin-bottom: 0; */
-            display: none;
-        }
-    }
-
-    .forgot-password {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 12px;
-        line-height: 18px;
-        color: #333333;
-        margin-top: 10px;
-        cursor: pointer;
-    }
-
-    .all {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .passwordVisible {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-    }
-
-    .img-size {
-        width: 17px;
-    }
-
-    .PhoneInputInput {
-        border: 1px solid rgba(86, 204, 242, 0.5);
-        font-style: normal;
-        font-weight: normal;
-        font-size: 12px;
-        line-height: 20px;
-        height: 45px;
-        width: 100%;
-        padding: 10px 20px;
-        color: #333333;
-        background: rgba(86, 204, 242, 0.05);
-        box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
-        border-radius: 8px;
-    }
-
-    .PhoneInputCountry {
-        height: 45px;
-        background: rgba(86, 204, 242, 0.05);
-        box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
-        border: 1px solid rgba(86, 204, 242, 0.5);
-        padding: 0 5px;
-        border-radius: 8px;
-    }
-
-    .PhoneInputCountryIcon {
-        width: 2.3571428571rem;
-        height: 1.5rem;
-        border-radius: 0.2857142857rem;
-        box-shadow: none;
-    }
-
-    .PhoneInputCountryIconImg {
-        border-radius: 0.2857142857rem;
     }
 }

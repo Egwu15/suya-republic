@@ -4,10 +4,10 @@ import pizaboy from "../../../assets/img/image.png";
 import PrimaryButton from "../ActionButtons/PrimaryButton";
 export default function DeliverySection() {
     return (
-        <div className="row m-0 delivery">
-            <div className="col-12 col-md-6">
+        <div className="row m-0 delivery ">
+            <div className="col-12 col-md-6 ">
                 {" "}
-                <div className="center-item center-item-justify">
+                <div className="center-item-justify">
                     <div className="card col-md-8 bg-transparen border">
                         <div className="card-body d-flex flex-column align-items-center text-center p-4">
                             <div className="icon">

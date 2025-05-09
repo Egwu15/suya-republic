@@ -42,7 +42,7 @@ export const HomeComponent = ({ products, categories }) => {
                     within the UK.`}
             />
             <OpeningHours />
-            <TopMenuSection />
+            <TopMenuSection products={products} categories={categories} />
             <LearnMoreSection />
             <DeliverySection />
             <ServiceSection />
