@@ -28,8 +28,9 @@ const Hero = ({ pagename, title, desc }) => {
                 <h2 className="alpha-heading-h text-warning mb-5">
                     {pagename}
                 </h2>
-                <h2 className="gro-bold-heading-h text-white">{title}</h2>
-                <p className="lead text-center px-3 mt-3">{desc}</p>
+                <h2 className="gro-bold-heading-h text-white ">{title}</h2>
+
+                <p className="lead text-center px-3  mt-3 ">{desc}</p>
                 <div className=" ">
                     {" "}
                     <Link
