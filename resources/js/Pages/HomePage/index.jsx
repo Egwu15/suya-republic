@@ -11,15 +11,13 @@ import DeliverySection from "@/Components/DeliverySection/DeliverySection";
 import ServiceSection from "@/Components/ServiceSection/ServiceSection";
 
 export const HomeComponent = ({ products, categories }) => {
-
-    console.log('products', products);
-    console.log('categories',categories);
     // const { loadUserFromLocalStorage } = useCartStore();
 
     // useEffect(() => {
     //     loadUserFromLocalStorage();
     // }, []);
-
+    console.log("newcategories", categories);
+    console.log("products", products);
     return (
         <div id="top" style={{ width: "100vw", overflowX: "hidden" }}>
             {/* <section className="">
@@ -44,7 +42,7 @@ export const HomeComponent = ({ products, categories }) => {
                     within the UK.`}
             />
             <OpeningHours />
-            <TopMenuSection />
+            <TopMenuSection products={products} categories={categories} />
             <LearnMoreSection />
             <DeliverySection />
             <ServiceSection />

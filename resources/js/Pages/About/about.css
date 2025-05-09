@@ -1,10 +1,53 @@
+@font-face {
+    font-family: "Alpha Monday";
+    src: url("/fonts/AlphaMonday.woff2") format("woff2"),
+        url("../../../assets/fonts/GROBOLD.ttf") format("woff");
+    /* url("../../../assets/fonts/EuclidCircularB-Medium.woff") format("woff"); */
+    font-weight: 400;
+    font-style: normal;
+}
+.sub-heading {
+    font-family: "Alpha Monday", sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    padding-bottom: 20px;
+}
+.gro-bold-heading {
+    font-family: "Alpha Monday", sans-serif;
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    display: inline;
+}
 
-.cart-table-head hr {
-    border: 1px dashed #b7903c;
-    height: 0px;
-  
-    opacity: 0.6;
-  }
-  .cart-table-head h4 {
-    color: #b7903c;
-  }
+.lead {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-align: center;
+}
+@media (max-width: 768px) {
+    .gro-bold-heading {
+        font-family: "Alpha Monday", sans-serif;
+        font-weight: 500;
+        font-size: 50px;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
+    }
+    .sub-heading {
+        font-family: "Alpha Monday", sans-serif;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+}

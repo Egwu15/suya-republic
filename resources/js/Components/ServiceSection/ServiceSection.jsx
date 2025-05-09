@@ -16,14 +16,17 @@ const ServiceSection = () => {
                 >
                     SUYAREPUBLICK
                 </p>
-                <div className="center-item">
-                    <h4 className="text-center text-white col-md-7 font-56">
+                <div className="">
+                    <h4
+                        className="text-center text-white   font-56"
+                        style={{ fontFamily: "Alpha Monday" }}
+                    >
                         We are bringing the taste of Africa to Manchester.
                     </h4>
                 </div>
-                <div className="center-item">
+                <div className="">
                     <p
-                        className="text-center col-md-5 text-white"
+                        className="text-center  text-white"
                         style={{ fontSize: "20px", fontWeight: 400 }}
                     >
                         Our meals are made with natural and organic spices and
@@ -35,7 +38,7 @@ const ServiceSection = () => {
                 <img
                     src={star}
                     alt=""
-                    className="img-fluid"
+                    className="img-fluid img-fluid-star"
                     loading="lazy"
                     style={{
                         width: "5%",
@@ -57,7 +60,7 @@ const ServiceSection = () => {
                 <section className="hot-cards pt-5 pb-5">
                     <div className="container">
                         <div className="row row-grid">
-                            <div className="col-md-4 py-3 py-md-0">
+                            <div className="col-md-4 py-3 py-md-0 margin-buttom-10 ">
                                 <div className=" text-left">
                                     <div className="card-container-img">
                                         <img
@@ -81,21 +84,10 @@ const ServiceSection = () => {
                                     </p>
                                     <Link
                                         href="/order-online"
-                                        className="text-decoration-none order-btn p-0 m-0"
+                                        className="text-decoration-none  p-0 m-0"
                                     >
                                         {" "}
-                                        <span
-                                            className="text-left bg-red "
-                                            style={{
-                                                borderRadius: "20px",
-                                                padding: "10px 20px",
-                                                fontWeight: 600,
-                                                fontSize: "14px",
-                                                color: "white",
-                                                textDecoration: "none",
-                                                display: "inline-block",
-                                            }}
-                                        >
+                                        <span className="text-left  my-btn ">
                                             ORDER NOW{" "}
                                             <span className="material-symbols-outlined fw-bold">
                                                 arrow_outward
@@ -104,7 +96,7 @@ const ServiceSection = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="col-md-4 py-3 py-md-0">
+                            <div className="col-md-4 py-3 py-md-0 margin-buttom-10">
                                 <div className="card-container text-left">
                                     <div className="card-container-img ">
                                         <img
@@ -121,7 +113,7 @@ const ServiceSection = () => {
                                     <h3 className="py-3 text-white">
                                         <b>OUR MENU</b>
                                     </h3>
-                                    <p className="pb-2 text-white detail-text">
+                                    <p className="pb- text-white detail-text-2">
                                         Our meals are made with natural, fresh
                                         and organic spices and recipes from
                                         Africa.
@@ -129,21 +121,10 @@ const ServiceSection = () => {
 
                                     <Link
                                         href={"/menu"}
-                                        className="text-decoration-none order-btn p-0 m-0"
+                                        className="text-decoration-none  p-0 m-0"
                                     >
                                         {" "}
-                                        <span
-                                            className="text-left bg-red "
-                                            style={{
-                                                borderRadius: "20px",
-                                                padding: "10px 20px",
-                                                fontWeight: 600,
-                                                fontSize: "14px",
-                                                color: "white",
-                                                textDecoration: "none",
-                                                display: "inline-block",
-                                            }}
-                                        >
+                                        <span className="text-left my-btn ">
                                             OUR MENU{" "}
                                             <span className="material-symbols-outlined fw-bold">
                                                 arrow_outward
@@ -152,7 +133,7 @@ const ServiceSection = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="col-md-4 py-3 py-md-0">
+                            <div className="col-md-4 py-3 py-md-0 ">
                                 <div className="card-container text-left">
                                     <div className="card-container-img">
                                         <img
@@ -169,27 +150,16 @@ const ServiceSection = () => {
                                     <h3 className="py-3 text-white">
                                         <b>OUR BRAND</b>
                                     </h3>
-                                    <p className="pb-2 text-white detail-text">
+                                    <p className="pb-2 text-white detail-text-2">
                                         The first Suya Republick started out in
                                         the streets of Lagos, Nigeria in 2018.
                                     </p>
 
                                     <Link
                                         href="/contact"
-                                        className="text-decoration-none order-btn p-0 m-0 "
+                                        className="text-decoration-none  p-0 m-0 "
                                     >
-                                        <span
-                                            className="text-left bg-red "
-                                            style={{
-                                                borderRadius: "20px",
-                                                padding: "10px 20px",
-                                                fontWeight: 600,
-                                                fontSize: "14px",
-                                                color: "white",
-                                                textDecoration: "none",
-                                                display: "inline-block", // Ensures it doesn't take full width
-                                            }}
-                                        >
+                                        <span className="text-left my-btn  ">
                                             LEARN MORE{" "}
                                             <span className="material-symbols-outlined fw-bold">
                                                 arrow_outward

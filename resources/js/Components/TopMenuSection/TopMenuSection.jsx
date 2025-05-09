@@ -6,59 +6,32 @@ import suyabeef from "../../../assets/img/suya/Beef-Suya-2.jpg";
 import Shawarma from "../../../assets/img/suya/Sharwama.png";
 import platter from "../../../assets/img/suya/Full-Platter-1.jpg";
 import { Link } from "@inertiajs/react";
+import useCartStore from "@/store/Store";
+import { ArrowUpRight, Trash2 } from "lucide-react";
+import { usePage } from "@inertiajs/react";
 
-const allCategories = [
-    "All",
-    "Extras",
-    "Grilled Fish",
-    "Lagos Shawarma & Burgers",
-    "Pepper Soup",
-    "Periperi Grilled Chicken",
-    "Sides",
-    "Suya",
-];
-
-const menuItems = [
-    {
-        id: 1,
-        title: "Suya",
-        price: "$29",
-        image: suyabeef,
-        isStarter: false,
-
-        description: "how pepperish is the suya going to be?",
-        oldPrice: null,
-        category: "Extras",
-    },
-    {
-        id: 2,
-        title: "Shawarma",
-        price: "$5.00",
-        image: Shawarma,
-        isStarter: false,
-        description: "how pepperish is the snack going to be?",
-        oldPrice: "$8.00",
-        category: "Pepper Soup",
-    },
-    {
-        id: 3,
-        title: "Jollof Rice",
-        price: "$5.00",
-        image: platter,
-        isStarter: true,
-        description: "how pepperish is the food going to be?",
-        oldPrice: null,
-        category: "Sides",
-    },
-];
-
-const TopMenuSection = () => {
-    const [selectedCategory, setSelectedCategory] = useState("All");
-
+const TopMenuSection = ({ products, categories }) => {
+    const { cartItems, addItem, removeItem } = useCartStore();
+    // Inside component:
+    const { url } = usePage();
+    const query = new URLSearchParams(url.split("?")[1]);
+    const selectedCategory = query.get("selectedCategory") || "All";
+    const selectedCategoryName =
+        selectedCategory === "All"
+            ? "All"
+            : categories?.data?.find(
+                  (cat) => cat.id === parseInt(selectedCategory)
+              )?.name || "Unknown";
+    const toggleItemSelection = (item) => {
+        const isSelected = cartItems.some((i) => i.id === item.id);
+        isSelected ? removeItem(item.id) : addItem(item);
+    };
     const filteredItems =
         selectedCategory === "All"
-            ? menuItems
-            : menuItems.filter((item) => item.category === selectedCategory);
+            ? products
+            : products.filter(
+                  (item) => item.category_id === parseInt(selectedCategory)
+              );
 
     return (
         <div className="menu-section position-relative text-white py-5 px-3">
@@ -66,36 +39,68 @@ const TopMenuSection = () => {
 
             <div className="category-scroll-wrapper mb-4 py-3 d-md-none">
                 <div className="d-flex gap-3 flex-nowrap category-scroll-inner">
-                    {allCategories.map((category) => (
+                    <Link href="/" className="text-decoration-none">
                         <span
-                            key={category}
-                            className={`category-item px-4 fw-bold ${
-                                selectedCategory === category
-                                    ? "active rounded-pill"
+                            className={`category-item px-4 fw-bold rounded-pill ${
+                                selectedCategory === "All"
+                                    ? "active text-dark"
                                     : "text-white"
                             }`}
-                            onClick={() => setSelectedCategory(category)}
                         >
-                            {category}
+                            All
                         </span>
+                    </Link>
+
+                    {categories?.data?.map((category) => (
+                        <Link
+                            key={category?.id}
+                            href={`/?selectedCategory=${category?.id}`}
+                            className="text-decoration-none"
+                        >
+                            <span
+                                className={`category-item px-4 fw-bold rounded-pill ${
+                                    selectedCategory == category?.id
+                                        ? "active text-dark"
+                                        : "text-white"
+                                }`}
+                            >
+                                {category?.name}
+                            </span>
+                        </Link>
                     ))}
                 </div>
             </div>
 
             {/* Desktop version – unchanged */}
-            <div className="d-none d-md-flex justify-content-center align-items-center gap-3 mb-4 py-5 flex-wrap">
-                {allCategories.map((category) => (
+            <div className="d-none d-md-flex justify-content-cente align-items-center gap-3 mb-4 py-5 ms-5 flex-wrap">
+                <Link href="/" className="text-decoration-none">
                     <span
-                        key={category}
-                        className={`category-item px-4 fw-bold ${
-                            selectedCategory === category
-                                ? "active rounded-pill"
+                        className={`category-item px-4 fw-bold rounded-pill ${
+                            selectedCategory === "All"
+                                ? "active text-dark"
                                 : "text-white"
                         }`}
-                        onClick={() => setSelectedCategory(category)}
                     >
-                        {category}
+                        All
                     </span>
+                </Link>
+
+                {categories?.data?.map((category) => (
+                    <Link
+                        key={category?.id}
+                        href={`/?selectedCategory=${category?.id}`}
+                        className="text-decoration-none"
+                    >
+                        <span
+                            className={`category-item px-4 fw-bold rounded-pill ${
+                                selectedCategory == category?.id
+                                    ? "active text-dark"
+                                    : "text-white"
+                            }`}
+                        >
+                            {category?.name}
+                        </span>
+                    </Link>
                 ))}
             </div>
 
@@ -123,7 +128,7 @@ const TopMenuSection = () => {
                                 }}
                                 className="p-3"
                             >
-                                {selectedCategory}
+                                {selectedCategoryName}
                             </h3>
 
                             {filteredItems.length === 0 ? (
@@ -131,56 +136,94 @@ const TopMenuSection = () => {
                                     No items available in this category.
                                 </p>
                             ) : (
-                                filteredItems.map((item) => (
-                                    <div
-                                        className={`menu-card d-flex  flex-row align-items-center p-3 rounded-4 mb-3 position-relative ${
-                                            item.isStarter
-                                                ? "starter-highlight"
-                                                : ""
-                                        }`}
-                                        key={item.id}
-                                    >
-                                        <img
-                                            src={item.image}
-                                            alt={item.title}
-                                            className="rounded-3 menu-img me-3"
-                                        />
-                                        <div className="flex-grow-1">
-                                            <div className="d-flex justify-content-between align-items-center mx-3 mx-md-0">
-                                                <h6 className="mb-1 fw-normal fw-md-bold big-font text-white">
-                                                    {item.title}
-                                                    {item.isStarter && (
-                                                        <span className="ms-2 text-warning leaf">
-                                                            🥄
-                                                        </span>
+                                filteredItems.map((item) => {
+                                    const isSelected = cartItems.some(
+                                        (i) => i.id === item.id
+                                    );
+
+                                    return (
+                                        <div
+                                            className={`menu-card d-flex  flex-row align-items-center p-3 rounded-4 mb-3 position-relative 
+                                                ${
+                                                    item.status === "in_stocky"
+                                                        ? "starter-highlight"
+                                                        : ""
+                                                }
+                                            `}
+                                            key={item.id}
+                                        >
+                                            {console.log("item", item)}
+                                            <img
+                                                src={suyabeef}
+                                                // src={item?.product_image}
+                                                alt={item.name}
+                                                className="rounded-3 menu-img me-3"
+                                            />
+                                            <div className="flex-grow-1">
+                                                <div className="d-flex justify-content-between align-items-center mx-3 mx-md-0">
+                                                    <h6 className="mb-1 fw-normal fw-md-bold big-font text-white">
+                                                        {item.name}
+                                                        {/* {item.status ===
+                                                            "in_stock" && (
+                                                            <span className="ms-2 text-warning leaf">
+                                                                🥄
+                                                            </span>
+                                                        )} */}
+                                                    </h6>
+                                                    <h6 className="fw-bold big-font text-white">
+                                                        {/* {item.status ===
+                                                            "in_stock" && (
+                                                            <span className="text-decoration-line-through text-cancel me-2">
+                                                                £{" "}
+                                                                {item.price + 5}
+                                                            </span>
+                                                        )} */}
+                                                        £ {item.price}
+                                                    </h6>
+                                                </div>
+                                                <p className="d-none d-md-block small mb-2 custom-description">
+                                                    {item.description}
+                                                </p>
+                                                <button
+                                                    onClick={() =>
+                                                        toggleItemSelection(
+                                                            item
+                                                        )
+                                                    }
+                                                    className={`d-flex align-items-center gap-2 ${
+                                                        isSelected
+                                                            ? "btn btn-warning text-dark"
+                                                            : "btn btn-outline-light"
+                                                    }`}
+                                                    style={{
+                                                        borderRadius: "30px",
+                                                        fontWeight: "500",
+                                                        padding: "6px 16px",
+                                                    }}
+                                                >
+                                                    {isSelected ? (
+                                                        <>
+                                                            Delete Item{" "}
+                                                            <Trash2 size={16} />
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            Select Item{" "}
+                                                            <ArrowUpRight
+                                                                size={16}
+                                                            />
+                                                        </>
                                                     )}
-                                                </h6>
-                                                <h6 className="fw-bold big-font text-white">
-                                                    {item.oldPrice && (
-                                                        <span className="text-decoration-line-through text-cancel me-2">
-                                                            {item.oldPrice}
-                                                        </span>
-                                                    )}
-                                                    {item.price}
-                                                </h6>
+                                                </button>
                                             </div>
-                                            <p className="d-none d-md-block small mb-2 custom-description">
-                                                {item.description}
-                                            </p>
-                                            <button className="select-btn d-block ms-3 d-md-none">
-                                                select Item
-                                                <span className="material-symbols-outlined">
-                                                    arrow_outward
+                                            {/* {item.status === "in_stock" && (
+                                                <span className="starter-label text-dark px-3 py-2 bg-warning rounded">
+                                                    In Stock
                                                 </span>
-                                            </button>
+                                            )} */}
                                         </div>
-                                        {item.isStarter && (
-                                            <span className="starter-label text-dark px-3 py-2 bg-warning rounded">
-                                                Starter of the Day
-                                            </span>
-                                        )}
-                                    </div>
-                                ))
+                                    );
+                                })
                             )}
 
                             <div className="text-star margin ">

@@ -1,6 +1,6 @@
 .learn-more-section {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     overflow: hidden;
 }
 .text-red {
@@ -47,8 +47,8 @@
 @media (max-width: 768px) {
     .learn-more-section {
         position: relative;
-        height: 90vh;
-        overflow: hidden;
+        min-height: 1100px;
+        /* overflow: hidden; */
     }
     .text-red {
         color: #691411;
@@ -71,8 +71,10 @@
             0.846
         ); /* Rich orange with opacity */
         max-width: 100%;
-        height: 600px;
+        min-height: 600px;
         z-index: 1;
+        margin-top: 350px;
+        padding-top: 50px;
     }
 
     .menu-logo {

@@ -43,6 +43,11 @@
     z-index: 3;
     color: white; /* Optional: to make text readable */
 }
+.video-container {
+    width: "100%";
+    transform: translateY(-27%);
+    overflow-y: hidden;
+}
 @media (max-width: 768px) {
     .footer-container {
         position: relative;
@@ -64,6 +69,17 @@
     }
     .inline {
         display: inline;
+    }
+    .video-containe {
+        height: 410px !important;
+    }
+    .videoTag {
+        margin-top: 196px !important;
+    }
+    .video-container {
+        width: "100%";
+        transform: translateY(-33%);
+        overflow-y: hidden;
     }
 }
 .outline-btn {

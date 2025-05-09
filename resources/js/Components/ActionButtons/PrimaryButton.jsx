@@ -4,7 +4,7 @@ import "./index.css";
 export default function PrimaryButton({ children }) {
     return (
         <div className="d-flex gap-3">
-            <button className="action-btn order-btn-hero">{children}</button>
+            <button className="action-btn-bg">{children}</button>
         </div>
     );
 }

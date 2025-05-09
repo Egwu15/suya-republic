@@ -1,49 +1,57 @@
-.our-menu {
-    background-image: url("../../../assets/img/suya/Our-Menu-Banner.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 250px 0 150px 0px;
-    color: white;
+@font-face {
+    font-family: "Alpha Monday";
+    src: url("/fonts/AlphaMonday.woff2") format("woff2"),
+        url("../../../assets/fonts/GROBOLD.ttf") format("woff");
+    /* url("../../../assets/fonts/EuclidCircularB-Medium.woff") format("woff"); */
+    font-weight: 400;
+    font-style: normal;
 }
-.menu-section {
-    background-color: #5d1715;
-    min-height: 100vh;
-    font-family: "Poppins", sans-serif;
 
-    background-image: url("../../../assets/img/pattern-bg.png");
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: auto 100%;
+.sub-heading {
+    font-family: "Alpha Monday", sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    padding-bottom: 20px;
 }
-.our-menu h1 {
-    max-width: 403px;
-    font-weight: 600;
-    font-size: 76px;
-    line-height: 80px;
-    font-family: "EuclidCircularB-Bold";
-    margin: auto;
+.gro-bold-heading {
+    font-family: "Alpha Monday", sans-serif;
+    font-weight: 500;
+    font-size: 100px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    display: inline;
+}
+
+.lead {
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: 1px;
     text-align: center;
 }
-
-.faq-answer {
-    padding: 50px 0px 0px 0px;
+.hero-content {
+    z-index: 2;
 }
-
-.booking h1 {
-    font-family: "EuclidCircularB-Bold";
-    font-weight: bold;
-    font-size: 34px;
-    line-height: 42px;
-    margin: 2rem auto;
-}
-
-@media screen and (max-width: 1024px) {
-    .our-menu h1 {
-        font-size: 60px;
-        line-height: 60px;
+@media (max-width: 768px) {
+    .gro-bold-heading {
+        font-family: "Alpha Monday", sans-serif;
+        font-weight: 500;
+        font-size: 50px;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
+    }
+    .sub-heading {
+        font-family: "Alpha Monday", sans-serif;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
+        padding-bottom: 20px;
     }
 }

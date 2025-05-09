@@ -10,6 +10,10 @@
     font-weight: 400;
     font-size: 16px;
 }
+.detail-text-2 {
+    font-weight: 400;
+    font-size: 14px;
+}
 .font-56 {
     font-size: 64px;
 }
@@ -24,9 +28,25 @@
     bottom: 0;
     right: 10 !important;
 }
+.my-btn {
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #691411;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .font-56 {
         font-size: 56px;
+    }
+    .img-fluid-star {
+        width: 50px !important;
+        height: 50px;
+    }
+    .margin-buttom-10 {
+        margin-bottom: 40px;
     }
 }

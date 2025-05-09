@@ -48,7 +48,7 @@
 
 .nav-container .nav-link:hover {
     border: 2px solid white;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 100px;
     color: white !important;
     background-color: transparent;

@@ -11,7 +11,7 @@ export const Footer = () => {
     return (
         <div>
             <div
-                className="video-containe"
+                className="video-containe "
                 style={{
                     height: "600px",
                     overflowY: "hidden",
@@ -54,7 +54,10 @@ export const Footer = () => {
                                 height="50%"
                             />{" "}
                             <div>
-                                <h3 className="Manchester">
+                                <h3
+                                    className="Manchester pt-4"
+                                    style={{ fontFamily: "Alpha Monday" }}
+                                >
                                     We are bringing the taste of Africa to
                                     Manchester.
                                 </h3>

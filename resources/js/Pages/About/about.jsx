@@ -32,28 +32,27 @@ function About() {
 
                         {/* Content */}
                         <div style={{ zIndex: 2, paddingBlock: "150px" }}>
-                            <h2 className="alpha-heading-2 text-warning mb-3">
+                            <h2 className="sub-heading text-warning mb-3">
                                 {"About Us"}
                             </h2>
-                            <h2 className="gro-bold-heading-2 text-white">
+                            <h2 className="gro-bold-heading text-white">
                                 We are bringing the taste of Africa to
                                 Manchester.
                             </h2>
-                            <p className="lead text-center px-3 mt-3">
+                            <p className="lead text-center px-3 my-3">
                                 We cure your Nostalgia With our Tasty Suya.
+                                <br /> Get you Spicy Suya anywhere, anytime
+                                within the UK
                             </p>
-                            <p className="lead text-center px-3 ">
-                                Get you Spicy Suya anywhere, anytime within the
-                                UK
-                            </p>
-                            <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row ">
-                                <button className="header-action-btn order-btn-hero">
+
+                            <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center mt-4 ">
+                                <button className="action-btn-bg ">
                                     ORDER ONLINE{" "}
                                     <span className="material-symbols-outlined material">
                                         arrow_outward
                                     </span>
                                 </button>
-                                <button className="header-action-btn pickup-btn">
+                                <button className="action-btn-outline">
                                     PICKUP IN STORE{" "}
                                     <span className="material-symbols-outlined material">
                                         arrow_outward
