@@ -4,17 +4,13 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Mail\ContactMail;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Storage;
 
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/menu', [ProductController::class, 'index'])->name('menu');
-Route::get('/cartItems', [ProductController::class, 'index'])->name('menu');
+Route::get('/cartItems', [ProductController::class, 'index'])->name('cartItems');
 
 
 // Route::get('/dashboard', function () {

@@ -530,9 +530,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                         }}
                                                     >
                                                         $
-                                                        {item?.price?.toFixed(
-                                                            2
-                                                        )}
+                                                        {item?.price ?? ""}
                                                     </div>
                                                 </div>
                                             </div>
@@ -627,9 +625,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                         }}
                                                     >
                                                         $
-                                                        {item?.price?.toFixed(
-                                                            2
-                                                        )}
+                                                        {item?.price ?? ''}
                                                     </div>
 
                                                     {/* Quantity Controls */}

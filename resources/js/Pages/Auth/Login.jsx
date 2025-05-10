@@ -26,7 +26,7 @@ const Login = () => {
         e.preventDefault();
         post(route("login"), {
             onFinish: () => reset("password"),
-            onSuccess: () => router.visit(route("menu")),
+            onSuccess: () => router.visit('/checkout'),
         });
     };
 

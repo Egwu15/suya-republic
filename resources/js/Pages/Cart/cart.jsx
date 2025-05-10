@@ -81,17 +81,22 @@ const Cart = ({ cartAdded, products }) => {
     }, [cartItems]);
 
     const handleCheckout = () => {
+
         const { guest } = useCartStore.getState();
 
         // if (guest || user) {
         //     // If guest exists, navigate to the checkout page
         //     router.visit("/checkout");
         // } else
+        console.log(orderType);
         if (orderType === "collect") {
+
             router.visit("/checkout");
             // Open modal only if orderType is not "collect"
             // setShowModal(false);
         } else {
+
+
             // If guest doesn't exist, show the modal
             setShowModal(true);
         }
@@ -185,9 +190,7 @@ const Cart = ({ cartAdded, products }) => {
                                                                 </h6>
                                                                 <p className="mb-1">
                                                                     £
-                                                                    {item?.price?.toFixed(
-                                                                        2
-                                                                    )}
+                                                                    {item?.price ?? ''}
                                                                 </p>
                                                             </div>
                                                             <div className="d-flex align-items-center gap-2">
