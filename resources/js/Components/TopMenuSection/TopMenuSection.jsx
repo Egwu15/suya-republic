@@ -72,7 +72,7 @@ const TopMenuSection = ({ products, categories }) => {
             </div>
 
             {/* Desktop version – unchanged */}
-            <div className="d-none d-md-flex justify-content-cente align-items-center gap-3 mb-4 py-5 ms-5 flex-wrap">
+            <div className="container d-none d-md-flex justify-content-cente align-items-center gap-3 mb-4 py-5 flex-wrap">
                 <Link href="/" className="text-decoration-none">
                     <span
                         className={`category-item px-4 fw-bold rounded-pill ${
@@ -131,12 +131,12 @@ const TopMenuSection = ({ products, categories }) => {
                                 {selectedCategoryName}
                             </h3>
 
-                            {filteredItems.length === 0 ? (
+                            {filteredItems?.length === 0 ? (
                                 <p className="text-white text-center py-4">
                                     No items available in this category.
                                 </p>
                             ) : (
-                                filteredItems.map((item) => {
+                                filteredItems?.map((item) => {
                                     const isSelected = cartItems.some(
                                         (i) => i.id === item.id
                                     );

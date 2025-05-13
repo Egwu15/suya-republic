@@ -18,8 +18,8 @@ const ServiceSection = () => {
                 </p>
                 <div className="">
                     <h4
-                        className="text-center text-white   font-56"
-                        style={{ fontFamily: "Alpha Monday" }}
+                        className="text-center text-white font-56"
+                        style={{ fontFamily: "GROBOLD" }}
                     >
                         We are bringing the taste of Africa to Manchester.
                     </h4>

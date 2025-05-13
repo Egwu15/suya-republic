@@ -31,11 +31,12 @@ const Hero = ({ pagename, title, desc }) => {
                 <h2 className="gro-bold-heading-h text-white ">{title}</h2>
 
                 <p className="lead text-center px-3  mt-3 ">{desc}</p>
-                <div className=" ">
+                <div className=" " style={{display: "flex", justifyContent: "center"}}>
                     {" "}
                     <Link
                         href="/order-online"
-                        className=" action-btn-bg text-decoration-none mx-2"
+                        className=" action-btn-bg text-decoration-none"
+                        style={{marginLeft: ".5rem"}}
                     >
                         ORDER ONLINE{" "}
                         <span className="material-symbols-outlined">
@@ -44,7 +45,8 @@ const Hero = ({ pagename, title, desc }) => {
                     </Link>
                     <Link
                         href="/order-online"
-                        className="action-btn-outline  text-decoration-none mx-2"
+                        className="action-btn-outline  text-decoration-none"
+                        style={{marginLeft: ".5rem"}}
                     >
                         PICKUP IN STORE{" "}
                         <span className="material-symbols-outlined">

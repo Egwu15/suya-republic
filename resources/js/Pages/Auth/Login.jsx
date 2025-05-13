@@ -191,7 +191,7 @@ const Login = () => {
                                 <button
                                     type="submit"
                                     className="btn text-white bg-red w-100 mb-3"
-                                    disabled={processing}
+                                    // disabled={processing}
                                 >
                                     LOG IN
                                 </button>

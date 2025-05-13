@@ -78,7 +78,7 @@ const ProductList = ({ products }) => {
                     const isSelected = cartItems.some((i) => i.id === item.id);
 
                     return (
-                        <div className="col-12 col-sm-6 col-md-4" key={item.id}>
+                        <div className="col-12 col-sm-6 col-md-4 my-5" key={item.id}>
                             <div className="text-center text-white">
                                 <img
                                     src={platter}

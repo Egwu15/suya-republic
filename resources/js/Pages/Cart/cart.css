@@ -2,7 +2,7 @@
     background-color: #5d1715;
     min-height: 100vh;
     font-family: "Poppins", sans-serif;
-    padding: 40px;
+    /* padding: 40px; */
     background-image: url("../../../assets/img/pattern-bg.png");
     background-repeat: no-repeat;
     background-position: left center;
@@ -73,4 +73,11 @@
 
 .form-control {
     border-radius: 8px;
+}
+
+@media (max-width: 576px) {
+    .white-bg {
+        padding: 20px 10px !important;
+        top: -120px;
+    }
 }

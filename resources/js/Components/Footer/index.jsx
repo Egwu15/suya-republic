@@ -56,7 +56,7 @@ export const Footer = () => {
                             <div>
                                 <h3
                                     className="Manchester pt-4"
-                                    style={{ fontFamily: "Alpha Monday" }}
+                                    style={{ fontFamily: "GROBOLD" }}
                                 >
                                     We are bringing the taste of Africa to
                                     Manchester.

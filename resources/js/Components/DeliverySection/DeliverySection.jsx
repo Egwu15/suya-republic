@@ -3,6 +3,20 @@ import "./index.css";
 import pizaboy from "../../../assets/img/image.png";
 import PrimaryButton from "../ActionButtons/PrimaryButton";
 export default function DeliverySection() {
+
+
+     const handleDeliverToMe = () => {
+        window.location.href =
+            "https://deliveroo.co.uk/menu/manchester/hulme-park/suya-republick-and-grill?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share";
+    };
+
+    const handleCollect = () => {
+        // Store a value in localStorage
+        localStorage.setItem("orderType", "collect");
+
+        // Navigate to the menu page
+        window.location.href = "/menu";
+    };
     return (
         <div className="row m-0 delivery ">
             <div className="col-12 col-md-6 ">
@@ -20,7 +34,7 @@ export default function DeliverySection() {
                                 Please plan ahead and get your PERI-PERI to go,
                                 from our restaurant location.
                             </p>
-                            <PrimaryButton>ORDER COLLECT</PrimaryButton>
+                            <PrimaryButton  onClick={handleCollect}>ORDER COLLECT</PrimaryButton>
                         </div>
                         <div className="card-body d-flex flex-column align-items-center text-center p-4">
                             <div className="icon">
@@ -34,7 +48,7 @@ export default function DeliverySection() {
                                 if Suya Republic is bringing he flavour to your
                                 doorstep!
                             </p>
-                            <PrimaryButton>ORDER DELIVERY</PrimaryButton>
+                            <PrimaryButton onClick={handleDeliverToMe}>ORDER DELIVERY</PrimaryButton>
                             <p className="text-white w-75">Brought to you by</p>
                             <p className="text-white w-75">Deliveroo </p>
                         </div>{" "}

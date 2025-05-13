@@ -37,7 +37,7 @@ const Navbar = () => {
             className="position-absolute  top-0 start-0 w-100 d-flex justify-content-between justify-content-md-around align-items-center px-4 py-3"
             style={{ zIndex: 3 }}
         >
-            <img src={logo} alt="Logo" style={{ height: "70px" }} />
+            <img src={logo} alt="Logo" style={{ height: "70px", cursor: "pointer" }} onClick={() => router.visit("/")} />
             <ul className="nav-container list-unstyled m-0 d-none d-md-flex">
                 <li className="nav-item">
                     <Link
@@ -92,6 +92,10 @@ const Navbar = () => {
                 </div>
             </ul>
 
+            <div className="cart-icon d-md-none" 
+            style={{marginLeft: "170px", width: "60px", height: "60px"}}>
+                    <CartIcon />
+                </div>
             <button
                 onClick={toggleMenu}
                 className="menu-button d-block d-md-none"

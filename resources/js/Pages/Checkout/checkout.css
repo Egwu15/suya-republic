@@ -111,4 +111,12 @@
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
     }
+
+    .menu-section {
+        padding: 0 !important;
+    }
+    .white-bg {
+        padding: 10px;
+    }
+
 }

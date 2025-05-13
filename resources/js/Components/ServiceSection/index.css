@@ -40,7 +40,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .font-56 {
-        font-size: 56px;
+        font-size: 45px;
     }
     .img-fluid-star {
         width: 50px !important;
