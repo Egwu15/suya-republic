@@ -42,6 +42,10 @@
 .text-red {
     color: #691411;
 }
+.login-btn:hover {
+    border: 1px solid #691411;
+    color: #691411 !important;
+}
 @media (max-width: 768px) {
     .background-img {
         background-image: url("../../../assets/img/suya/Beef-Suya-2.jpg");

@@ -1,5 +1,5 @@
 .alpha-heading-h {
-    font-family: "Dancing Script", sans-serif !important;
+    font-family: "Alpha Monday" !important;
     font-weight: 400;
     font-size: 48px;
     line-height: 1;
@@ -32,5 +32,8 @@
         line-height: 1;
         letter-spacing: 0;
         text-align: center;
+    }
+    .gro-bold-heading-h {
+        font-size: 150px;
     }
 }

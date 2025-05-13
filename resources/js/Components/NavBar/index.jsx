@@ -37,7 +37,12 @@ const Navbar = () => {
             className="position-absolute  top-0 start-0 w-100 d-flex justify-content-between justify-content-md-around align-items-center px-4 py-3"
             style={{ zIndex: 3 }}
         >
-            <img src={logo} alt="Logo" style={{ height: "70px" }} />
+            <img
+                src={logo}
+                alt="Logo"
+                style={{ height: "70px", cursor: "pointer" }}
+                onClick={() => router.visit("/")}
+            />
             <ul className="nav-container list-unstyled m-0 d-none d-md-flex">
                 <li className="nav-item">
                     <Link
@@ -92,6 +97,12 @@ const Navbar = () => {
                 </div>
             </ul>
 
+            <div
+                className="cart-icon d-md-none"
+                style={{ marginLeft: "170px", width: "60px", height: "60px" }}
+            >
+                <CartIcon />
+            </div>
             <button
                 onClick={toggleMenu}
                 className="menu-button d-block d-md-none"
@@ -135,7 +146,6 @@ const Navbar = () => {
                     LOGIN/SIGNUP
                 </Link> */}
             </div>
-
             {/* Mobile Menu */}
             <div
                 className={`navbar-collapse ${
@@ -155,9 +165,9 @@ const Navbar = () => {
                                 Home
                             </Link>
                             <div className="mobile-menu-header">
-                                <div className="cart-icon-circle">
+                                {/* <div className="cart-icon-circle">
                                     <CartIcon />
-                                </div>
+                                </div> */}
                                 <button
                                     className="close-button"
                                     onClick={() => setMenuOpen(false)}
@@ -247,29 +257,6 @@ const Navbar = () => {
                                 LOGIN/SIGNUP
                             </button> */}
                         </li>
-                        {/* <li className="notify mt-6">
-                            {user ? (
-                                <button
-                                    onClick={handleSignOut}
-                                    className="black-btn-nav mx-1 p-2 text-white"
-                                    style={{
-                                        fontFamily: "Dynapuff",
-                                    }}
-                                >
-                                    Sign Out
-                                </button>
-                            ) : (
-                                <Link
-                                    href="/login"
-                                    className="black-btn-nav mx-1 text-white"
-                                    style={{
-                                        fontFamily: "Dynapuff",
-                                    }}
-                                >
-                                    Sign In
-                                </Link>
-                            )}
-                        </li> */}
                     </ul>
                 </div>
             </div>

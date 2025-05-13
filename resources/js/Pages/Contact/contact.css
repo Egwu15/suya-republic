@@ -118,15 +118,15 @@ textarea {
     .gro-bold-heading {
         font-family: "Alpha Monday", sans-serif;
         font-weight: 500;
-        font-size: 40px;
-        line-height: 1;
+        font-size: 20px;
+        line-height: 1.5;
         letter-spacing: 0;
         text-align: center;
     }
     .sub-heading {
         font-family: "Alpha Monday", sans-serif;
         font-weight: 400;
-        font-size: 26px;
+        font-size: 22px;
         line-height: 1;
         letter-spacing: 0;
         text-align: center;

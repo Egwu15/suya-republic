@@ -1,12 +1,3 @@
-@font-face {
-    font-family: "Alpha Monday";
-    src: url("/fonts/AlphaMonday.woff2") format("woff2"),
-        url("../../../assets/fonts/GROBOLD.ttf") format("woff");
-    /* url("../../../assets/fonts/EuclidCircularB-Medium.woff") format("woff"); */
-    font-weight: 400;
-    font-style: normal;
-}
-
 .sub-heading {
     font-family: "Alpha Monday", sans-serif;
     font-weight: 400;
@@ -17,7 +8,7 @@
     padding-bottom: 20px;
 }
 .gro-bold-heading {
-    font-family: "Alpha Monday", sans-serif;
+    font-family: "GROBOLD", sans-serif !important;
     font-weight: 500;
     font-size: 100px;
     line-height: 1;
@@ -36,11 +27,14 @@
 .hero-content {
     z-index: 2;
 }
+.menu-section {
+    background-color: #5d1715;
+}
 @media (max-width: 768px) {
     .gro-bold-heading {
-        font-family: "Alpha Monday", sans-serif;
+        font-family: "GROBOLD", sans-serif;
         font-weight: 500;
-        font-size: 50px;
+        font-size: 30px;
         line-height: 1;
         letter-spacing: 0;
         text-align: center;
@@ -48,10 +42,14 @@
     .sub-heading {
         font-family: "Alpha Monday", sans-serif;
         font-weight: 400;
-        font-size: 26px;
+        font-size: 18px;
         line-height: 1;
         letter-spacing: 0;
         text-align: center;
         padding-bottom: 20px;
+    }
+
+    .hero-content {
+        padding: 30px 10px;
     }
 }

@@ -33,3 +33,40 @@
 .card-title {
     text-align: left;
 }
+.sub-heading {
+    font-family: "Alpha Monday", sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    padding-bottom: 20px;
+}
+.gro-bold-heading {
+    font-family: "Alpha Monday", sans-serif;
+    font-weight: 500;
+    font-size: 100px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    display: inline;
+}
+@media (max-width: 768px) {
+    .gro-bold-heading {
+        font-family: "Alpha Monday", sans-serif;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
+    }
+    .sub-heading {
+        font-family: "Alpha Monday", sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+}

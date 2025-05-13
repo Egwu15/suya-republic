@@ -26,7 +26,7 @@ const Login = () => {
         e.preventDefault();
         post(route("login"), {
             onFinish: () => reset("password"),
-            onSuccess: () => router.visit('/checkout'),
+            onSuccess: () => router.visit("/checkout"),
         });
     };
 
@@ -190,7 +190,7 @@ const Login = () => {
 
                                 <button
                                     type="submit"
-                                    className="btn text-white bg-red w-100 mb-3"
+                                    className="btn text-white bg-red w-100 mb-3 login-btn"
                                     disabled={processing}
                                 >
                                     LOG IN
@@ -202,7 +202,7 @@ const Login = () => {
                                     <button
                                         type="button"
                                         onClick={handleGuestSubmit}
-                                        className="btn btn-link text-decoration-none text-red border w-100"
+                                        className="btn btn-link login-btn text-decoration-none text-red border w-100"
                                     >
                                         Continue as Guest
                                     </button>
