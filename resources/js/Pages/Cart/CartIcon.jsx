@@ -1,6 +1,6 @@
 import useCartStore from "@/store/Store";
 import { Link } from "@inertiajs/react";
-
+import "./cart.css";
 const CartIcon = () => {
     const cartItemCount = useCartStore((state) =>
         state.cartItems.reduce((acc, item) => acc + item.quantity, 0)
@@ -9,7 +9,7 @@ const CartIcon = () => {
     return (
         <div style={{ position: "relative" }}>
             <Link href="/cart">
-                <i
+            <i
                     className="bi bi-cart-plus text-danger"
                     style={{ fontSize: "24px" }}
                 ></i>

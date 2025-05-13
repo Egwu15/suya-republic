@@ -38,6 +38,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         lastName: user?.last_name ?? "",
         email: user?.email ?? "",
         phone: "",
+        address: "",
         note: "",
     });
 
@@ -403,7 +404,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                             type="text"
                                                             placeholder="Enter Address"
                                                             value={
-                                                                billingDetails.note
+                                                                billingDetails.address
                                                             }
                                                             onChangeMethod={(
                                                                 e
@@ -411,7 +412,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                                 setBillingDetails(
                                                                     {
                                                                         ...billingDetails,
-                                                                        note: e
+                                                                        address: e
                                                                             .target
                                                                             .value,
                                                                     }
@@ -422,7 +423,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                             message={
                                                                 formError &&
                                                                 formError?.[
-                                                                    "billingDetails.notes"
+                                                                    "billingDetails.address"
                                                                 ]
                                                             }
                                                             className="mt-2"
