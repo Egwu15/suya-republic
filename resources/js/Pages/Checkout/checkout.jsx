@@ -412,10 +412,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                                 setBillingDetails(
                                                                     {
                                                                         ...billingDetails,
-                                                                        address:
-                                                                            e
-                                                                                .target
-                                                                                .value,
+                                                                        address: e
+                                                                            .target
+                                                                            .value,
+
                                                                     }
                                                                 )
                                                             }
