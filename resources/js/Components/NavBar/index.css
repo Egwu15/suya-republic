@@ -173,13 +173,15 @@
 .cart-icon-circle {
     background: white;
     border-radius: 50%;
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+.font-24 {
+    font-size: 24px;
+}
 .close-button {
     background: transparent;
     color: white;
@@ -252,16 +254,25 @@
     letter-spacing: 0;
 }
 .scale-effect {
-    /* display: inline-block; Ensures the scaling applies properly */
-    /* background-color: #d2401e; Red background for button */
-    /* border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 5px;
-    text-align: center; */
     text-decoration: none;
     animation: scaleAnimation 0.9s infinite ease-in-out; /* Animation added */
 }
-/* OLD CSS */
+.count-value {
+    width: "20px";
+    height: "20px";
+    display: "flex";
+    justify-content: "center";
+    align-items: "center";
+    position: "absolute";
+    top: "-3px";
+    right: "-5px";
+    background-color: "red";
+    color: "white";
+    border-radius: "50%";
+    font-size: "12px";
+}
+@media (max-width: 768px) {
+    .font-24 {
+        font-size: 16px;
+    }
+}

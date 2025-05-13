@@ -9,11 +9,8 @@ const CartIcon = () => {
     return (
         <div style={{ position: "relative" }}>
             <Link href="/cart">
-                <i
-                    className="bi bi-cart-plus text-danger"
-                    style={{ fontSize: "24px" }}
-                ></i>
-                {cartItemCount > 0 && (
+                <i className="bi bi-cart-plus text-danger font-24"></i>
+                {/* {cartItemCount > 0 && (
                     <span
                         style={{
                             width: "20px",
@@ -32,7 +29,7 @@ const CartIcon = () => {
                     >
                         {cartItemCount}
                     </span>
-                )}
+                )} */}
             </Link>
         </div>
     );

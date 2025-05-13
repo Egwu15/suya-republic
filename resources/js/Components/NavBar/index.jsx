@@ -91,15 +91,18 @@ const Navbar = () => {
                     <CartIcon />
                 </div>
             </ul>
-
-            <button
-                onClick={toggleMenu}
-                className="menu-button d-block d-md-none"
-                style={{ backgroundColor: "transparent", border: "none" }}
-            >
-                <FaBars size={24} color="#fff" />
-            </button>
-
+            <div className="d-flex gap-3">
+                <div className="cart-icon-circle d-block d-md-none">
+                    <CartIcon />
+                </div>
+                <button
+                    onClick={toggleMenu}
+                    className="menu-button d-block d-md-none"
+                    style={{ backgroundColor: "transparent", border: "none" }}
+                >
+                    <FaBars size={24} color="#fff" />
+                </button>
+            </div>
             <div className="gap-3 justify-content-center mt-4 d-none d-md-flex">
                 <Link
                     href="/order-online"
@@ -135,7 +138,6 @@ const Navbar = () => {
                     LOGIN/SIGNUP
                 </Link> */}
             </div>
-
             {/* Mobile Menu */}
             <div
                 className={`navbar-collapse ${
@@ -155,9 +157,9 @@ const Navbar = () => {
                                 Home
                             </Link>
                             <div className="mobile-menu-header">
-                                <div className="cart-icon-circle">
+                                {/* <div className="cart-icon-circle">
                                     <CartIcon />
-                                </div>
+                                </div> */}
                                 <button
                                     className="close-button"
                                     onClick={() => setMenuOpen(false)}
@@ -247,29 +249,6 @@ const Navbar = () => {
                                 LOGIN/SIGNUP
                             </button> */}
                         </li>
-                        {/* <li className="notify mt-6">
-                            {user ? (
-                                <button
-                                    onClick={handleSignOut}
-                                    className="black-btn-nav mx-1 p-2 text-white"
-                                    style={{
-                                        fontFamily: "Dynapuff",
-                                    }}
-                                >
-                                    Sign Out
-                                </button>
-                            ) : (
-                                <Link
-                                    href="/login"
-                                    className="black-btn-nav mx-1 text-white"
-                                    style={{
-                                        fontFamily: "Dynapuff",
-                                    }}
-                                >
-                                    Sign In
-                                </Link>
-                            )}
-                        </li> */}
                     </ul>
                 </div>
             </div>

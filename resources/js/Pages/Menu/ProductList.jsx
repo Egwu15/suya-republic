@@ -95,7 +95,7 @@ const ProductList = ({ products }) => {
                                     }}
                                 />
                                 <p
-                                    className="fw-semibold text-left text-uppercase mx-5 mx-md-0"
+                                    className="fw-semibold text-left text-uppercase mx- mx-md-0"
                                     style={{
                                         textAlign: "left",
                                     }}
@@ -103,7 +103,7 @@ const ProductList = ({ products }) => {
                                     {item.name}
                                 </p>
 
-                                <div className="d-flex justify-content-start  align-items-center gap-2 mx-5 mx-md-0">
+                                <div className="d-flex justify-content-start  align-items-center gap-2 mx-  mx-md-0">
                                     <button
                                         onClick={() =>
                                             toggleItemSelection(item)
@@ -140,7 +140,7 @@ const ProductList = ({ products }) => {
                                             fontWeight: "500",
                                         }}
                                     >
-                                        £{item?.price?? 0}
+                                        £{item?.price ?? 0}
                                     </div>
                                 </div>
                             </div>
