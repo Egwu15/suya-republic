@@ -415,6 +415,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                                         address: e
                                                                             .target
                                                                             .value,
+
                                                                     }
                                                                 )
                                                             }
@@ -530,8 +531,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        $
-                                                        {item?.price ?? ""}
+                                                        ${item?.price ?? ""}
                                                     </div>
                                                 </div>
                                             </div>
@@ -625,8 +625,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        $
-                                                        {item?.price ?? ''}
+                                                        ${item?.price ?? ""}
                                                     </div>
 
                                                     {/* Quantity Controls */}

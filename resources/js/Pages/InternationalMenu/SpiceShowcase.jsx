@@ -72,14 +72,14 @@ const SpiceShowcase = () => {
                                         }
                                     >
                                         <img
-                                            src={Shawarma}
-                                            // src={spice.image}
+                                            // src={Shawarma}
+                                            src={spice.image}
                                             alt={spice.name}
                                             className="img-fluid w-100 rounded"
                                             loading="lazy"
                                         />
                                     </div>
-                                    <div className="card-bod text-left spice-section">
+                                    <div className="card-bod  text-left spice-section">
                                         <h5 className="card-title fw-bold text-dark py-4">
                                             {spice.name}
                                         </h5>

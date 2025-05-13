@@ -9,6 +9,7 @@
     background-size: auto 100%;
     z-index: 1;
     position: relative;
+    /* background: #000; */
 }
 @media (max-width: 768px) {
     .font-24 {

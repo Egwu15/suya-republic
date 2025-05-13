@@ -27,11 +27,14 @@
 .hero-content {
     z-index: 2;
 }
+.menu-section {
+    background-color: #5d1715;
+}
 @media (max-width: 768px) {
     .gro-bold-heading {
         font-family: "GROBOLD", sans-serif;
         font-weight: 500;
-        font-size: 50px;
+        font-size: 30px;
         line-height: 1;
         letter-spacing: 0;
         text-align: center;
@@ -39,7 +42,7 @@
     .sub-heading {
         font-family: "Alpha Monday", sans-serif;
         font-weight: 400;
-        font-size: 26px;
+        font-size: 18px;
         line-height: 1;
         letter-spacing: 0;
         text-align: center;

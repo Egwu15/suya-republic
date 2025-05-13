@@ -57,19 +57,12 @@ function Contact() {
                             <h2 className="sub-heading text-warning mb-3">
                                 Contact Us
                             </h2>
-                            <h3
-                                className="gro-bold-heading col-md-7 col-12 mx-auto text-center text-white"
-                                style={{}}
-                            >
+                            <h3 className="gro-bold-heading col-md-7 col-12 mx-auto text-center text-white">
                                 Hello! We are glad you are here. We'd love to
                                 hear from you.{" "}
                             </h3>
-                            {/* <p className="lead text-center px-3 mt-3">
-                                Hello! We are glad you are here. We'd love to
-                                hear from you.{" "}
-                            </p> */}
 
-                            <div className="d-md-flex d-inline-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center ">
+                            <div className="d-md-flex d-inline-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center mt-4">
                                 <button className="action-btn-bg order-btn-hero inline">
                                     ORDER ONLINE{" "}
                                     <span className="material-symbols-outlined material">
