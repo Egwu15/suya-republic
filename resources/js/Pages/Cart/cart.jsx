@@ -43,7 +43,7 @@ const Cart = ({ cartAdded, products }) => {
     useEffect(() => {
         // Retrieve the stored value from localStorage
         const storedOrderType = localStorage.getItem("orderType");
-        setOrderType(storedOrderType);
+        setOrderType(storedOrderType || "collect");
     }, []);
 
     useEffect(() => {
@@ -141,7 +141,7 @@ const Cart = ({ cartAdded, products }) => {
                     </section>
                     <section className="menu-section position-relative">
                         {/* <div class="overlay"></div> */}
-                        <div className="x min-vh-100 p-3">
+                        <div className="x p-3">
                             {" "}
                             {/* Red background */}
                             <div className="container">
