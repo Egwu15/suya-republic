@@ -6,13 +6,18 @@ import staroutline from "../../../assets/img/star.png";
 import star from "../../../assets/img/starbg.png";
 import { Link } from "@inertiajs/react";
 import "./index.css";
+import Button from "../Button";
 const ServiceSection = () => {
     return (
-        <div className="row bg-orange position-relative p-5">
+        <div className="row bg-orange position-relative p-2">
             <div className="col-12 col-md-12">
                 <p
-                    className="text-center text-red m-0"
-                    style={{ fontSize: "32px", fontWeight: 500 }}
+                    className="text-center text-red m-3"
+                    style={{
+                        fontSize: "32px",
+                        fontWeight: 800,
+                        fontFamily: "Poppins, sans-serif",
+                    }}
                 >
                     SUYAREPUBLICK
                 </p>
@@ -27,7 +32,11 @@ const ServiceSection = () => {
                 <div className="">
                     <p
                         className="text-center  text-white"
-                        style={{ fontSize: "20px", fontWeight: 400 }}
+                        style={{
+                            fontSize: "20px",
+                            fontWeight: 400,
+                            fontFamily: "Poppins, sans-serif",
+                        }}
                     >
                         Our meals are made with natural and organic spices and
                         recipes from Africa.
@@ -75,24 +84,33 @@ const ServiceSection = () => {
                                         />
                                     </div>
 
-                                    <h3 className="py-3 text-white">
+                                    <h3
+                                        className="py-3 text-white"
+                                        style={{
+                                            fontFamily: "Poppins, sans-serif",
+                                        }}
+                                    >
                                         <b>SUYA SPICE</b>
                                     </h3>
-                                    <p className="pb-2 text-white detail-text">
+                                    <p
+                                        className="pb-2 text-white detail-text"
+                                        style={{
+                                            fontFamily: "Poppins, sans-serif",
+                                        }}
+                                    >
                                         Get your Suya spice anywhere anyime
                                         within UK
                                     </p>
+
                                     <Link
                                         href="/order-online"
-                                        className="text-decoration-none  p-0 m-0"
+                                        // style={{ marginLeft: ".5rem", marginBottom: "1rem" }}
                                     >
-                                        {" "}
-                                        <span className="text-left  my-btn ">
-                                            ORDER NOW{" "}
-                                            <span className="material-symbols-outlined fw-bold">
-                                                arrow_outward
-                                            </span>
-                                        </span>
+                                        <Button
+                                            text="ORDER NOW"
+                                            btnstyle={{ border: "none" }}
+                                            type="button"
+                                        />
                                     </Link>
                                 </div>
                             </div>
@@ -110,26 +128,33 @@ const ServiceSection = () => {
                                             }}
                                         />
                                     </div>
-                                    <h3 className="py-3 text-white">
+                                    <h3
+                                        className="py-3 text-white"
+                                        style={{
+                                            fontFamily: "Poppins, sans-serif",
+                                        }}
+                                    >
                                         <b>OUR MENU</b>
                                     </h3>
-                                    <p className="pb- text-white detail-text-2">
+                                    <p
+                                        className="pb- text-white detail-text-2"
+                                        style={{
+                                            fontFamily: "Poppins, sans-serif",
+                                        }}
+                                    >
                                         Our meals are made with natural, fresh
                                         and organic spices and recipes from
                                         Africa.
                                     </p>
 
                                     <Link
-                                        href={"/menu"}
-                                        className="text-decoration-none  p-0 m-0"
+                                        href="/menu"
                                     >
-                                        {" "}
-                                        <span className="text-left my-btn ">
-                                            OUR MENU{" "}
-                                            <span className="material-symbols-outlined fw-bold">
-                                                arrow_outward
-                                            </span>
-                                        </span>
+                                        <Button
+                                            text="OUR MENU"
+                                            btnstyle={{ border: "none" }}
+                                            type="button"
+                                        />
                                     </Link>
                                 </div>
                             </div>
@@ -147,24 +172,32 @@ const ServiceSection = () => {
                                             }}
                                         />
                                     </div>
-                                    <h3 className="py-3 text-white">
+                                    <h3
+                                        className="py-3 text-white"
+                                        style={{
+                                            fontFamily: "Poppins, sans-serif",
+                                        }}
+                                    >
                                         <b>OUR BRAND</b>
                                     </h3>
-                                    <p className="pb-2 text-white detail-text-2">
+                                    <p
+                                        className="pb-2 text-white detail-text-2"
+                                        style={{
+                                            fontFamily: "Poppins, sans-serif",
+                                        }}
+                                    >
                                         The first Suya Republick started out in
                                         the streets of Lagos, Nigeria in 2018.
                                     </p>
 
                                     <Link
                                         href="/contact"
-                                        className="text-decoration-none  p-0 m-0 "
                                     >
-                                        <span className="text-left my-btn  ">
-                                            LEARN MORE{" "}
-                                            <span className="material-symbols-outlined fw-bold">
-                                                arrow_outward
-                                            </span>
-                                        </span>
+                                        <Button
+                                            text="LEARN MORE"
+                                            btnstyle={{ border: "none" }}
+                                            type="button"
+                                        />
                                     </Link>
                                 </div>
                             </div>

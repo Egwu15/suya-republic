@@ -20,6 +20,7 @@ const ProductModal = ({ show, product, onClose }) => {
             style={{
                 display: show ? "block" : "none",
                 background: "rgba(0, 0, 0, 0.5)",
+                zIndex: 1000000
             }}
         >
             <div className="modal-dialog">

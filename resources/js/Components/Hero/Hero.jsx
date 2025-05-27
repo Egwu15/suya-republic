@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../NavBar";
 import "./index.css";
 import { Link } from "@inertiajs/react";
+import Button from "../Button";
 const Hero = ({ pagename, title, desc }) => {
     return (
         <div
@@ -31,28 +32,41 @@ const Hero = ({ pagename, title, desc }) => {
                 <h2 className="gro-bold-heading-h text-white ">{title}</h2>
 
                 <p className="lead text-center px-3  mt-3 ">{desc}</p>
-                <div className=" " style={{display: "flex", justifyContent: "center"}}>
+                <div className="hero-button">
                     {" "}
                     <Link
                         href="/order-online"
+                        style={{ marginLeft: ".5rem", marginBottom: "1rem" }}
+                    >
+                        <Button
+                            text="ORDER ONLINE"
+                            //   handleButtonClick={handleSubmit}
+                            // btnstyle={{ cursor: "pointer" }}
+                            type="button"
+                        />
+                    </Link>
+                    {/* <Link
+                        href="/order-online"
                         className=" action-btn-bg text-decoration-none"
-                        style={{marginLeft: ".5rem"}}
+                        style={{marginLeft: ".5rem", marginBottom: "1rem"}}
                     >
                         ORDER ONLINE{" "}
                         <span className="material-symbols-outlined">
                             arrow_outward
                         </span>
-                    </Link>
+                    </Link> */}
                     <Link
                         href="/order-online"
-                        className="action-btn-outline  text-decoration-none"
-                        style={{marginLeft: ".5rem"}}
+                        style={{ marginLeft: ".5rem" }}
                     >
-                        PICKUP IN STORE{" "}
-                        <span className="material-symbols-outlined">
-                            arrow_outward
-                        </span>
+                        <Button
+                            text="PICKUP IN STORE"
+                            // btnstyle={{ cursor: "pointer" }}
+                            type="button"
+                            className="Button_Wrap_secondary"
+                        />
                     </Link>
+                 
                 </div>
 
                 {/* </div> */}

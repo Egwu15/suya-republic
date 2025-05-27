@@ -6,6 +6,11 @@
     font-weight: 400;
     font-style: normal;
 }
+
+.contact-head {
+    z-index: 2;
+    padding-block: 150px;
+}
 .cart-table-head hr {
     border: 1px dashed #b7903c;
     height: 0px;
@@ -96,13 +101,11 @@ textarea {
 }
 .sub-heading {
     font-family: "Alpha Monday", sans-serif;
-    font-weight: 400;
-    font-size: 58px;
+    font-weight: 500;
+    font-size: 30px;
     line-height: 1;
     letter-spacing: 0;
     text-align: center;
-    padding-bottom: 35px;
-    margin-top: 60px;
 }
 .gro-bold-heading {
     font-family: "Alpha Monday", sans-serif;
@@ -115,21 +118,20 @@ textarea {
 }
 
 @media (max-width: 768px) {
+    .contact-head {
+        padding: 150px 20px;
+    }
+
+    .contact-sec {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
     .gro-bold-heading {
-        font-family: "Alpha Monday", sans-serif;
-        font-weight: 500;
-        font-size: 20px;
+        font-size: 35px;
         line-height: 1.5;
-        letter-spacing: 0;
-        text-align: center;
     }
     .sub-heading {
-        font-family: "Alpha Monday", sans-serif;
-        font-weight: 400;
         font-size: 22px;
-        line-height: 1;
-        letter-spacing: 0;
-        text-align: center;
         padding-bottom: 20px;
     }
     .map-container {

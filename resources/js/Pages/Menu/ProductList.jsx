@@ -73,37 +73,42 @@ const ProductList = ({ products }) => {
 
     return (
         <div className="container py-5">
-            <div className="row g-4 justify-content-center">
+            <div className="row g-4 justify-content-center menu-cards">
                 {products.map((item) => {
                     const isSelected = cartItems.some((i) => i.id === item.id);
 
                     return (
-                        <div className="col-12 col-sm-6 col-md-4 my-5" key={item.id}>
+                        <div
+                            className="col-12 col-sm-6 col-md-4 my-5"
+                            key={item.id}
+                        >
                             <div className="text-center text-white">
                                 <img
                                     src={platter}
                                     // src={item.image}
                                     alt={item.name}
-                                    className="img-fluid rounded cursor-pointer"
+                                    className="img-fluid"
                                     onClick={() => handleImageClick(item)}
                                     style={{
-                                        height: "320px",
-                                        width: "320px",
+                                        // height: "320px",
+                                        // width: "320px",
                                         objectFit: "cover",
                                         marginBottom: "10px",
-                                        cursor: "pointer",
+                                        // cursor: "pointer",
+                                        borderRadius: "20px"
                                     }}
                                 />
                                 <p
                                     className="fw-semibold text-left text-uppercase mx- mx-md-0"
                                     style={{
                                         textAlign: "left",
+                                        fontFamily: "Poppins, sans-serif",
                                     }}
                                 >
                                     {item.name}
                                 </p>
 
-                                <div className="d-flex justify-content-start  align-items-center gap-2 mx-  mx-md-0">
+                                <div className="d-flex justify-content-between  align-items-center gap-2 mx-  mx-md-0">
                                     <button
                                         onClick={() =>
                                             toggleItemSelection(item)
@@ -125,7 +130,7 @@ const ProductList = ({ products }) => {
                                             </>
                                         ) : (
                                             <>
-                                                Select Item{" "}
+                                                Add To Cart{" "}
                                                 <ArrowUpRight size={16} />
                                             </>
                                         )}

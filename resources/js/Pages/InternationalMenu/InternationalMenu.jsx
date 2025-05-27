@@ -6,6 +6,8 @@ import "./spices.css";
 import { Link } from "@inertiajs/react";
 import ProductModal from "@/Components/ProductModal/ProductModal";
 import SpiceShowcase from "./SpiceShowcase";
+import "../../Components/Hero/index.css";
+import Button from "@/Components/Button";
 
 const InternationalMenu = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
@@ -38,7 +40,7 @@ const InternationalMenu = ({ products }) => {
         <div>
             <div
                 className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center "
-                style={{ height: "700px" }}
+                style={{ height: "500px" }}
             >
                 {/* Navbar */}
                 <Navbar />
@@ -47,26 +49,33 @@ const InternationalMenu = ({ products }) => {
 
                 {/* Content */}
                 <div style={{ zIndex: 2 }}>
-                    <h2 className="sub-heading text-warning mb-3">
-                        {"Choose your favourite"}
+                    <h2 className="sub-heading  text-warning ">
+                        {"Choose your favorite"}
                     </h2>
-                    <h2 className="gro-bold-heading text-white">
+                    <h2 className="gro-bold-heading-pages text-white p-5">
                         {"Spices Treat"}
                     </h2>
                     {/* <p className="lead text-center px-3 mt-3">{desc}</p> */}
-                    <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row mt-5 justify-content-center ">
-                        <button className="action-btn-bg order-btn-hero">
-                            ORDER ONLINE{" "}
-                            <span className="material-symbols-outlined material">
-                                arrow_outward
-                            </span>
-                        </button>
-                        <button className="action-btn-outline pickup-btn">
-                            PICKUP IN STORE{" "}
-                            <span className="material-symbols-outlined material">
-                                arrow_outward
-                            </span>
-                        </button>
+                    <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row my-5 justify-content-center ">
+                        <Link
+                            href="/order-online"
+                            style={{
+                                marginLeft: ".5rem",
+                                marginBottom: "1rem",
+                            }}
+                        >
+                            <Button text="ORDER ONLINE" type="button" />
+                        </Link>
+                        <Link
+                            href="/order-online"
+                            style={{ marginLeft: ".5rem" }}
+                        >
+                            <Button
+                                text="PICKUP IN STORE"
+                                type="button"
+                                className="Button_Wrap_secondary"
+                            />
+                        </Link>
                     </div>
                     {/* <ActionButtons />{" "} */}
                 </div>

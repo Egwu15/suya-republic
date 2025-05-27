@@ -1,6 +1,6 @@
 .alpha-heading-h {
     font-family: "Tangerine", cursive;
-    font-weight: 400;
+    font-weight: 800;
     font-size: 48px;
     line-height: 1;
     letter-spacing: 0;
@@ -17,11 +17,17 @@
 }
 
 .lead {
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-size: 28px;
     line-height: 1;
     letter-spacing: 1px;
     text-align: center;
+}
+
+.hero-button {
+    /* display: flex; */
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
@@ -34,6 +40,13 @@
         text-align: center;
     }
     .gro-bold-heading-h {
-        font-size: 150px;
+        font-size: 120px;
+    }
+ 
+
+    .hero-button {
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
     }
 }
