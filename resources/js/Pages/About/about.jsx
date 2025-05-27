@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Navbar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import "./about.css";
@@ -8,6 +7,8 @@ import image1 from "../../../assets/img/suya/The-Suya-Experience.jpg";
 import image2 from "../../../assets/img/suya/image.png";
 import image3 from "../../../assets/img/suya/Roast-suya.png";
 import image4 from "../../../assets/img/suya/Sharwama.png";
+import Button from "@/Components/Button";
+import { Link } from "@inertiajs/react";
 
 function About() {
     useEffect(() => {
@@ -31,33 +32,40 @@ function About() {
                         <div className="hero-overlay" />
 
                         {/* Content */}
-                        <div style={{ zIndex: 2, paddingBlock: "150px" }}>
-                            <h2 className="sub-heading text-warning mb-3">
+                        <div style={{ zIndex: 2, padding: "30px 20px" }}>
+                            <h2 className="sub-heading-about text-bold text-warning mb-3">
                                 {"About Us"}
                             </h2>
-                            <h2 className="gro-bold-heading text-white">
+                            <h2 className="gro-bold-heading-about text-white">
                                 We are bringing the taste of Africa to
                                 Manchester.
                             </h2>
-                            <p className="lead text-center px-3 my-3">
-                                We cure your Nostalgia With our Tasty Suya.
-                                <br /> Get you Spicy Suya anywhere, anytime
-                                within the UK
+                            <p className="lead-about text-center px-3 my-3">
+                                We cure your Nostalgia With our Tasty Suya. Get
+                                you Spicy Suya anywhere, anytime within
+                                Manchester.
                             </p>
 
                             <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center mt-4 ">
-                                <button className="action-btn-bg ">
-                                    ORDER ONLINE{" "}
-                                    <span className="material-symbols-outlined material">
-                                        arrow_outward
-                                    </span>
-                                </button>
-                                <button className="action-btn-outline">
-                                    PICKUP IN STORE{" "}
-                                    <span className="material-symbols-outlined material">
-                                        arrow_outward
-                                    </span>
-                                </button>
+                                <Link
+                                    href="/order-online"
+                                    style={{
+                                        marginLeft: ".5rem",
+                                        marginBottom: "1rem",
+                                    }}
+                                >
+                                    <Button text="ORDER ONLINE" type="button" />
+                                </Link>
+                                <Link
+                                    href="/order-online"
+                                    style={{ marginLeft: ".5rem" }}
+                                >
+                                    <Button
+                                        text="PICKUP IN STORE"
+                                        type="button"
+                                        className="Button_Wrap_secondary"
+                                    />
+                                </Link>
                             </div>
                             {/* <ActionButtons />{" "} */}
                         </div>
@@ -95,15 +103,14 @@ function About() {
                         </div>
                     </section> */}
 
-                    <section style={{ margin: "50px 0" }}>
+                    <section
+                        style={{ margin: "50px 0", background: "#D64727" }}
+                    >
                         <div className="container">
-                            <div
-                                className="row align-items-center"
-                                style={{ display: "flex", flexWrap: "wrap" }}
-                            >
+                            <div className="about-cards row align-items-center">
                                 {/* Image Section */}
                                 <div
-                                    className="col-md-6 col-12"
+                                    // className="col-md-6 col-12"
                                     style={{ padding: "15px" }}
                                 >
                                     <img
@@ -118,25 +125,17 @@ function About() {
 
                                 {/* Text Section */}
                                 <div
-                                    className="col-md-6 col-12"
+                                    // className="col-md-6 col-12"
                                     style={{ padding: "45px" }}
                                 >
-                                    <p className="color-red font-bold">
+                                    {/* <p className="color-red font-bold">
                                         Suya Republick
-                                    </p>
-                                    <h2 className="font-bold">OUR BRAND</h2>
-                                    <p className="lh-lg">
-                                        The first Suya Republic started out in
-                                        the streets of Lagos, Nigeria in 2018.
-                                        Our main brand involves bringing
-                                        affordable, healthy and fresh from the
-                                        grill various African street delicacies
-                                        to meet the demands of our customers.
-                                        Our meals are made with natural, fresh
-                                        and organic spices and recipes from
-                                        Africa. We pride ourselves in hands-on
-                                        commitment to community development and
-                                        utmost satisfaction of our customers.
+                                    </p> */}
+                                    <h2 className="about-h2">Our Brand</h2>
+                                    <p className="lh-lg" style={{fontSize: "18px"}}>
+                                        We’re an absolute leader in the
+                                        Manchester cuisine-themed restaurants,
+                                        with our <span style={{color: "#FFD703"}}>Naija Spicy Suya.</span>
                                     </p>
                                 </div>
                             </div>

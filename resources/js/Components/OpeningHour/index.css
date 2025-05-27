@@ -20,22 +20,21 @@
     font-family: "Alpha Monday", sans-serif;
 }
 .opening-title {
-    font-family: "Alpha Monday", sans-serif;
-    /* font-family: "GROBOLD", sans-serif; */
+    font-family: "GROBOLD", sans-serif;
     font-size: 28px;
     font-weight: 700;
     color: white;
 }
 .day {
-    font-family: sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 32px;
     line-height: 160%;
     letter-spacing: 0%;
 }
 .time {
-    font-family: sans-serif;
-    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
     font-size: 32px;
     line-height: 160%;
     letter-spacing: 0%;
@@ -53,8 +52,7 @@
     }
 
     .opening-title {
-        font-family: "Alpha Monday", sans-serif;
-        /* font-family: "GROBOLD", sans-serif; */
+        font-family: "GROBOLD", sans-serif;
         font-size: 28px;
         font-weight: 700;
         color: white;
@@ -118,15 +116,15 @@
         display: none;
     }
     .day {
-        font-family: sans-serif;
-        font-weight: 400 !important;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600 !important;
         font-size: 26px;
         /* line-height: 160%; */
         letter-spacing: 0%;
     }
     .time {
-        font-family: sans-serif;
-        font-weight: 400;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
         font-size: 26px;
         line-height: 160%;
         letter-spacing: 0%;

@@ -2,10 +2,9 @@ import { Calendar, Clock } from "react-feather"; // Or react-icons
 import "./index.css";
 import pizaboy from "../../../assets/img/image.png";
 import PrimaryButton from "../ActionButtons/PrimaryButton";
+import Button from "../Button";
 export default function DeliverySection() {
-
-
-     const handleDeliverToMe = () => {
+    const handleDeliverToMe = () => {
         window.location.href =
             "https://deliveroo.co.uk/menu/manchester/hulme-park/suya-republick-and-grill?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share";
     };
@@ -34,7 +33,12 @@ export default function DeliverySection() {
                                 Please plan ahead and get your PERI-PERI to go,
                                 from our restaurant location.
                             </p>
-                            <PrimaryButton  onClick={handleCollect}>ORDER COLLECT</PrimaryButton>
+                            <Button
+                                text="ORDER COLLECT"
+                                handleButtonClick={handleCollect}
+                                btnstyle={{ border: "none" }}
+                                type="button"
+                            />
                         </div>
                         <div className="card-body d-flex flex-column align-items-center text-center p-4">
                             <div className="icon">
@@ -48,7 +52,12 @@ export default function DeliverySection() {
                                 if Suya Republic is bringing he flavour to your
                                 doorstep!
                             </p>
-                            <PrimaryButton onClick={handleDeliverToMe}>ORDER DELIVERY</PrimaryButton>
+                            <Button
+                                text="ORDER DELIVERY"
+                                handleButtonClick={handleDeliverToMe}
+                                btnstyle={{ marginBottom: "10px", border: "none" }}
+                                type="button"
+                            />
                             <p className="text-white w-75">Brought to you by</p>
                             <p className="text-white w-75">Deliveroo </p>
                         </div>{" "}

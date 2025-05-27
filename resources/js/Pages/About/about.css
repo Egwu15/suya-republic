@@ -1,53 +1,53 @@
-@font-face {
-    font-family: "Alpha Monday";
-    src: url("/fonts/AlphaMonday.woff2") format("woff2"),
-        url("../../../assets/fonts/GROBOLD.ttf") format("woff");
-    /* url("../../../assets/fonts/EuclidCircularB-Medium.woff") format("woff"); */
-    font-weight: 400;
-    font-style: normal;
-}
-.sub-heading {
-    font-family: "Alpha Monday", sans-serif;
-    font-weight: 400;
-    font-size: 48px;
+.sub-heading-about {
+    font-family: "Tangerine", cursive;
+    font-weight: 800;
+    font-size: 32px;
     line-height: 1;
     letter-spacing: 0;
     text-align: center;
     padding-bottom: 20px;
 }
-.gro-bold-heading {
-    font-family: "Alpha Monday", sans-serif;
-    font-weight: 500;
+.gro-bold-heading-about {
+    font-family: "GROBOLD", sans-serif;
+    font-weight: 800;
     font-size: 50px;
+    max-width: 700px;
     line-height: 1;
     letter-spacing: 0;
     text-align: center;
-    display: inline;
 }
 
-.lead {
+.lead-about {
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 28px;
     line-height: 1;
     letter-spacing: 1px;
     text-align: center;
 }
+
+.about-cards {
+    display: flex;
+    flex-wrap: wrap;
+    color: #ffffff;
+}
+
+.about-h2 {
+    font-family: "Tangerine", cursive;
+    font-weight: 800;
+    font-size: 32px;
+}
+
+
 @media (max-width: 768px) {
-    .gro-bold-heading {
-        font-family: "Alpha Monday", sans-serif;
-        font-weight: 500;
+    .gro-bold-heading-about {
         font-size: 30px;
-        line-height: 1;
-        letter-spacing: 0;
-        text-align: center;
     }
-    .sub-heading {
-        font-family: "Alpha Monday", sans-serif;
-        font-weight: 400;
+    .sub-heading-about {
         font-size: 24px;
-        line-height: 1;
-        letter-spacing: 0;
-        text-align: center;
-        padding-bottom: 20px;
+    }
+    .about-cards {
+        flex-direction: column-reverse;
+        padding: 0 10px;
     }
 }

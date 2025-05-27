@@ -1,19 +1,58 @@
-.Button_Wrap {
-  width: 100%;
-  height: 45px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 24px;
-  color: #ffffff;
-  background: red;
-  /* background: #56CCF2; */
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  transition: 1s ease;
+.Button_Wrap,
+.Button_Wrap_secondary {
+    position: relative;
+    width: 200px;
+    padding: 15px 0;
+    /* height: 50px; */
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: #ffffff;
+    background: #691411;
+    border-radius: 30px;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    outline: none;
+    transition: 1s ease;
 }
 
-.Button_Wrap:disabled {
-  background: #696969 !important;
+.Button_Wrap_secondary {
+    color: #691411;
+    background: #ffffff;
+}
+
+.Button_Wrap::after {
+    position: absolute;
+    content: "";
+    top: -7px;
+    left: 35px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 18px solid white;
+}
+.Button_Wrap_secondary::after {
+    position: absolute;
+    content: "";
+    top: -7px;
+    left: 35px;
+    /* background: white; */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 18px solid #ff8000;
+}
+
+.Button_Wrap:hover,
+.Button_Wrap_secondary:hover {
+    scale: 1.1;
+}
+
+.Button_Wrap:disabled,
+.Button_Wrap_secondary:disabled {
+    background: #696969 !important;
 }
