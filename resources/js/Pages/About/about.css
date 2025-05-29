@@ -26,7 +26,7 @@
     text-align: center;
 }
 
-.about-cards {
+.about-cards, .about-cards-2 {
     display: flex;
     flex-wrap: wrap;
     color: #ffffff;
@@ -38,6 +38,10 @@
     font-size: 32px;
 }
 
+.lh-lg {
+    font-family: "Poppins", sans-serif !important;
+    font-size: 14px;
+}
 
 @media (max-width: 768px) {
     .gro-bold-heading-about {
@@ -49,5 +53,9 @@
     .about-cards {
         flex-direction: column-reverse;
         padding: 0 10px;
+    }
+
+    .lead-about {
+        font-size: 20px;
     }
 }

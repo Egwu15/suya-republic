@@ -26,7 +26,7 @@ export const Footer = () => {
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        backgroundColor: "#69141180", // semi-transparent overlay
+                        // backgroundColor: "#69141180", // semi-transparent overlay
                         pointerEvents: "none", // allows clicks to pass through if needed
                     }}
                 />
