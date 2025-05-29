@@ -6,7 +6,7 @@ import Button from "../Button";
 const Hero = ({ pagename, title, desc }) => {
     return (
         <div
-            className="hero-bg text-white text-center d-flex flex-column justify-content-center align-items-center vh-100"
+            className="hero-bg hero-bg-home text-white text-center d-flex flex-column justify-content-center align-items-center vh-100"
             style={{}}
         >
             {/* Navbar */}
@@ -19,7 +19,7 @@ const Hero = ({ pagename, title, desc }) => {
                     left: 0,
                     width: "100%",
                     height: "100%",
-                    // backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
                     zIndex: 1,
                 }}
             />
