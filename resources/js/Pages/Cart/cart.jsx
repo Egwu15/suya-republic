@@ -129,14 +129,14 @@ const Cart = ({ cartAdded, products }) => {
                         }}
                     >
                         <div className="container  text-center">
-                            <Link href="/menu" className="text-decoration-none">
+                            {/* <Link href="/menu" className="text-decoration-none">
                                 <button className="small-btn">
                                     <span className="material-symbols-outlined ">
                                         arrow_back
                                     </span>
                                     Back
                                 </button>
-                            </Link>
+                            </Link> */}
                         </div>
                     </section>
                     <section className="menu-section position-relative">
