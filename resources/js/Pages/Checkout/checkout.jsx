@@ -223,7 +223,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 }}
             >
                 <div className="container  text-center">
-                    <Link href="/menu" className="text-decoration-none">
+                    <Link href="/cart" className="text-decoration-none">
                         <button className="small-btn">
                             <span className="material-symbols-outlined ">
                                 arrow_back
@@ -597,7 +597,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             <div className="d-flex w-100 gap-3">
                                                 {/* Image */}
                                                 <img
-                                                    src={item.image}
+                                                    // src={item.image}
+                                                    src={`/storage/${item.product_image}`}
                                                     alt={item.name}
                                                     style={{
                                                         width: "70px",

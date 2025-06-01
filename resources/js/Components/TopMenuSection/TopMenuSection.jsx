@@ -30,9 +30,10 @@ const TopMenuSection = ({ products, categories }) => {
     const filteredItems =
         selectedCategory === "All"
             ? products
-            : products.filter(
-                  (item) => item.category_id === parseInt(selectedCategory)
-              );
+            : products
+            // : products.filter(
+            //       (item) => item.category_id === parseInt(selectedCategory)
+            //   );
 
     return (
         <div className="menu-section position-relative text-white py-5 px-3">
@@ -156,8 +157,8 @@ const TopMenuSection = ({ products, categories }) => {
                                         >
                                             {console.log("item", item)}
                                             <img
-                                                src={suyabeef}
-                                                // src={item?.product_image}
+                                                // src={suyabeef}
+                                                src={`/storage/${item.product_image}`}
                                                 alt={item.name}
                                                 className="rounded-3 menu-img me-3"
                                             />
