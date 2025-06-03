@@ -25,7 +25,7 @@ const spices = [
     },
 ];
 
-const SpiceShowcase = () => {
+const SpiceShowcase = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -54,7 +54,7 @@ const SpiceShowcase = () => {
 
             <div className="container mt-5 ">
                 <div className="row justify-content-center gy-5">
-                    {spices.map((spice) => {
+                    {products.map((spice) => {
                         const isSelected = cartItems.some(
                             (item) => item.id === spice.id
                         );
