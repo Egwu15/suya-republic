@@ -5,6 +5,7 @@ import { Link, usePage, router } from "@inertiajs/react";
 import { FaBars } from "react-icons/fa";
 import useCartStore from "@/store/Store";
 import CartIcon from "@/Pages/Cart/CartIcon";
+import Button from "../Button";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -114,37 +115,46 @@ const Navbar = () => {
             <div className="gap-3 justify-content-center mt-4 d-none d-md-flex">
                 <Link
                     href="/order-online"
-                    className="rounded-pill px-4 py-3 fw-bold order-button scale-effect"
+                    style={{
+                        marginLeft: ".5rem",
+                        marginBottom: "1rem",
+                        fontFamily: "Dynapuff",
+                    }}
                 >
-                    ORDER ONLINE
+                    <Button
+                        text="ORDER ONLINE"
+                        //   handleButtonClick={handleSubmit}
+                        // btnstyle={{ cursor: "pointer" }}
+                        type="button"
+                        // disabled={!(individual && cooperate)}
+                    />
                 </Link>
                 {user ? (
-                    <button
-                        onClick={handleSignOut}
-                        className=" rounded-pill cursor-pointer px-4 py-3 login-signup-button text-decoration-none text-center"
-                        style={{
-                            fontFamily: "Dynapuff",
-                        }}
-                    >
-                        Sign Out
-                    </button>
+                    <Button
+                        text="Sign Out"
+                        handleButtonClick={handleSignOut}
+                        btnstyle={{ fontFamily: "Dynapuff" }}
+                        type="button"
+                        className="Button_Wrap_secondary"
+                        // disabled={!(individual && cooperate)}
+                    />
                 ) : (
                     <Link
                         href="/login"
-                        className=" rounded-pill  px-4 py-3 login-signup-button text-decoration-none text-center"
                         style={{
                             fontFamily: "Dynapuff",
                         }}
                     >
-                        LOGIN/SIGNUP
+                        <Button
+                            text="LOGIN/SIGNUP"
+                            //   handleButtonClick={handleSubmit}
+                            btnstyle={{ fontFamily: "Dynapuff" }}
+                            type="button"
+                            className="Button_Wrap_secondary"
+                            // disabled={!(individual && cooperate)}
+                        />
                     </Link>
                 )}
-                {/* <Link
-                    href="/login"
-                    className=" rounded-pill  px-4 py-3 login-signup-button text-decoration-none text-center"
-                >
-                    LOGIN/SIGNUP
-                </Link> */}
             </div>
             {/* Mobile Menu */}
             <div
@@ -223,39 +233,49 @@ const Navbar = () => {
                         <li className="text-start">
                             <Link
                                 href="/order-online"
-                                className="rounded-pill px-4 py-3 fw-bold order-button scale-effect mt-2"
+                                style={{
+                                    marginTop: "1rem",
+                                    marginBottom: "1rem",
+                                    fontFamily: "Dynapuff",
+                                }}
                             >
-                                ORDER ONLINE
+                                <Button
+                                    text="ORDER ONLINE"
+                                    //   handleButtonClick={handleSubmit}
+                                    // btnstyle={{ cursor: "pointer" }}
+                                    type="button"
+                                    // disabled={!(individual && cooperate)}
+                                />
                             </Link>
-                            {/* <button className="order-button mt-3">
-                                ORDER ONLINE
-                            </button> */}
                         </li>
+                        <br/>
                         <li className="text-start">
                             {user ? (
-                                <button
-                                    onClick={handleSignOut}
-                                    className=" rounded-pill cursor-pointer px-4 py-3 login-signup-button text-decoration-none text-center my-4"
-                                    style={{
-                                        fontFamily: "Dynapuff",
-                                    }}
-                                >
-                                    Sign Out
-                                </button>
+                                <Button
+                                    text="Sign Out"
+                                    handleButtonClick={handleSignOut}
+                                    btnstyle={{ fontFamily: "Dynapuff" }}
+                                    type="button"
+                                    className="Button_Wrap_secondary"
+                                    // disabled={!(individual && cooperate)}
+                                />
                             ) : (
                                 <Link
                                     href="/login"
-                                    className=" rounded-pill  px-4 py-3 login-signup-button text-decoration-none text-center my-4"
                                     style={{
                                         fontFamily: "Dynapuff",
                                     }}
                                 >
-                                    LOGIN/SIGNUP
+                                    <Button
+                                        text="LOGIN/SIGNUP"
+                                        //   handleButtonClick={handleSubmit}
+                                        btnstyle={{ fontFamily: "Dynapuff" }}
+                                        type="button"
+                                        className="Button_Wrap_secondary"
+                                        // disabled={!(individual && cooperate)}
+                                    />
                                 </Link>
                             )}
-                            {/* <button className="login-signup-button mt-2">
-                                LOGIN/SIGNUP
-                            </button> */}
                         </li>
                     </ul>
                 </div>

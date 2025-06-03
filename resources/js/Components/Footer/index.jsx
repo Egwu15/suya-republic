@@ -6,6 +6,7 @@ import brandVideo from "../../../assets/img/suya/SUYA-REPUBLICK-VIDEO_vid.mp4";
 
 import logo from "../../../assets/img/suya/Mobile-Logo.png";
 import "./index.css";
+import Button from "../Button";
 
 export const Footer = () => {
     return (
@@ -25,7 +26,7 @@ export const Footer = () => {
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        backgroundColor: "#69141180", // semi-transparent overlay
+                        // backgroundColor: "#69141180", // semi-transparent overlay
                         pointerEvents: "none", // allows clicks to pass through if needed
                     }}
                 />
@@ -113,12 +114,17 @@ export const Footer = () => {
                                     303 Chester Rd Manchester M15 4EY
                                 </p>
 
-                                <button className="outline-btn">
-                                    Talk to Us{" "}
-                                    <span className="material-symbols-outlined">
-                                        arrow_outward
-                                    </span>
-                                </button>
+                                <Link href="/contact">
+                                    <Button
+                                        text="Talk to Us"
+                                        btnstyle={{
+                                            width: "150px",
+                                            padding: "10px 0",
+                                        }}
+                                        type="button"
+                                        className="Button_Wrap_secondary"
+                                    />
+                                </Link>
                             </div>
                         </div>
                         <div className="col-12 col-md-3 pt-5">
@@ -153,6 +159,7 @@ export const Footer = () => {
                             className="pt-2"
                             style={{
                                 fontWeight: "400",
+                                fontFamily: "Poppins, sans-serif"
                             }}
                         >
                             copyright © 2025 Suya Republick

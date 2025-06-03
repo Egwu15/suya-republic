@@ -1,6 +1,26 @@
+.sub-heading {
+    font-family: "Tangerine", cursive;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    padding-bottom: 20px;
+}
+.gro-bold-heading-pages {
+    font-family: "GROBOLD", sans-serif;
+    font-weight: 500;
+    font-size: 80px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    display: inline;
+}
+
 .spice-section {
     background-color: #f47b20;
 }
+
 
 .spice-img {
     height: 300px;
@@ -33,40 +53,23 @@
 .card-title {
     text-align: left;
 }
-.sub-heading {
-    font-family: "Alpha Monday", sans-serif;
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 1;
-    letter-spacing: 0;
-    text-align: center;
-    padding-bottom: 20px;
+
+.spices-notch {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-size: 28px;
 }
-.gro-bold-heading {
-    font-family: "Alpha Monday", sans-serif;
-    font-weight: 500;
-    font-size: 100px;
-    line-height: 1;
-    letter-spacing: 0;
-    text-align: center;
-    display: inline;
+.spices-notch-2 {
+    font-family: "GROBOLD", sans-serif;
+    font-weight: 800;
+    font-size: 38px;
 }
 @media (max-width: 768px) {
-    .gro-bold-heading {
-        font-family: "Alpha Monday", sans-serif;
-        font-weight: 500;
-        font-size: 30px;
-        line-height: 1;
-        letter-spacing: 0;
-        text-align: center;
+    .gro-bold-heading-pages {
+        font-size: 40px !important;
     }
     .sub-heading {
-        font-family: "Alpha Monday", sans-serif;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 1;
-        letter-spacing: 0;
-        text-align: center;
+        font-size: 26px;
         padding-bottom: 20px;
     }
 }

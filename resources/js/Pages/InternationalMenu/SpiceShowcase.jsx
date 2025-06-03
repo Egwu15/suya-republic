@@ -47,8 +47,8 @@ const SpiceShowcase = ({ products }) => {
 
     return (
         <section className="spice-section text-white text-center py-5">
-            <h4 className="fw-bold text-dark py-6 mt-5">Top-Notch Spices</h4>
-            <h1 className="display-5 fw-bold text-white mt-2">
+            <h4 className="spices-notch fw-bold text-dark py-6 mt-5">Top-Notch Spices</h4>
+            <h1 className="spices-notch-2 display-5 fw-bold text-white mt-2">
                 It worth mouth watering.
             </h1>
 
@@ -66,7 +66,7 @@ const SpiceShowcase = ({ products }) => {
                                 <div className=" spice-card border-0 mx-auto text-center">
                                     <div
                                         className="card-img-top spice-img"
-                                        style={{ cursor: "pointer" }}
+                                        style={{ cursor: "pointer", overflow: "hidden" }}
                                         onClick={() =>
                                             handleProductClick(spice)
                                         }
@@ -83,7 +83,7 @@ const SpiceShowcase = ({ products }) => {
                                         <h5 className="card-title fw-bold text-dark py-4">
                                             {spice.name}
                                         </h5>
-                                        <div className="d-flex justify-content-start align-items-center gap-2 flex-wrap">
+                                        <div className="d-flex justify-content-between align-items-center gap-2 flex-wrap">
                                             <button
                                                 className={`btn rounded-pill fw-semibold px-4 py-2 d-flex align-items-center gap-2 ${
                                                     isSelected
@@ -105,7 +105,7 @@ const SpiceShowcase = ({ products }) => {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        Select Item{" "}
+                                                        Add To Cart{" "}
                                                         <i className="bi bi-arrow-up-right"></i>
                                                     </>
                                                 )}

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Navbar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import "./about.css";
@@ -8,6 +7,8 @@ import image1 from "../../../assets/img/suya/The-Suya-Experience.jpg";
 import image2 from "../../../assets/img/suya/image.png";
 import image3 from "../../../assets/img/suya/Roast-suya.png";
 import image4 from "../../../assets/img/suya/Sharwama.png";
+import Button from "@/Components/Button";
+import { Link } from "@inertiajs/react";
 
 function About() {
     useEffect(() => {
@@ -20,7 +21,6 @@ function About() {
 
     return (
         <div>
-            {/* <Navbar /> */}
             {loading ? (
                 <Loader />
             ) : (
@@ -31,79 +31,73 @@ function About() {
                         <div className="hero-overlay" />
 
                         {/* Content */}
-                        <div style={{ zIndex: 2, paddingBlock: "150px" }}>
-                            <h2 className="sub-heading text-warning mb-3">
+                        <div style={{ zIndex: 2, padding: "30px 20px" }}>
+                            <h2 className="sub-heading-about text-bold text-warning mb-3">
                                 {"About Us"}
                             </h2>
-                            <h2 className="gro-bold-heading text-white">
+                            <h2 className="gro-bold-heading-about text-white">
                                 We are bringing the taste of Africa to
                                 Manchester.
                             </h2>
-                            <p className="lead text-center px-3 my-3">
-                                We cure your Nostalgia With our Tasty Suya.
-                                <br /> Get you Spicy Suya anywhere, anytime
-                                within the UK
+                            <p className="lead-about text-center px-3 my-3">
+                                We cure your Nostalgia With our Tasty Suya. Get
+                                you Spicy Suya anywhere, anytime within
+                                Manchester.
                             </p>
 
                             <div className="d-md-flex d-block gap-md-3 gap-4 d-flex flex-column flex-md-row justify-content-center mt-4 ">
-                                <button className="action-btn-bg ">
-                                    ORDER ONLINE{" "}
-                                    <span className="material-symbols-outlined material">
-                                        arrow_outward
-                                    </span>
-                                </button>
-                                <button className="action-btn-outline">
-                                    PICKUP IN STORE{" "}
-                                    <span className="material-symbols-outlined material">
-                                        arrow_outward
-                                    </span>
-                                </button>
+                                <Link
+                                    href="/order-online"
+                                    style={{
+                                        marginLeft: ".5rem",
+                                        marginBottom: "1rem",
+                                    }}
+                                >
+                                    <Button text="ORDER ONLINE" type="button" />
+                                </Link>
+                                <Link
+                                    href="/order-online"
+                                    style={{ marginLeft: ".5rem" }}
+                                >
+                                    <Button
+                                        text="PICKUP IN STORE"
+                                        type="button"
+                                        className="Button_Wrap_secondary"
+                                    />
+                                </Link>
                             </div>
                             {/* <ActionButtons />{" "} */}
                         </div>
                     </div>
-                    {/* <section className="our-menu">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-12 col-12 text-center">
+
+                    <section
+                        style={{
+                            padding: "50px 0 0 0",
+                            background: "#D64727",
+                            color: "#ffffff",
+                        }}
+                    >
+                        <div className="container">
+                            <div className="about-cards row align-items-center">
+                                {/* Text Section */}
+                                <div style={{ padding: "25px 0 0 0" }}>
+                                    <h2 className="about-h2">Our Brand</h2>
                                     <p
+                                        className="lh-lg"
                                         style={{
-                                            fontSize: "20px",
+                                            maxWidth: "500px",
                                         }}
                                     >
-                                        {" "}
-                                        Our Brand
-                                    </p>
-                                    <h1
-                                        className="mb-2"
-                                        style={{
-                                            fontFamily: "Dynapuff",
-                                        }}
-                                    >
-                                        About Us
-                                    </h1>
-                                    <p
-                                        style={{
-                                            fontSize: "20px",
-                                        }}
-                                    >
-                                        We are bringing the taste of Africa to
-                                        Manchester.
+                                        We’re an absolute leader in the
+                                        Manchester cuisine-themed restaurants,
+                                        with our{" "}
+                                        <span style={{ color: "#FFD703" }}>
+                                            Naija Spicy Suya.
+                                        </span>
                                     </p>
                                 </div>
-                            </div>
-                        </div>
-                    </section> */}
-
-                    <section style={{ margin: "50px 0" }}>
-                        <div className="container">
-                            <div
-                                className="row align-items-center"
-                                style={{ display: "flex", flexWrap: "wrap" }}
-                            >
                                 {/* Image Section */}
                                 <div
-                                    className="col-md-6 col-12"
                                     style={{ padding: "15px" }}
                                 >
                                     <img
@@ -115,16 +109,29 @@ function About() {
                                         }}
                                     />
                                 </div>
-
-                                {/* Text Section */}
+                            </div>
+                        </div>
+                        <div className="container mt-5">
+                            <div
+                                className="row align-items-center"
+                                style={{ display: "flex", flexWrap: "wrap" }}
+                            >
+                                {/* Left Section */}
                                 <div
                                     className="col-md-6 col-12"
-                                    style={{ padding: "45px" }}
+                                    style={{ padding: "15px 20px" }}
                                 >
-                                    <p className="color-red font-bold">
-                                        Suya Republick
-                                    </p>
-                                    <h2 className="font-bold">OUR BRAND</h2>
+                                    <h2
+                                        className="about-h2"
+                                        style={{
+                                            maxWidth: "500px",
+                                            marginBottom: "20px",
+                                            fontSize: "28px",
+                                        }}
+                                    >
+                                        One of the best resturants in
+                                        Manchester, UK.
+                                    </h2>
                                     <p className="lh-lg">
                                         The first Suya Republic started out in
                                         the streets of Lagos, Nigeria in 2018.
@@ -138,19 +145,6 @@ function About() {
                                         commitment to community development and
                                         utmost satisfaction of our customers.
                                     </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="container mt-5">
-                            <div
-                                className="row align-items-center"
-                                style={{ display: "flex", flexWrap: "wrap" }}
-                            >
-                                {/* Image Section */}
-                                <div
-                                    className="col-md-6 col-12"
-                                    style={{ padding: "15px" }}
-                                >
                                     <img
                                         src={image2}
                                         alt="Suya Republic Team"
@@ -161,14 +155,27 @@ function About() {
                                     />
                                 </div>
 
-                                {/* Text Section */}
+                                {/* Right Section */}
                                 <div
                                     className="col-md-6 col-12"
-                                    style={{ padding: "45px" }}
+                                    style={{ padding: "15px 20px" }}
                                 >
-                                    <h2 className="font-bold">
-                                        SUYA REPUBLICK IS <br />
-                                        AN EXPERIENCE
+                                    <img
+                                        src={image4}
+                                        alt="Suya Republic Shawarma"
+                                        style={{
+                                            width: "100%",
+                                            borderRadius: "8px",
+                                        }}
+                                    />
+                                    <h2
+                                        className="about-h2"
+                                        style={{
+                                            margin: "20px 0",
+                                            fontSize: "28px",
+                                        }}
+                                    >
+                                        Suya Republick is An Experience
                                     </h2>
                                     <p className="lh-lg">
                                         The idea of street food is constantly
@@ -178,17 +185,30 @@ function About() {
                                         bringing the ambience of Africa to
                                         Manchester.
                                     </p>
+                                    <h2
+                                        className="about-h2"
+                                        style={{
+                                            margin: "20px 0",
+                                            fontSize: "28px",
+                                        }}
+                                    >
+                                        Our Mission
+                                    </h2>
+                                    <p className="lh-lg">
+                                        Our corporate mission is to provide
+                                        optimal satisfaction for our customers
+                                        through the provision and delivery of
+                                        quality, delicious and affordable meals
+                                        within a soul-reaching environment.
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div className="container mt-5">
-                            <div
-                                className="row align-items-center"
-                                style={{ display: "flex", flexWrap: "wrap" }}
-                            >
+                        <div className="container">
+                            <div className="about-cards-2 row align-items-center">
                                 {/* Image Section */}
                                 <div
-                                    className="col-md-6 col-12"
+                                    // className="col-md-6 col-12"
                                     style={{ padding: "15px" }}
                                 >
                                     <img
@@ -200,49 +220,17 @@ function About() {
                                         }}
                                     />
                                 </div>
-
                                 {/* Text Section */}
-                                <div
-                                    className="col-md-6 col-12"
-                                    style={{ padding: "45px" }}
-                                >
-                                    <h2 className="font-bold">OUR MISSION</h2>
-                                    <p className="lh-lg">
-                                        Our corporate mission is to provide
-                                        optimal satisfaction for our customers
-                                        through the provision and delivery of
-                                        quality, delicious and affordable meals
-                                        within a soul-reaching environment.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="container mt-5">
-                            <div
-                                className="row align-items-center"
-                                style={{ display: "flex", flexWrap: "wrap" }}
-                            >
-                                {/* Image Section */}
-                                <div
-                                    className="col-md-6 col-12"
-                                    style={{ padding: "15px" }}
-                                >
-                                    <img
-                                        src={image4}
-                                        alt="Suya Republic Team"
-                                        style={{
-                                            width: "100%",
-                                            borderRadius: "8px",
-                                        }}
-                                    />
-                                </div>
-
-                                {/* Text Section */}
-                                <div
-                                    className="col-md-6 col-12"
-                                    style={{ padding: "45px" }}
-                                >
-                                    <p className="lh-lg">
+                                <div style={{ padding: "25px 15px" }}>
+                                    <h2 className="about-h2">Our Vision</h2>
+                                    <p
+                                        className="lh-lg"
+                                        style={
+                                            {
+                                                // maxWidth: "500px",
+                                            }
+                                        }
+                                    >
                                         We aim to target indigenous tribes in
                                         diaspora who have had a nostalgic
                                         annotation to their indigenous meals. We
@@ -270,3 +258,4 @@ function About() {
 }
 
 export default About;
+

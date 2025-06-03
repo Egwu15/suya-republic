@@ -9,6 +9,7 @@ import { Link } from "@inertiajs/react";
 import useCartStore from "@/store/Store";
 import { ArrowUpRight, Trash2 } from "lucide-react";
 import { usePage } from "@inertiajs/react";
+import Button from "../Button";
 
 const TopMenuSection = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
@@ -29,9 +30,10 @@ const TopMenuSection = ({ products, categories }) => {
     const filteredItems =
         selectedCategory === "All"
             ? products
-            : products.filter(
-                  (item) => item.category_id === parseInt(selectedCategory)
-              );
+            : products
+            // : products.filter(
+            //       (item) => item.category_id === parseInt(selectedCategory)
+            //   );
 
     return (
         <div className="menu-section position-relative text-white py-5 px-3">
@@ -122,9 +124,10 @@ const TopMenuSection = ({ products, categories }) => {
                         <div className="menu-items">
                             <h3
                                 style={{
-                                    fontWeight: "400",
+                                    fontWeight: "800",
                                     color: "#ffd703",
                                     fontSize: "32px",
+                                    fontFamily: "Tangerine, cursive",
                                 }}
                                 className="p-3"
                             >
@@ -154,8 +157,8 @@ const TopMenuSection = ({ products, categories }) => {
                                         >
                                             {console.log("item", item)}
                                             <img
-                                                src={suyabeef}
-                                                // src={item?.product_image}
+                                                // src={suyabeef}
+                                                src={`/storage/${item.product_image}`}
                                                 alt={item.name}
                                                 className="rounded-3 menu-img me-3"
                                             />
@@ -208,7 +211,7 @@ const TopMenuSection = ({ products, categories }) => {
                                                         </>
                                                     ) : (
                                                         <>
-                                                            Select Item{" "}
+                                                            Add To Cart{" "}
                                                             <ArrowUpRight
                                                                 size={16}
                                                             />
@@ -229,12 +232,12 @@ const TopMenuSection = ({ products, categories }) => {
                             <div className="text-star margin ">
                                 <Link
                                     href="/menu"
-                                    className="link-outline-btn "
                                 >
-                                    See More{" "}
-                                    <span className="material-symbols-outlined fw-bold">
-                                        arrow_outward
-                                    </span>
+                                    <Button
+                                        text="See More"
+                                        type="button"
+                                        className="Button_Wrap_secondary"
+                                    />
                                 </Link>
                             </div>
                         </div>

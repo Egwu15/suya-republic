@@ -43,6 +43,7 @@
 .quote {
     font-size: 4rem;
     color: #fff;
+    line-height: 1rem;
 }
 @media (max-width: 768px) {
     .learn-more-section {
@@ -74,6 +75,7 @@
         min-height: 600px;
         z-index: 1;
         margin-top: 350px;
+        padding: 0 15px;
         padding-top: 50px;
     }
 

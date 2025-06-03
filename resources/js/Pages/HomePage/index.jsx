@@ -39,7 +39,7 @@ export const HomeComponent = ({ products, categories }) => {
                 title={"Naija"}
                 desc={`We Cure your Nostalgia with our Tasty Suya.
                     Get you Spicy Suya anywhere, anytime
-                    within the UK.`}
+                    within Manchester.`}
             />
             <OpeningHours />
             <TopMenuSection products={products} categories={categories} />
