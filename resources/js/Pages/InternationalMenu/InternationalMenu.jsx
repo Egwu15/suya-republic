@@ -80,7 +80,7 @@ const InternationalMenu = ({ products }) => {
                     {/* <ActionButtons />{" "} */}
                 </div>
             </div>
-            <SpiceShowcase />
+            <SpiceShowcase products={products} />
             {/* <section className="faq-answer">
                 <div className="container">
                     <div className="row">

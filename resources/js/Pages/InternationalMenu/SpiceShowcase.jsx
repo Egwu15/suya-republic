@@ -4,28 +4,7 @@ import ProductModal from "@/Components/ProductModal/ProductModal"; // Your modal
 import "./spices.css";
 import Shawarma from "../../../assets/img/suya/Sharwama.png";
 
-const spices = [
-    {
-        id: 1,
-        name: "SUYA SPICE MILD",
-        image: "/images/suya-mild.png",
-        price: 10.0,
-    },
-    {
-        id: 2,
-        name: "SUYA SPICE HOT",
-        image: "/images/suya-hot.png",
-        price: 10.0,
-    },
-    {
-        id: 3,
-        name: "SUYA SPICE – SUPER HOT",
-        image: "/images/suya-superhot.png",
-        price: 10.0,
-    },
-];
-
-const SpiceShowcase = () => {
+const SpiceShowcase = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -47,14 +26,16 @@ const SpiceShowcase = () => {
 
     return (
         <section className="spice-section text-white text-center py-5">
-            <h4 className="spices-notch fw-bold text-dark py-6 mt-5">Top-Notch Spices</h4>
+            <h4 className="spices-notch fw-bold text-dark py-6 mt-5">
+                Top-Notch Spices
+            </h4>
             <h1 className="spices-notch-2 display-5 fw-bold text-white mt-2">
                 It worth mouth watering.
             </h1>
 
             <div className="container mt-5 ">
                 <div className="row justify-content-center gy-5">
-                    {spices.map((spice) => {
+                    {products.map((spice) => {
                         const isSelected = cartItems.some(
                             (item) => item.id === spice.id
                         );
@@ -66,7 +47,10 @@ const SpiceShowcase = () => {
                                 <div className=" spice-card border-0 mx-auto text-center">
                                     <div
                                         className="card-img-top spice-img"
-                                        style={{ cursor: "pointer", overflow: "hidden" }}
+                                        style={{
+                                            cursor: "pointer",
+                                            overflow: "hidden",
+                                        }}
                                         onClick={() =>
                                             handleProductClick(spice)
                                         }

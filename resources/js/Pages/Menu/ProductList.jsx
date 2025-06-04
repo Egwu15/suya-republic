@@ -6,51 +6,6 @@ import platter from "../../../assets/img/suya/Full-Platter-1.jpg";
 import useCartStore from "@/store/Store";
 import ProductModal from "@/Components/ProductModal/ProductModal"; // Make sure the path is correct
 
-const foodItems = [
-    {
-        id: 1,
-        name: "Lamb Suya",
-        price: 9.5,
-        image: suyabeef,
-        description: "Spicy lamb skewers",
-    },
-    {
-        id: 2,
-        name: "Beef Suya",
-        price: 9.5,
-        image: platter,
-        description: "Juicy beef grilled with spices",
-    },
-    {
-        id: 3,
-        name: "Jollof Rice & Peppered Turkey",
-        price: 14.0,
-        image: platter,
-        description: "Classic jollof with spicy turkey",
-    },
-    {
-        id: 4,
-        name: "Meat Pie",
-        price: 2.5,
-        image: Shawarma,
-        description: "Savory minced meat in flaky crust",
-    },
-    {
-        id: 5,
-        name: "Coleslaw",
-        price: 2.0,
-        image: platter,
-        description: "Fresh cabbage and carrot mix",
-    },
-    {
-        id: 6,
-        name: "Fried Yam",
-        price: 5.0,
-        image: Shawarma,
-        description: "Crispy yam fries",
-    },
-];
-
 const ProductList = ({ products }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -73,7 +28,7 @@ const ProductList = ({ products }) => {
 
     return (
         <div className="container py-5">
-            <div className="row g-4 justify-content-center menu-cards">
+            <div className="row g-4 justify-content-center">
                 {products.map((item) => {
                     const isSelected = cartItems.some((i) => i.id === item.id);
 
@@ -85,67 +40,69 @@ const ProductList = ({ products }) => {
                             <div className="text-center text-white">
                                 <img
                                     // src={platter}
-                                    src={`/storage/${item.product_image}`}
+                                    src={item.image}
                                     alt={item.name}
-                                    className="img-fluid"
+                                    className="img-fluid rounded cursor-pointer border "
                                     onClick={() => handleImageClick(item)}
                                     style={{
-                                        // height: "320px",
+                                        height: "320px",
                                         // width: "320px",
                                         objectFit: "cover",
                                         marginBottom: "10px",
-                                        // cursor: "pointer",
-                                        borderRadius: "20px"
+                                        cursor: "pointer",
                                     }}
                                 />
-                                <p
-                                    className="fw-semibold text-left text-uppercase mx- mx-md-0"
-                                    style={{
-                                        textAlign: "left",
-                                        fontFamily: "Poppins, sans-serif",
-                                    }}
-                                >
-                                    {item.name}
-                                </p>
-
-                                <div className="d-flex justify-content-between  align-items-center gap-2 mx-  mx-md-0">
-                                    <button
-                                        onClick={() =>
-                                            toggleItemSelection(item)
-                                        }
-                                        className={`d-flex align-items-center gap-2 ${
-                                            isSelected
-                                                ? "btn btn-warning text-dark"
-                                                : "btn btn-outline-light"
-                                        }`}
+                                <div className="px-5">
+                                    <p
+                                        className="fw-semibold text-left text-uppercase mx- mx-md-0"
                                         style={{
-                                            borderRadius: "30px",
-                                            fontWeight: "500",
-                                            padding: "6px 16px",
+                                            textAlign: "left",
+                                            fontFamily: "Poppins, sans-serif",
                                         }}
                                     >
-                                        {isSelected ? (
-                                            <>
-                                                Delete Item <Trash2 size={16} />
-                                            </>
-                                        ) : (
-                                            <>
-                                                Add To Cart{" "}
-                                                <ArrowUpRight size={16} />
-                                            </>
-                                        )}
-                                    </button>
+                                        {item.name}
+                                    </p>
 
-                                    <div
-                                        style={{
-                                            backgroundColor: "white",
-                                            color: "#000",
-                                            padding: "6px 16px",
-                                            borderRadius: "30px",
-                                            fontWeight: "500",
-                                        }}
-                                    >
-                                        £{item?.price ?? 0}
+                                    <div className="d-flex justify-content-between  align-items-center gap-2 mx-  mx-md-0">
+                                        <button
+                                            onClick={() =>
+                                                toggleItemSelection(item)
+                                            }
+                                            className={`d-flex align-items-center gap-2 ${
+                                                isSelected
+                                                    ? "btn btn-warning text-dark"
+                                                    : "btn btn-outline-light"
+                                            }`}
+                                            style={{
+                                                borderRadius: "30px",
+                                                fontWeight: "500",
+                                                padding: "6px 16px",
+                                            }}
+                                        >
+                                            {isSelected ? (
+                                                <>
+                                                    Delete Item{" "}
+                                                    <Trash2 size={16} />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Add To Cart{" "}
+                                                    <ArrowUpRight size={16} />
+                                                </>
+                                            )}
+                                        </button>
+
+                                        <div
+                                            style={{
+                                                backgroundColor: "white",
+                                                color: "#000",
+                                                padding: "6px 16px",
+                                                borderRadius: "30px",
+                                                fontWeight: "500",
+                                            }}
+                                        >
+                                            £{item?.price ?? 0}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

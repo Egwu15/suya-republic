@@ -27,13 +27,10 @@ const TopMenuSection = ({ products, categories }) => {
         const isSelected = cartItems.some((i) => i.id === item.id);
         isSelected ? removeItem(item.id) : addItem(item);
     };
-    const filteredItems =
-        selectedCategory === "All"
-            ? products
-            : products
-            // : products.filter(
-            //       (item) => item.category_id === parseInt(selectedCategory)
-            //   );
+    const filteredItems = selectedCategory === "All" ? products : products;
+    // : products.filter(
+    //       (item) => item.category_id === parseInt(selectedCategory)
+    //   );
 
     return (
         <div className="menu-section position-relative text-white py-5 px-3">
@@ -53,7 +50,45 @@ const TopMenuSection = ({ products, categories }) => {
                         </span>
                     </Link>
 
-                    {categories?.data?.map((category) => (
+                    {categories?.data
+                        ?.filter((data) => data.name.toLowerCase() !== "spices")
+                        .map((category) => (
+                            <Link
+                                key={category?.id}
+                                href={`/?selectedCategory=${category?.id}`}
+                                className="text-decoration-none"
+                            >
+                                <span
+                                    className={`category-item px-4 fw-bold rounded-pill ${
+                                        selectedCategory == category?.id
+                                            ? "active text-dark"
+                                            : "text-white"
+                                    }`}
+                                >
+                                    {category?.name}
+                                </span>
+                            </Link>
+                        ))}
+                </div>
+            </div>
+
+            {/* Desktop version – unchanged */}
+            <div className="category-scroll-wrapper container d-none d-md-flex justify-content-cente align-items-center gap-3 mb-4 py-5 flex-wrap">
+                <Link href="/" className="text-decoration-none">
+                    <span
+                        className={`category-item px-4 fw-bold rounded-pill ${
+                            selectedCategory === "All"
+                                ? "active text-dark"
+                                : "text-white"
+                        }`}
+                    >
+                        All
+                    </span>
+                </Link>
+
+                {categories?.data
+                    ?.filter((data) => data.name.toLowerCase() !== "spices")
+                    .map((category) => (
                         <Link
                             key={category?.id}
                             href={`/?selectedCategory=${category?.id}`}
@@ -70,40 +105,6 @@ const TopMenuSection = ({ products, categories }) => {
                             </span>
                         </Link>
                     ))}
-                </div>
-            </div>
-
-            {/* Desktop version – unchanged */}
-            <div className="container d-none d-md-flex justify-content-cente align-items-center gap-3 mb-4 py-5 flex-wrap">
-                <Link href="/" className="text-decoration-none">
-                    <span
-                        className={`category-item px-4 fw-bold rounded-pill ${
-                            selectedCategory === "All"
-                                ? "active text-dark"
-                                : "text-white"
-                        }`}
-                    >
-                        All
-                    </span>
-                </Link>
-
-                {categories?.data?.map((category) => (
-                    <Link
-                        key={category?.id}
-                        href={`/?selectedCategory=${category?.id}`}
-                        className="text-decoration-none"
-                    >
-                        <span
-                            className={`category-item px-4 fw-bold rounded-pill ${
-                                selectedCategory == category?.id
-                                    ? "active text-dark"
-                                    : "text-white"
-                            }`}
-                        >
-                            {category?.name}
-                        </span>
-                    </Link>
-                ))}
             </div>
 
             <div className="menu-layout container">
@@ -134,105 +135,71 @@ const TopMenuSection = ({ products, categories }) => {
                                 {selectedCategoryName}
                             </h3>
 
-                            {filteredItems?.length === 0 ? (
-                                <p className="text-white text-center py-4">
-                                    No items available in this category.
-                                </p>
-                            ) : (
-                                filteredItems?.map((item) => {
-                                    const isSelected = cartItems.some(
-                                        (i) => i.id === item.id
-                                    );
+                            {filteredItems?.slice(0, 3).map((item) => {
+                                const isSelected = cartItems.some(
+                                    (i) => i.id === item.id
+                                );
 
-                                    return (
-                                        <div
-                                            className={`menu-card d-flex  flex-row align-items-center p-3 rounded-4 mb-3 position-relative 
-                                                ${
-                                                    item.status === "in_stocky"
-                                                        ? "starter-highlight"
-                                                        : ""
-                                                }
-                                            `}
-                                            key={item.id}
-                                        >
-                                            {console.log("item", item)}
-                                            <img
-                                                // src={suyabeef}
-                                                src={`/storage/${item.product_image}`}
-                                                alt={item.name}
-                                                className="rounded-3 menu-img me-3"
-                                            />
-                                            <div className="flex-grow-1">
-                                                <div className="d-flex justify-content-between align-items-center mx-3 mx-md-0">
-                                                    <h6 className="mb-1 fw-normal fw-md-bold big-font text-white">
-                                                        {item.name}
-                                                        {/* {item.status ===
-                                                            "in_stock" && (
-                                                            <span className="ms-2 text-warning leaf">
-                                                                🥄
-                                                            </span>
-                                                        )} */}
-                                                    </h6>
-                                                    <h6 className="fw-bold big-font text-white">
-                                                        {/* {item.status ===
-                                                            "in_stock" && (
-                                                            <span className="text-decoration-line-through text-cancel me-2">
-                                                                £{" "}
-                                                                {item.price + 5}
-                                                            </span>
-                                                        )} */}
-                                                        £ {item.price}
-                                                    </h6>
-                                                </div>
-                                                <p className="d-none d-md-block small mb-2 custom-description">
-                                                    {item.description}
-                                                </p>
-                                                <button
-                                                    onClick={() =>
-                                                        toggleItemSelection(
-                                                            item
-                                                        )
-                                                    }
-                                                    className={`d-flex align-items-center gap-2 ${
-                                                        isSelected
-                                                            ? "btn btn-warning text-dark"
-                                                            : "btn btn-outline-light"
-                                                    }`}
-                                                    style={{
-                                                        borderRadius: "30px",
-                                                        fontWeight: "500",
-                                                        padding: "6px 16px",
-                                                    }}
-                                                >
-                                                    {isSelected ? (
-                                                        <>
-                                                            Delete Item{" "}
-                                                            <Trash2 size={16} />
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            Add To Cart{" "}
-                                                            <ArrowUpRight
-                                                                size={16}
-                                                            />
-                                                        </>
-                                                    )}
-                                                </button>
+                                return (
+                                    <div
+                                        className={`menu-card d-flex flex-row align-items-center p-3 rounded-4 mb-3 position-relative 
+                ${item.status === "in_stocky" ? "starter-highlight" : ""}
+            `}
+                                        key={item.id}
+                                    >
+                                        <img
+                                            src={`/storage/${item.product_image}`}
+                                            alt={item.name}
+                                            className="rounded-3 menu-img me-3"
+                                        />
+                                        <div className="flex-grow-1">
+                                            <div className="d-flex justify-content-between align-items-center mx-3 mx-md-0">
+                                                <h6 className="mb-1 fw-normal fw-md-bold big-font text-white">
+                                                    {item.name}
+                                                </h6>
+                                                <h6 className="fw-bold big-font text-white">
+                                                    £ {item.price}
+                                                </h6>
                                             </div>
-                                            {/* {item.status === "in_stock" && (
-                                                <span className="starter-label text-dark px-3 py-2 bg-warning rounded">
-                                                    In Stock
-                                                </span>
-                                            )} */}
+                                            <p className="d-none d-md-block small mb-2 custom-description">
+                                                {item.description}
+                                            </p>
+                                            <button
+                                                onClick={() =>
+                                                    toggleItemSelection(item)
+                                                }
+                                                className={`d-flex align-items-center gap-2 ${
+                                                    isSelected
+                                                        ? "btn btn-warning text-dark"
+                                                        : "btn btn-outline-light"
+                                                }`}
+                                                style={{
+                                                    borderRadius: "30px",
+                                                    fontWeight: "500",
+                                                    padding: "6px 16px",
+                                                }}
+                                            >
+                                                {isSelected ? (
+                                                    <>
+                                                        Delete Item{" "}
+                                                        <Trash2 size={16} />
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        Add To Cart{" "}
+                                                        <ArrowUpRight
+                                                            size={16}
+                                                        />
+                                                    </>
+                                                )}
+                                            </button>
                                         </div>
-                                    );
-                                })
-                            )}
+                                    </div>
+                                );
+                            })}
 
                             <div className="text-star margin ">
-                                <Link
-                                    href="/menu"
-                                >
+                                <Link href="/menu">
                                     <Button
                                         text="See More"
                                         type="button"
