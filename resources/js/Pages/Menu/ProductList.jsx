@@ -46,59 +46,63 @@ const ProductList = ({ products }) => {
                                     onClick={() => handleImageClick(item)}
                                     style={{
                                         height: "320px",
-                                        width: "320px",
+                                        // width: "320px",
                                         objectFit: "cover",
                                         marginBottom: "10px",
                                         cursor: "pointer",
                                     }}
                                 />
-                                <p
-                                    className="fw-semibold text-left text-uppercase mx- mx-md-0"
-                                    style={{
-                                        textAlign: "left",
-                                    }}
-                                >
-                                    {item.name}
-                                </p>
-
-                                <div className="d-flex justify-content-start  align-items-center gap-2 mx-  mx-md-0">
-                                    <button
-                                        onClick={() =>
-                                            toggleItemSelection(item)
-                                        }
-                                        className={`d-flex align-items-center gap-2 ${
-                                            isSelected
-                                                ? "btn btn-warning text-dark"
-                                                : "btn btn-outline-light"
-                                        }`}
+                                <div className="px-5">
+                                    <p
+                                        className="fw-semibold text-left text-uppercase mx- mx-md-0"
                                         style={{
-                                            borderRadius: "30px",
-                                            fontWeight: "500",
-                                            padding: "6px 16px",
+                                            textAlign: "left",
+                                            fontFamily: "Poppins, sans-serif",
                                         }}
                                     >
-                                        {isSelected ? (
-                                            <>
-                                                Delete Item <Trash2 size={16} />
-                                            </>
-                                        ) : (
-                                            <>
-                                                Select Item{" "}
-                                                <ArrowUpRight size={16} />
-                                            </>
-                                        )}
-                                    </button>
+                                        {item.name}
+                                    </p>
 
-                                    <div
-                                        style={{
-                                            backgroundColor: "white",
-                                            color: "#000",
-                                            padding: "6px 16px",
-                                            borderRadius: "30px",
-                                            fontWeight: "500",
-                                        }}
-                                    >
-                                        £{item?.price ?? 0}
+                                    <div className="d-flex justify-content-between  align-items-center gap-2 mx-  mx-md-0">
+                                        <button
+                                            onClick={() =>
+                                                toggleItemSelection(item)
+                                            }
+                                            className={`d-flex align-items-center gap-2 ${
+                                                isSelected
+                                                    ? "btn btn-warning text-dark"
+                                                    : "btn btn-outline-light"
+                                            }`}
+                                            style={{
+                                                borderRadius: "30px",
+                                                fontWeight: "500",
+                                                padding: "6px 16px",
+                                            }}
+                                        >
+                                            {isSelected ? (
+                                                <>
+                                                    Delete Item{" "}
+                                                    <Trash2 size={16} />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Add To Cart{" "}
+                                                    <ArrowUpRight size={16} />
+                                                </>
+                                            )}
+                                        </button>
+
+                                        <div
+                                            style={{
+                                                backgroundColor: "white",
+                                                color: "#000",
+                                                padding: "6px 16px",
+                                                borderRadius: "30px",
+                                                fontWeight: "500",
+                                            }}
+                                        >
+                                            £{item?.price ?? 0}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

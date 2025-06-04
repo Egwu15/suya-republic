@@ -112,6 +112,9 @@
 .margin {
     margin-block: 50px;
 }
+.big-font {
+    font-size: 18px;
+}
 @media (max-width: 768px) {
     .menu-section {
         background-color: #5d1715;
@@ -177,7 +180,7 @@
     }
 
     .big-font {
-        font-size: 18px;
+        font-size: 14px !important;
     }
 }
 .active {
