@@ -30,9 +30,9 @@ class SaleReceipt extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Sale Receipt',
             to: [new Address($this->data['email'], 'Suya republic')],
             cc: [new Address('egwutedd@gmail.com', 'Ted Egwu')],
+            subject: 'Sale Receipt',
 
         );
     }

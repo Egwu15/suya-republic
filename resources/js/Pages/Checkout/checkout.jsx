@@ -43,7 +43,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         note: "",
     });
 
-    useEffect(async() => {
+    useEffect(() => {
         const checkUserAndInitializePayment = async () => {
             try {
                 // Check if the cart is empty
@@ -100,6 +100,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 setCard(card);
 
                 console.log("Card component attached successfully.");
+
             } catch (error) {
                 console.error("Error during payment initialization:", error);
                 toast.error(
@@ -108,8 +109,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             }
         };
 
-        await initializeGooglePay();
-        await checkUserAndInitializePayment();
+
+        initializeGooglePay();
+        checkUserAndInitializePayment();
+
+
+
     }, []);
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
@@ -715,13 +720,13 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                     £
                                                     {Number(
                                                         (calculateTotal() ||
-                                                            0) - 2
+                                                            0)
                                                     ).toFixed(2)}
                                                 </span>
                                             </div>
                                             <div className="d-flex justify-content-between mb-2">
-                                                <span>Tax</span>
-                                                <span>£2.00</span>
+                                                {/*<span>Tax</span>*/}
+                                                {/*<span>£2.00</span>*/}
                                             </div>
                                             <div className="d-flex justify-content-between fw-bold border-top py-2 my-2">
                                                 <span>Total</span>
