@@ -14,6 +14,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
     const [canApplePay, setCanApplePay] = useState(true);
+    const { auth } = usePage().props;
 
     const {
         guest,
@@ -42,7 +43,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
         note: "",
     });
 
-    useEffect(() => {
+    useEffect(async() => {
         const checkUserAndInitializePayment = async () => {
             try {
                 // Check if the cart is empty
@@ -57,12 +58,18 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     return;
                 }
 
+
                 // Check if guest or user is not logged in
-                if (!guest) {
+
+                if (!guest ) {
+
+                    if (auth?.user !== null) return;
+
                     toast.error("Please log in to proceed with checkout.");
-                    window.location.href = "/login"; // Redirect to the login page
+                    router.visit('/login');
                     return;
                 }
+
 
                 // Initialize payment using Square's payment API
                 const payments = await window.Square.payments(
@@ -101,8 +108,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             }
         };
 
-        initializeGooglePay();
-        checkUserAndInitializePayment();
+        await initializeGooglePay();
+        await checkUserAndInitializePayment();
     }, []);
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
