@@ -14,7 +14,7 @@ class SaleReceipt extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public SaleReceipt $data;
     /**
      * Create a new message instance.
      */
