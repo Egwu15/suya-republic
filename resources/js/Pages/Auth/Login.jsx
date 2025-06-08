@@ -26,7 +26,12 @@ const Login = () => {
         e.preventDefault();
         post(route("login"), {
             onFinish: () => reset("password"),
-            onSuccess: () => router.visit("/checkout"),
+            // onSuccess: () => router.visit("/checkout"),
+            onSuccess: () => {
+                setTimeout(() => {
+                    router.visit("/checkout");
+                }, 100); // 100-200ms delay can help prevent visual glitches
+            },
         });
     };
 
@@ -201,6 +206,7 @@ const Login = () => {
                                 <div className="d-flex justify-content-center my-2">
                                     <button
                                         type="button"
+                                        disabled={processing}
                                         onClick={handleGuestSubmit}
                                         className="btn btn-link login-btn text-decoration-none text-red border w-100"
                                     >
