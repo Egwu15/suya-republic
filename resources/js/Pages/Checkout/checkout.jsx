@@ -14,6 +14,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
     const [canApplePay, setCanApplePay] = useState(true);
+    const { auth } = usePage().props;
 
     const {
         guest,
@@ -57,12 +58,18 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     return;
                 }
 
+
                 // Check if guest or user is not logged in
-                if (!guest) {
+
+                if (!guest ) {
+
+                    if (auth?.user !== null) return;
+
                     toast.error("Please log in to proceed with checkout.");
-                    window.location.href = "/login"; // Redirect to the login page
+                    router.visit('/login');
                     return;
                 }
+
 
                 // Initialize payment using Square's payment API
                 const payments = await window.Square.payments(
@@ -93,6 +100,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 setCard(card);
 
                 console.log("Card component attached successfully.");
+
             } catch (error) {
                 console.error("Error during payment initialization:", error);
                 toast.error(
@@ -101,8 +109,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             }
         };
 
+
         initializeGooglePay();
         checkUserAndInitializePayment();
+
+
+
     }, []);
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
@@ -706,13 +718,13 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                     £
                                                     {Number(
                                                         (calculateTotal() ||
-                                                            0) - 2
+                                                            0)
                                                     ).toFixed(2)}
                                                 </span>
                                             </div>
                                             <div className="d-flex justify-content-between mb-2">
-                                                <span>Tax</span>
-                                                <span>£2.00</span>
+                                                {/*<span>Tax</span>*/}
+                                                {/*<span>£2.00</span>*/}
                                             </div>
                                             <div className="d-flex justify-content-between fw-bold border-top py-2 my-2">
                                                 <span>Total</span>

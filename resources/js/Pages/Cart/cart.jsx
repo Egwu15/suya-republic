@@ -257,7 +257,7 @@ const Cart = ({ cartAdded, products }) => {
                                                                 £
                                                                 {Number(
                                                                     (calculateTotal() ||
-                                                                        0) - 2
+                                                                        0)
                                                                 ).toFixed(2)}
                                                             </span>
                                                         </div>
@@ -374,14 +374,11 @@ const Cart = ({ cartAdded, products }) => {
                                                             £
                                                             {Number(
                                                                 (calculateTotal() ||
-                                                                    0) - 2
+                                                                    0)
                                                             ).toFixed(2)}
                                                         </span>
                                                     </div>
-                                                    <div className="d-flex justify-content-between mb-2">
-                                                        <span>Tax</span>
-                                                        <span>£2.00</span>
-                                                    </div>
+
                                                     <div className="d-flex justify-content-between fw-bold border-top pt-2 mt-2">
                                                         <span>Total</span>
                                                         <span>
