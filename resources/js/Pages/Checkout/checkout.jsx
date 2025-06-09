@@ -179,8 +179,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 return;
             }
 
-            console.log("token", cartItems);
-
             router.post(
                 "/process-payment",
                 {
@@ -424,10 +422,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                                 setBillingDetails(
                                                                     {
                                                                         ...billingDetails,
-                                                                        address: e
-                                                                            .target
-                                                                            .value,
-
+                                                                        address:
+                                                                            e
+                                                                                .target
+                                                                                .value,
                                                                     }
                                                                 )
                                                             }
