@@ -57,7 +57,7 @@ const SpiceShowcase = ({ products }) => {
                                     >
                                         <img
                                             // src={Shawarma}
-                                            src={spice.image}
+                                            src={`/storage/${item.product_image}`}
                                             alt={spice.name}
                                             className="img-fluid w-100 rounded"
                                             loading="lazy"
@@ -95,7 +95,7 @@ const SpiceShowcase = ({ products }) => {
                                                 )}
                                             </button>
                                             <span className="btn btn-light rounded-pill px-4 py-2 fw-bold">
-                                                £{spice?.price?.toFixed(2)}
+                                                £{spice?.price  ?? ''}
                                             </span>
                                         </div>
                                     </div>
