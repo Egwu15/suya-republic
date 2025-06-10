@@ -58,18 +58,15 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     return;
                 }
 
-
                 // Check if guest or user is not logged in
 
-                if (!guest ) {
-
+                if (!guest) {
                     if (auth?.user !== null) return;
 
                     toast.error("Please log in to proceed with checkout.");
-                    router.visit('/login');
+                    router.visit("/login");
                     return;
                 }
-
 
                 // Initialize payment using Square's payment API
                 const payments = await window.Square.payments(
@@ -100,7 +97,6 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                 setCard(card);
 
                 console.log("Card component attached successfully.");
-
             } catch (error) {
                 console.error("Error during payment initialization:", error);
                 toast.error(
@@ -109,12 +105,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             }
         };
 
-
         initializeGooglePay();
         checkUserAndInitializePayment();
-
-
-
     }, []);
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
@@ -193,7 +185,10 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                         setFormErrors({});
                         toast.success("Order is placed successfully!");
                         clearCart();
-                        router.visit("/"); // Navigate to home page
+                        setTimeout(
+                            () => router.visit("/"), // Navigate to home page
+                            4000
+                        );
                     },
                     onError: (err) => {
                         console.log(err);
@@ -517,7 +512,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             {/* Left section: Image & item info */}
                                             <div className="d-flex align-items-center gap-3">
                                                 <img
-                                                    src={item.image}
+                                                    src={`/storage/${item.product_image}`}
                                                     alt={item.name}
                                                     style={{
                                                         width: "70px",
@@ -717,8 +712,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                 <span>
                                                     £
                                                     {Number(
-                                                        (calculateTotal() ||
-                                                            0)
+                                                        calculateTotal() || 0
                                                     ).toFixed(2)}
                                                 </span>
                                             </div>

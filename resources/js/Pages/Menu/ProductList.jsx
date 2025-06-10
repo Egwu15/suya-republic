@@ -40,7 +40,7 @@ const ProductList = ({ products }) => {
                             <div className="text-center text-white">
                                 <img
                                     // src={platter}
-                                    src={item.image}
+                                    src={`/storage/${item.product_image}`}
                                     alt={item.name}
                                     className="img-fluid rounded cursor-pointer border "
                                     onClick={() => handleImageClick(item)}
