@@ -19,7 +19,8 @@ Route::get('/cartItems', [ProductController::class, 'index'])->name('cartItems')
 
 Route::post('/cart', [CartController::class, 'create']);
 Route::get('/cart', [CartController::class, 'index']);
-Route::post('/process-payment', [CartController::class, 'processPayment']);
+Route::post('/process-payment', [CartController::class, 'processPaymentStripe'])->name('process-payment');;
+Route::post('/create-payment-intent', [CartController::class, 'createPaymentIntent'])->name('create-payment-intent');
 Route::get(
     '/checkout',
     [CartController::class, 'checkOut']

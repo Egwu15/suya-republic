@@ -8,13 +8,21 @@ import useCartStore from "@/store/Store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputError from "@/Components/InputError";
+import {CardElement, Elements, useElements, useStripe} from "@stripe/react-stripe-js";
+import {loadStripe} from "@stripe/stripe-js";
 
-const Checkout = ({ squareAppId, squareLocationId }) => {
-    const [card, setCard] = useState(null);
+
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const Checkout = () => {
+
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
-    const [canApplePay, setCanApplePay] = useState(true);
     const { auth } = usePage().props;
+
+    const stripe = useStripe();
+    const elements = useElements();
+
 
     const {
         guest,
@@ -58,45 +66,22 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                     return;
                 }
 
+
                 // Check if guest or user is not logged in
 
-                if (!guest) {
-                    if (auth?.user !== null) return;
+                if (!guest ) {
 
-                    toast.error("Please log in to proceed with checkout.");
-                    router.visit("/login");
-                    return;
+                    if (auth?.user === null) {
+
+                        toast.error("Please log in to proceed with checkout.");
+                        router.visit('/login');
+                        return;
+                    }
                 }
 
-                // Initialize payment using Square's payment API
-                const payments = await window.Square.payments(
-                    squareAppId,
-                    squareLocationId
-                );
+                console.log('has gotten here or herex')
 
-                // if (!payments) {
-                //     console.error("Square Payments initialization failed.");
-                //     toast.error(
-                //         "Unable to initialize payment. Please try again later."
-                //     );
-                //     return;
-                // }
 
-                const card = await payments.card();
-
-                // if (!card) {
-                //     console.error("Square Card initialization failed.");
-                //     toast.error(
-                //         "Unable to initialize card payment. Please try again later."
-                //     );
-                //     return;
-                // }
-
-                // Attach the card component to the DOM
-                await card.attach("#card-container");
-                setCard(card);
-
-                console.log("Card component attached successfully.");
             } catch (error) {
                 console.error("Error during payment initialization:", error);
                 toast.error(
@@ -105,8 +90,12 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
             }
         };
 
-        initializeGooglePay();
-        checkUserAndInitializePayment();
+
+
+
+
+
+
     }, []);
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
@@ -115,107 +104,62 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
     const handleRemoveItem = (id) => {
         removeItem(id);
     };
-    const initializeGooglePay = async () => {
-        const createGooglePayRequest = (calculateTotal) => ({
-            countryCode: "GB",
-            currencyCode: "GBP",
-            total: {
-                amount: calculateTotal().toString(),
-                label: "Total",
-            },
-        });
 
-        try {
-            const payments = await window.Square.payments(
-                squareAppId,
-                squareLocationId
-            );
 
-            // Create a payment request
-            const paymentRequest = payments.paymentRequest(
-                createGooglePayRequest(calculateTotal)
-            );
-
-            // Initialize Google Pay
-            const googlePay = await payments.googlePay(paymentRequest);
-
-            // Check if Google Pay is available
-
-            // Attach Google Pay button to your DOM
-            await googlePay.attach("#google-pay-button");
-
-            // Add a click event listener for the Google Pay button
-            document
-                .querySelector("#google-pay-button")
-                .addEventListener("click", async () => {
-                    handlePaymentSubmission(
-                        () => googlePay.tokenize(),
-                        "Google Pay"
-                    );
-                });
-        } catch (error) {
-            console.error("Error initializing Google Pay:", error);
-            toast.error("Failed to initialize Google Pay.");
-        }
-    };
-
-    const handlePaymentSubmission = async (tokenizeFn, paymentType) => {
+    const handleStripePayment = async () => {
         setLoading(true);
 
         try {
-            const tokenResult = await tokenizeFn();
+            // Create PaymentIntent from your backend
+            const res = await axios.post(route('create-payment-intent'), {
+                amount: calculateTotal() * 100,
+            });
 
-            if (tokenResult.errors) {
-                console.error(tokenResult.errors);
-                toast.error(`${paymentType} payment failed to process.`);
-                return;
-            }
+            const { clientSecret } = res.data;
 
-            router.post(
-                "/process-payment",
-                {
-                    nonce: tokenResult.token,
-                    totalCents: calculateTotal() * 100,
-                    products: cartItems,
-                    billingDetails: billingDetails,
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                    billing_details: {
+                        name: `${billingDetails.firstName} ${billingDetails.lastName}`,
+                        email: billingDetails.email,
+                        phone: billingDetails.phone,
+                    },
                 },
+            });
 
-                {
+            if (result.error) {
+                toast.error(result.error.message);
+            } else if (result.paymentIntent.status === "succeeded") {
+                // Now finalize the order with your backend
+                router.post(route('process-payment'), {
+                    paymentIntentId: result.paymentIntent.id,
+                    billingDetails,
+                    products: cartItems,
+                    totalCents: calculateTotal() * 100,
+                }, {
                     onSuccess: () => {
-                        setFormErrors({});
-                        toast.success("Order is placed successfully!");
+                        toast.success("Order placed successfully!");
                         clearCart();
-                        setTimeout(
-                            () => router.visit("/"), // Navigate to home page
-                            4000
-                        );
+                        router.visit("/");
                     },
                     onError: (err) => {
-                        console.log(err);
-                        setFormErrors(err);
-                        if (err.billingDetails != null) {
-                            toast.error(
-                                err.payment?.detail ??
-                                    err.product_detail ??
-                                    "An unexpected error occurred"
-                            );
+                        console.error(err);
+                        if(err.product_error){
+                            toast.error(err.product_error);
                         }
+                        setFormErrors(err);
                     },
-                }
-            );
-        } catch (error) {
-            console.error(error);
-            toast.error(
-                "Payment failed, check for debit and reach out to customer support"
-            );
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error("Payment failed. Try again.");
         } finally {
             setLoading(false);
         }
     };
 
-    const handlePayment = async () => {
-        handlePaymentSubmission(() => card.tokenize(), "Card");
-    };
 
     return (
         <div>
@@ -512,7 +456,7 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                             {/* Left section: Image & item info */}
                                             <div className="d-flex align-items-center gap-3">
                                                 <img
-                                                    src={`/storage/${item.product_image}`}
+                                                    src={item.image}
                                                     alt={item.name}
                                                     style={{
                                                         width: "70px",
@@ -712,7 +656,8 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                 <span>
                                                     £
                                                     {Number(
-                                                        calculateTotal() || 0
+                                                        (calculateTotal() ||
+                                                            0)
                                                     ).toFixed(2)}
                                                 </span>
                                             </div>
@@ -729,54 +674,35 @@ const Checkout = ({ squareAppId, squareLocationId }) => {
                                                     ).toFixed(2)}
                                                 </span>
                                             </div>
-                                            <div id="card-container"></div>
+
+                                            <div>
+                                                <CardElement />
+                                            </div>
                                             <button
-                                                onClick={handlePayment}
-                                                disabled={loading}
+                                                onClick={handleStripePayment} disabled={!stripe || loading}
                                                 className="btn btn-danger text-white px-3 mx-3 my-5"
                                             >
                                                 {loading
                                                     ? "Processing..."
                                                     : "Pay Now"}
                                             </button>
-                                            <form id="payment-form ">
-                                                <div id="google-pay-button"></div>
-                                                <div id="card-container"></div>
-                                                <button
-                                                    id="card-button"
-                                                    type="button"
-                                                >
-                                                    {calculateTotal()}
-                                                </button>
-                                            </form>
+
+                                            {/*<form id="payment-form ">*/}
+                                            {/*    <div id="google-pay-button"></div>*/}
+                                            {/*    <div id="card-container"></div>*/}
+                                            {/*    <button*/}
+                                            {/*        id="card-button"*/}
+                                            {/*        type="button"*/}
+                                            {/*    >*/}
+                                            {/*        {calculateTotal()}*/}
+                                            {/*    </button>*/}
+                                            {/*</form>*/}
                                         </div>
-                                        <div id="payment-status-container"></div>
+
+
+
                                     </div>
-                                    {/* <h2>Checkout</h2>
-                                    <p>Total: £{calculateTotal()}</p>
-                                    <div id="card-container"></div>
-                                    <div className="d-flex align-items-center">
-                                        <button
-                                            onClick={handlePayment}
-                                            disabled={loading}
-                                            className="btn btn-danger text-white px-3 mx-3"
-                                        >
-                                            {loading
-                                                ? "Processing..."
-                                                : "Pay Now"}
-                                        </button>
-                                        <form id="payment-form ">
-                                            <div id="google-pay-button"></div>
-                                            <div id="card-container"></div>
-                                            <button
-                                                id="card-button"
-                                                type="button"
-                                            >
-                                                {calculateTotal()}
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div id="payment-status-container"></div> */}
+
                                 </div>
                             </div>
                         </div>

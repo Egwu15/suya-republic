@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use App\Mail\SaleReceipt;
 use Illuminate\Support\Facades\Mail;
-
+use Stripe\Exception\ApiErrorException;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 
 class CartController extends Controller
@@ -27,9 +29,7 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $squareAppId = env("SQUARE_APP_KEY");
-        $squareLocationId = env('SQUARE_LOCATION_ID');
-        return Inertia::render('Checkout/checkout', ['squareAppId' => $squareAppId, 'squareLocationId' => $squareLocationId]);
+        return Inertia::render('Checkout/checkout');
     }
 
 
@@ -40,7 +40,7 @@ class CartController extends Controller
         return Inertia::render('Cart/cart', ['cartAdded' => true, 'products' => $products]);
     }
 
-    public function processPayment(Request $request)
+    public function processPaymentSquare(Request $request)
     {
 
         $request->validate([
@@ -84,6 +84,8 @@ class CartController extends Controller
 
         //check if price match the db
         $productIds = array_column($products, 'id');
+
+        /** @var Product $productsModel */
         $productsModel = Product::findMany([$productIds])->keyBy('id');
         $totalPrice = 0;
 
@@ -114,7 +116,7 @@ class CartController extends Controller
         // Make the HTTP request to Square's API
         $response = Http::withToken($accessToken)->post($url, $body);
 
-        $isAuthenticated = $user == null ? false : true;
+        $isAuthenticated = !($user == null);
         $createdAt = now();
         $updatedAt = $createdAt;
 
@@ -173,4 +175,137 @@ class CartController extends Controller
             return Redirect::back()->withErrors(['payment' => $errorMessage])->withInput();
         }
     }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function processPaymentStripe(Request $request)
+    {
+
+        $request->validate([
+            'billingDetails.firstName' => 'required|string|max:60',
+            'billingDetails.lastName' => 'required|string|max:60',
+            'billingDetails.email' => 'required|email|max:100',
+            'billingDetails.phone' => 'required|string|max:30',
+            'billingDetails.notes' => 'string|max:300',
+            'totalCents' => 'required|numeric|min:0',
+            'products' => 'required|array',
+            'paymentIntentId' => 'required|string',
+        ]);
+
+
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $billingDetails = $request->input('billingDetails');
+        $totalCents = $request->input('totalCents');
+        $products = $request->input('products');
+        $paymentIntentId = $request->input('paymentIntentId');
+
+
+        //check if price match the db
+        $productIds = array_column($products, 'id');
+
+        /** @var Product $productsModel */
+        $productsModel = Product::findMany([$productIds])->keyBy('id');
+        $totalPrice = 0;
+
+
+        foreach ($products as $product) {
+            $productModel = $productsModel->get($product['id']);
+
+            if (!$productModel) {
+                return Redirect::back()->withErrors(['product_error' => 'Invalid product added'])->withInput();
+            }
+
+            if ($productModel->price !== $product['price']) {
+
+                return Redirect::back()->withErrors([
+                    'product_error' => "Price mismatch for product: {$productModel->name}"
+                ])->withInput();
+            }
+
+            $totalPrice += $product['price'] * $product['quantity'];
+        }
+
+
+        if ($totalPrice != $totalCents / 100) {
+            return Redirect::back()->withErrors(provider: ['product_error' => 'Total price mismatch'])->withInput();
+        }
+
+
+
+        // Confirm the payment
+        $intent = PaymentIntent::retrieve($paymentIntentId);
+
+        if ($intent->status !== 'succeeded') {
+            return back()->withErrors(['payment' => 'Payment was not successful'])->withInput();
+        }
+
+        $user = Auth::user();
+        $productOrderId = uniqid('ST-');
+
+
+        $createdAt = now();
+        $updatedAt = $createdAt;
+
+        $orderId = Order::insertGetId([
+            'external_order_id' => $productOrderId,
+            'user_id' => $user?->id,
+            'status' => 'pending',
+            'payment_status' => 'Successful',
+            'email' => $billingDetails['email'],
+            'name' => $billingDetails['firstName'] . ' ' . $billingDetails['lastName'],
+            'is_guest' => $user === null,
+            'note' => $billingDetails['note'],
+            'total' => $totalCents / 100,
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
+        ]);
+
+        //Save products
+
+
+        foreach ($products as $product) {
+
+            OrderItem::insert([
+                'order_id' => $orderId,
+                'product_id' => $product['id'],
+                'variance_option' => $product['variance_id'],
+                'price' => $product['price'] / 100,
+                'quantity' => $product['quantity'],
+                'created_at' => $createdAt,
+                'updated_at' => $updatedAt,
+            ]);
+        }
+
+
+
+        $data = [
+            'email' => $billingDetails['email'],
+            'name' => $billingDetails['firstName'] . ' ' . $billingDetails['lastName'],
+            'date' => $createdAt,
+            'orderNo' => $productOrderId,
+            'total' => "£{$totalPrice}",
+            'products' => $products,
+        ];
+        defer(fn() => Purchase::recordPurchase($billingDetails['email'], $totalPrice));
+        defer(fn() => Mail::send(new SaleReceipt($data)));
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function createPaymentIntent(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $amount = $request->input('amount');
+        $intent = PaymentIntent::create([
+            'amount' => $amount,
+            'currency' => 'GBP',
+        ]);
+
+        return response()->json(['clientSecret' => $intent->client_secret]);
+    }
+
 }

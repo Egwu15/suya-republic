@@ -5,7 +5,7 @@ import "./bootstrap";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
-
+import {Elements} from "@stripe/react-stripe-js";
 const appName = import.meta.env.VITE_APP_NAME || "Suya Republic";
 
 createInertiaApp({
@@ -17,8 +17,12 @@ createInertiaApp({
         ),
     setup({ el, App, props }) {
         const root = createRoot(el);
-
-        root.render(<App {...props} />);
+        const stripe = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+        root.render(
+            <Elements stripe={stripe}>
+            <App {...props} />
+            </Elements>
+        );
     },
     progress: {
         color: "#4B5563",
@@ -26,3 +30,5 @@ createInertiaApp({
 });
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import {loadStripe} from "@stripe/stripe-js";
+
