@@ -8,21 +8,22 @@ import useCartStore from "@/store/Store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputError from "@/Components/InputError";
-import {CardElement, Elements, useElements, useStripe} from "@stripe/react-stripe-js";
-import {loadStripe} from "@stripe/stripe-js";
-
-
+import {
+    CardElement,
+    Elements,
+    useElements,
+    useStripe,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 const Checkout = () => {
-
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
     const { auth } = usePage().props;
 
     const stripe = useStripe();
     const elements = useElements();
-
 
     const {
         guest,
@@ -66,22 +67,17 @@ const Checkout = () => {
                     return;
                 }
 
-
                 // Check if guest or user is not logged in
 
-                if (!guest ) {
-
+                if (!guest) {
                     if (auth?.user === null) {
-
                         toast.error("Please log in to proceed with checkout.");
-                        router.visit('/login');
+                        router.visit("/login");
                         return;
                     }
                 }
 
-                console.log('has gotten here or herex')
-
-
+                console.log("has gotten here or herex");
             } catch (error) {
                 console.error("Error during payment initialization:", error);
                 toast.error(
@@ -89,13 +85,6 @@ const Checkout = () => {
                 );
             }
         };
-
-
-
-
-
-
-
     }, []);
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
@@ -105,13 +94,12 @@ const Checkout = () => {
         removeItem(id);
     };
 
-
     const handleStripePayment = async () => {
         setLoading(true);
 
         try {
             // Create PaymentIntent from your backend
-            const res = await axios.post(route('create-payment-intent'), {
+            const res = await axios.post(route("create-payment-intent"), {
                 amount: calculateTotal() * 100,
             });
 
@@ -132,25 +120,29 @@ const Checkout = () => {
                 toast.error(result.error.message);
             } else if (result.paymentIntent.status === "succeeded") {
                 // Now finalize the order with your backend
-                router.post(route('process-payment'), {
-                    paymentIntentId: result.paymentIntent.id,
-                    billingDetails,
-                    products: cartItems,
-                    totalCents: calculateTotal() * 100,
-                }, {
-                    onSuccess: () => {
-                        toast.success("Order placed successfully!");
-                        clearCart();
-                        router.visit("/");
+                router.post(
+                    route("process-payment"),
+                    {
+                        paymentIntentId: result.paymentIntent.id,
+                        billingDetails,
+                        products: cartItems,
+                        totalCents: calculateTotal() * 100,
                     },
-                    onError: (err) => {
-                        console.error(err);
-                        if(err.product_error){
-                            toast.error(err.product_error);
-                        }
-                        setFormErrors(err);
-                    },
-                });
+                    {
+                        onSuccess: () => {
+                            toast.success("Order placed successfully!");
+                            clearCart();
+                            router.visit("/");
+                        },
+                        onError: (err) => {
+                            console.error(err);
+                            if (err.product_error) {
+                                toast.error(err.product_error);
+                            }
+                            setFormErrors(err);
+                        },
+                    }
+                );
             }
         } catch (err) {
             console.error(err);
@@ -159,7 +151,6 @@ const Checkout = () => {
             setLoading(false);
         }
     };
-
 
     return (
         <div>
@@ -456,7 +447,7 @@ const Checkout = () => {
                                             {/* Left section: Image & item info */}
                                             <div className="d-flex align-items-center gap-3">
                                                 <img
-                                                    src={item.image}
+                                                    src={`/storage/${item.product_image}`}
                                                     alt={item.name}
                                                     style={{
                                                         width: "70px",
@@ -656,8 +647,7 @@ const Checkout = () => {
                                                 <span>
                                                     £
                                                     {Number(
-                                                        (calculateTotal() ||
-                                                            0)
+                                                        calculateTotal() || 0
                                                     ).toFixed(2)}
                                                 </span>
                                             </div>
@@ -679,7 +669,8 @@ const Checkout = () => {
                                                 <CardElement />
                                             </div>
                                             <button
-                                                onClick={handleStripePayment} disabled={!stripe || loading}
+                                                onClick={handleStripePayment}
+                                                disabled={!stripe || loading}
                                                 className="btn btn-danger text-white px-3 mx-3 my-5"
                                             >
                                                 {loading
@@ -698,11 +689,7 @@ const Checkout = () => {
                                             {/*    </button>*/}
                                             {/*</form>*/}
                                         </div>
-
-
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>

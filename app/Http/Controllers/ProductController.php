@@ -51,7 +51,6 @@ class ProductController extends Controller
 
         $categories = Category::paginate($limit);
 
-
         return inertia()->render('HomePage/index', [
             'products' => $products,
             'categories' => $categories,
