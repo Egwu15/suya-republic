@@ -25,7 +25,9 @@ Route::get(
     '/checkout',
     [CartController::class, 'checkOut']
 );
-
+Route::get('/link', function () {
+    return \Illuminate\Support\Facades\Artisan::call('storage:link');
+});
 
 
 Route::post('/submitContact', [ContactController::class, 'create']);
