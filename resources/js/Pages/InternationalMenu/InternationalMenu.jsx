@@ -20,6 +20,8 @@ const InternationalMenu = ({ products }) => {
         setShowModal(true);
     };
 
+    console.log('products: ',products);
+
     // Handle closing the modal
     const handleCloseModal = () => {
         setShowModal(false);

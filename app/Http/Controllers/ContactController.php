@@ -20,6 +20,7 @@ class ContactController extends Controller
         ]);
 
         Contact::create($validatedData);
-        defer(fn() =>  Mail::to('egwutedd@gmail.com')->send(new ContactMail($validatedData)));
+        $business_mail = config('mail.business_address');
+        defer(fn() =>  Mail::to($business_mail)->send(new ContactMail($validatedData)));
     }
 }

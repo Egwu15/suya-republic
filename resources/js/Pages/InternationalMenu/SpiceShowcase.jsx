@@ -57,7 +57,7 @@ const SpiceShowcase = ({ products }) => {
                                     >
                                         <img
                                             // src={Shawarma}
-                                            src={`/storage/${item.product_image}`}
+                                            src={`/storage/${spice.product_image}`}
                                             alt={spice.name}
                                             className="img-fluid w-100 rounded"
                                             loading="lazy"

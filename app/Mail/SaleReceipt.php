@@ -30,11 +30,11 @@ class SaleReceipt extends Mailable
      */
     public function envelope(): Envelope
     {
+        $business_mail = config('mail.business_address');
         return new Envelope(
             to: [new Address($this->data['email'], 'Suya republic')],
-            cc: [new Address('egwutedd@gmail.com', 'Ted Egwu')],
+            cc: [new Address($business_mail, 'Suya republic')],
             subject: 'Sale Receipt',
-
         );
     }
 

@@ -15,6 +15,7 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'log'),
+    'business_address'=> env('MAIL_MAILER_ADDRESS'),
 
     /*
     |--------------------------------------------------------------------------
