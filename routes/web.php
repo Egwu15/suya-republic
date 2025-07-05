@@ -65,6 +65,9 @@ Route::get(
 Route::get('/order-online', function () {
     return Inertia::render('OrderOnline/orderOnline');
 });
+Route::get('/receipt', function () {
+    return Inertia::render('Receipt/receipt');
+});
 Route::get('/signup', function () {
     return Inertia::render('Signup/signup');
 });
