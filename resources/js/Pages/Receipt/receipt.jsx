@@ -2,91 +2,13 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./receipt.css";
-import InputField from "@/Components/InputField";
-import { Link, router, usePage } from "@inertiajs/react";
-import useCartStore from "@/store/Store";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import success from "../../../assets/img/icons/image.png";
-import {
-    CardElement,
-    Elements,
-    useElements,
-    useStripe,
-} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+
 import Button from "@/Components/Button";
 
 const Receipt = () => {
-    const [loading, setLoading] = useState(false);
-    const [formError, setFormErrors] = useState({});
-    const { auth } = usePage().props;
-
-    const stripe = useStripe();
-    const elements = useElements();
-
-    const {
-        guest,
-        setGuest,
-        cartItems,
-        clearCart,
-        calculateTotal,
-        removeItem,
-        updateItemQuantity,
-    } = useCartStore();
-    useEffect(() => {
-        const guestUser = JSON.parse(localStorage.getItem("guestUser"));
-        if (guestUser) {
-            setGuest(guestUser);
-        }
-    }, [setGuest]);
-
-    const user = usePage().props.auth.user;
-
-    const [billingDetails, setBillingDetails] = useState({
-        firstName: user?.first_name ?? "",
-        lastName: user?.last_name ?? "",
-        email: user?.email ?? "",
-        phone: "",
-        address: "",
-        note: "",
-    });
-
-    useEffect(() => {
-        const checkUserAndInitializePayment = async () => {
-            try {
-                // Check if the cart is empty
-                if (!cartItems.length) {
-                    console.log(
-                        "No items in cart. Redirecting to the menu page..."
-                    );
-                    toast.error(
-                        "Your cart is empty. Please add items to proceed."
-                    );
-                    router.visit("/menu"); // Navigate to the menu page
-                    return;
-                }
-
-                // Check if guest or user is not logged in
-
-                if (!guest) {
-                    if (auth?.user === null) {
-                        toast.error("Please log in to proceed with checkout.");
-                        router.visit("/login");
-                        return;
-                    }
-                }
-
-                console.log("has gotten here or herex");
-            } catch (error) {
-                console.error("Error during payment initialization:", error);
-                toast.error(
-                    "An error occurred while initializing payment. Please try again."
-                );
-            }
-        };
-    }, []);
-
     return (
         <div>
             <Navbar />
