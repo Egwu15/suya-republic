@@ -113,7 +113,6 @@ const Receipt = () => {
             {/* Notice Section */}
 
             <section className="menu-section position-relative">
-                {/* <div class="overlay"></div> */}
                 <div className="x min-vh-100 p-3">
                     {" "}
                     {/* Red background */}
