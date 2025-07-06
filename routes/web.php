@@ -4,6 +4,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\ContactMail;
+use App\Mail\SaleReceipt;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -40,15 +43,27 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route::get('/checkMail', function () {
-//     // return View('mail.receipt');
+     // return View('mail.receipt');
 //     $data = [
 //         'name' => "named named",
-//         'email' => 'none@none.com',
+//         'email' => 'egwutedd@gmail.com',
 //         'subject' => 'email Subject',
 //         'message' => 'This is the message a long one Hello, I would like to know more about the suya spice and how it can be delivered to my location in London.'
-
+//
 //     ];
-//     return (new ContactMail($data))->render();
+
+//     $data = [
+//         'email' => 'egwutedd@gmail.com',
+//         'name' => 'ted Ewgt',
+//         'date' => date('Y-m-d'),
+//         'orderNo' => '232ea',
+//         'total' => "£300",
+//         'products' => [],
+//     ];
+//
+//     defer(fn() => Mail::send(new SaleReceipt($data)));
+//     return 'success';
+//   return (new ContactMail($data))->render();
 // });
 
 
@@ -65,9 +80,7 @@ Route::get(
 Route::get('/order-online', function () {
     return Inertia::render('OrderOnline/orderOnline');
 });
-Route::get('/receipt', function () {
-    return Inertia::render('Receipt/receipt');
-});
+
 Route::get('/signup', function () {
     return Inertia::render('Signup/signup');
 });

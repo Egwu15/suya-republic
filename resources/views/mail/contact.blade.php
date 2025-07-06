@@ -75,7 +75,7 @@
             <!-- User Details -->
             <div class="section">
                 <h2>Contact Details</h2>
-                <p><strong>Name:</strong> {{$data['full_name']}}</p>
+                <p><strong>Name:</strong> {{$data['name']}}</p>
                 <p><strong>Email:</strong> {{$data['email']}}</p>
                 <p><strong>Subject:</strong> {{$data['subject']}}</p>
             </div>

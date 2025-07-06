@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./receipt.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import success from "../../../assets/img/icons/image.png";
+import { Link} from "@inertiajs/react";
 
 import Button from "@/Components/Button";
 
-const Receipt = () => {
+const Receipt = ({receipt}) => {
     return (
         <div>
             <Navbar />
@@ -97,27 +98,20 @@ const Receipt = () => {
                                     >
                                         <h3>Billing Information:</h3>
                                         <p>
-                                            <strong>Name:</strong> Jane Smith
+                                            <strong>Name: </strong>{receipt.name}
                                         </p>
-                                        <p>
-                                            <strong>Address:</strong> 456 Oak St
-                                            #3b, San Francisco, CA 94102, United
-                                            States
-                                        </p>
-                                        <p>
-                                            <strong>Phone:</strong> +1 (415)
-                                            555-1234
-                                        </p>
+
+
                                         <p>
                                             <strong>Email:</strong>{" "}
-                                            jane.smith@email.com
+                                            {receipt.email}
                                         </p>
                                         <p>
-                                            <strong>Order:</strong> #ORD-789654
+                                            <strong>Order Number:</strong> #{receipt.orderNo}
                                         </p>
                                         <p>
                                             <strong>Total Amount:</strong>{" "}
-                                            $249.99
+                                            {receipt.total}
                                         </p>
                                     </div>
 
@@ -128,12 +122,12 @@ const Receipt = () => {
                                             justifyContent: "center",
                                         }}
                                     >
-                                        <Button
-                                            text="Order Again"
-                                            //   handleButtonClick={handleSubmit}
-                                            // btnstyle={{ cursor: "pointer" }}
+                                        <Link href={route('home')}><Button
+                                            text="Go Home"
+                                            btnstyle={{ cursor: "pointer" }}
                                             type="button"
                                         />
+                                        </Link>
                                         {/* <button
                                             style={{
                                                 backgroundColor: "#FF705D",
