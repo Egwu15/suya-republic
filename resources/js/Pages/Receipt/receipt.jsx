@@ -40,11 +40,11 @@ const Receipt = () => {
                     {/* Red background */}
                     <div className="container">
                         <div
-                            className="card mx-auto"
+                            className="mx-auto"
                             // style={{ maxWidth: "700px" }}
                         >
                             {/* <div className="card-body"> */}
-                            <div className="container white-bg py-5">
+                            <div className="container py-5">
                                 <div
                                     style={{
                                         maxWidth: "600px",

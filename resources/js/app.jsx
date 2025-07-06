@@ -6,7 +6,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
 import {Elements} from "@stripe/react-stripe-js";
-const appName = import.meta.env.VITE_APP_NAME || "Suya Republic";
+const appName = import.meta.env.VITE_APP_NAME || "Suya Republick";
 
 createInertiaApp({
     title: (title) => `${appName}`,
