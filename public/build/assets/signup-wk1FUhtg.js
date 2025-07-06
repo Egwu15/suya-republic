@@ -1,1 +1,0 @@
-import{j as r}from"./app-Dg7XWk2o.js";import t from"./Register-uxXu5RgI.js";import"./InputError-RdQPPGSJ.js";import"./Mobile-Logo-DjYHHJYk.js";/* empty css             */import"./Store-CrtKikmH.js";import"./react-toastify.esm-CqiZXVzh.js";function u(){return r.jsx("div",{children:r.jsx(t,{})})}export{u as default};

@@ -1,1 +1,0 @@
-import{j as p,P as t}from"./app-Dg7XWk2o.js";const c=({text:s,className:e,handleButtonClick:o,icon:n,btnstyle:r,type:a,disabled:l=!1})=>p.jsxs("button",{type:a,style:r,className:e||"Button_Wrap",onClick:o,disabled:l,children:[n," ",s]});c.propTypes={type:t.string||t.object,text:t.string,className:t.string,handleButtonClick:t.func,disabled:t.bool,style:t.object};export{c as B};
