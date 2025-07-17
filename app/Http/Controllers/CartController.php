@@ -290,6 +290,17 @@ class CartController extends Controller
         ];
         defer(fn() => Purchase::recordPurchase($billingDetails['email'], $totalPrice));
         defer(fn() => Mail::send(new SaleReceipt($data)));
+
+
+
+        $receipt = [
+            'name'=>$data['name'],
+            'email'=> $data['email'],
+            'orderNo'=> $data['orderNo'],
+            'total'=> $data['total'],
+        ];
+
+        return Inertia::render('Receipt/receipt', compact('receipt'));
     }
 
     /**

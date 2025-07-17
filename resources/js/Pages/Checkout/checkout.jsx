@@ -130,9 +130,7 @@ const Checkout = () => {
                     },
                     {
                         onSuccess: () => {
-                            toast.success("Order placed successfully!");
                             clearCart();
-                            router.visit("/");
                         },
                         onError: (err) => {
                             console.error(err);
