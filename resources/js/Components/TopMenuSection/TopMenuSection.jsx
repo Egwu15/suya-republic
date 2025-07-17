@@ -13,6 +13,8 @@ import Button from "../Button";
 
 const TopMenuSection = ({ products, categories }) => {
     const { cartItems, addItem, removeItem } = useCartStore();
+    const excludedCategories = ["spices", "suya"];
+
     // Inside component:
     const { url } = usePage();
     const query = new URLSearchParams(url.split("?")[1]);
@@ -87,7 +89,12 @@ const TopMenuSection = ({ products, categories }) => {
                 </Link>
 
                 {categories?.data
-                    ?.filter((data) => data.name.toLowerCase() !== "spices")
+                    ?.filter(
+                        (data) =>
+                            !excludedCategories.includes(
+                                data.name.toLowerCase()
+                            )
+                    )
                     .map((category) => (
                         <Link
                             key={category?.id}
