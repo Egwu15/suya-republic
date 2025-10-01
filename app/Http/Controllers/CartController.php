@@ -279,7 +279,6 @@ class CartController extends Controller
         }
 
 
-
         $data = [
             'email' => $billingDetails['email'],
             'name' => $billingDetails['firstName'] . ' ' . $billingDetails['lastName'],

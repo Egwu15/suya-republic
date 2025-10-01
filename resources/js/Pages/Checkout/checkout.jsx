@@ -119,7 +119,6 @@ const Checkout = () => {
             if (result.error) {
                 toast.error(result.error.message);
             } else if (result.paymentIntent.status === "succeeded") {
-                // Now finalize the order with your backend
                 router.post(
                     route("process-payment"),
                     {

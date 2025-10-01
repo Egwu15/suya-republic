@@ -21,14 +21,16 @@ class Purchase extends Model
 
     public static function recordPurchase($email, $amount)
     {
-        return static::updateOrCreate(
+        $record = static::firstOrCreate(
             ['email' => $email],
-            [
-                'purchase_count' => static::where('email', $email)->increment('purchase_count'),
-                'total_spent' => static::where('email', $email)->increment('total_spent', $amount),
-                'last_purchase' => now(),
-            ]
+            ['purchase_count' => 0, 'total_spent' => 0]
         );
+
+        $record->increment('purchase_count');
+        $record->increment('total_spent', $amount);
+        $record->update(['last_purchase' => now()]);
+
+        return $record;
     }
 
     public static function getTotalSpent($email)
