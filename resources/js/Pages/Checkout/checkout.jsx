@@ -8,22 +8,14 @@ import useCartStore from "@/store/Store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputError from "@/Components/InputError";
-import {
-    CardElement,
-    Elements,
-    useElements,
-    useStripe,
-} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 
 
-const Checkout = () => {
+const Checkout = ({payment}) => {
     const [loading, setLoading] = useState(false);
     const [formError, setFormErrors] = useState({});
     const { auth } = usePage().props;
 
-    const stripe = useStripe();
-    const elements = useElements();
+
 
     const {
         guest,
@@ -73,11 +65,11 @@ const Checkout = () => {
                     if (auth?.user === null) {
                         toast.error("Please log in to proceed with checkout.");
                         router.visit("/login");
-                        return;
+
                     }
                 }
 
-                console.log("has gotten here or herex");
+
             } catch (error) {
                 console.error("Error during payment initialization:", error);
                 toast.error(
@@ -85,7 +77,15 @@ const Checkout = () => {
                 );
             }
         };
+        checkUserAndInitializePayment().then()
     }, []);
+
+    useEffect(()=>{
+        console.log('payment: ', payment);
+        if(payment !== undefined){
+            toast.error(payment)
+        }
+    });
     const handleQuantityChange = (id, increment) => {
         updateItemQuantity(id, increment);
     };
@@ -94,59 +94,34 @@ const Checkout = () => {
         removeItem(id);
     };
 
-    const handleStripePayment = async () => {
+    const handleContinueToPayment = async () => {
         setLoading(true);
-
-        try {
-            // Create PaymentIntent from your backend
-            const res = await axios.post(route("create-payment-intent"), {
+        router.post(
+            route('create-payment-intent'),
+            {
                 amount: calculateTotal() * 100,
-            });
+                billingDetails,
+                products: cartItems,
+                totalCents: calculateTotal() * 100,
+            },
+            {
+                onSuccess: (page) => {
 
-            const { clientSecret } = res.data;
+                        const clientSecret = page?.props?.clientSecret;
+                        if (!clientSecret) throw new Error('Missing client secret');
+                        // router.visit(`/stripe/checkout?cs=${encodeURIComponent(clientSecret)}`);
 
-            const result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card: elements.getElement(CardElement),
-                    billing_details: {
-                        name: `${billingDetails.firstName} ${billingDetails.lastName}`,
-                        email: billingDetails.email,
-                        phone: billingDetails.phone,
-                    },
                 },
-            });
-
-            if (result.error) {
-                toast.error(result.error.message);
-            } else if (result.paymentIntent.status === "succeeded") {
-                router.post(
-                    route("process-payment"),
-                    {
-                        paymentIntentId: result.paymentIntent.id,
-                        billingDetails,
-                        products: cartItems,
-                        totalCents: calculateTotal() * 100,
-                    },
-                    {
-                        onSuccess: () => {
-                            clearCart();
-                        },
-                        onError: (err) => {
-                            console.error(err);
-                            if (err.product_error) {
-                                toast.error(err.product_error);
-                            }
-                            setFormErrors(err);
-                        },
-                    }
-                );
+                onError: (err) => {
+                    console.error(err);
+                    setFormErrors(err);
+                    toast.error('Failed to initialize payment. Try again.');
+                },
+                onFinish: () => {
+                    setLoading(false);
+                },
             }
-        } catch (err) {
-            console.error(err);
-            toast.error("Payment failed. Try again.");
-        } finally {
-            setLoading(false);
-        }
+        );
     };
 
     return (
@@ -622,7 +597,7 @@ const Checkout = () => {
                                         Payment Summary{" "}
                                     </h3>
                                     <p className="text-center mb-4">
-                                        Enter card details for payment
+                                        You will be redirected to a secure Stripe page to choose your payment method.
                                     </p>
                                 </div>
                                 {/* Place Order Button */}
@@ -662,17 +637,14 @@ const Checkout = () => {
                                                 </span>
                                             </div>
 
-                                            <div>
-                                                <CardElement />
-                                            </div>
                                             <button
-                                                onClick={handleStripePayment}
-                                                disabled={!stripe || loading}
+                                                onClick={handleContinueToPayment}
+                                                disabled={loading}
                                                 className="btn btn-danger text-white px-3 mx-3 my-5"
                                             >
                                                 {loading
-                                                    ? "Processing..."
-                                                    : "Pay Now"}
+                                                    ? "Redirecting..."
+                                                    : "Continue to Payment"}
                                             </button>
 
                                             {/*<form id="payment-form ">*/}

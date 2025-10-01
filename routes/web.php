@@ -24,13 +24,14 @@ Route::post('/cart', [CartController::class, 'create']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/process-payment', [CartController::class, 'processPaymentStripe'])->name('process-payment');;
 Route::post('/create-payment-intent', [CartController::class, 'createPaymentIntent'])->name('create-payment-intent');
-Route::get(
-    '/checkout',
-    [CartController::class, 'checkOut']
-);
-Route::get('/link', function () {
-    return \Illuminate\Support\Facades\Artisan::call('storage:link');
-});
+// Stripe Payment Element checkout page (client-side Stripe Elements)
+Route::get('/stripe/checkout', [CartController::class, 'stripeCheckout'])->name('payment.stripe.checkout');
+// Stripe redirect/callback after payment confirmation
+Route::get('/stripe/callback', [CartController::class, 'stripeCallback'])->name('payment.stripe.callback');
+Route::get(   '/checkout',    [CartController::class, 'checkOut'])->name('checkout');
+//Route::get('/link', function () {
+//    return \Illuminate\Support\Facades\Artisan::call('storage:link');
+//});
 
 
 Route::post('/submitContact', [ContactController::class, 'create']);
