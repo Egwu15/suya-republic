@@ -2,6 +2,8 @@ import React from "react";
 import { Link, usePage } from "@inertiajs/react";
 
 const MobileCategoryScroll = ({ categories }) => {
+    const excludedCategories = ["spices", "suya"];
+
     const { url } = usePage();
     const query = new URLSearchParams(url.split("?")[1]);
     const selectedCategory = query.get("selectedCategory");
@@ -22,21 +24,26 @@ const MobileCategoryScroll = ({ categories }) => {
                 </Link>
 
                 {categories?.data
-                    .filter((data) => data.name.toLowerCase() !== "spices")
-                    .map((data) => (
+                    ?.filter(
+                        (data) =>
+                            !excludedCategories.includes(
+                                data.name.toLowerCase()
+                            )
+                    )
+                    .map((category) => (
                         <Link
-                            key={data.id}
-                            href={`/menu?selectedCategory=${data.id}`}
+                            key={category?.id}
+                            href={`/?selectedCategory=${category?.id}`}
                             className="text-decoration-none"
                         >
                             <span
                                 className={`category-item px-4 fw-bold rounded-pill ${
-                                    selectedCategory == data.id
-                                        ? "active  text-dark"
+                                    selectedCategory == category?.id
+                                        ? "active text-dark"
                                         : "text-white"
                                 }`}
                             >
-                                {data.name}
+                                {category?.name}
                             </span>
                         </Link>
                     ))}
