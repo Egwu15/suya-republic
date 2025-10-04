@@ -1,6 +1,5 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { toast, ToastContainer } from "react-toastify";
+import {create} from "zustand";
+import {persist} from "zustand/middleware";
 
 const useCartStore = create(
     persist((set, get) => ({
@@ -66,9 +65,10 @@ const useCartStore = create(
 
         calculateTotal: () => {
             const { cartItems } = get();
-            return cartItems
-                .reduce((acc, item) => acc + item.price * item.quantity, 0)
-                .toFixed(2);
+            return cartItems.reduce(
+                (acc, item) => acc + item.price  * item.quantity,
+                0
+            );
         },
         // Clear the cart
         clearCart: () => {

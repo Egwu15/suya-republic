@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Stripe\Exception\ApiErrorException;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
-use function Termwind\render;
+
 
 
 class CartController extends Controller
@@ -183,15 +183,14 @@ class CartController extends Controller
             'billingDetails.email' => 'required|email|max:100',
             'billingDetails.phone' => 'required|string|max:30',
             'billingDetails.notes' => 'string|max:300',
-            'totalCents' => 'required|numeric|min:0',
             'products' => 'required|array|min:1',
-            'amount' => 'required|integer|min:1',
+            'amount' => 'required|numeric|min:1',
         ]);
 
-        $amount = (int) $request->input('amount');
+        $amount = $request->input('amount');
         $billingDetails = $request->input('billingDetails');
         $products = $request->input('products');
-        $totalCents = (int) $request->input('totalCents');
+
 
         // Verify products/prices and total against DB
         $productIds = array_column($products, 'id');
@@ -204,16 +203,21 @@ class CartController extends Controller
             if (!$productModel) {
                 return Redirect::back()->withErrors(['product_error' => 'Invalid product added'])->withInput();
             }
-            if ($productModel->price !== $product['price']) {
-                return Redirect::back()->withErrors([
 
+            if ((float) $productModel->price !== (float) $product['price']) {
+                return Redirect::back()->withErrors([
                     'product_error' => "Price mismatch for product: {$productModel->name}"
                 ])->withInput();
             }
-            $totalPrice += $product['price'] * ($product['quantity'] ?? 1);
+
+            $totalPrice += (float) $product['price'] * ($product['quantity'] ?? 1);
         }
 
-        if ($totalPrice != $totalCents / 100) {
+        $totalPrice = round($totalPrice, 2, PHP_ROUND_HALF_DOWN);
+        $amount     = round((float) $amount, 2, PHP_ROUND_HALF_DOWN);
+
+
+        if ($totalPrice!= $amount) {
             return Redirect::back()->withErrors(['product_error' => 'Total price mismatch'])->withInput();
         }
 
@@ -232,7 +236,7 @@ class CartController extends Controller
             'name' => ($billingDetails['firstName'] ?? '') . ' ' . ($billingDetails['lastName'] ?? ''),
             'is_guest' => $user === null,
             'note' => $billingDetails['note'] ?? ($billingDetails['notes'] ?? null),
-            'total' => $totalCents / 100,
+            'total' => $amount,
             'created_at' => $createdAt,
             'updated_at' => $updatedAt,
         ]);
@@ -242,7 +246,7 @@ class CartController extends Controller
                 'order_id' => $orderId,
                 'product_id' => $product['id'],
                 'variance_option' => $product['variance_id'] ?? null,
-                'price' => $product['price'] / 100,
+                'price' => $product['price'],
                 'quantity' => $product['quantity'] ?? 1,
                 'created_at' => $createdAt,
                 'updated_at' => $updatedAt,
@@ -257,8 +261,10 @@ class CartController extends Controller
             'order_id'=>(string) ($orderId),
         ];
 
+        $amountInCents = (int) round($amount * 100, 0, PHP_ROUND_HALF_DOWN);
+
         $intent = PaymentIntent::create([
-            'amount' => $amount,
+            'amount' => $amountInCents,
             'currency' => 'GBP',
 
             'automatic_payment_methods' => [

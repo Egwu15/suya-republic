@@ -72,6 +72,10 @@ const Checkout = ({payment}) => {
 
             } catch (error) {
                 console.error("Error during payment initialization:", error);
+                if(error.product_error){
+                    toast.error(error.product_error);
+                    return;
+                }
                 toast.error(
                     "An error occurred while initializing payment. Please try again."
                 );
@@ -96,13 +100,13 @@ const Checkout = ({payment}) => {
 
     const handleContinueToPayment = async () => {
         setLoading(true);
+
         router.post(
             route('create-payment-intent'),
             {
-                amount: calculateTotal() * 100,
+                amount: calculateTotal(),
                 billingDetails,
                 products: cartItems,
-                totalCents: calculateTotal() * 100,
             },
             {
                 onSuccess: (page) => {
@@ -115,6 +119,10 @@ const Checkout = ({payment}) => {
                 onError: (err) => {
                     console.error(err);
                     setFormErrors(err);
+                    if (err.product_error){
+                        toast.error(err.product_error);
+                        return;
+                    }
                     toast.error('Failed to initialize payment. Try again.');
                 },
                 onFinish: () => {
