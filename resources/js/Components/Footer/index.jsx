@@ -139,7 +139,7 @@ export const Footer = () => {
                                     </p>
 
                                     <p className="link-text">
-                                        5:00pm - 11:00pm
+                                        4:00pm - 11:00pm
                                     </p>
                                 </div>
                             </div>
