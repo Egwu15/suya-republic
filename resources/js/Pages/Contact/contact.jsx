@@ -138,7 +138,7 @@ function Contact() {
                                                     Tuesday to Sunday
                                                 </p>
                                                 <p className="mb-4">
-                                                    05:00 PM to 11:00 PM
+                                                    04:00 PM to 11:00 PM
                                                 </p>
                                                 <p className="mb-1">Monday</p>
                                                 <p>Closed</p>

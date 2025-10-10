@@ -20,7 +20,7 @@ export default function OpeningHours() {
                     <div className="section">
                         <FaRegClock size={28} color="#fff" />
 
-                        <span className="time pe-4">5pm – 11pm</span>
+                        <span className="time pe-4">4pm – 11pm</span>
                     </div>{" "}
                 </div>
             </div>{" "}
