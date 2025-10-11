@@ -53,22 +53,22 @@ const MapAndHotlines = () => {
                     <strong>Monday</strong> – Closed
                 </p>
                 <p style={{ margin: "5px 0" }}>
-                    <strong>Tuesday:</strong> 5:00pm – 11:00pm
+                    <strong>Tuesday:</strong> 4:00pm – 11:00pm
                 </p>
                 <p style={{ margin: "5px 0" }}>
-                    <strong>Wednesday:</strong> 5:00pm – 11:00pm
+                    <strong>Wednesday:</strong> 4:00pm – 11:00pm
                 </p>
                 <p style={{ margin: "5px 0" }}>
-                    <strong>Thursday:</strong> 5:00pm – 11:00pm
+                    <strong>Thursday:</strong> 4:00pm – 11:00pm
                 </p>
                 <p style={{ margin: "5px 0" }}>
-                    <strong>Friday:</strong> 5:00pm – 11:00pm
+                    <strong>Friday:</strong> 4:00pm – 11:00pm
                 </p>
                 <p style={{ margin: "5px 0" }}>
-                    <strong>Saturday:</strong> 5:00pm – 11:00pm
+                    <strong>Saturday:</strong> 4:00pm – 11:00pm
                 </p>
                 <p style={{ margin: "5px 0" }}>
-                    <strong>Sunday:</strong> 5:00pm – 11:00pm
+                    <strong>Sunday:</strong> 4:00pm – 11:00pm
                 </p>
             </div>
         </div>
