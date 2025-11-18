@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route::get('/checkMail', function () {
-     // return View('mail.receipt');
+//      return View('mail.receipt');
 //     $data = [
 //         'name' => "named named",
 //         'email' => 'egwutedd@gmail.com',
@@ -54,17 +54,46 @@ Route::middleware('auth')->group(function () {
 //     ];
 
 //     $data = [
+//         // basic info
 //         'email' => 'egwutedd@gmail.com',
-//         'name' => 'ted Ewgt',
-//         'date' => date('Y-m-d'),
+//         'name' => 'Ted Egwu',
+//         'date' => date('F j, Y'),
+//         'phone' => '070707070707',
 //         'orderNo' => '232ea',
-//         'total' => "£300",
-//         'products' => [],
-//     ];
+//         // pricing
+//         'subtotal' => '£21.98',
+//         'shipping_note' => 'All orders are to be collected in-store at',
+//         'store_pickup_address' => '303 Chester Road, Manchester M15 4EY',
+//         'payment_method' => 'Credit Card',
+//         'total' => '£21.98',
 //
+//         // customer note
+//         'note' => 'Please remove onions from the shawarma.',
+//
+//         // ordered products
+//         'products' => [
+//             [
+//                 'name' => 'Jollof Rice and Peppered Turkey',
+//                 'quantity' => 1,
+//                 'price' => '£11.99',
+//                 'product_image' => 'https://yourwebsite.com/img/jollof.jpg',
+//                 'selected_option' => null,
+//             ],
+//             [
+//                 'name' => 'Mighty Meaty Beef Shawarma',
+//                 'quantity' => 1,
+//                 'price' => '£9.99',
+//                 'product_image' => 'https://yourwebsite.com/img/shawarma.jpg',
+//                 'selected_option' => 'with cheese',
+//             ],
+//         ],
+//     ];
+
+
 //     defer(fn() => Mail::send(new SaleReceipt($data)));
 //     return 'success';
 //   return (new ContactMail($data))->render();
+//   return (new SaleReceipt($data))->render();
 // });
 
 

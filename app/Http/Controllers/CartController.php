@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SaleReceipt;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use Illuminate\Support\Facades\Log;
-use \Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Redirect;
-use App\Mail\SaleReceipt;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Random\RandomException;
 use Stripe\Exception\ApiErrorException;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
-
 
 
 class CartController extends Controller
@@ -33,15 +31,6 @@ class CartController extends Controller
     {
         return Inertia::render('Checkout/checkout');
     }
-
-
-    public function create(Request $request)
-    {
-        $productIds = $request->input('product_ids', []);
-        $products = Product::whereIn('id', $productIds)->get();
-        return Inertia::render('Cart/cart', ['cartAdded' => true, 'products' => $products]);
-    }
-
 
     /**
      * @throws ApiErrorException
@@ -100,7 +89,6 @@ class CartController extends Controller
         }
 
 
-
         // Confirm the payment
         $intent = PaymentIntent::retrieve($paymentIntentId);
 
@@ -109,7 +97,9 @@ class CartController extends Controller
         }
 
         $user = Auth::user();
-        $productOrderId = uniqid('ST-');
+        do {
+            $productOrderId = 'ST-' . random_int(100000, 999999);
+        } while (Order::where('external_order_id', $productOrderId)->exists());
 
 
         $createdAt = now();
@@ -149,21 +139,22 @@ class CartController extends Controller
         $data = [
             'email' => $billingDetails['email'],
             'name' => $billingDetails['firstName'] . ' ' . $billingDetails['lastName'],
+            'phone' => $billingDetails['phone'],
             'date' => $createdAt,
             'orderNo' => $productOrderId,
             'total' => "£{$totalPrice}",
             'products' => $products,
         ];
+
         defer(fn() => Purchase::recordPurchase($billingDetails['email'], $totalPrice));
         defer(fn() => Mail::send(new SaleReceipt($data)));
 
 
-
         $receipt = [
-            'name'=>$data['name'],
-            'email'=> $data['email'],
-            'orderNo'=> $data['orderNo'],
-            'total'=> $data['total'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'orderNo' => $data['orderNo'],
+            'total' => $data['total'],
         ];
 
         return Inertia::render('Receipt/receipt', compact('receipt'));
@@ -171,6 +162,7 @@ class CartController extends Controller
 
     /**
      * @throws ApiErrorException
+     * @throws RandomException
      */
     public function createPaymentIntent(Request $request)
     {
@@ -204,26 +196,28 @@ class CartController extends Controller
                 return Redirect::back()->withErrors(['product_error' => 'Invalid product added'])->withInput();
             }
 
-            if ((float) $productModel->price !== (float) $product['price']) {
+            if ((float)$productModel->price !== (float)$product['price']) {
                 return Redirect::back()->withErrors([
                     'product_error' => "Price mismatch for product: {$productModel->name}"
                 ])->withInput();
             }
 
-            $totalPrice += (float) $product['price'] * ($product['quantity'] ?? 1);
+            $totalPrice += (float)$product['price'] * ($product['quantity'] ?? 1);
         }
 
         $totalPrice = round($totalPrice, 2, PHP_ROUND_HALF_DOWN);
-        $amount     = round((float) $amount, 2, PHP_ROUND_HALF_DOWN);
+        $amount = round((float)$amount, 2, PHP_ROUND_HALF_DOWN);
 
 
-        if ($totalPrice!= $amount) {
+        if ($totalPrice != $amount) {
             return Redirect::back()->withErrors(['product_error' => 'Total price mismatch'])->withInput();
         }
 
         // Create a pending order BEFORE redirect so we can update it on success/failure
         $user = Auth::user();
-        $productOrderId = uniqid('ST-');
+        do {
+            $productOrderId = random_int(1000, 999999);
+        } while (Order::where('external_order_id', $productOrderId)->exists());
         $createdAt = now();
         $updatedAt = $createdAt;
 
@@ -232,6 +226,7 @@ class CartController extends Controller
             'user_id' => $user?->id,
             'status' => 'pending',
             'payment_status' => 'Pending',
+            'phone_number' => $billingDetails['phone'],
             'email' => $billingDetails['email'] ?? null,
             'name' => ($billingDetails['firstName'] ?? '') . ' ' . ($billingDetails['lastName'] ?? ''),
             'is_guest' => $user === null,
@@ -255,13 +250,13 @@ class CartController extends Controller
 
         // Create the PaymentIntent with order metadata
         $purchaserName = [
-            'name'  => ($billingDetails['firstName'] . ' ' . $billingDetails['lastName']),
-            'email' => (string) ($billingDetails['email'] ?? ''),
-            'phone' => (string) ($billingDetails['phone'] ?? ''),
-            'order_id'=>(string) ($orderId),
+            'name' => ($billingDetails['firstName'] . ' ' . $billingDetails['lastName']),
+            'email' => (string)($billingDetails['email'] ?? ''),
+            'phone' => (string)($billingDetails['phone'] ?? ''),
+            'order_id' => (string)($orderId),
         ];
 
-        $amountInCents = (int) round($amount * 100, 0, PHP_ROUND_HALF_DOWN);
+        $amountInCents = (int)round($amount * 100, 0, PHP_ROUND_HALF_DOWN);
 
         $intent = PaymentIntent::create([
             'amount' => $amountInCents,
@@ -278,10 +273,17 @@ class CartController extends Controller
 //        return response()->json(['clientSecret' => $intent->client_secret]);
     }
 
+    public function create(Request $request)
+    {
+        $productIds = $request->input('product_ids', []);
+        $products = Product::whereIn('id', $productIds)->get();
+        return Inertia::render('Cart/cart', ['cartAdded' => true, 'products' => $products]);
+    }
+
     public function stripeCheckout(Request $request)
     {
         $clientSecret = $request->query('cs');
-        $publicKey =config('payment.stripe.publicKey');
+        $publicKey = config('payment.stripe.publicKey');
         return Inertia::render('Checkout/stripe', [
             'clientSecret' => $clientSecret,
             'publicKey' => $publicKey,
@@ -304,7 +306,7 @@ class CartController extends Controller
         $intent = PaymentIntent::retrieve($paymentIntentId);
         $metadata = $intent->metadata ?? [];
         $orderIdMeta = isset($metadata['order_id']) ? (int)$metadata['order_id'] : null;
-        $order = Order::with('orderItem')->find($orderIdMeta);
+        $order = Order::with(['orderItem', 'orderItem.product'])->find($orderIdMeta);
         if ($intent->status !== 'succeeded') {
             $order?->update(['payment_status' => 'Failed']);
             return Redirect::route('checkout')->withErrors(['payment' => 'Payment was not successful']);
@@ -320,31 +322,31 @@ class CartController extends Controller
         $order->update(['payment_status' => 'Successful']);
 
         // Prepare email/receipt data from metadata and order
-        $products = $order->orderItem;
-        $externalOrderId = $order->external_order_id;
         $createdAt = $order->created_at;
         $totalPrice = $order->total; // already stored as decimal pounds
 
+//        dd($order);
         $data = [
-            'email' => $order->email ,
+            'email' => $order->email,
             'name' => $order->name,
             'date' => $createdAt,
-            'orderNo' => $externalOrderId,
+            'orderNo' => $order->external_order_id,
             'total' => '£' . $totalPrice,
-            'products' => $products,
+            'products' => $order->orderItem,
+            'phone' => $order->phone_number,
+            'subtotal' => $order->total,
+            'shipping_note' => 'All orders are to be collected in-store at',
+            'store_pickup_address' => '303 Chester Road, Manchester M15 4EY',
+            'payment_method' => 'Stripe',
+            'note' => $order->note,
         ];
+
 
         defer(fn() => Purchase::recordPurchase($data['email'], $totalPrice));
         defer(fn() => Mail::send(new SaleReceipt($data)));
 
-        $receipt = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'orderNo' => $data['orderNo'],
-            'total' => $data['total'],
-        ];
 
-        return Inertia::render('Receipt/receipt', compact('receipt'));
+        return Inertia::render('Receipt/receipt', compact('data'));
     }
 
 }

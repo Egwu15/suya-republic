@@ -1,168 +1,306 @@
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Confirmation</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>New Order</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset / base */
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background: #f3f3f3;
+            color: #333;
+            -webkit-text-size-adjust: 100%;
         }
 
-        .flex {
-            display: flex;
-            align-items: center;
+        a {
+            color: #1a73e8;
+            text-decoration: none;
         }
 
-        .email-container {
-            max-width: 600px;
+        .container {
+            max-width: 620px;
             margin: 20px auto;
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background: #fff;
+            border: 1px solid #e6e6e6;
+            border-radius: 6px;
             overflow: hidden;
         }
 
-        .email-header {
-            background-color: #d2401e;
-            color: white;
+        /* Header */
+        .header {
+            background: #d2401e;
+            color: #fff;
+            padding: 28px 20px;
             text-align: center;
-            padding: 20px;
-            display: flex;
         }
 
-        .email-header h1 {
+        .header .logo {
+            display: inline-block;
+            vertical-align: middle;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #fff;
+            margin-right: 12px;
+            line-height: 56px;
+            text-align: center;
+        }
+
+        .header .logo img {
+            width: 60px;
+            height: auto;
+            display: block;
+            margin: 6px auto;
+        }
+
+        .header h1 {
+            display: inline-block;
             margin: 0;
-            font-size: 24px;
+            font-weight: 400;
+            font-size: 28px;
+            vertical-align: middle;
         }
 
-        .email-body {
+        /* Body */
+        .body {
             padding: 20px;
         }
 
-        .order-details {
-            margin-bottom: 20px;
-        }
-
-        .order-details h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .order-details p {
-            margin: 5px 0;
+        .meta {
+            margin: 10px 0 18px;
             font-size: 14px;
+            color: #666;
         }
 
-        .product-list {
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 10px;
+        .order-link {
+            color: #d2401e;
+            font-weight: 600;
         }
 
-        .product-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
+        /* Order table */
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 14px;
+            border: 1px solid #e6e6e6;
         }
 
-        .product-item:last-child {
+        .order-table th, .order-table td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .order-table th {
+            background: #fafafa;
+            font-weight: 700;
+            color: #666;
+        }
+
+        .order-table td.qty {
+            width: 78px;
+            text-align: center;
+        }
+
+        .order-table td.price {
+            width: 120px;
+            text-align: right;
+        }
+
+        .order-table tr:last-child td {
             border-bottom: none;
         }
 
-        .product-item img {
-            max-width: 50px;
-            max-height: 50px;
-            margin-right: 10px;
-            border-radius: 4px;
+        /* Summary block */
+        .summary {
+            margin-top: 12px;
+            width: 100%;
         }
 
-        .product-info {
+        .summary .row {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .summary .row .label {
             flex: 1;
-            margin-left: 10px;
+            color: #666;
         }
 
-        .product-info p {
-            margin: 2px 0;
-            font-size: 14px;
-        }
-
-        .total {
+        .summary .row .value {
+            width: 140px;
             text-align: right;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
+            font-weight: 600;
         }
 
-        .email-footer {
-            background-color: #f4f4f4;
-            padding: 10px;
+        .summary .row.total {
+            font-size: 18px;
+            font-weight: 700;
+            border-top: 2px solid #eee;
+            padding-top: 14px;
+        }
+
+        /* Addresses */
+        .address-box {
+            border: 1px solid #e6e6e6;
+            padding: 14px;
+            margin-top: 18px;
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        .address-box p {
+            margin: 6px 0;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .address-title {
+            color: #d2401e;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #fafafa;
+            padding: 12px 20px;
             text-align: center;
-            font-size: 12px;
             color: #777;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media only screen and (max-width: 480px) {
+            .header h1 {
+                font-size: 20px;
+                display: block;
+                margin-top: 8px;
+            }
+
+            .header {
+                padding: 18px 12px;
+            }
+
+            .order-table th, .order-table td {
+                padding: 10px;
+            }
+
+            .summary .row .value {
+                width: 120px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="email-container">
-        <!-- Header -->
-        <div class="email-header flex">
-            <div style="background: white;  border-radius: 50%; width: 50px; height: 50px; margin-right: 10px ">
-                <img src="{{ asset('assets/img/suya/Logo-Side-bar.png') }}" alt="Logo" className="home-logo w-size"
-                    style="width: 50px" />
-            </div>
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+      <span class="logo">
+        <img src="{{ asset('assets/img/suya/Mobile-Logo.png') }}" alt="Logo"/>
+      </span>
+        <h1>New Order: #{{ $data['orderNo'] }}</h1>
+    </div>
 
-            <h1>Order Confirmation</h1>
+    <!-- Body -->
+    <div class="body">
+        <p class="meta">
+            You've received the following order from <strong>{{ $data['name'] }}</strong>:
+        </p>
+
+        <p>
+            <a class="order-link" href="{{ $data['orderLink'] ?? '#' }}">[Order #{{ $data['orderNo'] }}]</a>
+            <span style="color:#d2401e;"> ({{ \Carbon\Carbon::parse($data['date'])->format('F j, Y') }})</span>
+        </p>
+
+        <!-- Customer Note -->
+        @if(!empty($data['note']))
+            <p style="font-style:italic; color:#666;">Note: {{ $data['note'] }}</p>
+        @endif
+
+        <!-- Order table -->
+        <table class="order-table" role="presentation">
+            <thead>
+            <tr>
+                <th style="width:60%;">Product</th>
+                <th>Quantity</th>
+                <th style="text-align:right;">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($data['products'] as $product)
+                <tr>
+                <tr>
+                    <td>
+
+                        <div style="font-weight:600;">{{ $product['product']['name'] }}</div>
+                        @if(!empty($product['selected_option']))
+                            <div style="margin-top:6px; color:#777; font-size:13px;">
+                                <small><strong>Option:</strong> {{ $product['selected_option'] }}</small>
+                            </div>
+                        @endif
+                    </td>
+                    <td class="qty">{{ $product['quantity'] }}</td>
+                    <td class="price">{{ $product['price'] }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
+        <!-- Summary -->
+        <div class="summary">
+            <div class="row">
+                <div class="label">Subtotal:</div>
+                <div class="value">{{ $data['subtotal'] }}</div>
+            </div>
+            <div class="row">
+                <div class="label">Shipping:</div>
+                <div class="value" style="text-align:right;">
+                    <div style="font-weight:600;">Pickup</div>
+                    <div
+                        style="font-size:13px; color:#666;">{{ $data['shipping_note'] }} {{ $data['store_pickup_address'] }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="label">Payment method:</div>
+                <div class="value">{{ $data['payment_method'] }}</div>
+            </div>
+            <div class="row total">
+                <div class="label">Total:</div>
+                <div class="value">{{ $data['total'] }}</div>
+            </div>
         </div>
 
-        <!-- Body -->
-        <div class="email-body">
-            <!-- Order Details -->
-            <div class="order-details">
-                <h2>Order Details</h2>
-                <p><strong>Order Number:</strong> {{ $data['orderNo'] }}</p>
-                <p><strong>Order Date:</strong> {{ $data['date'] }}</p>
-                <p><strong>Name:</strong> {{ $data['name'] }}</p>
-                <p><strong>Email:</strong> {{ $data['email'] }}</p>
-                {{-- <p><strong>Address:</strong> 123 Main Street, London, UK</p> --}}
-            </div>
-
-            <!-- Product List -->
-            <h2>Products Ordered</h2>
-            <div class="product-list">
-
-                @foreach ($data['products'] as $product)
-                    <div class="product-item">
-                        <img src="{{ $product['product_image'] }}" alt="{{ $product['name'] }}" />
-                        <div class="product-info">
-                            <p><strong>Product Name:</strong> {{ $product['name'] }}</p>
-                            <p><strong>Quantity:</strong> {{ $product['quantity'] }}</p>
-                            <p><strong>Price:</strong> {{ $product['price'] }}</p>
-                        </div>
-                    </div>
-                @endforeach
-
-
-            </div>
-
-            <!-- Total -->
-            <div class="total">
-                <p><strong>Total:</strong> {{ $data['total'] }}</p>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="email-footer">
-            <p>Thank you for shopping with us!</p>
-            <p>For any inquiries, contact us at support@example.com</p>
+        <!-- Billing address -->
+        <div class="address-box" aria-labelledby="billing-title">
+            <div id="billing-title" class="address-title">Billing address</div>
+            <p style="font-style:italic; color:#999;">{{ $data['name'] }}</p>
+            <p>
+                <a href="tel:{{ preg_replace('/\s+/', '', $data['phone']) }}" style="color:#d2401e; font-weight:600;">
+                    {{ $data['phone'] }}
+                </a>
+            </p>
+            <p>
+                <a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a>
+            </p>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Thank you for your order.</p>
+        <p>If you have any questions contact <a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a></p>
+    </div>
+</div>
 </body>
 
 </html>

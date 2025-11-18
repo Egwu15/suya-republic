@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
@@ -16,13 +17,14 @@ class Order extends Model
         'is_guest',
         'email',
         'name',
+        'phone_number',
         'status',
         'total',
         'payment_status',
         'note',
     ];
 
-    public function orderItem()
+    public function orderItem(): Order|HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
