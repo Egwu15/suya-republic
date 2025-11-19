@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Order;
 use Filament\Widgets\ChartWidget;
 
 class SaleChart extends ChartWidget
@@ -11,16 +12,18 @@ class SaleChart extends ChartWidget
 
     protected function getData(): array
     {
+        $salesData = Order::getMonthlySales();
+
         return [
             'datasets' => [
                 [
                     'label' => 'Sales',
-                    'data' => [65, 59, 80, 81, 56, 55, 40],
+                    'data' => $salesData['data'],
                     'borderColor' => 'rgba(75, 192, 192, 1)',
                     'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
                 ],
             ],
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'labels' => $salesData['labels'],
   
         ];
     }

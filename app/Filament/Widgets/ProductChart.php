@@ -2,43 +2,39 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\OrderItem;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\DB;
 
 class ProductChart extends ChartWidget
 {
-    protected static ?string $heading = 'Top 4 Products';
+    protected static ?string $heading = 'Top 3 Products';
     protected static ?int $sort = 2;
 
     protected function getData(): array
     {
-        // Fetch top 4 products based on sales or any other criteria
-        // $topProducts = Product::orderBy('sales', 'desc')->take(4)->get();
-
-        $topProducts = collect([
-            ['name' => 'Organic Almonds', 'sales' => 150],
-            ['name' => 'Gluten-Free Bread', 'sales' => 120],
-            ['name' => 'Vegan Protein Bars', 'sales' => 100],
-            ['name' => 'Herbal Green Tea', 'sales' => 80],
-
-        ]);
-
+        $topProducts = OrderItem::query()
+            ->select('products.name', DB::raw('SUM(order_items.quantity) as total_quantity'))
+            ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->groupBy('products.name')
+            ->orderByDesc('total_quantity')
+            ->limit(3)
+            ->get();
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Sales',
-                    'data' => $topProducts->pluck('sales')->toArray(),
+                    'label' => 'Quantity Sold',
+                    'data' => $topProducts->pluck('total_quantity')->toArray(),
                     'backgroundColor' => [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
                     ],
                     'borderColor' => [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
                     ],
                     'borderWidth' => 1,
                 ],
@@ -49,6 +45,6 @@ class ProductChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'pie';
     }
 }
