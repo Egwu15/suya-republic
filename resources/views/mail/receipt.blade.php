@@ -213,9 +213,6 @@
 
     <!-- Body -->
     <div class="body">
-        <p class="meta">
-            You've received the following order from <strong>{{ $data['name'] }}</strong>:
-        </p>
 
         <p>
             <a class="order-link" href="{{ $data['orderLink'] ?? '#' }}">[Order #{{ $data['orderNo'] }}]</a>

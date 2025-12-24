@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\ReceiptMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -173,7 +174,7 @@ class CartController extends Controller
             'billingDetails.firstName' => 'required|string|max:60',
             'billingDetails.lastName' => 'required|string|max:60',
             'billingDetails.email' => 'required|email|max:100',
-            'billingDetails.phone' => 'required|string|max:30',
+            'billingDetails.phone' => 'required|string|max:30|min:10',
             'billingDetails.notes' => 'string|max:300',
             'products' => 'required|array|min:1',
             'amount' => 'required|numeric|min:1',
@@ -303,6 +304,10 @@ class CartController extends Controller
             return Redirect::route('checkout')->withErrors(['payment' => 'Missing payment intent.']);
         }
 
+        if (ReceiptMail::where('payment_intent_id', $paymentIntentId)->exists()) {
+            return Redirect::route('checkout')->withErrors(['payment' => 'This payment has already been processed.']);
+        }
+
         $intent = PaymentIntent::retrieve($paymentIntentId);
         $metadata = $intent->metadata ?? [];
         $orderIdMeta = isset($metadata['order_id']) ? (int)$metadata['order_id'] : null;
@@ -341,10 +346,20 @@ class CartController extends Controller
             'note' => $order->note,
         ];
 
+        $receiptMail = ReceiptMail::create([
+            'payment_intent_id' => $paymentIntentId,
+            'email' => $data['email'],
+            'status' => 'pending',
+        ]);
 
-        defer(fn() => Purchase::recordPurchase($data['email'], $totalPrice));
-        defer(fn() => Mail::send(new SaleReceipt($data)));
-        
+        try {
+            defer(fn() => Purchase::recordPurchase($data['email'], $totalPrice));
+            defer(fn() => Mail::send(new SaleReceipt($data)));
+            defer(fn() => $receiptMail->update(['status' => 'completed']));
+        } catch (\Exception $e) {
+            $receiptMail->update(['status' => 'failed']);
+        }
+
         return Inertia::render('Receipt/receipt', compact('data'));
     }
 
