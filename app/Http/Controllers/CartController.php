@@ -352,13 +352,17 @@ class CartController extends Controller
             'status' => 'pending',
         ]);
 
-        try {
-            defer(fn() => Purchase::recordPurchase($data['email'], $totalPrice));
-            defer(fn() => Mail::send(new SaleReceipt($data)));
-            defer(fn() => $receiptMail->update(['status' => 'completed']));
-        } catch (\Exception $e) {
-            $receiptMail->update(['status' => 'failed']);
-        }
+        defer(function () use ($data, $totalPrice, $receiptMail) {
+            try {
+                Purchase::recordPurchase($data['email'], $totalPrice);
+                Mail::send(new SaleReceipt($data));
+
+                $receiptMail->update(['status' => 'completed']);
+            } catch (\Throwable $e) {
+                $receiptMail->update(['status' => 'failed']);
+                report($e);
+            }
+        });
 
         return Inertia::render('Receipt/receipt', compact('data'));
     }

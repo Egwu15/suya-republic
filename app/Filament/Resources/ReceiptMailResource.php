@@ -33,6 +33,7 @@ class ReceiptMailResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('payment_intent_id'),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
