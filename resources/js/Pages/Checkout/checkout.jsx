@@ -451,7 +451,7 @@ const Checkout = ({payment}) => {
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        ${item?.price ?? ""}
+                                                        £{item?.price ?? ""}
                                                     </div>
                                                 </div>
                                             </div>
@@ -546,7 +546,7 @@ const Checkout = ({payment}) => {
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        ${item?.price ?? ""}
+                                                        £{item?.price ?? ""}
                                                     </div>
 
                                                     {/* Quantity Controls */}
