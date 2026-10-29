@@ -13,13 +13,14 @@ class Purchase extends Model
         'email',
         'purchase_count',
         'total_spent',
+        'last_purchase'
     ];
 
     protected $casts = [
         'last_purchase' => 'datetime',
     ];
 
-    public static function recordPurchase($email, $amount)
+    public static function recordPurchase($email, $amount): Model|Purchase
     {
         $record = static::firstOrCreate(
             ['email' => $email],

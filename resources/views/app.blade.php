@@ -43,6 +43,15 @@
 <body class="font-sans antialiased">
     @inertia
     <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZB9FX3RG9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-JZB9FX3RG9', { send_page_view: false });
+    </script>
+
 </body>
 
 </html>

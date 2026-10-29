@@ -1,18 +1,19 @@
-import React, { useEffect, useState, } from "react";
+import React from "react";
 import Navbar from "../../components/NavBar/index";
 import Footer from "../../components/Footer/index";
 import "./receipt.css";
-import { ToastContainer } from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import success from "../../../assets/img/icons/image.png";
-import { Link} from "@inertiajs/react";
+import {Link} from "@inertiajs/react";
 
 import Button from "@/Components/Button";
 
-const Receipt = ({receipt}) => {
+const Receipt = ({data}) => {
+    console.log(data);
     return (
         <div>
-            <Navbar />
+            <Navbar/>
 
             <section
                 className="hero-bg d-flex align-items-center "
@@ -31,7 +32,7 @@ const Receipt = ({receipt}) => {
                     </Link>
                 </div> */}
             </section>
-            <ToastContainer />
+            <ToastContainer/>
 
             {/* Notice Section */}
 
@@ -98,20 +99,20 @@ const Receipt = ({receipt}) => {
                                     >
                                         <h3>Billing Information:</h3>
                                         <p>
-                                            <strong>Name: </strong>{receipt.name}
+                                            <strong>Name: </strong>{data.name}
                                         </p>
 
 
                                         <p>
                                             <strong>Email:</strong>{" "}
-                                            {receipt.email}
+                                            {data.email}
                                         </p>
                                         <p>
-                                            <strong>Order Number:</strong> #{receipt.orderNo}
+                                            <strong>Order Number:</strong> #{data.orderNo}
                                         </p>
                                         <p>
                                             <strong>Total Amount:</strong>{" "}
-                                            {receipt.total}
+                                            {data.total}
                                         </p>
                                     </div>
 
@@ -124,7 +125,7 @@ const Receipt = ({receipt}) => {
                                     >
                                         <Link href={route('home')}><Button
                                             text="Go Home"
-                                            btnstyle={{ cursor: "pointer" }}
+                                            btnstyle={{cursor: "pointer"}}
                                             type="button"
                                         />
                                         </Link>
@@ -148,7 +149,7 @@ const Receipt = ({receipt}) => {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <Footer/>
         </div>
     );
 };
