@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { COLOR_RED } from "@/utils/constant";
 import imag4 from "../../../assets/img/suya/Roast-suya.png";
 import useCartStore from "@/store/Store";
@@ -13,14 +14,16 @@ const ProductModal = ({ show, product, onClose }) => {
     // Function to check if product is already in cart
     const isInCart = (id) => cartItems.some((item) => item.id === id);
 
-    return (
+    const modal = (
         <div
             className="modal fade show"
             tabIndex="-1"
             style={{
                 display: show ? "block" : "none",
                 background: "rgba(0, 0, 0, 0.5)",
-                zIndex: 1000000
+                position: "fixed",
+                inset: 0,
+                zIndex: 1000000,
             }}
         >
             <div className="modal-dialog">
@@ -163,6 +166,12 @@ const ProductModal = ({ show, product, onClose }) => {
             </div>
         </div>
     );
+
+    if (typeof document === "undefined") {
+        return modal;
+    }
+
+    return createPortal(modal, document.body);
 };
 
 export default ProductModal;
